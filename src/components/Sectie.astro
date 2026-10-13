@@ -28,7 +28,7 @@ const alt = sectie.alt ? ((waarde(entry, sectie.alt) as string | undefined) ?? "
 	{
 		sectie.blokken.map((blok) =>
 			blok.soort === "logo" ? (
-				<Logo blok={blok} slug={slug} staticUrl={staticUrl} />
+				<Logo blok={blok} staticUrl={staticUrl} />
 			) : blok.soort === "knop" ? (
 				<Knop blok={blok} entry={entry} staticUrl={staticUrl} />
 			) : (

@@ -1,0 +1,117 @@
+---
+// The fixed bar from menu primary on the measured places. It turns white past the first scroll mark plus shows the badge past the second.
+import { getMenuWithCacheHint, type MenuItem } from "emdash";
+import type { MenuLayout } from "../layout";
+import data from "../layout/algemeen/menu.json";
+import { SITE_NAME } from "../teksten";
+import Beeld from "./Beeld.astro";
+
+interface Props {
+	staticUrl: string;
+}
+
+const { staticUrl } = Astro.props;
+const m = data as MenuLayout;
+const { data: menu, cacheHint } = await getMenuWithCacheHint("primary");
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+// The seed marks the button plus the login icon with a class; an item with children opens a panel.
+function soortVan(item: MenuItem) {
+	const klassen = item.cssClasses?.split(/\s+/) ?? [];
+	if (klassen.includes("knop")) return "knop";
+	if (klassen.includes("inloggen")) return "inloggen";
+	return item.children.length ? "uitklap" : "pagina";
+}
+
+// Each measured page link keeps its own width, in order; a link added later fits its text.
+let paginaNr = 0;
+const items = (menu?.items ?? []).map((item) => {
+	const soort = soortVan(item);
+	return { item, soort, breedte: soort === "pagina" ? m.pagina.breedtes[paginaNr++] : undefined };
+});
+const hier = Astro.url.pathname.replace(/(.)\/$/, "$1");
+const rel = (item: MenuItem) => (item.target === "_blank" ? "noopener" : undefined);
+const variabelen = Object.entries({
+	"--menu-z": m.z,
+	"--menu-hoogte": m.hoogte,
+	"--menu-vast-hoogte": m.vast.hoogte,
+	"--balk-x": m.balk.x,
+	"--balk-y": m.balk.y,
+	"--balk-vast-y": m.vast.boven,
+	"--balk-w": m.balk.w,
+	"--balk-h": m.balk.h,
+	"--uitklap-links": m.uitklap.links,
+	"--uitklap-rechts": m.uitklap.rechts,
+	"--uitklap-gat": m.uitklap.gat,
+	"--chevron": m.uitklap.chevron,
+	"--knop-voor": m.knop.voor,
+	"--knop-w": m.knop.w,
+	"--knop-h": m.knop.h,
+	"--knop-radius": m.knop.radius,
+	"--inloggen-voor": m.inloggen.voor,
+	"--inloggen-w": m.inloggen.w,
+	"--inloggen-h": m.inloggen.h,
+	"--vast-r": m.vast.kleur[0],
+	"--vast-g": m.vast.kleur[1],
+	"--vast-b": m.vast.kleur[2],
+	"--lijn-y": m.vast.lijn.y,
+	"--lijn-h": m.vast.lijn.h,
+	"--lijn-kleur": m.vast.lijn.kleur,
+	"--badge-x": m.badge.x,
+	"--badge-y": m.badge.y,
+	"--badge-w": m.badge.w,
+	"--badge-h": m.badge.h,
+	"--menu-overgang": m.overgang,
+})
+	.map(([naam, waarde]) => `${naam}:${waarde}`)
+	.join(";");
+---
+
+<style is:inline set:html={`:root{${variabelen}}`} />
+<header class="menu" data-breedte={m.breedte} data-vast={m.wissel.vast} data-logo={m.wissel.logo}>
+	<div class="menu-binnen">
+		<a class="menu-badge link" href="/"><Beeld beeld={m.badge.beeld} staticUrl={staticUrl} /><span>{SITE_NAME}</span></a>
+		<nav class="menu-balk">
+			{
+				items.map(({ item, soort, breedte }) =>
+					soort === "uitklap" ? (
+						<button type="button" class={`menu-item menu-uitklap s-${m.uitklap.stijl}`} aria-expanded="false">{item.label}<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 3.5 L5 7 L8.5 3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
+					) : soort === "knop" ? (
+						<a class="menu-item menu-knop link" href={item.url} target={item.target} rel={rel(item)}><Beeld beeld={m.knop.beeld} staticUrl={staticUrl} /><span class={`s-${m.knop.stijl}`}>{item.label}</span></a>
+					) : soort === "inloggen" ? (
+						<a class="menu-item menu-inloggen link" href={item.url} target={item.target} rel={rel(item)}><Beeld beeld={m.inloggen.beeld} staticUrl={staticUrl} /><span>{item.label}</span></a>
+					) : (
+						<a
+							class:list={["menu-item", "menu-pagina", "link", { "menu-vrij": breedte === undefined }]}
+							href={item.url}
+							target={item.target}
+							rel={rel(item)}
+							style={breedte === undefined ? undefined : `width:calc(${breedte} * var(--s))`}
+							aria-current={item.url === hier ? "page" : undefined}
+						><span class={`s-${m.pagina.stijl}`}>{item.label}</span></a>
+					),
+				)
+			}
+		</nav>
+		<div class="menu-lijn"></div>
+	</div>
+</header>
+
+<script>
+	// The bar switches where its two scroll marks leave the top of the window. Scrolling up switches it back at the same marks.
+	const menu = document.querySelector<HTMLElement>(".menu");
+	if (menu) {
+		const breedte = Number(menu.dataset.breedte);
+		const vast = Number(menu.dataset.vast);
+		const logo = Number(menu.dataset.logo);
+		const zet = () => {
+			// The marks scale with the page, so they are compared in design units.
+			const y = (window.scrollY * breedte) / Math.min(window.innerWidth, breedte);
+			menu.classList.toggle("vast", y >= vast);
+			menu.classList.toggle("met-logo", y >= logo);
+		};
+		addEventListener("scroll", zet, { passive: true });
+		addEventListener("resize", zet);
+		zet();
+	}
+</script>

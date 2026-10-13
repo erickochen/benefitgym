@@ -1,0 +1,151 @@
+---
+// The dark band at the foot of every page: link columns from menu primary, the address from widget area Footer, the profiles from Social plus menu juridisch below.
+import { getMenuWithCacheHint, getSiteSettings, getWidgetAreaWithCacheHint, type MenuItem } from "emdash";
+import type { FooterLayout } from "../layout";
+import data from "../layout/algemeen/footer.json";
+import { COPYRIGHT, KOLOM_TEKEN, SCHEIDING, SITE_NAME, SOCIAAL, SOCIAAL_KOP } from "../teksten";
+import Beeld from "./Beeld.astro";
+
+interface Props {
+	staticUrl: string;
+	/** Distance from the bottom of the page in design units; without it the footer follows the page. */
+	onder?: number;
+}
+
+interface Span {
+	text?: string;
+	marks?: string[];
+}
+
+interface Blok {
+	children?: Span[];
+	markDefs?: { _key: string; _type: string; href?: string }[];
+}
+
+const { staticUrl, onder } = Astro.props;
+const f = data as FooterLayout;
+const [primary, juridisch, adres] = await Promise.all([
+	getMenuWithCacheHint("primary"),
+	getMenuWithCacheHint("juridisch"),
+	getWidgetAreaWithCacheHint("footer"),
+]);
+if (Astro.cache?.enabled) for (const { cacheHint } of [primary, juridisch, adres]) Astro.cache.set(cacheHint);
+const settings = await getSiteSettings();
+
+// A group whose children are all plain links is a column, in menu order.
+function kolommenVan(items: MenuItem[]): MenuItem[] {
+	return items.flatMap((item) =>
+		!item.children.length ? [] : item.children.every((kind) => !kind.children.length) ? [item] : kolommenVan(item.children),
+	);
+}
+
+// Each block of the address widget is one line; a block with a link is a link row.
+const regels = (adres.data?.widgets ?? [])
+	.filter((widget) => widget.type === "content")
+	.flatMap((widget) => (widget.content ?? []) as unknown as Blok[])
+	.map((blok) => {
+		const kinderen = blok.children ?? [];
+		const marks = new Set(kinderen.flatMap((kind) => kind.marks ?? []));
+		const link = (blok.markDefs ?? []).find((def) => def._type === "link" && marks.has(def._key));
+		return { tekst: kinderen.map((kind) => kind.text ?? "").join(""), href: link?.href };
+	});
+
+// Social holds handles; the profile addresses are built from them. A full address or a leading @ is taken as typed.
+const profiel = (handle: string | undefined, bouw: (h: string) => string) => {
+	const schoon = handle?.trim().replace(/^@/, "");
+	return !schoon ? undefined : /^https?:\/\//.test(schoon) ? schoon : bouw(schoon);
+};
+const profielen = [
+	{ label: SOCIAAL.instagram, href: profiel(settings.social?.instagram, (h) => `https://www.instagram.com/${h}/`) },
+	{ label: SOCIAAL.facebook, href: profiel(settings.social?.facebook, (h) => `https://www.facebook.com/${h}`) },
+].filter((p) => p.href);
+
+// A time zone the browser does not know falls back to UTC rather than breaking every page.
+function ditJaar(timeZone: string | undefined) {
+	try {
+		return new Intl.DateTimeFormat("nl-NL", { year: "numeric", timeZone }).format(new Date());
+	} catch {
+		return new Intl.DateTimeFormat("nl-NL", { year: "numeric" }).format(new Date());
+	}
+}
+const jaar = ditJaar(settings.timezone);
+const rel = (target: string | undefined) => (target === "_blank" ? "noopener" : undefined);
+const onderregel = [
+	{ tekst: SITE_NAME, href: undefined },
+	...(juridisch.data?.items ?? []).map((item) => ({ tekst: item.label, href: item.url })),
+	{ tekst: `${COPYRIGHT} ${jaar}`, href: undefined },
+];
+
+const variabelen = Object.entries({
+	"--f-hoogte": f.hoogte,
+	"--f-inspring": f.inspring,
+	"--f-kolom": f.kolom,
+	"--f-laatste": f.laatste,
+	"--f-rij": f.rij,
+	"--f-kop": f.kop,
+	"--f-links-boven": f.linkkolom.boven,
+	"--f-na-kop": f.linkkolom.naKop,
+	"--f-adres-boven": f.adres.boven,
+	"--f-logo-w": f.adres.logo.w,
+	"--f-logo-h": f.adres.logo.h,
+	"--f-na-logo": f.adres.naLogo,
+	"--f-regel": f.adres.regel,
+	"--f-adres-inspring": f.adres.inspring,
+	"--f-na-regels": f.adres.naRegels,
+	"--f-sociaal-boven": f.sociaal.boven,
+	"--f-onder-boven": f.onder.boven,
+	"--f-onder-x": f.onder.x,
+	"--f-onder-w": f.onder.w,
+	"--f-onder-h": f.onder.h,
+	"--f-onder-gat": f.onder.gat,
+	"background-color": f.achtergrond,
+	...(onder === undefined ? {} : { position: "absolute", left: "0", bottom: `calc(${onder} * var(--s))` }),
+})
+	.map(([naam, waarde]) => `${naam}:${waarde}`)
+	.join(";");
+---
+
+<footer class="footer" style={variabelen}>
+	<div class="footer-kolommen">
+		{
+			kolommenVan(primary.data?.items ?? []).map((groep) => (
+				<div class="footer-kolom footer-links">
+					<p class={`footer-kop s-${f.stijlen.kop}`}>{`${groep.label}${KOLOM_TEKEN}`}</p>
+					{groep.children.map((item) => (
+						<a class="footer-rij link" href={item.url} target={item.target} rel={rel(item.target)}><span class={`s-${f.stijlen.link}`}>{item.label}</span></a>
+					))}
+				</div>
+			))
+		}
+		<div class="footer-kolom footer-adres">
+			<Beeld beeld={f.adres.logo.beeld} staticUrl={staticUrl} class="footer-logo" />
+			{
+				regels.map((regel, i) =>
+					regel.href ? (
+						<a class:list={["footer-rij", "footer-inspring", "link", { "footer-na-regels": i > 0 && !regels[i - 1].href }]} href={regel.href}><span class={`s-${f.stijlen.link}`}>{regel.tekst}</span></a>
+					) : (
+						<p class={`footer-regel footer-inspring s-${f.stijlen.adres}`}>{regel.tekst}</p>
+					),
+				)
+			}
+		</div>
+		<div class="footer-kolom footer-sociaal">
+			{profielen.length > 0 && SOCIAAL_KOP.map((kop) => <p class={`footer-kop s-${f.stijlen.kop}`}>{kop}</p>)}
+			{
+				profielen.map((p) => (
+					<a class="footer-rij link" href={p.href} target="_blank" rel="noopener"><span class={`s-${f.stijlen.link}`}>{p.label}</span></a>
+				))
+			}
+		</div>
+	</div>
+	<div class="footer-onder">
+		{
+			onderregel.map((deel, i) => (
+				<Fragment>
+					{i > 0 && <span class={`s-${f.stijlen.klein}`}>{SCHEIDING}</span>}
+					{deel.href ? <a class={`link s-${f.stijlen.klein}`} href={deel.href}>{deel.tekst}</a> : <span class={`s-${f.stijlen.klein}`}>{deel.tekst}</span>}
+				</Fragment>
+			))
+		}
+	</div>
+</footer>

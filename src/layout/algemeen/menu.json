@@ -1,0 +1,74 @@
+{
+ "breedte": 1242,
+ "z": 100,
+ "hoogte": 64.5,
+ "balk": {
+  "x": 37.265625,
+  "y": 20.5,
+  "w": 1167.46875,
+  "h": 44
+ },
+ "pagina": {
+  "breedtes": [
+   77,
+   99
+  ],
+  "stijl": "black-cursief-16-5-grijs-hoofdletters"
+ },
+ "knop": {
+  "voor": 24,
+  "w": 212,
+  "h": 44,
+  "radius": 22,
+  "beeld": {
+   "bestand": "algemeen/knop-verloop",
+   "breedte": 424
+  },
+  "stijl": "bold-cursief-16-8-donker-midden"
+ },
+ "inloggen": {
+  "voor": 12,
+  "w": 44,
+  "h": 44,
+  "beeld": {
+   "bestand": "algemeen/knop-inloggen",
+   "breedte": 132
+  }
+ },
+ "uitklap": {
+  "links": 16,
+  "rechts": 16,
+  "gat": 6,
+  "chevron": 10,
+  "stijl": "aanbodmenu"
+ },
+ "vast": {
+  "hoogte": 64,
+  "boven": 10,
+  "kleur": [
+   255,
+   255,
+   255
+  ],
+  "lijn": {
+   "y": 63,
+   "h": 1,
+   "kleur": "rgba(46, 46, 46, 0.12)"
+  }
+ },
+ "badge": {
+  "x": 44,
+  "y": 10,
+  "w": 44,
+  "h": 44,
+  "beeld": {
+   "bestand": "algemeen/menu-badge",
+   "breedte": 176
+  }
+ },
+ "wissel": {
+  "vast": 23,
+  "logo": 299
+ },
+ "overgang": "200ms cubic-bezier(0.44, 0, 0.56, 1)"
+}

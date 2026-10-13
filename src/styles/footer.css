@@ -1,0 +1,88 @@
+/* The dark band at the foot of the page: rows of a fixed height with the text centered in them. */
+.footer {
+	box-sizing: border-box;
+	width: 100%;
+	min-height: calc(var(--f-hoogte) * var(--s));
+}
+
+.footer-kolommen {
+	display: flex;
+	align-items: flex-start;
+	padding-left: calc(var(--f-inspring) * var(--s));
+}
+
+/* The measured columns just fit; a fourth link column added in the admin wraps to a new row instead of widening the page. */
+.footer-kolommen:has(> .footer-links:nth-child(4)) {
+	flex-wrap: wrap;
+}
+
+.footer-kolom {
+	display: flex;
+	flex: none;
+	flex-direction: column;
+	width: calc(var(--f-kolom) * var(--s));
+}
+
+.footer-links {
+	padding-top: calc(var(--f-links-boven) * var(--s));
+}
+
+.footer-adres {
+	padding-top: calc(var(--f-adres-boven) * var(--s));
+}
+
+.footer-sociaal {
+	width: calc(var(--f-laatste) * var(--s));
+	padding-top: calc(var(--f-sociaal-boven) * var(--s));
+}
+
+.footer-kop,
+.footer-regel,
+.footer-rij {
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	margin: 0;
+}
+
+.footer-kop {
+	height: calc(var(--f-kop) * var(--s));
+}
+
+.footer-links > .footer-kop {
+	margin-bottom: calc(var(--f-na-kop) * var(--s));
+}
+
+.footer-regel {
+	height: calc(var(--f-regel) * var(--s));
+}
+
+.footer-rij {
+	height: calc(var(--f-rij) * var(--s));
+}
+
+.footer-inspring {
+	padding-left: calc(var(--f-adres-inspring) * var(--s));
+}
+
+.footer-na-regels {
+	margin-top: calc(var(--f-na-regels) * var(--s));
+}
+
+.footer-logo {
+	display: block;
+	width: calc(var(--f-logo-w) * var(--s));
+	height: calc(var(--f-logo-h) * var(--s));
+	margin-bottom: calc(var(--f-na-logo) * var(--s));
+	object-fit: cover;
+}
+
+.footer-onder {
+	display: flex;
+	align-items: center;
+	gap: calc(var(--f-onder-gat) * var(--s));
+	box-sizing: border-box;
+	width: calc(var(--f-onder-w) * var(--s));
+	height: calc(var(--f-onder-h) * var(--s));
+	margin: calc(var(--f-onder-boven) * var(--s)) 0 0 calc(var(--f-onder-x) * var(--s));
+}
