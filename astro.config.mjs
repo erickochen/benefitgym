@@ -20,7 +20,7 @@ export default defineConfig({
 			sandboxRunner: sandbox(),
 			plugins: [
 				cloudflareEmail({
-					from: { email: "website@benefitgym.eu", name: "Benefit Gym" },
+					from: { email: "website@benefitgym.nl", name: "Benefit Gym" },
 				}),
 			],
 		}),
