@@ -1,0 +1,19 @@
+---
+// The logo as a link home; the hidden text names the link.
+import type { Blok } from "../layout";
+import { SITE_NAME } from "../teksten";
+
+interface Props {
+	blok: Extract<Blok, { soort: "logo" }>;
+	slug: string;
+	staticUrl: string;
+}
+
+const { blok, slug, staticUrl } = Astro.props;
+const plek = `left:calc(${blok.x} * var(--s));top:calc(${blok.y} * var(--s));width:calc(${blok.w} * var(--s));height:calc(${blok.h} * var(--s))`;
+---
+
+<a class="blok logo" href="/" style={plek}>
+	<img src={`${staticUrl}/tekeningen/${slug}/${blok.bestand}`} alt="" />
+	<span>{SITE_NAME}</span>
+</a>

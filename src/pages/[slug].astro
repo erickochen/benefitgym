@@ -1,13 +1,20 @@
 ---
 import { decodeSlug, getEmDashEntry, getSeoMeta, getSiteSettings } from "emdash";
+import Pagina from "../components/Pagina.astro";
+import type { Layout } from "../layout";
 import Base from "../layouts/Base.astro";
+import { staticUrl as leesStaticUrl } from "../static";
 import { SITE_NAME } from "../teksten";
 
 // Fixed order: a Praktisch page with the slug of a sport page loses to it.
 const COLLECTIONS = ["sportpaginas", "over_ons", "praktisch"] as const;
+// One layout file per page; a page without one shows only its title until its subproject lands.
+const LAYOUTS = import.meta.glob<Layout>("../layout/*.json", { eager: true, import: "default" });
 
 const slug = decodeSlug(Astro.params.slug);
 if (!slug) return Astro.rewrite("/404");
+const layout = LAYOUTS[`../layout/${slug}.json`];
+const staticUrl = leesStaticUrl();
 
 async function findPage(slug: string) {
 	for (const collection of COLLECTIONS) {
@@ -39,5 +46,11 @@ const seo = getSeoMeta(entry, {
 	canonical={seo.canonical}
 	content={{ collection, id: entry.data.id, slug }}
 >
-	<h1 {...entry.edit.title}>{entry.data.title}</h1>
+	{
+		layout ? (
+			<Pagina layout={layout} entry={entry} slug={slug} staticUrl={staticUrl} />
+		) : (
+			<h1 {...entry.edit.title}>{entry.data.title}</h1>
+		)
+	}
 </Base>
