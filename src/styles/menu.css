@@ -1,0 +1,155 @@
+/* The fixed bar. --vast runs from 0 at rest to 1 past the first scroll mark, so one transition drives the height, the place of the bar plus the background. */
+@property --vast {
+	syntax: "<number>";
+	inherits: true;
+	initial-value: 0;
+}
+
+html {
+	scroll-padding-top: calc(var(--menu-vast-hoogte) * var(--s));
+}
+
+/* The fixed holder spans the window and the bar sits centered in it, so the browser rasters it from the same origin as the measured page. */
+.menu {
+	--vast: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: var(--menu-z);
+	transition: --vast var(--menu-overgang);
+}
+
+.menu-binnen {
+	position: relative;
+	max-width: var(--cap);
+	margin-inline: auto;
+	height: calc((var(--menu-hoogte) + (var(--menu-vast-hoogte) - var(--menu-hoogte)) * var(--vast)) * var(--s));
+	/* Each channel mixes by its square, so the bar runs through gray on its way to white. */
+	background-color: rgb(
+		calc(var(--vast-r) * sqrt(var(--vast))) calc(var(--vast-g) * sqrt(var(--vast))) calc(var(--vast-b) * sqrt(var(--vast))) / var(--vast)
+	);
+}
+
+.menu.vast {
+	--vast: 1;
+}
+
+/* Without sqrt() the color above is invalid as a whole, so the bar fades straight to its color instead. */
+@supports not (width: calc(sqrt(4) * 1px)) {
+	.menu-binnen {
+		background-color: rgb(var(--vast-r) var(--vast-g) var(--vast-b) / var(--vast));
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.menu {
+		transition: none;
+	}
+}
+
+.menu-balk {
+	position: absolute;
+	left: calc(var(--balk-x) * var(--s));
+	top: calc((var(--balk-y) + (var(--balk-vast-y) - var(--balk-y)) * var(--vast)) * var(--s));
+	width: calc(var(--balk-w) * var(--s));
+	height: calc(var(--balk-h) * var(--s));
+	display: flex;
+	justify-content: flex-end;
+}
+
+.menu-item {
+	position: relative;
+	display: flex;
+	flex: none;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+.menu-vrij {
+	padding-inline: calc(var(--uitklap-links) * var(--s)) calc(var(--uitklap-rechts) * var(--s));
+}
+
+.menu-uitklap {
+	gap: calc(var(--uitklap-gat) * var(--s));
+	padding: 0 calc(var(--uitklap-rechts) * var(--s)) 0 calc(var(--uitklap-links) * var(--s));
+	border: 0;
+	background: none;
+	cursor: pointer;
+}
+
+.menu-uitklap > svg {
+	flex: none;
+	width: calc(var(--chevron) * var(--s));
+	height: calc(var(--chevron) * var(--s));
+}
+
+.menu-knop {
+	align-self: center;
+	width: calc(var(--knop-w) * var(--s));
+	height: calc(var(--knop-h) * var(--s));
+	margin-left: calc(var(--knop-voor) * var(--s));
+}
+
+/* The image carries the rounding itself, so the corners clip the same way the measured button does. */
+.menu-knop img {
+	border-radius: calc(var(--knop-radius) * var(--s));
+}
+
+.menu-inloggen {
+	align-self: center;
+	width: calc(var(--inloggen-w) * var(--s));
+	height: calc(var(--inloggen-h) * var(--s));
+	margin-left: calc(var(--inloggen-voor) * var(--s));
+}
+
+.menu-knop img,
+.menu-inloggen img,
+.menu-badge img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.menu-knop > span {
+	position: relative;
+}
+
+/* The name of an icon link, like the logo: there for a screen reader, not on screen. */
+.menu-inloggen > span,
+.menu-badge > span {
+	position: absolute;
+	opacity: 0;
+}
+
+.menu-badge {
+	display: none;
+	position: absolute;
+	left: calc(var(--badge-x) * var(--s));
+	top: calc(var(--badge-y) * var(--s));
+	width: calc(var(--badge-w) * var(--s));
+	height: calc(var(--badge-h) * var(--s));
+}
+
+.menu.met-logo .menu-badge {
+	display: block;
+}
+
+.menu-lijn {
+	display: none;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: calc(var(--lijn-y) * var(--s));
+	height: calc(var(--lijn-h) * var(--s));
+	background: var(--lijn-kleur);
+}
+
+.menu.vast .menu-lijn {
+	display: block;
+}

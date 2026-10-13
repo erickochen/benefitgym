@@ -1,6 +1,7 @@
 ---
 // A link drawn as a button, its text on the measured place inside it.
 import { type Blok, type Entry, waarde } from "../layout";
+import Beeld from "./Beeld.astro";
 
 interface Props {
 	blok: Extract<Blok, { soort: "knop" }>;
@@ -14,6 +15,6 @@ const tekstPlek = `left:calc(${blok.tekst.x} * var(--s));top:calc(${blok.tekst.y
 ---
 
 <a class="blok knop" href={waarde(entry, blok.link) as string} style={plek}>
-	{blok.beeld && <img src={`${staticUrl}/tekeningen/${blok.beeld}`} alt="" />}
+	{blok.beeld && <Beeld beeld={blok.beeld} staticUrl={staticUrl} />}
 	<span class={`s-${blok.stijl}`} style={tekstPlek} {...entry.edit[blok.veld]}>{waarde(entry, blok.veld) as string}</span>
 </a>

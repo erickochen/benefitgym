@@ -1,0 +1,45 @@
+{
+ "breedte": 1242,
+ "hoogte": 226.09375,
+ "achtergrond": "rgb(45, 45, 45)",
+ "inspring": 198.71875,
+ "kolom": 211.125,
+ "laatste": 198.71875,
+ "rij": 24,
+ "kop": 15,
+ "linkkolom": {
+  "boven": 34,
+  "naKop": 15
+ },
+ "adres": {
+  "boven": 15,
+  "logo": {
+   "w": 132,
+   "h": 48.984375,
+   "beeld": {
+    "bestand": "algemeen/footer-logo",
+    "breedte": 264
+   }
+  },
+  "naLogo": 9,
+  "regel": 15,
+  "inspring": 52.78125,
+  "naRegels": 16
+ },
+ "sociaal": {
+  "boven": 34
+ },
+ "onder": {
+  "boven": 21,
+  "x": 658.25,
+  "w": 484.375,
+  "h": 24,
+  "gat": 4
+ },
+ "stijlen": {
+  "kop": "black-11-wit",
+  "link": "light-cursief-11-wit",
+  "adres": "bold-cursief-11-wit",
+  "klein": "regular-12-oranje"
+ }
+}

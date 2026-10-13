@@ -2,10 +2,14 @@
 import { getSiteSettingsWithCacheHint } from "emdash";
 import { EmDashHead, EmDashBodyStart, EmDashBodyEnd } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
+import Footer from "../components/Footer.astro";
+import Menu from "../components/Menu.astro";
 import { staticUrl as leesStaticUrl } from "../static";
 import { SITE_NAME } from "../teksten";
 import "../styles/basis.css";
 import "../styles/tekst.css";
+import "../styles/menu.css";
+import "../styles/footer.css";
 
 interface Props {
 	/** The full page title; SEO titles already carry the gym name. */
@@ -14,9 +18,11 @@ interface Props {
 	canonical?: string | null;
 	/** Pass content reference for plugin page contributions on content pages */
 	content?: { collection: string; id: string; slug?: string | null };
+	/** Where the footer sits: its distance to the bottom of the page in design units. */
+	footerOnder?: number;
 }
 
-// Each face carries the family name, weight and style Framer declares, so an element matches the same file.
+// Each face carries the family name, weight and style the text styles ask for, so an element matches the same file.
 const FONTS = [
 	["Interstate Regular", "Interstate-Regular.woff2", 500, "normal"],
 	["Interstate Bold", "Interstate-Bold.woff2", 700, "normal"],
@@ -31,7 +37,7 @@ const FONTS = [
 // The two faces above the fold: the hero intro plus the heading and the button.
 const PRELOAD = ["Interstate-BlackItalic.woff2", "AntiqueOliveCompact-Italic.woff2"];
 
-const { title, description, canonical, content } = Astro.props;
+const { title, description, canonical, content, footerOnder } = Astro.props;
 const staticUrl = leesStaticUrl();
 const fontCss = FONTS.map(
 	([family, file, weight, style]) =>
@@ -68,9 +74,13 @@ const pageCtx = createPublicPageContext({
 	</head>
 	<body>
 		<EmDashBodyStart page={pageCtx} />
-		<main>
-			<slot />
-		</main>
+		<Menu staticUrl={staticUrl} />
+		<div class="kolom">
+			<main>
+				<slot />
+			</main>
+			<Footer staticUrl={staticUrl} onder={footerOnder} />
+		</div>
 		<EmDashBodyEnd page={pageCtx} />
 	</body>
 </html>

@@ -12,7 +12,7 @@ pnpm dev
 
 Then open http://localhost:4321/_emdash/admin and complete the setup wizard. It runs the database migrations and applies the seed in `seed/seed.json`. The site itself is at http://localhost:4321.
 
-The fonts and the drawings come from a separate host, read from `STATIC_URL`. For local work put `STATIC_URL=http://localhost:4179` in `.dev.vars` and serve `fonts/` plus `tekeningen/<slug>/` on that port with a CORS header for the fonts. Each page draws itself from `src/layout/<slug>.json`, which holds the measured place and size of every field and no text.
+The fonts and the drawings come from a separate host, read from `STATIC_URL`. For local work put `STATIC_URL=http://localhost:4179` in `.dev.vars` and serve `fonts/` plus `tekeningen/<slug>/` on that port with a CORS header for the fonts. Each page draws itself from `src/layout/<slug>.json`, which holds the measured place and size of every field and no text. The menu bar and the footer draw themselves from `src/layout/algemeen/menu.json` and `src/layout/algemeen/footer.json`, with their labels from the menus, the widget area Footer and Social in the admin. Images outside the drawings are served as AVIF with a PNG fallback.
 
 ## Deploying
 

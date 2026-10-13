@@ -1,6 +1,9 @@
 {
  "breedte": 1242,
  "hoogte": 5841.09375,
+ "footer": {
+  "onder": 13.5
+ },
  "secties": [
   {
    "naam": "sectie-1",
@@ -10,7 +13,14 @@
    "blokken": [
     {
      "soort": "logo",
-     "bestand": "logo.png",
+     "beeld": {
+      "bestand": "evom/logo",
+      "breedte": 974,
+      "kleiner": [
+       512
+      ],
+      "sizes": "(min-width: 1242px) calc(min(100vw, 1242px) * 0.231)"
+     },
      "x": 44.703125,
      "y": 42,
      "w": 286.890625,
@@ -208,7 +218,14 @@
      "h": 56,
      "radius": 28,
      "achtergrond": "rgba(0, 0, 0, 0)",
-     "beeld": "algemeen/knop-verloop.png",
+     "beeld": {
+      "bestand": "evom/stappen_knop",
+      "breedte": 742,
+      "kleiner": [
+       512
+      ],
+      "sizes": "(min-width: 1242px) 371px, (min-width: 810px) and (max-width: 1241.98px) min(min(100vw, 1242px) - 96px, 371px), (max-width: 809.98px) min(min(100vw, 1242px) - 48px, 371px)"
+     },
      "tekst": {
       "x": 31.25,
       "y": 11.203125,
@@ -310,7 +327,14 @@
      "h": 56,
      "radius": 28,
      "achtergrond": "rgba(0, 0, 0, 0)",
-     "beeld": "algemeen/knop-verloop.png",
+     "beeld": {
+      "bestand": "evom/klaar_knop",
+      "breedte": 730,
+      "kleiner": [
+       512
+      ],
+      "sizes": "(min-width: 1242px) 365px, (min-width: 810px) and (max-width: 1241.98px) min(min(100vw, 1242px) - 96px, 365px), (max-width: 809.98px) min(min(100vw, 1242px) - 48px, 365px)"
+     },
      "tekst": {
       "x": 28.25,
       "y": 11.203125,

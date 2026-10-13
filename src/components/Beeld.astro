@@ -1,0 +1,22 @@
+---
+// An image as AVIF where the browser takes it, PNG otherwise, from the same srcset.
+import type { Beeld } from "../layout";
+
+interface Props {
+	beeld: Beeld;
+	staticUrl: string;
+	class?: string;
+}
+
+const { beeld, staticUrl, class: klasse } = Astro.props;
+const pad = (achter: string, ext: string) => `${staticUrl}/tekeningen/${beeld.bestand}${achter}.${ext}`;
+const reeks = (ext: string) =>
+	beeld.kleiner?.length
+		? [...beeld.kleiner.map((w) => `${pad(`-${w}`, ext)} ${w}w`), `${pad("", ext)} ${beeld.breedte}w`].join(", ")
+		: undefined;
+---
+
+<picture>
+	<source type="image/avif" srcset={reeks("avif") ?? pad("", "avif")} sizes={beeld.sizes} />
+	<img class={klasse} src={pad("", "png")} srcset={reeks("png")} sizes={beeld.sizes} alt="" />
+</picture>

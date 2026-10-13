@@ -7,8 +7,20 @@ export interface Plek {
 	w: number;
 }
 
+export interface Vak extends Plek {
+	h: number;
+}
+
+// An image as AVIF plus PNG, with the smaller sizes of its srcset.
+export interface Beeld {
+	bestand: string;
+	breedte: number;
+	kleiner?: number[];
+	sizes?: string;
+}
+
 export type Blok =
-	| ({ soort: "logo"; bestand: string; h: number } & Plek)
+	| ({ soort: "logo"; beeld: Beeld } & Vak)
 	| ({ soort: "tekst"; veld: string; link?: string; tag: string; stijl: string } & Plek)
 	| ({ soort: "alineas"; veld: string; stijl: string } & Plek)
 	| ({ soort: "cijfer"; n: number; stijl: string } & Plek)
@@ -17,12 +29,11 @@ export type Blok =
 			veld: string;
 			link: string;
 			stijl: string;
-			h: number;
 			radius: number;
 			achtergrond: string;
-			beeld: string | null;
+			beeld: Beeld | null;
 			tekst: Plek;
-	  } & Plek);
+	  } & Vak);
 
 export interface Sectie {
 	naam: string;
@@ -35,7 +46,49 @@ export interface Sectie {
 export interface Layout {
 	breedte: number;
 	hoogte: number;
+	// The footer lies over the foot of the page, this far above the bottom.
+	footer: { onder: number };
 	secties: Sectie[];
+}
+
+// The shape of src/layout/menu.json.
+export interface MenuLayout {
+	breedte: number;
+	z: number;
+	hoogte: number;
+	balk: Vak;
+	pagina: { breedtes: number[]; stijl: string };
+	uitklap: { links: number; rechts: number; gat: number; chevron: number; stijl: string };
+	knop: { voor: number; w: number; h: number; radius: number; beeld: Beeld; stijl: string };
+	inloggen: { voor: number; w: number; h: number; beeld: Beeld };
+	vast: { hoogte: number; boven: number; kleur: number[]; lijn: { y: number; h: number; kleur: string } };
+	badge: Vak & { beeld: Beeld };
+	wissel: { vast: number; logo: number };
+	overgang: string;
+}
+
+// The shape of src/layout/footer.json.
+export interface FooterLayout {
+	breedte: number;
+	hoogte: number;
+	achtergrond: string;
+	inspring: number;
+	kolom: number;
+	laatste: number;
+	rij: number;
+	kop: number;
+	linkkolom: { boven: number; naKop: number };
+	adres: {
+		boven: number;
+		logo: { w: number; h: number; beeld: Beeld };
+		naLogo: number;
+		regel: number;
+		inspring: number;
+		naRegels: number;
+	};
+	sociaal: { boven: number };
+	onder: { boven: number; x: number; w: number; h: number; gat: number };
+	stijlen: { kop: string; link: string; adres: string; klein: string };
 }
 
 // Any page entry: the layout file names its fields as strings.
