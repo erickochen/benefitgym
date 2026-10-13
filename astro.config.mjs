@@ -2,6 +2,7 @@ import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
 import { d1, r2, sandbox } from "@emdash-cms/cloudflare";
 import { cloudflareEmail } from "@emdash-cms/cloudflare/plugins";
+import { formsPlugin } from "@emdash-cms/plugin-forms";
 import { defineConfig } from "astro/config";
 import emdash from "emdash/astro";
 
@@ -22,6 +23,7 @@ export default defineConfig({
 				cloudflareEmail({
 					from: { email: "website@benefitgym.nl", name: "Benefit Gym" },
 				}),
+				formsPlugin(),
 			],
 		}),
 	],
