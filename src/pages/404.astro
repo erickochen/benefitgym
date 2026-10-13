@@ -1,9 +1,10 @@
 ---
 import Base from "../layouts/Base.astro";
+import { SITE_NAME } from "../teksten";
 ---
 
-<Base title="Not Found">
-	<h1>Page not found</h1>
-	<p>The page you're looking for doesn't exist.</p>
-	<a href="/">Go home</a>
+<Base title={`Pagina niet gevonden | ${SITE_NAME}`}>
+	<h1>Pagina niet gevonden</h1>
+	<p>Deze pagina bestaat niet.</p>
+	<a href="/">Naar de homepage</a>
 </Base>

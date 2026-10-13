@@ -1,26 +1,33 @@
 ---
-import { getEmDashEntry, getSeoMeta, decodeSlug, getSiteSettings } from "emdash";
-import { PortableText } from "emdash/ui";
+import { decodeSlug, getEmDashEntry, getSeoMeta, getSiteSettings } from "emdash";
 import Base from "../layouts/Base.astro";
-import { resolveStarterSiteIdentity } from "../utils/site-identity";
+import { SITE_NAME } from "../teksten";
+
+// Fixed order: a Praktisch page with the slug of a sport page loses to it.
+const COLLECTIONS = ["sportpaginas", "over_ons", "praktisch"] as const;
 
 const slug = decodeSlug(Astro.params.slug);
+if (!slug) return Astro.rewrite("/404");
 
-if (!slug) {
-	return Astro.redirect("/404");
+async function findPage(slug: string) {
+	for (const collection of COLLECTIONS) {
+		const { entry, cacheHint } = await getEmDashEntry(collection, slug);
+		// The loader also matches a database id; only the slug is a page address.
+		if (entry && entry.data.id !== slug) return { collection, entry, cacheHint };
+	}
+	return null;
 }
 
-const { entry: page, cacheHint } = await getEmDashEntry("pages", slug);
-
-if (!page) {
-	return Astro.redirect("/404");
-}
-
+const found = await findPage(slug);
+if (!found) return Astro.rewrite("/404");
+const { collection, entry, cacheHint } = found;
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
-const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
 
-const seo = getSeoMeta(page, {
-	siteTitle,
+// An SEO title carries the gym name already; a page without one gets it behind its title.
+const ownTitle = (entry.data as { seo?: { title?: string | null } }).seo?.title;
+const settings = await getSiteSettings();
+const seo = getSeoMeta(entry, {
+	siteTitle: ownTitle ? undefined : (settings.title ?? SITE_NAME),
 	siteUrl: Astro.url.origin,
 	path: Astro.url.pathname.replace(/\/$/, ""),
 });
@@ -28,14 +35,9 @@ const seo = getSeoMeta(page, {
 
 <Base
 	title={seo.title}
-	pageTitle={seo.ogTitle}
 	description={seo.description}
 	canonical={seo.canonical}
-	content={{ collection: "pages", id: page.data.id, slug }}
+	content={{ collection, id: entry.data.id, slug }}
 >
-	<article>
-		<h1 {...page.edit.title}>{page.data.title}</h1>
-
-		<PortableText value={page.data.content} />
-	</article>
+	<h1 {...entry.edit.title}>{entry.data.title}</h1>
 </Base>

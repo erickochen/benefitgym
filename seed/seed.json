@@ -1,234 +1,1744 @@
 {
-	"$schema": "https://emdashcms.com/seed.schema.json",
-	"version": "1",
-	"meta": {
-		"name": "Starter",
-		"description": "A minimal EmDash starter with posts and pages",
-		"author": "EmDash"
-	},
-	"settings": {
-		"title": "My Site",
-		"tagline": "Built with EmDash"
-	},
-	"collections": [
-		{
-			"slug": "posts",
-			"label": "Posts",
-			"labelSingular": "Post",
-			"urlPattern": "/posts/{slug}",
-			"supports": ["drafts", "revisions", "preview", "scheduling", "search", "seo"],
-			"fields": [
-				{
-					"slug": "title",
-					"label": "Title",
-					"type": "string",
-					"required": true,
-					"searchable": true
-				},
-				{
-					"slug": "featured_image",
-					"label": "Featured Image",
-					"type": "image"
-				},
-				{
-					"slug": "content",
-					"label": "Content",
-					"type": "portableText",
-					"searchable": true
-				},
-				{
-					"slug": "excerpt",
-					"label": "Excerpt",
-					"type": "text"
-				}
-			]
-		},
-		{
-			"slug": "pages",
-			"label": "Pages",
-			"labelSingular": "Page",
-			"urlPattern": "/{slug}",
-			"supports": ["drafts", "revisions", "preview", "search", "seo"],
-			"fields": [
-				{
-					"slug": "title",
-					"label": "Title",
-					"type": "string",
-					"required": true,
-					"searchable": true
-				},
-				{
-					"slug": "content",
-					"label": "Content",
-					"type": "portableText",
-					"searchable": true
-				}
-			]
-		}
-	],
-	"taxonomies": [
-		{
-			"name": "category",
-			"label": "Categories",
-			"labelSingular": "Category",
-			"hierarchical": true,
-			"collections": ["posts"],
-			"terms": [
-				{
-					"slug": "general",
-					"label": "General"
-				},
-				{
-					"slug": "updates",
-					"label": "Updates"
-				}
-			]
-		},
-		{
-			"name": "tag",
-			"label": "Tags",
-			"labelSingular": "Tag",
-			"hierarchical": false,
-			"collections": ["posts"],
-			"terms": [
-				{
-					"slug": "starter",
-					"label": "Starter"
-				},
-				{
-					"slug": "example",
-					"label": "Example"
-				}
-			]
-		}
-	],
-	"menus": [
-		{
-			"name": "primary",
-			"label": "Primary Navigation",
-			"items": [
-				{
-					"type": "custom",
-					"label": "Home",
-					"url": "/"
-				},
-				{
-					"type": "custom",
-					"label": "Posts",
-					"url": "/posts"
-				},
-				{
-					"type": "custom",
-					"label": "About",
-					"url": "/about"
-				}
-			]
-		}
-	],
-	"widgetAreas": [
-		{
-			"name": "sidebar",
-			"label": "Sidebar",
-			"description": "Sidebar widget area",
-			"widgets": [
-				{
-					"type": "component",
-					"componentId": "core:search",
-					"title": "Search"
-				},
-				{
-					"type": "component",
-					"componentId": "core:categories",
-					"title": "Categories"
-				},
-				{
-					"type": "component",
-					"componentId": "core:recent-posts",
-					"title": "Recent Posts",
-					"settings": {
-						"count": 5
-					}
-				}
-			]
-		}
-	],
-	"content": {
-		"pages": [
-			{
-				"id": "about",
-				"slug": "about",
-				"status": "published",
-				"data": {
-					"title": "About",
-					"content": [
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "This is the about page. Edit it in the admin panel or replace this template with your own design.",
-									"_key": "k1"
-								}
-							],
-							"_key": "k0"
-						}
-					]
-				}
-			}
-		],
-		"posts": [
-			{
-				"id": "post-1",
-				"slug": "welcome",
-				"status": "published",
-				"data": {
-					"title": "Welcome",
-					"excerpt": "Your first post. Replace this with your own content.",
-					"content": [
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "This is a starter post. The templates in this project show the basic patterns for querying and rendering EmDash content. Replace them with your own design.",
-									"_key": "k1"
-								}
-							],
-							"_key": "k0"
-						},
-						{
-							"_type": "block",
-							"style": "h2",
-							"children": [
-								{
-									"_type": "span",
-									"text": "What to do next",
-									"_key": "k3"
-								}
-							],
-							"_key": "k2"
-						},
-						{
-							"_type": "block",
-							"style": "normal",
-							"children": [
-								{
-									"_type": "span",
-									"text": "Open the admin panel to add content, or edit the Astro pages in src/pages to change how content is displayed.",
-									"_key": "k5"
-								}
-							],
-							"_key": "k4"
-						}
-					]
-				},
-				"taxonomies": {
-					"category": ["general"],
-					"tag": ["starter", "example"]
-				}
-			}
-		]
-	}
+  "$schema": "https://emdashcms.com/seed.schema.json",
+  "version": "1",
+  "meta": {
+    "name": "Benefit Gym",
+    "description": "Het contentmodel van benefitgym.nl",
+    "author": "Benefit Gym"
+  },
+  "settings": {
+    "timezone": "Europe/Amsterdam"
+  },
+  "blockTypes": [
+    {
+      "slug": "tekst_met_foto",
+      "label": "Tekst met foto",
+      "category": "Praktisch",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "foto",
+              "label": "Foto",
+              "type": "image"
+            },
+            {
+              "slug": "kant",
+              "label": "Kant van de foto",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "links",
+                  "rechts"
+                ]
+              }
+            },
+            {
+              "slug": "vlak",
+              "label": "Vlak",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "wit",
+                  "donker"
+                ]
+              }
+            },
+            {
+              "slug": "kop",
+              "label": "Kop",
+              "type": "string"
+            },
+            {
+              "slug": "tekst",
+              "label": "Tekst",
+              "type": "portableText"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "kolommen",
+      "label": "Kolommen",
+      "category": "Praktisch",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "kolommen",
+              "label": "Kolommen",
+              "type": "repeater",
+              "validation": {
+                "maxItems": 3,
+                "subFields": [
+                  {
+                    "slug": "kop",
+                    "label": "Kop",
+                    "type": "string"
+                  },
+                  {
+                    "slug": "tekst",
+                    "label": "Tekst",
+                    "type": "text"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tekst",
+      "label": "Tekst",
+      "category": "Praktisch",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "tekst",
+              "label": "Tekst",
+              "type": "portableText"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "vakanties",
+      "label": "Vakanties",
+      "category": "Praktisch",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "kop",
+              "label": "Kop",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "lesrooster",
+      "label": "Lesrooster",
+      "category": "Praktisch",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "adres",
+              "label": "SportBit-adres",
+              "type": "url"
+            },
+            {
+              "slug": "rooster",
+              "label": "Rooster-id",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "collections": [
+    {
+      "slug": "home",
+      "label": "Home",
+      "labelSingular": "Home",
+      "urlPattern": "/",
+      "admin": {
+        "quickCreate": false
+      },
+      "group": "Pagina's",
+      "sortOrder": 10,
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview",
+        "scheduling",
+        "seo"
+      ],
+      "titleField": "title",
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Titel",
+          "type": "string",
+          "required": true,
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "hero_intro",
+          "label": "Hero · Intro",
+          "type": "text",
+          "validation": {
+            "maxLength": 140
+          }
+        },
+        {
+          "slug": "hero_knop",
+          "label": "Hero · Knop",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "hero_kop",
+          "label": "Hero · Kop",
+          "type": "text",
+          "validation": {
+            "maxLength": 50
+          }
+        },
+        {
+          "slug": "hero_alt",
+          "label": "Hero · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 110
+          }
+        },
+        {
+          "slug": "intro_tekst",
+          "label": "Intro · Tekst",
+          "type": "text",
+          "validation": {
+            "maxLength": 290
+          }
+        },
+        {
+          "slug": "stappen_kop",
+          "label": "Stappen · Kop",
+          "type": "text",
+          "validation": {
+            "maxLength": 70
+          }
+        },
+        {
+          "slug": "stappen_1",
+          "label": "Stappen · Stap 1",
+          "type": "string",
+          "validation": {
+            "maxLength": 90
+          }
+        },
+        {
+          "slug": "stappen_2",
+          "label": "Stappen · Stap 2",
+          "type": "string",
+          "validation": {
+            "maxLength": 50
+          }
+        },
+        {
+          "slug": "stappen_3",
+          "label": "Stappen · Stap 3",
+          "type": "string",
+          "validation": {
+            "maxLength": 80
+          }
+        },
+        {
+          "slug": "stappen_4",
+          "label": "Stappen · Stap 4",
+          "type": "string",
+          "validation": {
+            "maxLength": 80
+          }
+        },
+        {
+          "slug": "stappen_slot",
+          "label": "Stappen · Slotregel",
+          "type": "string",
+          "validation": {
+            "maxLength": 60
+          }
+        },
+        {
+          "slug": "stappen_knop",
+          "label": "Stappen · Knop",
+          "type": "string",
+          "validation": {
+            "maxLength": 30
+          }
+        },
+        {
+          "slug": "aanbod_kop",
+          "label": "Aanbod · Kop",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "aanbod_1_naam",
+          "label": "Aanbod 1 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "aanbod_1_onderschrift",
+          "label": "Aanbod 1 · Onderschrift",
+          "type": "string",
+          "validation": {
+            "maxLength": 30
+          }
+        },
+        {
+          "slug": "aanbod_1_tekst",
+          "label": "Aanbod 1 · Tekst",
+          "type": "text",
+          "validation": {
+            "maxLength": 320
+          }
+        },
+        {
+          "slug": "aanbod_1_alt",
+          "label": "Aanbod 1 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 80
+          }
+        },
+        {
+          "slug": "aanbod_2_naam",
+          "label": "Aanbod 2 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "aanbod_2_tekst",
+          "label": "Aanbod 2 · Tekst",
+          "type": "text",
+          "validation": {
+            "maxLength": 250
+          }
+        },
+        {
+          "slug": "aanbod_2_alt",
+          "label": "Aanbod 2 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 80
+          }
+        },
+        {
+          "slug": "aanbod_3_naam",
+          "label": "Aanbod 3 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 30
+          }
+        },
+        {
+          "slug": "aanbod_3_leeftijd",
+          "label": "Aanbod 3 · Leeftijd",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "aanbod_3_onderschrift",
+          "label": "Aanbod 3 · Onderschrift",
+          "type": "string",
+          "validation": {
+            "maxLength": 30
+          }
+        },
+        {
+          "slug": "aanbod_3_tekst",
+          "label": "Aanbod 3 · Tekst",
+          "type": "text",
+          "validation": {
+            "maxLength": 250
+          }
+        },
+        {
+          "slug": "aanbod_3_alt",
+          "label": "Aanbod 3 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 70
+          }
+        },
+        {
+          "slug": "aanbod_4_naam",
+          "label": "Aanbod 4 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "aanbod_4_ondertitel",
+          "label": "Aanbod 4 · Ondertitel",
+          "type": "string",
+          "validation": {
+            "maxLength": 80
+          }
+        },
+        {
+          "slug": "aanbod_4_tekst",
+          "label": "Aanbod 4 · Tekst",
+          "type": "text",
+          "validation": {
+            "maxLength": 180
+          }
+        },
+        {
+          "slug": "aanbod_4_alt",
+          "label": "Aanbod 4 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 50
+          }
+        },
+        {
+          "slug": "aanbod_5_naam",
+          "label": "Aanbod 5 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "aanbod_5_ondertitel",
+          "label": "Aanbod 5 · Ondertitel",
+          "type": "string",
+          "validation": {
+            "maxLength": 60
+          }
+        },
+        {
+          "slug": "aanbod_5_tekst",
+          "label": "Aanbod 5 · Tekst",
+          "type": "text",
+          "validation": {
+            "maxLength": 240
+          }
+        },
+        {
+          "slug": "aanbod_5_alt",
+          "label": "Aanbod 5 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 80
+          }
+        },
+        {
+          "slug": "aanbod_6_naam",
+          "label": "Aanbod 6 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "aanbod_6_leeftijd",
+          "label": "Aanbod 6 · Leeftijd",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "aanbod_6_ondertitel",
+          "label": "Aanbod 6 · Ondertitel",
+          "type": "string",
+          "validation": {
+            "maxLength": 90
+          }
+        },
+        {
+          "slug": "aanbod_6_tekst",
+          "label": "Aanbod 6 · Tekst",
+          "type": "text",
+          "validation": {
+            "maxLength": 210
+          }
+        },
+        {
+          "slug": "aanbod_6_alt",
+          "label": "Aanbod 6 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 90
+          }
+        },
+        {
+          "slug": "aanbod_7_naam",
+          "label": "Aanbod 7 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "aanbod_7_leeftijd",
+          "label": "Aanbod 7 · Leeftijd",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "aanbod_7_onderschrift",
+          "label": "Aanbod 7 · Onderschrift",
+          "type": "string",
+          "validation": {
+            "maxLength": 30
+          }
+        },
+        {
+          "slug": "aanbod_7_ondertitel",
+          "label": "Aanbod 7 · Ondertitel",
+          "type": "string",
+          "validation": {
+            "maxLength": 90
+          }
+        },
+        {
+          "slug": "aanbod_7_tekst",
+          "label": "Aanbod 7 · Tekst",
+          "type": "text",
+          "validation": {
+            "maxLength": 230
+          }
+        },
+        {
+          "slug": "aanbod_7_alt",
+          "label": "Aanbod 7 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 70
+          }
+        },
+        {
+          "slug": "vlak_kop",
+          "label": "Oranje vlak · Kop",
+          "type": "text",
+          "validation": {
+            "maxLength": 300
+          }
+        },
+        {
+          "slug": "vlak_tekst",
+          "label": "Oranje vlak · Tekst",
+          "type": "text",
+          "validation": {
+            "maxLength": 380
+          }
+        },
+        {
+          "slug": "quote",
+          "label": "Quote · Quote",
+          "type": "text",
+          "validation": {
+            "maxLength": 80
+          }
+        },
+        {
+          "slug": "reviews_kop",
+          "label": "Reviews · Kop",
+          "type": "string",
+          "validation": {
+            "maxLength": 40
+          }
+        },
+        {
+          "slug": "slotquote",
+          "label": "Slotquote · Quote",
+          "type": "text",
+          "validation": {
+            "maxLength": 70
+          }
+        },
+        {
+          "slug": "stappen2_kop",
+          "label": "Stappen onderaan · Kop",
+          "type": "text",
+          "validation": {
+            "maxLength": 70
+          }
+        },
+        {
+          "slug": "stappen2_1",
+          "label": "Stappen onderaan · Stap 1",
+          "type": "string",
+          "validation": {
+            "maxLength": 90
+          }
+        },
+        {
+          "slug": "stappen2_2",
+          "label": "Stappen onderaan · Stap 2",
+          "type": "string",
+          "validation": {
+            "maxLength": 50
+          }
+        },
+        {
+          "slug": "stappen2_3",
+          "label": "Stappen onderaan · Stap 3",
+          "type": "string",
+          "validation": {
+            "maxLength": 80
+          }
+        },
+        {
+          "slug": "stappen2_4",
+          "label": "Stappen onderaan · Stap 4",
+          "type": "string",
+          "validation": {
+            "maxLength": 80
+          }
+        },
+        {
+          "slug": "stappen2_slot",
+          "label": "Stappen onderaan · Slotregel",
+          "type": "string",
+          "validation": {
+            "maxLength": 60
+          }
+        },
+        {
+          "slug": "stappen2_knop",
+          "label": "Stappen onderaan · Knop",
+          "type": "string",
+          "validation": {
+            "maxLength": 30
+          }
+        },
+        {
+          "slug": "proefles_link",
+          "label": "Proefles · Link",
+          "type": "url"
+        }
+      ]
+    },
+    {
+      "slug": "sportpaginas",
+      "label": "Sportpagina's",
+      "labelSingular": "Sportpagina",
+      "urlPattern": "/{slug}",
+      "group": "Pagina's",
+      "sortOrder": 20,
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview",
+        "scheduling",
+        "seo"
+      ],
+      "titleField": "title",
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Titel",
+          "type": "string",
+          "required": true,
+          "validation": {
+            "maxLength": 30
+          }
+        },
+        {
+          "slug": "hero_paginatitel",
+          "label": "Hero · Paginatitel",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "hero_intro",
+          "label": "Hero · Intro",
+          "type": "text",
+          "validation": {
+            "maxLength": 260
+          }
+        },
+        {
+          "slug": "hero_knop",
+          "label": "Hero · Knop",
+          "type": "string",
+          "validation": {
+            "maxLength": 30
+          }
+        },
+        {
+          "slug": "hero_kop",
+          "label": "Hero · Kop",
+          "type": "text",
+          "validation": {
+            "maxLength": 90
+          }
+        },
+        {
+          "slug": "hero_alt",
+          "label": "Hero · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 100
+          }
+        },
+        {
+          "slug": "intro_kop",
+          "label": "Intro · Kop",
+          "type": "text",
+          "validation": {
+            "maxLength": 150
+          }
+        },
+        {
+          "slug": "intro_tekst",
+          "label": "Intro · Tekst",
+          "type": "portableText"
+        },
+        {
+          "slug": "intro_link_tekst",
+          "label": "Intro · Linktekst naar waarom",
+          "type": "string",
+          "validation": {
+            "maxLength": 80
+          }
+        },
+        {
+          "slug": "intro_link",
+          "label": "Intro · Link naar waarom",
+          "type": "url"
+        },
+        {
+          "slug": "stappen_kop",
+          "label": "Stappen · Kop",
+          "type": "text",
+          "validation": {
+            "maxLength": 100
+          }
+        },
+        {
+          "slug": "stappen_ondertitel",
+          "label": "Stappen · Ondertitel",
+          "type": "string",
+          "validation": {
+            "maxLength": 100
+          }
+        },
+        {
+          "slug": "stappen_1",
+          "label": "Stappen · Stap 1",
+          "type": "string",
+          "validation": {
+            "maxLength": 70
+          }
+        },
+        {
+          "slug": "stappen_2",
+          "label": "Stappen · Stap 2",
+          "type": "string",
+          "validation": {
+            "maxLength": 70
+          }
+        },
+        {
+          "slug": "stappen_3",
+          "label": "Stappen · Stap 3",
+          "type": "string",
+          "validation": {
+            "maxLength": 120
+          }
+        },
+        {
+          "slug": "stappen_4",
+          "label": "Stappen · Stap 4",
+          "type": "string",
+          "validation": {
+            "maxLength": 80
+          }
+        },
+        {
+          "slug": "stappen_slot",
+          "label": "Stappen · Slotregel",
+          "type": "string",
+          "validation": {
+            "maxLength": 160
+          }
+        },
+        {
+          "slug": "stappen_knop",
+          "label": "Stappen · Knop",
+          "type": "string",
+          "validation": {
+            "maxLength": 30
+          }
+        },
+        {
+          "slug": "kolom_inleiding",
+          "label": "Kolom · Inleiding",
+          "type": "text",
+          "validation": {
+            "maxLength": 280
+          }
+        },
+        {
+          "slug": "kolom_tekst",
+          "label": "Kolom · Tekst",
+          "type": "portableText"
+        },
+        {
+          "slug": "quote",
+          "label": "Quote · Quote",
+          "type": "text",
+          "validation": {
+            "maxLength": 110
+          }
+        },
+        {
+          "slug": "reviews_kop",
+          "label": "Reviews · Kop",
+          "type": "string",
+          "validation": {
+            "maxLength": 80
+          }
+        },
+        {
+          "slug": "waarom_kop",
+          "label": "Waarom · Kop",
+          "type": "string",
+          "validation": {
+            "maxLength": 70
+          }
+        },
+        {
+          "slug": "waarom_tekst",
+          "label": "Waarom · Tekst",
+          "type": "portableText"
+        },
+        {
+          "slug": "uitklap_knop",
+          "label": "Uitklap · Knop",
+          "type": "string",
+          "validation": {
+            "maxLength": 30
+          }
+        },
+        {
+          "slug": "uitklap_tekst",
+          "label": "Uitklap · Tekst",
+          "type": "portableText"
+        },
+        {
+          "slug": "klaar_kop",
+          "label": "Klaar · Kop",
+          "type": "string",
+          "validation": {
+            "maxLength": 80
+          }
+        },
+        {
+          "slug": "klaar_tekst",
+          "label": "Klaar · Tekst",
+          "type": "text",
+          "validation": {
+            "maxLength": 120
+          }
+        },
+        {
+          "slug": "klaar_knop",
+          "label": "Klaar · Knop",
+          "type": "string",
+          "validation": {
+            "maxLength": 30
+          }
+        },
+        {
+          "slug": "faq_kop",
+          "label": "FAQ · Kop",
+          "type": "string",
+          "validation": {
+            "maxLength": 100
+          }
+        },
+        {
+          "slug": "aanmelden_kop",
+          "label": "Aanmelden · Kop",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "aanmelden_intro",
+          "label": "Aanmelden · Intro",
+          "type": "text",
+          "validation": {
+            "maxLength": 150
+          }
+        },
+        {
+          "slug": "aanmelden_geen_data",
+          "label": "Aanmelden · Zin zonder data",
+          "type": "text",
+          "validation": {
+            "maxLength": 130
+          }
+        },
+        {
+          "slug": "planner",
+          "label": "Aanmelden · Plannerlink",
+          "type": "url"
+        },
+        {
+          "slug": "proefles_link",
+          "label": "Proefles · Link",
+          "type": "url"
+        }
+      ]
+    },
+    {
+      "slug": "over_ons",
+      "label": "Over ons",
+      "labelSingular": "Over ons",
+      "urlPattern": "/{slug}",
+      "admin": {
+        "quickCreate": false
+      },
+      "group": "Pagina's",
+      "sortOrder": 30,
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview",
+        "scheduling",
+        "seo"
+      ],
+      "titleField": "title",
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Titel",
+          "type": "string",
+          "required": true,
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "hero_paginatitel",
+          "label": "Hero · Paginatitel",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "hero_kop",
+          "label": "Hero · Kop",
+          "type": "text",
+          "validation": {
+            "maxLength": 50
+          }
+        },
+        {
+          "slug": "hero_intro",
+          "label": "Hero · Intro",
+          "type": "text",
+          "validation": {
+            "maxLength": 140
+          }
+        },
+        {
+          "slug": "hero_knop",
+          "label": "Hero · Knop",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "over_kop",
+          "label": "Over ons · Kop",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "over_tekst",
+          "label": "Over ons · Tekst",
+          "type": "portableText"
+        },
+        {
+          "slug": "team_kop",
+          "label": "Team · Kop",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "team_1_naam",
+          "label": "Team 1 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "team_1_rol",
+          "label": "Team 1 · Rol",
+          "type": "string",
+          "validation": {
+            "maxLength": 50
+          }
+        },
+        {
+          "slug": "team_1_alt",
+          "label": "Team 1 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 60
+          }
+        },
+        {
+          "slug": "team_2_naam",
+          "label": "Team 2 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "team_2_rol",
+          "label": "Team 2 · Rol",
+          "type": "string",
+          "validation": {
+            "maxLength": 70
+          }
+        },
+        {
+          "slug": "team_2_alt",
+          "label": "Team 2 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 70
+          }
+        },
+        {
+          "slug": "team_3_naam",
+          "label": "Team 3 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "team_3_rol",
+          "label": "Team 3 · Rol",
+          "type": "string",
+          "validation": {
+            "maxLength": 70
+          }
+        },
+        {
+          "slug": "team_3_alt",
+          "label": "Team 3 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 80
+          }
+        },
+        {
+          "slug": "team_4_naam",
+          "label": "Team 4 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "team_4_rol",
+          "label": "Team 4 · Rol",
+          "type": "string",
+          "validation": {
+            "maxLength": 40
+          }
+        },
+        {
+          "slug": "team_4_alt",
+          "label": "Team 4 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 60
+          }
+        },
+        {
+          "slug": "team_5_naam",
+          "label": "Team 5 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "team_5_rol",
+          "label": "Team 5 · Rol",
+          "type": "string",
+          "validation": {
+            "maxLength": 60
+          }
+        },
+        {
+          "slug": "team_5_alt",
+          "label": "Team 5 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 70
+          }
+        },
+        {
+          "slug": "team_6_naam",
+          "label": "Team 6 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "team_6_rol",
+          "label": "Team 6 · Rol",
+          "type": "string",
+          "validation": {
+            "maxLength": 60
+          }
+        },
+        {
+          "slug": "team_6_alt",
+          "label": "Team 6 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 70
+          }
+        },
+        {
+          "slug": "team_7_naam",
+          "label": "Team 7 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "team_7_rol",
+          "label": "Team 7 · Rol",
+          "type": "string",
+          "validation": {
+            "maxLength": 40
+          }
+        },
+        {
+          "slug": "team_7_alt",
+          "label": "Team 7 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 50
+          }
+        },
+        {
+          "slug": "team_8_naam",
+          "label": "Team 8 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "team_8_rol",
+          "label": "Team 8 · Rol",
+          "type": "string",
+          "validation": {
+            "maxLength": 40
+          }
+        },
+        {
+          "slug": "team_8_alt",
+          "label": "Team 8 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 50
+          }
+        },
+        {
+          "slug": "team_9_naam",
+          "label": "Team 9 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "team_9_rol",
+          "label": "Team 9 · Rol",
+          "type": "string",
+          "validation": {
+            "maxLength": 40
+          }
+        },
+        {
+          "slug": "team_9_alt",
+          "label": "Team 9 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 50
+          }
+        },
+        {
+          "slug": "team_10_naam",
+          "label": "Team 10 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "team_10_rol",
+          "label": "Team 10 · Rol",
+          "type": "string",
+          "validation": {
+            "maxLength": 40
+          }
+        },
+        {
+          "slug": "team_10_alt",
+          "label": "Team 10 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 50
+          }
+        },
+        {
+          "slug": "team_11_naam",
+          "label": "Team 11 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "team_11_rol",
+          "label": "Team 11 · Rol",
+          "type": "string",
+          "validation": {
+            "maxLength": 40
+          }
+        },
+        {
+          "slug": "team_11_alt",
+          "label": "Team 11 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 50
+          }
+        },
+        {
+          "slug": "team_12_naam",
+          "label": "Team 12 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "team_12_rol",
+          "label": "Team 12 · Rol",
+          "type": "string",
+          "validation": {
+            "maxLength": 40
+          }
+        },
+        {
+          "slug": "team_12_alt",
+          "label": "Team 12 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 50
+          }
+        },
+        {
+          "slug": "team_13_naam",
+          "label": "Team 13 · Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "team_13_rol",
+          "label": "Team 13 · Rol",
+          "type": "string",
+          "validation": {
+            "maxLength": 40
+          }
+        },
+        {
+          "slug": "team_13_alt",
+          "label": "Team 13 · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 50
+          }
+        },
+        {
+          "slug": "missie_kop",
+          "label": "Missie · Kop",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "missie_tekst",
+          "label": "Missie · Tekst",
+          "type": "text",
+          "validation": {
+            "maxLength": 80
+          }
+        },
+        {
+          "slug": "visie_kop",
+          "label": "Visie · Kop",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "visie_tekst",
+          "label": "Visie · Tekst",
+          "type": "portableText"
+        },
+        {
+          "slug": "contact_kop",
+          "label": "Contact · Kop",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "contact_intro",
+          "label": "Contact · Intro",
+          "type": "text",
+          "validation": {
+            "maxLength": 110
+          }
+        },
+        {
+          "slug": "proefles_link",
+          "label": "Proefles · Link",
+          "type": "url"
+        }
+      ]
+    },
+    {
+      "slug": "praktisch",
+      "label": "Praktisch",
+      "labelSingular": "Praktische pagina",
+      "urlPattern": "/{slug}",
+      "group": "Pagina's",
+      "sortOrder": 40,
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview",
+        "scheduling",
+        "seo"
+      ],
+      "titleField": "title",
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Titel",
+          "type": "string",
+          "required": true,
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "hero_paginatitel",
+          "label": "Hero · Paginatitel",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "hero_intro",
+          "label": "Hero · Intro",
+          "type": "text",
+          "validation": {
+            "maxLength": 160
+          }
+        },
+        {
+          "slug": "hero_knop",
+          "label": "Hero · Knop",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "hero_kop",
+          "label": "Hero · Kop",
+          "type": "text",
+          "validation": {
+            "maxLength": 50
+          }
+        },
+        {
+          "slug": "hero_alt",
+          "label": "Hero · Alt-tekst foto",
+          "type": "string",
+          "validation": {
+            "maxLength": 110
+          }
+        },
+        {
+          "slug": "proefles_link",
+          "label": "Proefles · Link",
+          "type": "url"
+        },
+        {
+          "slug": "inhoud",
+          "label": "Inhoud",
+          "type": "blocks",
+          "validation": {
+            "allowedTypes": [
+              "tekst_met_foto",
+              "kolommen",
+              "tekst",
+              "vakanties",
+              "lesrooster"
+            ],
+            "maxItems": 20
+          }
+        }
+      ]
+    },
+    {
+      "slug": "reviews",
+      "label": "Reviews",
+      "labelSingular": "Review",
+      "titleField": "quote",
+      "admin": {
+        "listColumns": [
+          "naam",
+          "paginas",
+          "volgorde"
+        ]
+      },
+      "fields": [
+        {
+          "slug": "naam",
+          "label": "Naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 30
+          }
+        },
+        {
+          "slug": "quote",
+          "label": "Quote",
+          "type": "text",
+          "validation": {
+            "maxLength": 560
+          }
+        },
+        {
+          "slug": "paginas",
+          "label": "Pagina's",
+          "type": "multiSelect",
+          "validation": {
+            "options": [
+              "Home",
+              "EVOM Fitness",
+              "MMA",
+              "Yoga",
+              "SPEAR cursus",
+              "Tigers",
+              "Kids Core Craft",
+              "EVOM Kids Fitness"
+            ]
+          }
+        },
+        {
+          "slug": "volgorde",
+          "label": "Volgorde",
+          "type": "integer",
+          "indexed": true,
+          "defaultValue": 0
+        }
+      ],
+      "routable": false,
+      "supports": [
+        "drafts",
+        "revisions"
+      ],
+      "sortOrder": 50
+    },
+    {
+      "slug": "vragen",
+      "label": "Vragen",
+      "labelSingular": "Vraag",
+      "group": "FAQ",
+      "titleField": "vraag",
+      "admin": {
+        "listColumns": [
+          "soort",
+          "pagina",
+          "volgorde"
+        ]
+      },
+      "fields": [
+        {
+          "slug": "soort",
+          "label": "Soort",
+          "type": "select",
+          "validation": {
+            "options": [
+              "Vraag",
+              "Inleiding"
+            ]
+          },
+          "defaultValue": "Vraag"
+        },
+        {
+          "slug": "vraag",
+          "label": "Vraag",
+          "type": "string",
+          "validation": {
+            "maxLength": 80
+          }
+        },
+        {
+          "slug": "antwoord",
+          "label": "Antwoord",
+          "type": "portableText"
+        },
+        {
+          "slug": "pagina",
+          "label": "Pagina",
+          "type": "select",
+          "validation": {
+            "options": [
+              "EVOM Fitness",
+              "MMA",
+              "Yoga",
+              "SPEAR cursus",
+              "Tigers",
+              "Kids Core Craft",
+              "EVOM Kids Fitness"
+            ]
+          }
+        },
+        {
+          "slug": "volgorde",
+          "label": "Volgorde",
+          "type": "integer",
+          "indexed": true,
+          "defaultValue": 0
+        }
+      ],
+      "routable": false,
+      "supports": [
+        "drafts",
+        "revisions"
+      ],
+      "sortOrder": 60
+    },
+    {
+      "slug": "groepen",
+      "label": "Groepen",
+      "labelSingular": "Groep",
+      "titleField": "tijd",
+      "admin": {
+        "listColumns": [
+          "sport",
+          "dag",
+          "vol"
+        ]
+      },
+      "fields": [
+        {
+          "slug": "sport",
+          "label": "Sport",
+          "type": "select",
+          "validation": {
+            "options": [
+              "Tigers",
+              "EVOM Kids Fitness",
+              "Kids Core Craft"
+            ]
+          }
+        },
+        {
+          "slug": "dag",
+          "label": "Dag",
+          "type": "select",
+          "validation": {
+            "options": [
+              "maandag",
+              "dinsdag",
+              "woensdag",
+              "donderdag",
+              "vrijdag",
+              "zaterdag",
+              "zondag"
+            ]
+          }
+        },
+        {
+          "slug": "tijd",
+          "label": "Tijd",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "leeftijd",
+          "label": "Leeftijd",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "vol",
+          "label": "Vol",
+          "type": "boolean",
+          "defaultValue": false
+        },
+        {
+          "slug": "volgorde",
+          "label": "Volgorde",
+          "type": "integer",
+          "indexed": true,
+          "defaultValue": 0
+        }
+      ],
+      "routable": false,
+      "supports": [
+        "drafts",
+        "revisions"
+      ],
+      "sortOrder": 70
+    },
+    {
+      "slug": "cursusdata",
+      "label": "Cursusdata",
+      "labelSingular": "Cursusdatum",
+      "titleField": "naam",
+      "dateField": "datum",
+      "fields": [
+        {
+          "slug": "naam",
+          "label": "Naam",
+          "type": "string",
+          "required": true,
+          "defaultValue": "SPEAR cursus",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "datum",
+          "label": "Datum",
+          "type": "datetime",
+          "indexed": true
+        }
+      ],
+      "routable": false,
+      "supports": [
+        "drafts",
+        "revisions"
+      ],
+      "sortOrder": 80
+    },
+    {
+      "slug": "vakanties",
+      "label": "Vakanties",
+      "labelSingular": "Vakantie",
+      "titleField": "wanneer",
+      "admin": {
+        "listColumns": [
+          "volgorde"
+        ]
+      },
+      "fields": [
+        {
+          "slug": "wanneer",
+          "label": "Wanneer",
+          "type": "string",
+          "validation": {
+            "maxLength": 80
+          }
+        },
+        {
+          "slug": "wat",
+          "label": "Wat",
+          "type": "text",
+          "validation": {
+            "maxLength": 420
+          }
+        },
+        {
+          "slug": "volgorde",
+          "label": "Volgorde",
+          "type": "integer",
+          "indexed": true,
+          "defaultValue": 0
+        }
+      ],
+      "routable": false,
+      "supports": [
+        "drafts",
+        "revisions"
+      ],
+      "sortOrder": 90
+    }
+  ],
+  "taxonomies": [
+    {
+      "name": "faq_categorie",
+      "label": "FAQ-categorieën",
+      "labelSingular": "FAQ-categorie",
+      "hierarchical": false,
+      "collections": [
+        "vragen"
+      ]
+    }
+  ]
 }

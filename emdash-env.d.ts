@@ -5,12 +5,68 @@
 
 import type { BylineSummary, ContentBylineCredit, TaxonomyTerm, PortableTextBlock } from "emdash";
 
-export interface Page {
+export interface Home {
   id: string;
   slug: string | null;
   status: string;
   title: string;
-  content?: PortableTextBlock[];
+  hero_intro?: string;
+  hero_knop?: string;
+  hero_kop?: string;
+  hero_alt?: string;
+  intro_tekst?: string;
+  stappen_kop?: string;
+  stappen_1?: string;
+  stappen_2?: string;
+  stappen_3?: string;
+  stappen_4?: string;
+  stappen_slot?: string;
+  stappen_knop?: string;
+  aanbod_kop?: string;
+  aanbod_1_naam?: string;
+  aanbod_1_onderschrift?: string;
+  aanbod_1_tekst?: string;
+  aanbod_1_alt?: string;
+  aanbod_2_naam?: string;
+  aanbod_2_tekst?: string;
+  aanbod_2_alt?: string;
+  aanbod_3_naam?: string;
+  aanbod_3_leeftijd?: string;
+  aanbod_3_onderschrift?: string;
+  aanbod_3_tekst?: string;
+  aanbod_3_alt?: string;
+  aanbod_4_naam?: string;
+  aanbod_4_ondertitel?: string;
+  aanbod_4_tekst?: string;
+  aanbod_4_alt?: string;
+  aanbod_5_naam?: string;
+  aanbod_5_ondertitel?: string;
+  aanbod_5_tekst?: string;
+  aanbod_5_alt?: string;
+  aanbod_6_naam?: string;
+  aanbod_6_leeftijd?: string;
+  aanbod_6_ondertitel?: string;
+  aanbod_6_tekst?: string;
+  aanbod_6_alt?: string;
+  aanbod_7_naam?: string;
+  aanbod_7_leeftijd?: string;
+  aanbod_7_onderschrift?: string;
+  aanbod_7_ondertitel?: string;
+  aanbod_7_tekst?: string;
+  aanbod_7_alt?: string;
+  vlak_kop?: string;
+  vlak_tekst?: string;
+  quote?: string;
+  reviews_kop?: string;
+  slotquote?: string;
+  stappen2_kop?: string;
+  stappen2_1?: string;
+  stappen2_2?: string;
+  stappen2_3?: string;
+  stappen2_4?: string;
+  stappen2_slot?: string;
+  stappen2_knop?: string;
+  proefles_link?: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -19,14 +75,263 @@ export interface Page {
   terms?: Record<string, TaxonomyTerm[]>;
 }
 
-export interface Post {
+export interface Sportpagina {
   id: string;
   slug: string | null;
   status: string;
   title: string;
-  featured_image?: { id: string; src?: string; alt?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } };
-  content?: PortableTextBlock[];
-  excerpt?: string;
+  hero_paginatitel?: string;
+  hero_intro?: string;
+  hero_knop?: string;
+  hero_kop?: string;
+  hero_alt?: string;
+  intro_kop?: string;
+  intro_tekst?: PortableTextBlock[];
+  intro_link_tekst?: string;
+  intro_link?: string;
+  stappen_kop?: string;
+  stappen_ondertitel?: string;
+  stappen_1?: string;
+  stappen_2?: string;
+  stappen_3?: string;
+  stappen_4?: string;
+  stappen_slot?: string;
+  stappen_knop?: string;
+  kolom_inleiding?: string;
+  kolom_tekst?: PortableTextBlock[];
+  quote?: string;
+  reviews_kop?: string;
+  waarom_kop?: string;
+  waarom_tekst?: PortableTextBlock[];
+  uitklap_knop?: string;
+  uitklap_tekst?: PortableTextBlock[];
+  klaar_kop?: string;
+  klaar_tekst?: string;
+  klaar_knop?: string;
+  faq_kop?: string;
+  aanmelden_kop?: string;
+  aanmelden_intro?: string;
+  aanmelden_geen_data?: string;
+  planner?: string;
+  proefles_link?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface OverOn {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  hero_paginatitel?: string;
+  hero_kop?: string;
+  hero_intro?: string;
+  hero_knop?: string;
+  over_kop?: string;
+  over_tekst?: PortableTextBlock[];
+  team_kop?: string;
+  team_1_naam?: string;
+  team_1_rol?: string;
+  team_1_alt?: string;
+  team_2_naam?: string;
+  team_2_rol?: string;
+  team_2_alt?: string;
+  team_3_naam?: string;
+  team_3_rol?: string;
+  team_3_alt?: string;
+  team_4_naam?: string;
+  team_4_rol?: string;
+  team_4_alt?: string;
+  team_5_naam?: string;
+  team_5_rol?: string;
+  team_5_alt?: string;
+  team_6_naam?: string;
+  team_6_rol?: string;
+  team_6_alt?: string;
+  team_7_naam?: string;
+  team_7_rol?: string;
+  team_7_alt?: string;
+  team_8_naam?: string;
+  team_8_rol?: string;
+  team_8_alt?: string;
+  team_9_naam?: string;
+  team_9_rol?: string;
+  team_9_alt?: string;
+  team_10_naam?: string;
+  team_10_rol?: string;
+  team_10_alt?: string;
+  team_11_naam?: string;
+  team_11_rol?: string;
+  team_11_alt?: string;
+  team_12_naam?: string;
+  team_12_rol?: string;
+  team_12_alt?: string;
+  team_13_naam?: string;
+  team_13_rol?: string;
+  team_13_alt?: string;
+  missie_kop?: string;
+  missie_tekst?: string;
+  visie_kop?: string;
+  visie_tekst?: PortableTextBlock[];
+  contact_kop?: string;
+  contact_intro?: string;
+  proefles_link?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface PraktischInhoudTekstMetFotoV1Block {
+  _type: "tekst_met_foto";
+  _version: 1;
+  _key: string;
+  "foto"?: { id: string; src?: string; alt?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null;
+  "kant"?: "links" | "rechts" | null;
+  "vlak"?: "wit" | "donker" | null;
+  "kop"?: string | null;
+  "tekst"?: PortableTextBlock[] | null;
+}
+
+export type PraktischInhoudTekstMetFotoBlock = PraktischInhoudTekstMetFotoV1Block;
+
+export interface PraktischInhoudKolommenV1Block {
+  _type: "kolommen";
+  _version: 1;
+  _key: string;
+  "kolommen"?: { "kop"?: string | null; "tekst"?: string | null }[] | null;
+}
+
+export type PraktischInhoudKolommenBlock = PraktischInhoudKolommenV1Block;
+
+export interface PraktischInhoudTekstV1Block {
+  _type: "tekst";
+  _version: 1;
+  _key: string;
+  "tekst"?: PortableTextBlock[] | null;
+}
+
+export type PraktischInhoudTekstBlock = PraktischInhoudTekstV1Block;
+
+export interface PraktischInhoudVakantiesV1Block {
+  _type: "vakanties";
+  _version: 1;
+  _key: string;
+  "kop"?: string | null;
+}
+
+export type PraktischInhoudVakantiesBlock = PraktischInhoudVakantiesV1Block;
+
+export interface PraktischInhoudLesroosterV1Block {
+  _type: "lesrooster";
+  _version: 1;
+  _key: string;
+  "adres"?: string | null;
+  "rooster"?: string | null;
+}
+
+export type PraktischInhoudLesroosterBlock = PraktischInhoudLesroosterV1Block;
+
+export type PraktischInhoudBlock = PraktischInhoudTekstMetFotoBlock | PraktischInhoudKolommenBlock | PraktischInhoudTekstBlock | PraktischInhoudVakantiesBlock | PraktischInhoudLesroosterBlock;
+
+export interface Praktisch {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  hero_paginatitel?: string;
+  hero_intro?: string;
+  hero_knop?: string;
+  hero_kop?: string;
+  hero_alt?: string;
+  proefles_link?: string;
+  inhoud?: PraktischInhoudBlock[];
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Review {
+  id: string;
+  slug: string | null;
+  status: string;
+  naam?: string;
+  quote?: string;
+  paginas?: ("Home" | "EVOM Fitness" | "MMA" | "Yoga" | "SPEAR cursus" | "Tigers" | "Kids Core Craft" | "EVOM Kids Fitness")[];
+  volgorde?: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Vragen {
+  id: string;
+  slug: string | null;
+  status: string;
+  soort?: "Vraag" | "Inleiding";
+  vraag?: string;
+  antwoord?: PortableTextBlock[];
+  pagina?: "EVOM Fitness" | "MMA" | "Yoga" | "SPEAR cursus" | "Tigers" | "Kids Core Craft" | "EVOM Kids Fitness";
+  volgorde?: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Groepen {
+  id: string;
+  slug: string | null;
+  status: string;
+  sport?: "Tigers" | "EVOM Kids Fitness" | "Kids Core Craft";
+  dag?: "maandag" | "dinsdag" | "woensdag" | "donderdag" | "vrijdag" | "zaterdag" | "zondag";
+  tijd?: string;
+  leeftijd?: string;
+  vol?: boolean;
+  volgorde?: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Cursusdata {
+  id: string;
+  slug: string | null;
+  status: string;
+  naam: string;
+  datum?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Vakanty {
+  id: string;
+  slug: string | null;
+  status: string;
+  wanneer?: string;
+  wat?: string;
+  volgorde?: number;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -37,7 +342,14 @@ export interface Post {
 
 declare module "emdash" {
   interface EmDashCollections {
-    pages: Page;
-    posts: Post;
+    home: Home;
+    sportpaginas: Sportpagina;
+    over_ons: OverOn;
+    praktisch: Praktisch;
+    reviews: Review;
+    vragen: Vragen;
+    groepen: Groepen;
+    cursusdata: Cursusdata;
+    vakanties: Vakanty;
   }
 }
