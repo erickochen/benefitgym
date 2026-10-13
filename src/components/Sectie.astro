@@ -1,0 +1,39 @@
+---
+// One drawn section at its measured height, the blocks on top.
+import { type Entry, type Sectie, waarde } from "../layout";
+import Knop from "./Knop.astro";
+import Logo from "./Logo.astro";
+import Tekst from "./Tekst.astro";
+
+interface Props {
+	sectie: Sectie;
+	entry: Entry;
+	slug: string;
+	staticUrl: string;
+	eerste: boolean;
+}
+
+const { sectie, entry, slug, staticUrl, eerste } = Astro.props;
+const alt = sectie.alt ? ((waarde(entry, sectie.alt) as string | undefined) ?? "") : "";
+---
+
+<section class="sectie" style={`height:calc(${sectie.hoogte} * var(--s))`}>
+	<img
+		class="tekening"
+		src={`${staticUrl}/tekeningen/${slug}/${sectie.tekening}`}
+		alt={alt}
+		loading={eerste ? "eager" : "lazy"}
+		decoding="async"
+	/>
+	{
+		sectie.blokken.map((blok) =>
+			blok.soort === "logo" ? (
+				<Logo blok={blok} slug={slug} staticUrl={staticUrl} />
+			) : blok.soort === "knop" ? (
+				<Knop blok={blok} entry={entry} staticUrl={staticUrl} />
+			) : (
+				<Tekst blok={blok} entry={entry} />
+			),
+		)
+	}
+</section>

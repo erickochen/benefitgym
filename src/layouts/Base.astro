@@ -1,8 +1,11 @@
 ---
-import { getMenuWithCacheHint, getSiteSettingsWithCacheHint } from "emdash";
+import { getSiteSettingsWithCacheHint } from "emdash";
 import { EmDashHead, EmDashBodyStart, EmDashBodyEnd } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
+import { staticUrl as leesStaticUrl } from "../static";
 import { SITE_NAME } from "../teksten";
+import "../styles/basis.css";
+import "../styles/tekst.css";
 
 interface Props {
 	/** The full page title; SEO titles already carry the gym name. */
@@ -13,18 +16,32 @@ interface Props {
 	content?: { collection: string; id: string; slug?: string | null };
 }
 
+// Each face carries the family name, weight and style Framer declares, so an element matches the same file.
+const FONTS = [
+	["Interstate Regular", "Interstate-Regular.woff2", 500, "normal"],
+	["Interstate Bold", "Interstate-Bold.woff2", 700, "normal"],
+	["Interstate Bold Italic", "Interstate-BoldItalic.woff2", 700, "italic"],
+	["Interstate BoldItalic", "Interstate-BoldItalic-246.woff2", 700, "normal"],
+	["Interstate Black", "Interstate-Black.woff2", 900, "normal"],
+	["Interstate BlackItalic", "Interstate-BlackItalic.woff2", 900, "normal"],
+	["Interstate Light Regular", "Interstate-Light.woff2", 300, "normal"],
+	["Interstate Light Italic", "Interstate-LightItalic.woff2", 300, "italic"],
+	["Antique Olive Compact Regular Italic", "AntiqueOliveCompact-Italic.woff2", 400, "italic"],
+] as const;
+// The two faces above the fold: the hero intro plus the heading and the button.
+const PRELOAD = ["Interstate-BlackItalic.woff2", "AntiqueOliveCompact-Italic.woff2"];
+
 const { title, description, canonical, content } = Astro.props;
-const [settingsResult, menuResult] = await Promise.all([
-	getSiteSettingsWithCacheHint(),
-	getMenuWithCacheHint("primary"),
-]);
-if (Astro.cache?.enabled) {
-	Astro.cache.set(settingsResult.cacheHint);
-	Astro.cache.set(menuResult.cacheHint);
-}
+const staticUrl = leesStaticUrl();
+const fontCss = FONTS.map(
+	([family, file, weight, style]) =>
+		`@font-face{font-family:"${family}";src:url("${staticUrl}/fonts/${file}") format("woff2");font-weight:${weight};font-style:${style};font-display:block}`,
+).join("");
+
+const settingsResult = await getSiteSettingsWithCacheHint();
+if (Astro.cache?.enabled) Astro.cache.set(settingsResult.cacheHint);
 
 const siteTitle = settingsResult.data?.title ?? SITE_NAME;
-const menu = menuResult.data;
 
 const pageCtx = createPublicPageContext({
 	Astro,
@@ -46,30 +63,14 @@ const pageCtx = createPublicPageContext({
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>{title}</title>
 		<EmDashHead page={pageCtx} />
+		{PRELOAD.map((file) => <link rel="preload" href={`${staticUrl}/fonts/${file}`} as="font" type="font/woff2" crossorigin />)}
+		<style is:inline set:html={fontCss} />
 	</head>
 	<body>
 		<EmDashBodyStart page={pageCtx} />
-
-		<header>
-			<nav>
-				{
-					menu?.items.map((item) => (
-						<a
-							href={item.url}
-							target={item.target}
-							rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
-						>
-							{item.label}
-						</a>
-					))
-				}
-			</nav>
-		</header>
-
 		<main>
 			<slot />
 		</main>
-
 		<EmDashBodyEnd page={pageCtx} />
 	</body>
 </html>

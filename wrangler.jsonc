@@ -10,6 +10,7 @@
 	"routes": [{ "pattern": "staging.benefitgym.nl", "custom_domain": true }],
 	"vars": {
 		"EMDASH_SITE_URL": "https://staging.benefitgym.nl",
+		"STATIC_URL": "https://static.benefitgym.nl",
 	},
 	"d1_databases": [
 		{

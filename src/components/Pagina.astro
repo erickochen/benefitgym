@@ -1,0 +1,16 @@
+---
+// Walks the layout file of a page and puts every section down.
+import type { Entry, Layout } from "../layout";
+import Sectie from "./Sectie.astro";
+
+interface Props {
+	layout: Layout;
+	entry: Entry;
+	slug: string;
+	staticUrl: string;
+}
+
+const { layout, entry, slug, staticUrl } = Astro.props;
+---
+
+{layout.secties.map((sectie, i) => <Sectie sectie={sectie} entry={entry} slug={slug} staticUrl={staticUrl} eerste={i === 0} />)}

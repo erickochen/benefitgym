@@ -1,0 +1,88 @@
+/* One scale for everything: 1px at the design width and smaller below it. */
+:root {
+	--cap-getal: 1242;
+	--cap: calc(var(--cap-getal) * 1px);
+	--s: calc(min(100vw, var(--cap)) / var(--cap-getal));
+}
+
+html {
+	background: rgb(26, 26, 26);
+}
+
+body {
+	margin: 0;
+	-webkit-font-smoothing: antialiased;
+	font-synthesis: none;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.sectie {
+	position: relative;
+	width: 100%;
+	max-width: var(--cap);
+	background: rgb(255, 255, 255);
+}
+
+.sectie > .tekening {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.blok {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+}
+
+.alineas > p {
+	margin: 0;
+}
+
+.alineas > p + p {
+	margin-top: calc(20 * var(--s));
+}
+
+.knop {
+	display: block;
+	overflow: hidden;
+	text-decoration: none;
+}
+
+.knop > img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.knop > span {
+	position: absolute;
+	display: block;
+	margin: 0;
+}
+
+.link {
+	text-decoration: none;
+	color: inherit;
+}
+
+.logo > img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.logo > span {
+	position: absolute;
+	opacity: 0;
+}
