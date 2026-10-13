@@ -1,0 +1,27 @@
+# Benefit Gym
+
+The website of Benefit Gym in Schijndel. It is built with [EmDash](https://github.com/emdash-cms/emdash) on Astro and runs on Cloudflare Workers, with D1 for content and R2 for media. The code started from the EmDash starter template for Cloudflare.
+
+## Local development
+
+```bash
+pnpm install
+pnpm emdash secrets generate --write=.env
+pnpm dev
+```
+
+Then open http://localhost:4321/_emdash/admin and complete the setup wizard. It runs the database migrations and applies the seed in `seed/seed.json`. The site itself is at http://localhost:4321.
+
+## Deploying
+
+```bash
+pnpm wrangler login
+pnpm run deploy
+```
+
+This builds the site and deploys the Worker with Wrangler. The Worker only answers on its custom domain, which sits behind Cloudflare Access. The encryption key goes in as a secret with `pnpm wrangler secret put EMDASH_ENCRYPTION_KEY`.
+
+## Docs
+
+- [EmDash documentation](https://docs.emdashcms.com/)
+- [Deploy to Cloudflare](https://docs.emdashcms.com/deployment/cloudflare/)
