@@ -1,0 +1,356 @@
+{
+ "breedte": 1242,
+ "hoogte": 6636.109375,
+ "footer": {
+  "onder": 14
+ },
+ "secties": [
+  {
+   "naam": "sectie-1",
+   "hoogte": 1026.4375,
+   "tekening": "artwork-1.webp",
+   "alt": "hero_alt",
+   "blokken": [
+    {
+     "soort": "logo",
+     "beeld": {
+      "bestand": "kids-core-craft/logo",
+      "breedte": 974,
+      "kleiner": [
+       512
+      ],
+      "sizes": "(min-width: 1242px) calc(min(100vw, 1242px) * 0.231)"
+     },
+     "x": 44.703125,
+     "y": 42,
+     "w": 286.890625,
+     "h": 257.984375,
+     "z": 19
+    },
+    {
+     "soort": "tekst",
+     "veld": "hero_paginatitel",
+     "tag": "h1",
+     "stijl": "antique-40-2-oranje",
+     "x": 831.796875,
+     "y": 108.5625,
+     "w": 370.203125
+    },
+    {
+     "soort": "tekst",
+     "veld": "hero_intro",
+     "tag": "p",
+     "stijl": "black-cursief-26-4-wit",
+     "x": 116.734375,
+     "y": 369.203125,
+     "w": 431
+    },
+    {
+     "soort": "knop",
+     "veld": "hero_knop",
+     "link": "proefles_link",
+     "stijl": "antique-21-donker",
+     "x": 84.453125,
+     "y": 619.140625,
+     "w": 254,
+     "h": 55,
+     "radius": 28,
+     "achtergrond": "rgb(255, 255, 255)",
+     "beeld": null,
+     "tekst": {
+      "x": 28.359375,
+      "y": 10.703125,
+      "w": 197.265625
+     },
+     "z": 5
+    },
+    {
+     "soort": "tekst",
+     "veld": "hero_kop",
+     "tag": "h2",
+     "stijl": "antique-38-6-omlijnd-midden",
+     "x": 221.0625,
+     "y": 831.3125,
+     "w": 792
+    }
+   ]
+  },
+  {
+   "naam": "sectie-2",
+   "hoogte": 1031.546875,
+   "tekening": "artwork-2.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "intro_kop",
+     "tag": "p",
+     "stijl": "black-18-grijs",
+     "x": 96.984375,
+     "y": -7,
+     "w": 413
+    },
+    {
+     "soort": "alineas",
+     "veld": "intro_tekst",
+     "stijl": "regular-18-grijs-regel-1-444",
+     "x": 96.984375,
+     "y": 64.578125,
+     "w": 459
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_kop",
+     "tag": "h2",
+     "stijl": "antique-32-2-omlijnd-midden",
+     "x": 235.96875,
+     "y": 708.09375,
+     "w": 784
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_ondertitel",
+     "tag": "p",
+     "stijl": "antique-22-wit",
+     "x": 325.265625,
+     "y": 787.0625,
+     "w": 875
+    },
+    {
+     "soort": "cijfer",
+     "n": 1,
+     "stijl": "antique-40-2-omlijnd",
+     "x": 381.65625,
+     "y": 830.445313,
+     "w": 46
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_1",
+     "tag": "p",
+     "stijl": "light-18-wit",
+     "x": 433.703125,
+     "y": 839.75,
+     "w": 768
+    },
+    {
+     "soort": "cijfer",
+     "n": 2,
+     "stijl": "antique-40-2-omlijnd",
+     "x": 380.921875,
+     "y": 878.460938,
+     "w": 46
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_2",
+     "tag": "p",
+     "stijl": "light-18-wit",
+     "x": 433.703125,
+     "y": 887.765625,
+     "w": 768
+    },
+    {
+     "soort": "cijfer",
+     "n": 3,
+     "stijl": "antique-40-2-omlijnd",
+     "x": 380.921875,
+     "y": 937.429688,
+     "w": 46
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_3",
+     "tag": "p",
+     "stijl": "light-18-wit",
+     "x": 433.703125,
+     "y": 935.9375,
+     "w": 437
+    },
+    {
+     "soort": "cijfer",
+     "n": 4,
+     "stijl": "antique-40-2-omlijnd",
+     "x": 380.921875,
+     "y": 998.804688,
+     "w": 46,
+     "z": 1
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_4",
+     "tag": "p",
+     "stijl": "light-18-wit",
+     "x": 433.703125,
+     "y": 1008.109375,
+     "w": 768,
+     "z": 1
+    }
+   ]
+  },
+  {
+   "naam": "sectie-3",
+   "hoogte": 1023.0625,
+   "tekening": "artwork-3.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "stappen_slot",
+     "tag": "p",
+     "stijl": "bold-cursief-18-wit",
+     "x": 433.703125,
+     "y": 25.078125,
+     "w": 397
+    },
+    {
+     "soort": "knop",
+     "veld": "stappen_knop",
+     "link": "proefles_link",
+     "stijl": "antique-21-donker",
+     "x": 445.75,
+     "y": 103.359375,
+     "w": 371,
+     "h": 56,
+     "radius": 28,
+     "achtergrond": "rgba(0, 0, 0, 0)",
+     "beeld": {
+      "bestand": "kids-core-craft/stappen_knop",
+      "breedte": 742,
+      "kleiner": [
+       512
+      ],
+      "sizes": "(min-width: 1242px) 371px, (max-width: 809.98px) min(min(100vw, 1242px) - 48px, 371px), (min-width: 810px) and (max-width: 1241.98px) min(min(100vw, 1242px) - 96px, 371px)"
+     },
+     "tekst": {
+      "x": 31.25,
+      "y": 11.203125,
+      "w": 308.484375
+     },
+     "z": 5
+    },
+    {
+     "soort": "tekst",
+     "veld": "kolom_inleiding",
+     "tag": "p",
+     "stijl": "black-cursief-22-oranje",
+     "x": 719.71875,
+     "y": 307.421875,
+     "w": 414
+    },
+    {
+     "soort": "alineas",
+     "veld": "kolom_tekst",
+     "stijl": "regular-18-oranje",
+     "x": 715.375,
+     "y": 531.890625,
+     "w": 462
+    }
+   ]
+  },
+  {
+   "naam": "sectie-4",
+   "hoogte": 1016.359375,
+   "tekening": "artwork-4.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "quote",
+     "tag": "h2",
+     "stijl": "antique-46-2-omlijnd-midden",
+     "x": 111.765625,
+     "y": -40,
+     "w": 929
+    },
+    {
+     "soort": "tekst",
+     "veld": "reviews_kop",
+     "tag": "h2",
+     "stijl": "black-cursief-25-grijs-midden",
+     "x": 400.53125,
+     "y": 342.796875,
+     "w": 430
+    },
+    {
+     "soort": "tekst",
+     "veld": "waarom_kop",
+     "tag": "h2",
+     "stijl": "black-cursief-57-oranje",
+     "x": 115.5,
+     "y": 807.53125,
+     "w": 1032
+    }
+   ]
+  },
+  {
+   "naam": "sectie-5",
+   "hoogte": 1037.328125,
+   "tekening": "artwork-5.webp",
+   "blokken": [
+    {
+     "soort": "alineas",
+     "veld": "waarom_tekst",
+     "stijl": "regular-18-grijs-regel-1-444",
+     "x": 114,
+     "y": -55,
+     "w": 506
+    },
+    {
+     "soort": "tekst",
+     "veld": "klaar_kop",
+     "tag": "h2",
+     "stijl": "black-cursief-36-wit-regel-1-4",
+     "x": 256.828125,
+     "y": 763.15625,
+     "w": 759
+    },
+    {
+     "soort": "knop",
+     "veld": "klaar_knop",
+     "link": "proefles_link",
+     "stijl": "antique-21-donker",
+     "x": 467.234375,
+     "y": 846.59375,
+     "w": 365,
+     "h": 56,
+     "radius": 28,
+     "achtergrond": "rgba(0, 0, 0, 0)",
+     "beeld": {
+      "bestand": "kids-core-craft/klaar_knop",
+      "breedte": 730,
+      "kleiner": [
+       512
+      ],
+      "sizes": "(min-width: 1242px) 365px, (max-width: 809.98px) min(min(100vw, 1242px) - 48px, 365px), (min-width: 810px) and (max-width: 1241.98px) min(min(100vw, 1242px) - 96px, 365px)"
+     },
+     "tekst": {
+      "x": 28.25,
+      "y": 11.203125,
+      "w": 308.484375
+     },
+     "z": 5
+    }
+   ]
+  },
+  {
+   "naam": "sectie-6",
+   "hoogte": 1027.28125,
+   "tekening": "artwork-6.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "faq_kop",
+     "tag": "p",
+     "stijl": "black-cursief-29-grijs",
+     "x": 116.125,
+     "y": 31.90625,
+     "w": 579
+    }
+   ]
+  },
+  {
+   "naam": "sectie-7",
+   "hoogte": 474.09375,
+   "gebouwd": true,
+   "blokken": []
+  }
+ ]
+}

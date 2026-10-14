@@ -1,0 +1,319 @@
+{
+ "breedte": 1242,
+ "hoogte": 7046.734375,
+ "footer": {
+  "onder": 14
+ },
+ "secties": [
+  {
+   "naam": "sectie-1",
+   "hoogte": 1023.0625,
+   "tekening": "artwork-1.webp",
+   "alt": "hero_alt",
+   "blokken": [
+    {
+     "soort": "logo",
+     "beeld": {
+      "bestand": "spear-cursus/logo",
+      "breedte": 974,
+      "kleiner": [
+       512
+      ],
+      "sizes": "(min-width: 1242px) calc(min(100vw, 1242px) * 0.231)"
+     },
+     "x": 44.703125,
+     "y": 42,
+     "w": 286.890625,
+     "h": 257.984375,
+     "z": 19
+    },
+    {
+     "soort": "tekst",
+     "veld": "hero_paginatitel",
+     "tag": "h1",
+     "stijl": "antique-40-2-oranje",
+     "x": 882.6875,
+     "y": 100.90625,
+     "w": 319.3125
+    },
+    {
+     "soort": "tekst",
+     "veld": "hero_intro",
+     "tag": "p",
+     "stijl": "black-cursief-26-4-wit",
+     "x": 117.734375,
+     "y": 424.46875,
+     "w": 416
+    },
+    {
+     "soort": "knop",
+     "veld": "hero_knop",
+     "link": "proefles_link",
+     "stijl": "antique-21-donker",
+     "x": 84.453125,
+     "y": 619.140625,
+     "w": 290,
+     "h": 55,
+     "radius": 28,
+     "achtergrond": "rgb(255, 255, 255)",
+     "beeld": null,
+     "tekst": {
+      "x": 28.5625,
+      "y": 10.703125,
+      "w": 232.859375
+     },
+     "z": 5
+    },
+    {
+     "soort": "tekst",
+     "veld": "hero_kop",
+     "tag": "h2",
+     "stijl": "antique-38-6-omlijnd-midden",
+     "x": 347.75,
+     "y": 847.203125,
+     "w": 625
+    }
+   ]
+  },
+  {
+   "naam": "sectie-2",
+   "hoogte": 1001.609375,
+   "tekening": "artwork-2.webp",
+   "blokken": [
+    {
+     "soort": "alineas",
+     "veld": "intro_tekst",
+     "stijl": "regular-18-blauw",
+     "x": 90.15625,
+     "y": 16.5,
+     "w": 520
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_kop",
+     "tag": "h2",
+     "stijl": "antique-32-2-omlijnd-midden",
+     "x": 323.78125,
+     "y": 708.09375,
+     "w": 613
+    },
+    {
+     "soort": "cijfer",
+     "n": 1,
+     "stijl": "antique-40-2-omlijnd",
+     "x": 388.78125,
+     "y": 784.804688,
+     "w": 46
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_1",
+     "tag": "p",
+     "stijl": "light-18-wit",
+     "x": 430.34375,
+     "y": 794.109375,
+     "w": 773
+    },
+    {
+     "soort": "cijfer",
+     "n": 2,
+     "stijl": "antique-40-2-omlijnd",
+     "x": 388.171875,
+     "y": 832.726563,
+     "w": 46
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_2",
+     "tag": "p",
+     "stijl": "light-18-wit",
+     "x": 430.34375,
+     "y": 842.03125,
+     "w": 773
+    },
+    {
+     "soort": "cijfer",
+     "n": 3,
+     "stijl": "antique-40-2-omlijnd",
+     "x": 387.953125,
+     "y": 891.804688,
+     "w": 46
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_3",
+     "tag": "p",
+     "stijl": "light-18-wit",
+     "x": 428.484375,
+     "y": 890.3125,
+     "w": 498
+    }
+   ]
+  },
+  {
+   "naam": "sectie-3",
+   "hoogte": 1044.5625,
+   "tekening": "artwork-3.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "stappen_slot",
+     "tag": "p",
+     "stijl": "bold-cursief-18-wit",
+     "x": 428.484375,
+     "y": -46,
+     "w": 471
+    },
+    {
+     "soort": "knop",
+     "veld": "stappen_knop",
+     "link": "proefles_link",
+     "stijl": "antique-21-donker",
+     "x": 422.765625,
+     "y": 35.328125,
+     "w": 412,
+     "h": 56,
+     "radius": 28,
+     "achtergrond": "rgba(0, 0, 0, 0)",
+     "beeld": {
+      "bestand": "spear-cursus/stappen_knop",
+      "breedte": 824,
+      "kleiner": [
+       512
+      ],
+      "sizes": "(min-width: 1242px) 412px, (min-width: 810px) and (max-width: 1241.98px) min(min(100vw, 1242px) - 96px, 412px), (max-width: 809.98px) min(min(100vw, 1242px) - 48px, 412px)"
+     },
+     "tekst": {
+      "x": 74.75,
+      "y": 11.203125,
+      "w": 262.5
+     },
+     "z": 5
+    },
+    {
+     "soort": "tekst",
+     "veld": "kolom_inleiding",
+     "tag": "p",
+     "stijl": "black-cursief-22-oranje",
+     "x": 704.578125,
+     "y": 309.09375,
+     "w": 401
+    },
+    {
+     "soort": "alineas",
+     "veld": "kolom_tekst",
+     "stijl": "regular-18-oranje",
+     "x": 703.453125,
+     "y": 499.59375,
+     "w": 456
+    },
+    {
+     "soort": "tekst",
+     "veld": "quote",
+     "tag": "h2",
+     "stijl": "antique-46-2-omlijnd-midden",
+     "x": 111.765625,
+     "y": 757.3125,
+     "w": 1006
+    }
+   ]
+  },
+  {
+   "naam": "sectie-4",
+   "hoogte": 1034.125,
+   "tekening": "artwork-4.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "reviews_kop",
+     "tag": "h2",
+     "stijl": "black-cursief-25-grijs-midden",
+     "x": 395.5625,
+     "y": 59.34375,
+     "w": 430
+    },
+    {
+     "soort": "tekst",
+     "veld": "waarom_kop",
+     "tag": "h2",
+     "stijl": "black-cursief-57-oranje",
+     "x": 96.375,
+     "y": 507.140625,
+     "w": 1014
+    },
+    {
+     "soort": "alineas",
+     "veld": "waarom_tekst",
+     "stijl": "regular-18-grijs-regel-1-444",
+     "x": 110.28125,
+     "y": 720.40625,
+     "w": 535
+    }
+   ]
+  },
+  {
+   "naam": "sectie-5",
+   "hoogte": 1012.21875,
+   "tekening": "artwork-5.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "klaar_kop",
+     "tag": "h2",
+     "stijl": "black-cursief-36-wit-regel-1-4",
+     "x": 259.3125,
+     "y": 782.59375,
+     "w": 720
+    },
+    {
+     "soort": "knop",
+     "veld": "klaar_knop",
+     "link": "proefles_link",
+     "stijl": "antique-21-donker",
+     "x": 410.59375,
+     "y": 909.875,
+     "w": 420,
+     "h": 56,
+     "radius": 28,
+     "achtergrond": "rgba(0, 0, 0, 0)",
+     "beeld": {
+      "bestand": "spear-cursus/klaar_knop",
+      "breedte": 840,
+      "kleiner": [
+       512
+      ],
+      "sizes": "(min-width: 1242px) 420px, (min-width: 810px) and (max-width: 1241.98px) min(min(100vw, 1242px) - 96px, 420px), (max-width: 809.98px) min(min(100vw, 1242px) - 48px, 420px)"
+     },
+     "tekst": {
+      "x": 78.75,
+      "y": 11.203125,
+      "w": 262.5
+     },
+     "z": 5
+    }
+   ]
+  },
+  {
+   "naam": "sectie-6",
+   "hoogte": 1023.0625,
+   "tekening": "artwork-6.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "faq_kop",
+     "tag": "p",
+     "stijl": "black-cursief-29-grijs",
+     "x": 457.046875,
+     "y": 94.078125,
+     "w": 617
+    }
+   ]
+  },
+  {
+   "naam": "sectie-7",
+   "hoogte": 908.09375,
+   "gebouwd": true,
+   "blokken": []
+  }
+ ]
+}

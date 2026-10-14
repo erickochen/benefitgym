@@ -19,7 +19,8 @@ export interface Beeld {
 	sizes?: string;
 }
 
-export type Blok =
+// A block with a z-index lies above the next sections, as its measured item does.
+export type Blok = (
 	| ({ soort: "logo"; beeld: Beeld } & Vak)
 	| ({ soort: "tekst"; veld: string; link?: string; tag: string; stijl: string } & Plek)
 	| ({ soort: "alineas"; veld: string; stijl: string } & Plek)
@@ -33,12 +34,15 @@ export type Blok =
 			achtergrond: string;
 			beeld: Beeld | null;
 			tekst: Plek;
-	  } & Vak);
+	  } & Vak)
+) & { z?: number };
 
+// A drawn section names its drawing; a built section has none and only keeps its height for now.
 export interface Sectie {
 	naam: string;
 	hoogte: number;
-	tekening: string;
+	tekening?: string;
+	gebouwd?: boolean;
 	alt?: string;
 	blokken: Blok[];
 }
@@ -95,6 +99,13 @@ export interface FooterLayout {
 export interface Entry {
 	data: object;
 	edit: EditProxy;
+}
+
+// The place of a block on its section, in design units, with its z-index when it has one.
+export function plekVan(blok: Plek & { h?: number; z?: number }): string {
+	const maat = blok.h === undefined ? "" : `;height:calc(${blok.h} * var(--s))`;
+	const stapel = blok.z === undefined ? "" : `;z-index:${blok.z}`;
+	return `left:calc(${blok.x} * var(--s));top:calc(${blok.y} * var(--s));width:calc(${blok.w} * var(--s))${maat}${stapel}`;
 }
 
 export function waarde(entry: Entry, veld: string): unknown {

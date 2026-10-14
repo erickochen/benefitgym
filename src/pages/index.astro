@@ -1,10 +1,17 @@
 ---
 import { getEmDashEntry, getSeoMeta, getSiteSettings } from "emdash";
+import Pagina from "../components/Pagina.astro";
+import type { Layout } from "../layout";
+import data from "../layout/home.json";
 import Base from "../layouts/Base.astro";
+import { staticUrl as leesStaticUrl } from "../static";
 import { SITE_NAME } from "../teksten";
 
+const SLUG = "home";
+const layout = data as Layout;
+
 // Home has a fixed slug: the route resolver skips a pattern without one.
-const { entry: home, cacheHint } = await getEmDashEntry("home", "home");
+const { entry: home, cacheHint } = await getEmDashEntry("home", SLUG);
 if (!home) return Astro.rewrite("/404");
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
@@ -22,7 +29,8 @@ const seo = getSeoMeta(home, {
 	title={seo.title}
 	description={seo.description}
 	canonical={seo.canonical}
-	content={{ collection: "home", id: home.data.id, slug: "home" }}
+	content={{ collection: "home", id: home.data.id, slug: SLUG }}
+	footerOnder={layout.footer.onder}
 >
-	<h1 {...home.edit.title}>{home.data.title}</h1>
+	<Pagina layout={layout} entry={home} slug={SLUG} staticUrl={leesStaticUrl()} />
 </Base>

@@ -1,0 +1,418 @@
+{
+ "breedte": 1242,
+ "hoogte": 6628.84375,
+ "footer": {
+  "onder": 14
+ },
+ "secties": [
+  {
+   "naam": "sectie-1",
+   "hoogte": 972.578125,
+   "tekening": "artwork-1.webp",
+   "blokken": [
+    {
+     "soort": "logo",
+     "beeld": {
+      "bestand": "over-ons/logo",
+      "breedte": 974,
+      "kleiner": [
+       512
+      ],
+      "sizes": "(min-width: 1242px) calc(min(100vw, 1242px) * 0.231)"
+     },
+     "x": 44.703125,
+     "y": 42,
+     "w": 286.890625,
+     "h": 257.984375,
+     "z": 19
+    },
+    {
+     "soort": "tekst",
+     "veld": "hero_paginatitel",
+     "tag": "h1",
+     "stijl": "antique-40-2-wit",
+     "x": 989.828125,
+     "y": 113.890625,
+     "w": 212.171875
+    },
+    {
+     "soort": "tekst",
+     "veld": "hero_kop",
+     "tag": "p",
+     "stijl": "black-cursief-55-9-wit",
+     "x": 198.21875,
+     "y": 347.703125,
+     "w": 830
+    },
+    {
+     "soort": "tekst",
+     "veld": "hero_intro",
+     "tag": "p",
+     "stijl": "antique-22-wit-midden",
+     "x": 213.609375,
+     "y": 504.046875,
+     "w": 797
+    },
+    {
+     "soort": "knop",
+     "veld": "hero_knop",
+     "link": "proefles_link",
+     "stijl": "antique-21-donker",
+     "x": 493.8125,
+     "y": 603.203125,
+     "w": 254,
+     "h": 55,
+     "radius": 28,
+     "achtergrond": "rgb(255, 255, 255)",
+     "beeld": null,
+     "tekst": {
+      "x": 28.359375,
+      "y": 10.703125,
+      "w": 197.265625
+     },
+     "z": 5
+    }
+   ]
+  },
+  {
+   "naam": "sectie-2",
+   "hoogte": 1021.375,
+   "tekening": "artwork-2.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "over_kop",
+     "tag": "h2",
+     "stijl": "black-cursief-52-7-wit",
+     "x": 136.609375,
+     "y": -8,
+     "w": 1063
+    },
+    {
+     "soort": "alineas",
+     "veld": "over_tekst",
+     "stijl": "regular-18-wit",
+     "x": 140.46875,
+     "y": 80.453125,
+     "w": 505
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_kop",
+     "tag": "h2",
+     "stijl": "black-cursief-57-grijs",
+     "x": 928.5,
+     "y": 898.046875,
+     "w": 173
+    }
+   ]
+  },
+  {
+   "naam": "sectie-3",
+   "hoogte": 962.03125,
+   "tekening": "artwork-3.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "team_1_naam",
+     "tag": "h3",
+     "stijl": "black-cursief-50-8-grijs",
+     "x": 518.03125,
+     "y": 124.234375,
+     "w": 684
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_1_rol",
+     "tag": "p",
+     "stijl": "bold-cursief-14-3-grijs",
+     "x": 516.421875,
+     "y": 185.46875,
+     "w": 685
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_2_naam",
+     "tag": "h3",
+     "stijl": "black-cursief-50-8-oranje",
+     "x": 931.5,
+     "y": 317.3125,
+     "w": 270
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_2_rol",
+     "tag": "p",
+     "stijl": "bold-cursief-14-3-oranje",
+     "x": 920.3125,
+     "y": 376.015625,
+     "w": 190
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_3_naam",
+     "tag": "h3",
+     "stijl": "black-cursief-50-8-oranje",
+     "x": 324.15625,
+     "y": 407.203125,
+     "w": 599
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_3_rol",
+     "tag": "p",
+     "stijl": "bold-cursief-14-3-oranje-rechts",
+     "x": 301.171875,
+     "y": 470.265625,
+     "w": 190
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_4_naam",
+     "tag": "h3",
+     "stijl": "black-cursief-50-8-grijs",
+     "x": 491.828125,
+     "y": 662.390625,
+     "w": 712
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_4_rol",
+     "tag": "p",
+     "stijl": "bold-cursief-14-3-grijs",
+     "x": 486.859375,
+     "y": 724.1875,
+     "w": 716
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_5_naam",
+     "tag": "h3",
+     "stijl": "black-cursief-50-8-oranje",
+     "x": 959.0625,
+     "y": 838.046875,
+     "w": 243
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_5_rol",
+     "tag": "p",
+     "stijl": "bold-cursief-14-3-oranje",
+     "x": 922.296875,
+     "y": 903.921875,
+     "w": 150
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_6_naam",
+     "tag": "h3",
+     "stijl": "black-cursief-50-8-oranje",
+     "x": 328.625,
+     "y": 962.03125,
+     "w": 872,
+     "z": 3
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_6_rol",
+     "tag": "p",
+     "stijl": "bold-cursief-14-3-oranje-rechts",
+     "x": 368.109375,
+     "y": 1032.40625,
+     "w": 150,
+     "z": 3
+    }
+   ]
+  },
+  {
+   "naam": "sectie-4",
+   "hoogte": 979.484375,
+   "tekening": "artwork-4.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "team_7_naam",
+     "tag": "h3",
+     "stijl": "black-cursief-50-8-grijs",
+     "x": 381.40625,
+     "y": 218.609375,
+     "w": 198
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_7_rol",
+     "tag": "p",
+     "stijl": "bold-cursief-14-3-grijs--2",
+     "x": 378.796875,
+     "y": 279.09375,
+     "w": 210.828125
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_8_naam",
+     "tag": "h3",
+     "stijl": "black-cursief-50-8-grijs",
+     "x": 584.234375,
+     "y": 278.34375,
+     "w": 616
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_8_rol",
+     "tag": "p",
+     "stijl": "bold-cursief-14-3-grijs--2",
+     "x": 559.203125,
+     "y": 339.25,
+     "w": 210.828125
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_9_naam",
+     "tag": "h3",
+     "stijl": "black-cursief-50-8-oranje",
+     "x": 750.03125,
+     "y": 442.296875,
+     "w": 451
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_9_rol",
+     "tag": "p",
+     "stijl": "bold-cursief-14-3-oranje",
+     "x": 754.625,
+     "y": 509.015625,
+     "w": 446
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_10_naam",
+     "tag": "h3",
+     "stijl": "black-cursief-50-8-oranje",
+     "x": 168.65625,
+     "y": 528.28125,
+     "w": 581
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_10_rol",
+     "tag": "p",
+     "stijl": "bold-cursief-14-3-oranje",
+     "x": 158.21875,
+     "y": 592.265625,
+     "w": 1044
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_11_naam",
+     "tag": "h3",
+     "stijl": "black-cursief-50-8-grijs",
+     "x": 903.546875,
+     "y": 635.609375,
+     "w": 299
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_11_rol",
+     "tag": "p",
+     "stijl": "bold-cursief-14-3-grijs",
+     "x": 892.859375,
+     "y": 695.015625,
+     "w": 215
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_12_naam",
+     "tag": "h3",
+     "stijl": "black-cursief-50-8-grijs",
+     "x": 442.140625,
+     "y": 714.203125,
+     "w": 455
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_12_rol",
+     "tag": "p",
+     "stijl": "bold-cursief-14-3-grijs",
+     "x": 442.640625,
+     "y": 779.171875,
+     "w": 761
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_13_naam",
+     "tag": "h3",
+     "stijl": "black-cursief-50-8-oranje",
+     "x": 368.859375,
+     "y": 1023.90625,
+     "w": 834,
+     "z": 3
+    },
+    {
+     "soort": "tekst",
+     "veld": "team_13_rol",
+     "tag": "p",
+     "stijl": "bold-cursief-14-3-oranje--2",
+     "x": 285.8125,
+     "y": 1088.515625,
+     "w": 210.984375,
+     "z": 3
+    }
+   ]
+  },
+  {
+   "naam": "sectie-5",
+   "hoogte": 984.140625,
+   "tekening": "artwork-5.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "missie_kop",
+     "tag": "h2",
+     "stijl": "black-cursief-52-7-wit",
+     "x": 783.0625,
+     "y": 469.734375,
+     "w": 419
+    },
+    {
+     "soort": "tekst",
+     "veld": "missie_tekst",
+     "tag": "p",
+     "stijl": "black-cursief-34-1-wit",
+     "x": 693.015625,
+     "y": 557.4375,
+     "w": 446
+    }
+   ]
+  },
+  {
+   "naam": "sectie-6",
+   "hoogte": 984.140625,
+   "tekening": "artwork-6.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "visie_kop",
+     "tag": "h2",
+     "stijl": "black-cursief-52-7-oranje",
+     "x": 133.875,
+     "y": 167.515625,
+     "w": 1067
+    },
+    {
+     "soort": "alineas",
+     "veld": "visie_tekst",
+     "stijl": "regular-18-grijs-regel-1-444",
+     "x": 138.21875,
+     "y": 255.765625,
+     "w": 507
+    }
+   ]
+  },
+  {
+   "naam": "sectie-7",
+   "hoogte": 725.09375,
+   "gebouwd": true,
+   "blokken": []
+  }
+ ]
+}

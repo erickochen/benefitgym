@@ -45,7 +45,6 @@ export interface Home {
   aanbod_5_alt?: string;
   aanbod_6_naam?: string;
   aanbod_6_leeftijd?: string;
-  aanbod_6_ondertitel?: string;
   aanbod_6_tekst?: string;
   aanbod_6_alt?: string;
   aanbod_7_naam?: string;
