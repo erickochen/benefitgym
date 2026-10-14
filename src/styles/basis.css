@@ -32,6 +32,7 @@ picture {
 	position: relative;
 	width: 100%;
 	max-width: var(--cap);
+	height: var(--hoogte, auto);
 	background: rgb(255, 255, 255);
 }
 
@@ -46,6 +47,7 @@ picture {
 /* A part of a cut section; its window shows its slice of the drawing, the blocks may still reach past it. */
 .sectie-deel {
 	position: relative;
+	height: var(--hoogte, auto);
 }
 
 .tekening-venster {
@@ -63,8 +65,20 @@ picture {
 
 .blok {
 	position: absolute;
+	left: var(--left);
+	top: var(--top);
+	width: var(--width);
+	height: var(--height, auto);
+	z-index: var(--z, auto);
 	margin: 0;
 	padding: 0;
+}
+
+/* A band plus its row only take a box in the column; above it each block lies on the drawing. */
+.band,
+.rij,
+.cijfer-vak {
+	display: contents;
 }
 
 .alineas > p {
@@ -78,6 +92,8 @@ picture {
 .knop {
 	display: block;
 	overflow: hidden;
+	border-radius: var(--radius);
+	background-color: var(--vulling);
 	text-decoration: none;
 }
 
@@ -92,6 +108,9 @@ picture {
 .knop > span {
 	position: absolute;
 	display: block;
+	left: var(--tekst-left);
+	top: var(--tekst-top);
+	width: var(--tekst-width);
 	margin: 0;
 }
 
@@ -112,6 +131,12 @@ picture {
 	opacity: 0;
 }
 
+/* A cut-out plus an image of the column only show below 1242. */
+.uitsnede,
+img.alleen-kolom {
+	display: none;
+}
+
 /* Text for a screen reader alone. */
 .verborgen {
 	position: absolute;
@@ -123,4 +148,204 @@ picture {
 	clip-path: inset(50%);
 	white-space: nowrap;
 	border: 0;
+}
+
+/* The column, on the breakpoints of the measured page. Each element carries its measures per breakpoint as
+--t-* plus --p-*. The rules below read the ones that apply. */
+@media (min-width: 810px) and (max-width: 1241.98px) {
+	.met-kolom .band {
+		--b-rand: var(--t-b-rand);
+		--b-kleur: var(--t-b-kleur);
+		--b-z: var(--t-b-z);
+		--b-breedte: var(--t-b-breedte);
+		--b-zelf: var(--t-b-zelf);
+		--u-ratio: var(--t-u-ratio);
+	}
+
+	.met-kolom .rij {
+		--r-rand: var(--t-r-rand);
+		--r-kleur: var(--t-r-kleur);
+		--r-gat: var(--t-r-gat);
+		--r-uit: var(--t-r-uit);
+		--r-kruis: var(--t-r-kruis);
+		--r-pos: var(--t-r-pos);
+		--r-boven: var(--t-r-boven);
+		--r-z: var(--t-r-z);
+	}
+
+	.met-kolom .blok,
+	.met-kolom .cijfer-vak {
+		--k-breedte: var(--t-k-breedte);
+		--k-flex: var(--t-k-flex);
+		--k-max: var(--t-k-max);
+		--k-hoogte: var(--t-k-hoogte);
+		--k-ratio: var(--t-k-ratio);
+		--k-inspring: var(--t-k-inspring);
+		--k-vulling: var(--t-k-vulling);
+	}
+}
+
+@media (max-width: 809.98px) {
+	.met-kolom .band {
+		--b-rand: var(--p-b-rand);
+		--b-kleur: var(--p-b-kleur);
+		--b-z: var(--p-b-z);
+		--b-breedte: var(--p-b-breedte);
+		--b-zelf: var(--p-b-zelf);
+		--u-ratio: var(--p-u-ratio);
+	}
+
+	.met-kolom .rij {
+		--r-rand: var(--p-r-rand);
+		--r-kleur: var(--p-r-kleur);
+		--r-gat: var(--p-r-gat);
+		--r-uit: var(--p-r-uit);
+		--r-kruis: var(--p-r-kruis);
+		--r-pos: var(--p-r-pos);
+		--r-boven: var(--p-r-boven);
+		--r-z: var(--p-r-z);
+	}
+
+	.met-kolom .blok,
+	.met-kolom .cijfer-vak {
+		--k-breedte: var(--p-k-breedte);
+		--k-flex: var(--p-k-flex);
+		--k-max: var(--p-k-max);
+		--k-hoogte: var(--p-k-hoogte);
+		--k-ratio: var(--p-k-ratio);
+		--k-inspring: var(--p-k-inspring);
+		--k-vulling: var(--p-k-vulling);
+	}
+}
+
+@media (max-width: 1241.98px) {
+	.met-kolom {
+		--s: 1px;
+	}
+
+	/* The column never scrolls sideways, as the measured page does not. */
+	.met-kolom .kolom {
+		overflow-x: clip;
+	}
+
+	.met-kolom .sectie {
+		display: flex;
+		flex-direction: column;
+		height: auto;
+	}
+
+	.met-kolom .sectie > .tekening,
+	.met-kolom .tekening-venster {
+		display: none;
+	}
+
+	.met-kolom .sectie-deel {
+		display: contents;
+	}
+
+	.met-kolom .band {
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		box-sizing: border-box;
+		padding: var(--b-rand, 0);
+		background: var(--b-kleur, transparent);
+		z-index: var(--b-z, auto);
+		width: var(--b-breedte, auto);
+		align-self: var(--b-zelf, stretch);
+	}
+
+	.met-kolom .rij {
+		display: flex;
+		flex-direction: row;
+		position: var(--r-pos, relative);
+		top: var(--r-boven, auto);
+		left: 0;
+		right: 0;
+		box-sizing: border-box;
+		padding: var(--r-rand, 0);
+		background: var(--r-kleur, transparent);
+		gap: var(--r-gat, 0);
+		justify-content: var(--r-uit, flex-start);
+		align-items: var(--r-kruis, flex-start);
+		z-index: var(--r-z, auto);
+	}
+
+	.met-kolom .uitsnede {
+		display: block;
+		width: 100%;
+		height: auto;
+		aspect-ratio: var(--u-ratio);
+		object-fit: cover;
+	}
+
+	.met-kolom .band .blok {
+		position: relative;
+		left: auto;
+		top: auto;
+		width: var(--k-breedte, auto);
+		max-width: var(--k-max, none);
+		flex: var(--k-flex, none);
+		min-width: 0;
+		height: var(--k-hoogte, auto);
+		aspect-ratio: var(--k-ratio, auto);
+		z-index: auto;
+	}
+
+	/* A digit stands in a box of one line, indented by its glyph, with the line beside it. */
+	.met-kolom .cijfer-vak {
+		display: flex;
+		align-items: center;
+		flex: none;
+		box-sizing: border-box;
+		width: var(--k-breedte);
+		height: var(--k-hoogte);
+		padding-left: var(--k-inspring, 0);
+	}
+
+	.met-kolom .cijfer-vak > .blok {
+		width: auto;
+		max-width: none;
+		flex: 1 1 0;
+		height: auto;
+		aspect-ratio: auto;
+	}
+
+	.met-kolom .band .knop {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	/* The image carries the rounding itself, so the ends clip the way the measured button clips them. */
+	.met-kolom .band .knop {
+		overflow: visible;
+		background-color: var(--k-vulling, var(--vulling));
+	}
+
+	.met-kolom .band .knop img {
+		border-radius: var(--radius);
+	}
+
+	/* Relative, so the text paints above the image of the button. */
+	.met-kolom .band .knop > span {
+		position: relative;
+		left: auto;
+		top: auto;
+		width: auto;
+	}
+
+	.met-kolom img.alleen-desktop {
+		display: none;
+	}
+
+	.met-kolom img.alleen-kolom {
+		display: block;
+	}
+
+	/* Last plus as heavy as the button rule, so it wins over every display rule above. */
+	.met-kolom .zonder-kolom,
+	.met-kolom .band .zonder-kolom {
+		display: none;
+	}
 }

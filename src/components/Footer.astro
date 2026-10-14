@@ -99,13 +99,13 @@ const variabelen = Object.entries({
 	"--f-onder-h": f.onder.h,
 	"--f-onder-gat": f.onder.gat,
 	"background-color": f.achtergrond,
-	...(onder === undefined ? {} : { position: "absolute", left: "0", bottom: `calc(${onder} * var(--s))` }),
+	...(onder === undefined ? {} : { "--f-op-pagina": `calc(${onder} * var(--s))` }),
 })
 	.map(([naam, waarde]) => `${naam}:${waarde}`)
 	.join(";");
 ---
 
-<footer class="footer" style={variabelen}>
+<footer class:list={["footer", onder !== undefined && "footer-op-pagina"]} style={variabelen}>
 	<div class="footer-kolommen">
 		{
 			kolommenVan(primary.data?.items ?? []).map((groep) => (

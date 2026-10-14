@@ -1,0 +1,28 @@
+---
+// One band of a section: a box with its padding and color in the column, no box above it.
+import { type Band, type Entry, bandVars, rijVars, waarde } from "../layout";
+import Blokken from "./Blokken.astro";
+import Uitsnede from "./Uitsnede.astro";
+
+interface Props {
+	band: Band;
+	entry: Entry;
+	slug: string;
+	staticUrl: string;
+	eerste: boolean;
+}
+
+const { band, entry, slug, staticUrl, eerste } = Astro.props;
+const alt = band.uitsnede?.alt ? ((waarde(entry, band.uitsnede.alt) as string | undefined) ?? "") : "";
+---
+
+<div class:list={["band", band.kolom === null && "zonder-kolom"]} style={band.kolom ? bandVars(band.kolom) : undefined}>
+	{band.uitsnede && <Uitsnede bestand={`${slug}/mobiel/${band.uitsnede.bestand}`} alt={alt} staticUrl={staticUrl} eerste={eerste} />}
+	{
+		band.blokken.length > 0 && (
+			<div class="rij" style={band.kolom ? rijVars(band.kolom) : undefined}>
+				<Blokken blokken={band.blokken} entry={entry} staticUrl={staticUrl} />
+			</div>
+		)
+	}
+</div>

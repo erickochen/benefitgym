@@ -10,68 +10,88 @@
    "hoogte": 863.6875,
    "tekening": "artwork-1.webp",
    "alt": "hero_alt",
-   "blokken": [
+   "banden": [
     {
-     "soort": "logo",
-     "beeld": {
-      "bestand": "vakanties/logo",
-      "breedte": 975,
-      "kleiner": [
-       512
-      ],
-      "sizes": "(min-width: 1242px) calc(min(100vw, 1242px) * 0.231)"
-     },
-     "x": 44.703125,
-     "y": 42,
-     "w": 286.890625,
-     "h": 257.984375,
-     "z": 19
+     "blokken": [
+      {
+       "soort": "logo",
+       "beeld": {
+        "bestand": "vakanties/logo",
+        "breedte": 975,
+        "kleiner": [
+         512
+        ],
+        "sizes": "(min-width: 1242px) calc(min(100vw, 1242px) * 0.231)"
+       },
+       "x": 44.703125,
+       "y": 42,
+       "w": 286.890625,
+       "h": 257.984375,
+       "z": 19
+      }
+     ]
     },
     {
-     "soort": "tekst",
-     "veld": "hero_paginatitel",
-     "tag": "h1",
-     "stijl": "antique-40-2-oranje",
-     "x": 959.734375,
-     "y": 111.578125,
-     "w": 242.265625
+     "blokken": [
+      {
+       "soort": "tekst",
+       "veld": "hero_paginatitel",
+       "tag": "h1",
+       "stijl": "antique-40-2-oranje--2",
+       "x": 959.734375,
+       "y": 111.578125,
+       "w": 242.265625
+      }
+     ]
     },
     {
-     "soort": "tekst",
-     "veld": "hero_intro",
-     "tag": "p",
-     "stijl": "black-cursief-26-4-wit",
-     "x": 114.75,
-     "y": 410.15625,
-     "w": 394
+     "blokken": [
+      {
+       "soort": "tekst",
+       "veld": "hero_intro",
+       "tag": "p",
+       "stijl": "black-cursief-26-4-wit--2",
+       "x": 114.75,
+       "y": 410.15625,
+       "w": 394
+      }
+     ]
     },
     {
-     "soort": "knop",
-     "veld": "hero_knop",
-     "link": "proefles_link",
-     "stijl": "antique-21-donker",
-     "x": 84.9375,
-     "y": 621,
-     "w": 254,
-     "h": 55,
-     "radius": 28,
-     "achtergrond": "rgb(255, 255, 255)",
-     "beeld": null,
-     "tekst": {
-      "x": 28.359375,
-      "y": 10.703125,
-      "w": 197.265625
-     },
-     "z": 5
+     "blokken": [
+      {
+       "soort": "knop",
+       "veld": "hero_knop",
+       "link": "proefles_link",
+       "stijl": "antique-21-donker--3",
+       "x": 84.9375,
+       "y": 621,
+       "w": 254,
+       "h": 55,
+       "radius": 28,
+       "achtergrond": "rgb(255, 255, 255)",
+       "beeld": null,
+       "tekst": {
+        "x": 28.359375,
+        "y": 10.703125,
+        "w": 197.265625
+       },
+       "z": 5
+      }
+     ]
     },
     {
-     "soort": "tekst",
-     "veld": "hero_kop",
-     "tag": "h2",
-     "stijl": "antique-38-6-omlijnd-midden",
-     "x": 320.546875,
-     "y": 812.8125,
-     "w": 710
+     "blokken": [
+      {
+       "soort": "tekst",
+       "veld": "hero_kop",
+       "tag": "h2",
+       "stijl": "antique-38-6-omlijnd-midden--2",
+       "x": 320.546875,
+       "y": 812.8125,
+       "w": 710
+      }
+     ]
     }
    ]
   }

@@ -1,8 +1,9 @@
 ---
 // One field on its measured place. A Portable Text field becomes a column of paragraphs.
+// In the column a digit stands in a box of its own beside its line.
 import type { PortableTextBlock } from "emdash";
 import { PortableText } from "emdash/ui";
-import { type Blok, type Entry, plekVan, waarde } from "../layout";
+import { type Blok, type Entry, blokKlasse, blokStijl, kolomVars, plekVan, waarde } from "../layout";
 
 interface Props {
 	blok: Extract<Blok, { soort: "tekst" | "alineas" | "cijfer" }>;
@@ -10,14 +11,20 @@ interface Props {
 }
 
 const { blok, entry } = Astro.props;
-const plek = plekVan(blok);
+const plek = blokStijl(blok);
 const klasse = `blok s-${blok.stijl}`;
 ---
 
-{blok.soort === "cijfer" && <p class={klasse} style={plek}>{blok.n}</p>}
+{
+	blok.soort === "cijfer" && (
+		<div class:list={["cijfer-vak", blokKlasse(blok)]} style={kolomVars(blok)}>
+			<p class={klasse} style={plekVan(blok)}>{blok.n}</p>
+		</div>
+	)
+}
 {
 	blok.soort === "alineas" && (
-		<div class={`${klasse} alineas`} style={plek} {...entry.edit[blok.veld]}>
+		<div class:list={[klasse, "alineas", blokKlasse(blok)]} style={plek} {...entry.edit[blok.veld]}>
 			<PortableText value={(waarde(entry, blok.veld) as PortableTextBlock[] | undefined) ?? []} />
 		</div>
 	)
@@ -29,13 +36,13 @@ const klasse = `blok s-${blok.stijl}`;
 			const tekst = waarde(entry, blok.veld) as string;
 			const href = blok.link ? (waarde(entry, blok.link) as string | undefined) : undefined;
 			return href ? (
-				<a class="blok link" href={href} style={plek}>
+				<a class:list={["blok", "link", blokKlasse(blok)]} href={href} style={plek}>
 					<Tag class={`s-${blok.stijl}`} style="margin:0" {...entry.edit[blok.veld]}>
 						{tekst}
 					</Tag>
 				</a>
 			) : (
-				<Tag class={klasse} style={plek} {...entry.edit[blok.veld]}>
+				<Tag class:list={[klasse, blokKlasse(blok)]} style={plek} {...entry.edit[blok.veld]}>
 					{tekst}
 				</Tag>
 			);

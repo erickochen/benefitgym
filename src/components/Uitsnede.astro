@@ -1,0 +1,26 @@
+---
+// A cut-out of the drawing for the column, at the full width with its own ratio. Above the column it fetches nothing:
+// the first one takes its file from a source for the column alone, the others wait as lazy images.
+import { KOLOM_MEDIA, LEEG_BEELD } from "../layout";
+
+interface Props {
+	bestand: string;
+	alt: string;
+	staticUrl: string;
+	eerste: boolean;
+}
+
+const { bestand, alt, staticUrl, eerste } = Astro.props;
+const src = `${staticUrl}/tekeningen/${bestand}`;
+---
+
+{
+	eerste ? (
+		<picture>
+			<source media={KOLOM_MEDIA} srcset={src} />
+			<img class="uitsnede" src={LEEG_BEELD} alt={alt} loading="eager" decoding="async" />
+		</picture>
+	) : (
+		<img class="uitsnede" src={src} alt={alt} loading="lazy" decoding="async" />
+	)
+}

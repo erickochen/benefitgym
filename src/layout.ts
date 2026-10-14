@@ -62,7 +62,120 @@ export type Blok = (
 			label: Plek & { stijl: string };
 			icoon: { x: number; y: number; w: number; vlak: string; pijl: string };
 	  } & Plek)
-) & { z?: number };
+) & { z?: number } & MetKolom;
+
+// The column below 1242: the measured page's Tablet from 810, its Phone below. basis.css carries the same query.
+export const KOLOM_MEDIA = "(max-width: 1241.98px)";
+export const DESKTOP_MEDIA = `not all and ${KOLOM_MEDIA}`;
+// One transparent pixel, for an image whose file only comes from a source for its own side of 1242.
+export const LEEG_BEELD = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
+export type Stand = "tablet" | "phone";
+export type PerStand<T> = Record<Stand, T>;
+const VOOR: Record<Stand, string> = { tablet: "t", phone: "p" };
+
+// A width in the column: the rest of the row, the text's own width, fixed pixels or the row up to a maximum.
+export type Breedte = "vul" | "inhoud" | number | { max: number };
+
+export interface RijMaat {
+	rand: number[];
+	kleur?: string;
+	gat?: number;
+	uitlijning: string;
+	kruis?: string;
+	// An absolute row lies this far below the top of its band, over the image in it.
+	boven?: number;
+	z?: number;
+}
+
+export interface BandMaat {
+	rand: number[];
+	kleur?: string;
+	z?: number;
+	breedte: "vul" | "inhoud";
+	// A band as wide as its content keeps the alignment of its section.
+	zelf?: string;
+	verhouding?: string;
+	rij?: RijMaat;
+}
+
+export interface BlokMaat {
+	breedte: Breedte;
+	hoogte?: number;
+	verhouding?: string;
+	inspring?: number;
+	beeld?: Beeld;
+	// The fill of a button.
+	vulling?: string;
+}
+
+// The measures of a block in the column; null when the column hides it.
+type MetKolom = { kolom?: PerStand<BlokMaat> | null };
+
+// A band holds its blocks; above 1242 it takes no box, so each block lies on the drawing.
+export interface Band {
+	blokken: Blok[];
+	uitsnede?: { bestand: string; alt?: string };
+	kolom?: PerStand<BandMaat> | null;
+}
+
+const pixels = (n: number) => `${n}px`;
+
+function perStand<T>(kolom: PerStand<T>, waarden: (maat: T) => Record<string, string | undefined>): string {
+	return (Object.keys(VOOR) as Stand[])
+		.flatMap((stand) =>
+			Object.entries(waarden(kolom[stand]))
+				.filter((paar): paar is [string, string] => paar[1] !== undefined)
+				.map(([naam, waarde]) => `--${VOOR[stand]}-${naam}:${waarde}`),
+		)
+		.join(";");
+}
+
+export function bandVars(kolom: PerStand<BandMaat>): string {
+	return perStand(kolom, (m) => ({
+		"b-rand": m.rand.map(pixels).join(" "),
+		"b-kleur": m.kleur,
+		"b-z": m.z?.toString(),
+		"b-breedte": m.breedte === "inhoud" ? "max-content" : undefined,
+		"b-zelf": m.zelf,
+		"u-ratio": m.verhouding,
+	}));
+}
+
+export function rijVars(kolom: PerStand<BandMaat>): string {
+	return perStand(kolom, ({ rij }) => ({
+		"r-rand": rij?.rand.map(pixels).join(" "),
+		"r-kleur": rij?.kleur,
+		"r-gat": rij?.gat === undefined ? undefined : pixels(rij.gat),
+		"r-uit": rij?.uitlijning,
+		"r-kruis": rij?.kruis,
+		"r-pos": rij?.boven === undefined ? undefined : "absolute",
+		"r-boven": rij?.boven === undefined ? undefined : pixels(rij.boven),
+		"r-z": rij?.z?.toString(),
+	}));
+}
+
+// The measures of a block in the column as custom properties; nothing above 1242.
+export function kolomVars(blok: MetKolom): string | undefined {
+	if (!blok.kolom) return undefined;
+	return perStand(blok.kolom, (m) => ({
+		"k-breedte": typeof m.breedte === "number" ? pixels(m.breedte) : m.breedte === "inhoud" ? "max-content" : "auto",
+		"k-flex": m.breedte === "vul" || typeof m.breedte === "object" ? "1 1 0" : "none",
+		"k-max": typeof m.breedte === "object" ? pixels(m.breedte.max) : undefined,
+		"k-hoogte": m.hoogte === undefined ? undefined : pixels(m.hoogte),
+		"k-ratio": m.verhouding,
+		"k-inspring": m.inspring === undefined ? undefined : pixels(m.inspring),
+		"k-vulling": m.vulling,
+	}));
+}
+
+// The place of a block above 1242 plus its measures in the column.
+export function blokStijl(blok: Plek & { h?: number; z?: number } & MetKolom): string {
+	const kolom = kolomVars(blok);
+	return kolom ? `${plekVan(blok)};${kolom}` : plekVan(blok);
+}
+
+// A block the column hides.
+export const blokKlasse = (blok: MetKolom) => (blok.kolom === null ? "zonder-kolom" : undefined);
 
 // A built section: the band over the foot of the drawing above, the column beside the form, then room for the
 // footer plus the strip. Its spacer is the measured height; one that follows its content grows and shrinks with it.
@@ -94,8 +207,8 @@ export interface Sectie {
 	tekening?: string;
 	gebouwd?: Gebouwd;
 	alt?: string;
-	blokken: Blok[];
-	snede?: { y: number; blokken: Blok[] };
+	banden: Band[];
+	snede?: { y: number; banden: Band[] };
 }
 
 // The box of a field or a tile: border, rounding, fill plus padding as top, right, bottom and left.
@@ -136,6 +249,8 @@ export function maat(waarde: number | string): string {
 export interface Layout {
 	breedte: number;
 	hoogte: number;
+	// The page has its column below 1242.
+	kolom?: true;
 	// The footer lies over the foot of the page, this far above the bottom.
 	footer: { onder: number };
 	secties: Sectie[];
@@ -220,11 +335,17 @@ export interface Entry {
 	edit: EditProxy;
 }
 
-// The place of a block on its section, in design units, with its z-index when it has one.
+// The place of a block on its section, in design units, with its z-index when it has one. It goes as custom
+// properties that basis.css reads, so the column below 1242 can set its own instead.
 export function plekVan(blok: Plek & { h?: number; z?: number }): string {
-	const maat = blok.h === undefined ? "" : `;height:calc(${blok.h} * var(--s))`;
-	const stapel = blok.z === undefined ? "" : `;z-index:${blok.z}`;
-	return `left:calc(${blok.x} * var(--s));top:calc(${blok.y} * var(--s));width:calc(${blok.w} * var(--s))${maat}${stapel}`;
+	const maat = blok.h === undefined ? "" : `;--height:calc(${blok.h} * var(--s))`;
+	const stapel = blok.z === undefined ? "" : `;--z:${blok.z}`;
+	return `--left:calc(${blok.x} * var(--s));--top:calc(${blok.y} * var(--s));--width:calc(${blok.w} * var(--s))${maat}${stapel}`;
+}
+
+// The place of a part inside a block, which keeps it at every width.
+export function plekStijl(deel: Plek): string {
+	return `left:calc(${deel.x} * var(--s));top:calc(${deel.y} * var(--s));width:calc(${deel.w} * var(--s))`;
 }
 
 export function waarde(entry: Entry, veld: string): unknown {

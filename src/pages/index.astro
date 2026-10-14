@@ -31,6 +31,7 @@ const seo = getSeoMeta(home, {
 	canonical={seo.canonical}
 	content={{ collection: "home", id: home.data.id, slug: SLUG }}
 	footerOnder={layout.footer.onder}
+	kolom={layout.kolom === true}
 >
 	<Pagina layout={layout} entry={home} slug={SLUG} staticUrl={leesStaticUrl()} />
 </Base>
