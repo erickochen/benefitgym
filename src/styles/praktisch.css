@@ -34,7 +34,14 @@
 	background: var(--p-donker);
 }
 
+/* A block opens a group of its own; text, or a photo row after a photo row, joins the group before it. Whatever follows
+the three columns stands closer. The layout generator measures the same rule in gatVoor. */
 .praktisch-blok + .praktisch-blok {
+	margin-top: var(--p-groep);
+}
+
+.praktisch-rij + .praktisch-rij,
+.praktisch-blok + .praktisch-smal {
 	margin-top: var(--p-blok);
 }
 
@@ -198,6 +205,8 @@
 .praktisch-slot {
 	position: relative;
 	width: 100%;
+	height: var(--p-slot);
+	background: var(--p-slot-kleur);
 }
 
 .praktisch-strook {
@@ -205,4 +214,109 @@
 	bottom: 0;
 	left: 0;
 	width: 100%;
+	height: var(--p-strook);
+}
+
+/* The holder of the flow plus the closing section carries every measure; its children take those of their breakpoint. */
+.praktisch-pagina {
+	display: contents;
+}
+
+@media (min-width: 810px) and (max-width: 1241.98px) {
+	.met-kolom .praktisch-pagina > * {
+		--p-rand: var(--t-p-rand);
+		--p-boven: var(--t-p-boven);
+		--p-onder: var(--t-p-onder);
+		--p-blok: var(--t-p-blok);
+		--p-na-kolommen: var(--t-p-na-kolommen);
+		--p-groep: var(--t-p-groep);
+		--p-rij-gat: var(--t-p-rij-gat);
+		--p-kolom-gat: var(--t-p-kolom-gat);
+		--p-smal: var(--t-p-smal);
+		--p-drie-gat: var(--t-p-drie-gat);
+		--p-link: var(--t-p-link);
+		--p-lijst-gat: var(--t-p-lijst-gat);
+		--p-punt: var(--t-p-punt);
+		--p-kop-onder: var(--t-p-kop-onder);
+		--p-cel-ruimte: var(--t-p-cel-ruimte);
+		--p-cel-gat: var(--t-p-cel-gat);
+		--p-midden: var(--t-p-midden);
+		--p-laatste: var(--t-p-laatste);
+		--p-rooster-ruimte: var(--t-p-rooster-ruimte);
+		--p-rooster-gat: var(--t-p-rooster-gat);
+		--p-overgang-verhouding: var(--t-p-overgang-verhouding);
+		--p-strook-verhouding: var(--t-p-strook-verhouding);
+	}
+}
+
+@media (max-width: 809.98px) {
+	.met-kolom .praktisch-pagina > * {
+		--p-rand: var(--p-p-rand);
+		--p-boven: var(--p-p-boven);
+		--p-onder: var(--p-p-onder);
+		--p-blok: var(--p-p-blok);
+		--p-na-kolommen: var(--p-p-na-kolommen);
+		--p-groep: var(--p-p-groep);
+		--p-rij-gat: var(--p-p-rij-gat);
+		--p-kolom-gat: var(--p-p-kolom-gat);
+		--p-smal: var(--p-p-smal);
+		--p-drie-gat: var(--p-p-drie-gat);
+		--p-link: var(--p-p-link);
+		--p-lijst-gat: var(--p-p-lijst-gat);
+		--p-punt: var(--p-p-punt);
+		--p-kop-onder: var(--p-p-kop-onder);
+		--p-cel-ruimte: var(--p-p-cel-ruimte);
+		--p-cel-gat: var(--p-p-cel-gat);
+		--p-midden: var(--p-p-midden);
+		--p-laatste: var(--p-p-laatste);
+		--p-rooster-ruimte: var(--p-p-rooster-ruimte);
+		--p-rooster-gat: var(--p-p-rooster-gat);
+		--p-overgang-verhouding: var(--p-p-overgang-verhouding);
+		--p-strook-verhouding: var(--p-p-strook-verhouding);
+	}
+}
+
+/* In the column a photo stands above its text; the three columns plus when and what stand under each other. */
+@media (max-width: 1241.98px) {
+	.met-kolom .praktisch-rij,
+	.met-kolom .praktisch-drie,
+	.met-kolom .praktisch-periode {
+		flex-direction: column;
+	}
+
+	.met-kolom .praktisch-rij > *,
+	.met-kolom .praktisch-drie > *,
+	.met-kolom .praktisch-periode > * {
+		flex: none;
+		width: 100%;
+	}
+
+	.met-kolom .praktisch-foto {
+		order: -1;
+	}
+
+	/* A brush edge keeps the ratio of its image; the streak plus the edge into the footer stay out. */
+	.met-kolom .praktisch-rand {
+		height: auto;
+		aspect-ratio: var(--p-overgang-verhouding);
+	}
+
+	.met-kolom .praktisch-streek,
+	.met-kolom .praktisch-naar-slot {
+		display: none;
+	}
+
+	/* The footer follows the page in the column, so the strip hangs below it, from the foot of the page column. */
+	.met-kolom .praktisch-slot {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		height: auto;
+		aspect-ratio: var(--p-strook-verhouding);
+	}
+
+	.met-kolom .praktisch-strook {
+		top: 0;
+		height: auto;
+	}
 }

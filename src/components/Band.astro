@@ -1,5 +1,6 @@
 ---
-// One band of a section: a box with its padding and color in the column, no box above it.
+// One band of a section: a box with its padding and color in the column, no box above it. A cut-out of another page
+// comes from the folder of that page.
 import { type Band, type Entry, bandVars, rijVars, waarde } from "../layout";
 import Blokken from "./Blokken.astro";
 import Uitsnede from "./Uitsnede.astro";
@@ -17,7 +18,7 @@ const alt = band.uitsnede?.alt ? ((waarde(entry, band.uitsnede.alt) as string | 
 ---
 
 <div class:list={["band", band.kolom === null && "zonder-kolom"]} style={band.kolom ? bandVars(band.kolom) : undefined}>
-	{band.uitsnede && <Uitsnede bestand={`${slug}/mobiel/${band.uitsnede.bestand}`} alt={alt} staticUrl={staticUrl} eerste={eerste} />}
+	{band.uitsnede && <Uitsnede bestand={`${band.uitsnede.pagina ?? slug}/mobiel/${band.uitsnede.bestand}`} alt={alt} staticUrl={staticUrl} eerste={eerste} />}
 	{
 		band.blokken.length > 0 && (
 			<div class="rij" style={band.kolom ? rijVars(band.kolom) : undefined}>

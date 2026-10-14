@@ -1,6 +1,7 @@
 {
  "breedte": 1242,
  "hoogte": 2832.890625,
+ "kolom": true,
  "footer": {
   "onder": 14
  },
@@ -27,9 +28,77 @@
        "y": 42,
        "w": 286.890625,
        "h": 257.984375,
-       "z": 19
+       "z": 19,
+       "kolom": {
+        "tablet": {
+         "breedte": 200,
+         "verhouding": "1.124 / 1",
+         "beeld": {
+          "bestand": "vakanties/logo-kolom",
+          "breedte": 800,
+          "kleiner": [
+           512
+          ],
+          "sizes": "(max-width: 809.98px) 150px, (min-width: 810px) and (max-width: 1241.98px) 200px"
+         }
+        },
+        "phone": {
+         "breedte": 150,
+         "verhouding": "1.124 / 1",
+         "beeld": {
+          "bestand": "vakanties/logo-kolom",
+          "breedte": 800,
+          "kleiner": [
+           512
+          ],
+          "sizes": "(max-width: 809.98px) 150px, (min-width: 810px) and (max-width: 1241.98px) 200px"
+         }
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        14,
+        0,
+        8,
+        20
+       ],
+       "z": 101,
+       "breedte": "inhoud",
+       "zelf": "flex-start",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      },
+      "phone": {
+       "rand": [
+        14,
+        0,
+        8,
+        20
+       ],
+       "z": 101,
+       "breedte": "inhoud",
+       "zelf": "flex-start",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      }
+     }
     },
     {
      "blokken": [
@@ -37,12 +106,69 @@
        "soort": "tekst",
        "veld": "hero_paginatitel",
        "tag": "h1",
-       "stijl": "antique-40-2-oranje--2",
+       "stijl": "antique-40-2-oranje",
        "x": 959.734375,
        "y": 111.578125,
-       "w": 242.265625
+       "w": 242.265625,
+       "kolom": {
+        "tablet": {
+         "breedte": "inhoud"
+        },
+        "phone": {
+         "breedte": "inhoud"
+        }
+       }
       }
-     ]
+     ],
+     "uitsnede": {
+      "bestand": "foto-1.webp",
+      "pagina": "kids-evom",
+      "alt": "hero_alt"
+     },
+     "kolom": {
+      "tablet": {
+       "rand": [
+        24,
+        0,
+        0,
+        0
+       ],
+       "breedte": "vul",
+       "verhouding": "1.365 / 1",
+       "rij": {
+        "rand": [
+         0,
+         48,
+         0,
+         0
+        ],
+        "uitlijning": "flex-end",
+        "boven": 64,
+        "z": 2
+       }
+      },
+      "phone": {
+       "rand": [
+        16,
+        0,
+        0,
+        0
+       ],
+       "breedte": "vul",
+       "verhouding": "1.365 / 1",
+       "rij": {
+        "rand": [
+         0,
+         24,
+         0,
+         0
+        ],
+        "uitlijning": "flex-end",
+        "boven": 36,
+        "z": 2
+       }
+      }
+     }
     },
     {
      "blokken": [
@@ -50,12 +176,60 @@
        "soort": "tekst",
        "veld": "hero_intro",
        "tag": "p",
-       "stijl": "black-cursief-26-4-wit--2",
+       "stijl": "black-cursief-26-4-wit",
        "x": 114.75,
        "y": 410.15625,
-       "w": 394
+       "w": 394,
+       "kolom": {
+        "tablet": {
+         "breedte": "vul"
+        },
+        "phone": {
+         "breedte": "vul"
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        32,
+        48,
+        8,
+        48
+       ],
+       "kleur": "rgb(19, 22, 29)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      },
+      "phone": {
+       "rand": [
+        32,
+        24,
+        8,
+        24
+       ],
+       "kleur": "rgb(19, 22, 29)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      }
+     }
     },
     {
      "blokken": [
@@ -63,7 +237,7 @@
        "soort": "knop",
        "veld": "hero_knop",
        "link": "proefles_link",
-       "stijl": "antique-21-donker--3",
+       "stijl": "antique-21-donker",
        "x": 84.9375,
        "y": 621,
        "w": 254,
@@ -76,9 +250,71 @@
         "y": 10.703125,
         "w": 197.265625
        },
-       "z": 5
+       "z": 5,
+       "kolom": {
+        "tablet": {
+         "breedte": 254,
+         "hoogte": 55,
+         "vulling": "rgba(0, 0, 0, 0)",
+         "beeld": {
+          "bestand": "vakanties/hero_knop-kolom",
+          "breedte": 424
+         }
+        },
+        "phone": {
+         "breedte": 254,
+         "hoogte": 55,
+         "vulling": "rgba(0, 0, 0, 0)",
+         "beeld": {
+          "bestand": "vakanties/hero_knop-kolom",
+          "breedte": 424
+         }
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        8,
+        48,
+        0,
+        48
+       ],
+       "kleur": "rgb(19, 22, 29)",
+       "z": 5,
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "center"
+       }
+      },
+      "phone": {
+       "rand": [
+        8,
+        24,
+        0,
+        24
+       ],
+       "kleur": "rgb(19, 22, 29)",
+       "z": 5,
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "center"
+       }
+      }
+     }
     },
     {
      "blokken": [
@@ -86,12 +322,89 @@
        "soort": "tekst",
        "veld": "hero_kop",
        "tag": "h2",
-       "stijl": "antique-38-6-omlijnd-midden--2",
+       "stijl": "antique-38-6-omlijnd-midden",
        "x": 320.546875,
        "y": 812.8125,
-       "w": 710
+       "w": 710,
+       "kolom": {
+        "tablet": {
+         "breedte": "vul"
+        },
+        "phone": {
+         "breedte": "vul"
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        32,
+        48,
+        32,
+        48
+       ],
+       "kleur": "rgb(19, 22, 29)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      },
+      "phone": {
+       "rand": [
+        32,
+        24,
+        32,
+        24
+       ],
+       "kleur": "rgb(19, 22, 29)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      }
+     }
+    },
+    {
+     "blokken": [],
+     "uitsnede": {
+      "bestand": "balk-onder.webp",
+      "pagina": "kids-evom"
+     },
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "breedte": "vul",
+       "verhouding": "11.172 / 1"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "breedte": "vul",
+       "verhouding": "11.172 / 1"
+      }
+     }
     }
    ]
   }

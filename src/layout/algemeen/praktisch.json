@@ -11,33 +11,6 @@
  "rij": {
   "gat": 64
  },
- "stijl": {
-  "wit": {
-   "kop": "black-cursief-31-oranje",
-   "punt": "regular-18-oranje--3",
-   "tekst": "regular-18-grijs-regel-1-444--2",
-   "subkop": "black-cursief-22-grijs",
-   "link": "bold-18-grijs--2",
-   "kopcel": "bold-18-grijs--2",
-   "kopcelLaatste": "bold-18-grijs--3",
-   "cel": "regular-18-grijs-regel-1-444--2",
-   "prijs": "black-cursief-25-grijs",
-   "wanneer": "black-18-grijs--2",
-   "wat": "regular-18-grijs-regel-1-444--3"
-  },
-  "lesrooster": "lesrooster",
-  "donker": {
-   "kop": "black-cursief-36-wit-regel-1-2",
-   "tekst": "regular-18-wit",
-   "kopcel": "bold-18-wit",
-   "kopcelLaatste": "bold-18-wit--3",
-   "cel": "regular-18-wit",
-   "prijs": "black-cursief-26-4-wit--3",
-   "subkop": "black-cursief-18-wit",
-   "link": "bold-18-wit",
-   "punt": "regular-18-oranje--3"
-  }
- },
  "lijst": {
   "punt": 10,
   "gat": 6
@@ -48,6 +21,7 @@
  },
  "gat": {
   "blok": 96,
+  "groep": 96,
   "naKolommen": 48
  },
  "link": {
@@ -87,8 +61,8 @@
   }
  },
  "slot": {
-  "h": 240.09375,
   "kleur": "rgb(45, 45, 45)",
+  "h": 240.09375,
   "strook": {
    "h": 14,
    "beeld": {
@@ -101,6 +75,35 @@
     ],
     "sizes": "(min-width: 1242px) min(100vw, 1242px), (min-width: 810px) and (max-width: 1241.98px) min(100vw, 1242px), (max-width: 809.98px) min(100vw, 1242px)"
    }
+  }
+ },
+ "stijl": {
+  "wit": {
+   "kop": "black-cursief-31-oranje",
+   "punt": "regular-18-oranje--3",
+   "tekst": "regular-18-grijs-regel-1-444",
+   "subkop": "black-cursief-22-grijs",
+   "link": "bold-18-grijs",
+   "kopcel": "bold-18-grijs",
+   "kopcelLaatste": "bold-18-grijs--2",
+   "cel": "regular-18-grijs-regel-1-444",
+   "prijs": "black-cursief-25-grijs",
+   "kopcelVast": "bold-18-grijs--3",
+   "wanneer": "black-18-grijs--2",
+   "wat": "regular-18-grijs-regel-1-444--3"
+  },
+  "lesrooster": "lesrooster",
+  "donker": {
+   "kop": "black-cursief-36-wit-regel-1-2--2",
+   "tekst": "regular-18-wit--2",
+   "kopcel": "bold-18-wit--4",
+   "kopcelLaatste": "bold-18-wit--5",
+   "cel": "regular-18-wit--2",
+   "prijs": "black-cursief-26-4-wit--3",
+   "subkop": "black-cursief-18-wit--2",
+   "link": "bold-18-wit--4",
+   "kopcelVast": "bold-18-wit--5",
+   "punt": "regular-18-oranje--3"
   }
  },
  "tabel": {
@@ -134,6 +137,100 @@
   "rijLijn": {
    "h": 1,
    "kleur": "rgba(46, 46, 46, 0.2)"
+  }
+ },
+ "standen": {
+  "tablet": {
+   "band": {
+    "boven": 56,
+    "onder": 56,
+    "rand": 48
+   },
+   "gat": {
+    "blok": 64,
+    "naKolommen": 32,
+    "groep": 56
+   },
+   "rij": {
+    "gat": 32
+   },
+   "kolom": {
+    "gat": 20,
+    "smal": 820
+   },
+   "drie": {
+    "gat": 32
+   },
+   "link": {
+    "ruimte": 11
+   },
+   "lijst": {
+    "gat": 6,
+    "punt": 10
+   },
+   "tabel": {
+    "kopOnder": 12,
+    "ruimte": 14,
+    "gat": 16,
+    "midden": 106,
+    "laatste": 156
+   },
+   "rooster": {
+    "ruimte": 18,
+    "gat": 6
+   },
+   "overgang": {
+    "verhouding": "4.642 / 1"
+   },
+   "slot": {
+    "verhouding": "88.679 / 1"
+   }
+  },
+  "phone": {
+   "band": {
+    "boven": 40,
+    "onder": 40,
+    "rand": 24
+   },
+   "gat": {
+    "blok": 64,
+    "naKolommen": 32,
+    "groep": 40
+   },
+   "rij": {
+    "gat": 32
+   },
+   "kolom": {
+    "gat": 20,
+    "smal": 820
+   },
+   "drie": {
+    "gat": 32
+   },
+   "link": {
+    "ruimte": 11
+   },
+   "lijst": {
+    "gat": 6,
+    "punt": 10
+   },
+   "tabel": {
+    "kopOnder": 12,
+    "ruimte": 14,
+    "gat": 16,
+    "midden": 106,
+    "laatste": 80
+   },
+   "rooster": {
+    "ruimte": 18,
+    "gat": 6
+   },
+   "overgang": {
+    "verhouding": "4.642 / 1"
+   },
+   "slot": {
+    "verhouding": "88.679 / 1"
+   }
   }
  },
  "zinLink": {

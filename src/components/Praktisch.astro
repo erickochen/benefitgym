@@ -1,10 +1,10 @@
 ---
 // The flow of a Praktisch page below its hero: bands of one color with a brush edge between two of them, the edge into
 // the closing section after a white band, then the closing section the footer lies over. Each block type has its own
-// component, the way the EmDash docs on blocks map them.
+// component, the way the EmDash docs on blocks map them. In the column the strip hangs below the footer.
 import { Blocks, defineBlockComponents } from "emdash/ui";
 import type { PraktischInhoudBlock } from "../../emdash-env";
-import type { Entry, Layout, PraktischRegels } from "../layout";
+import type { Entry, Layout, PraktischRegels, PraktischStand, Stand } from "../layout";
 import data from "../layout/algemeen/praktisch.json";
 import { bandenVan } from "../praktisch";
 import Beeld from "./Beeld.astro";
@@ -31,70 +31,94 @@ const componenten = defineBlockComponents<PraktischInhoudBlock>({
 	lesrooster: Lesrooster,
 });
 const m = (n: number) => `calc(${n} * var(--s))`;
+const px = (n: number) => `${n}px`;
 const r = regels;
-// Every measure as a custom property, so praktisch.css holds the rules and praktisch.json the numbers.
+// The measures that differ per breakpoint, by the name of their custom property.
+const PER_STAND: [string, (maten: PraktischStand) => number][] = [
+	["rand", (x) => x.band.rand],
+	["boven", (x) => x.band.boven],
+	["onder", (x) => x.band.onder],
+	["blok", (x) => x.gat.blok],
+	["na-kolommen", (x) => x.gat.naKolommen],
+	["groep", (x) => x.gat.groep],
+	["rij-gat", (x) => x.rij.gat],
+	["kolom-gat", (x) => x.kolom.gat],
+	["smal", (x) => x.kolom.smal],
+	["drie-gat", (x) => x.drie.gat],
+	["link", (x) => x.link.ruimte],
+	["lijst-gat", (x) => x.lijst.gat],
+	["punt", (x) => x.lijst.punt],
+	["kop-onder", (x) => x.tabel.kopOnder],
+	["cel-ruimte", (x) => x.tabel.ruimte],
+	["cel-gat", (x) => x.tabel.gat],
+	["midden", (x) => x.tabel.midden],
+	["laatste", (x) => x.tabel.laatste],
+	["rooster-ruimte", (x) => x.rooster.ruimte],
+	["rooster-gat", (x) => x.rooster.gat],
+];
+// The prefix of each breakpoint of the column, the one basis.css uses.
+const VOOR: Record<Stand, string> = { tablet: "t", phone: "p" };
+const standen = r.standen;
+// Every measure as a custom property, so praktisch.css holds the rules and praktisch.json the numbers. Desktop scales
+// with the page; the column takes the pixels of its breakpoint.
 const maten = Object.entries({
-	"--p-rand": m(r.band.rand),
-	"--p-boven": m(r.band.boven),
-	"--p-onder": m(r.band.onder),
+	...Object.fromEntries(PER_STAND.map(([naam, waarde]) => [`--p-${naam}`, m(waarde(r))])),
 	"--p-wit": r.kleur.wit,
 	"--p-donker": r.kleur.donker,
-	"--p-blok": m(r.gat.blok),
-	"--p-na-kolommen": m(r.gat.naKolommen),
 	"--p-overgang": m(r.overgang.h),
-	"--p-rij-gat": m(r.rij.gat),
-	"--p-kolom-gat": m(r.kolom.gat),
-	"--p-smal": m(r.kolom.smal),
-	"--p-drie-gat": m(r.drie.gat),
-	"--p-link": m(r.link.ruimte),
-	"--p-lijst-gat": m(r.lijst.gat),
-	"--p-punt": m(r.lijst.punt),
-	"--p-kop-onder": m(r.tabel.kopOnder),
-	"--p-cel-ruimte": m(r.tabel.ruimte),
-	"--p-cel-gat": m(r.tabel.gat),
-	"--p-midden": m(r.tabel.midden),
-	"--p-laatste": m(r.tabel.laatste),
-	"--p-rooster-ruimte": m(r.rooster.ruimte),
 	"--p-wanneer": m(r.rooster.wanneer),
-	"--p-rooster-gat": m(r.rooster.gat),
 	"--p-link-streep": r.zinLink.streep,
 	"--p-link-dikte": m(r.zinLink.dikte),
 	"--p-link-afstand": m(r.zinLink.afstand),
+	"--p-slot": m(r.slot.h),
+	"--p-slot-kleur": r.slot.kleur,
+	"--p-strook": m(r.slot.strook.h),
+	...(standen
+		? Object.fromEntries(
+				(Object.keys(VOOR) as Stand[]).flatMap((stand) => [
+					...PER_STAND.map(([naam, waarde]) => [`--${VOOR[stand]}-p-${naam}`, px(waarde(standen[stand]))]),
+					[`--${VOOR[stand]}-p-overgang-verhouding`, standen[stand].overgang.verhouding],
+					[`--${VOOR[stand]}-p-strook-verhouding`, standen[stand].slot.verhouding],
+				]),
+			)
+		: {}),
 })
 	.map(([naam, waarde]) => `${naam}:${waarde}`)
 	.join(";");
 ---
 
-<div class="praktisch" style={maten} {...entry.edit.inhoud}>
-	{
-		banden.map((band, i) => (
-			<Fragment>
-				{i > 0 && (
-					<div class="praktisch-rand">
-						<Beeld beeld={r.overgang[`${banden[i - 1].vlak}-${band.vlak}` as "wit-donker" | "donker-wit"]} staticUrl={staticUrl} />
-					</div>
-				)}
-				<section class={`praktisch-band praktisch-${band.vlak}`}>
-					<Blocks value={band.blokken} components={componenten} />
-					{i === 0 && (
-						<div class="praktisch-streek" style={`height:${m(pagina.streek.h)}`}>
-							<Beeld beeld={pagina.streek.beeld} staticUrl={staticUrl} />
+<div class="praktisch-pagina" style={maten}>
+	<div class="praktisch" {...entry.edit.inhoud}>
+		{
+			banden.map((band, i) => (
+				<Fragment>
+					{i > 0 && (
+						<div class="praktisch-rand">
+							<Beeld beeld={r.overgang[`${banden[i - 1].vlak}-${band.vlak}` as "wit-donker" | "donker-wit"]} staticUrl={staticUrl} />
 						</div>
 					)}
-				</section>
-			</Fragment>
-		))
-	}
-	{
-		banden.at(-1)?.vlak === "wit" && (
-			<div class="praktisch-rand">
-				<Beeld beeld={r.overgang.rand} staticUrl={staticUrl} />
-			</div>
-		)
-	}
-</div>
-<div class="praktisch-slot" style={`height:${m(r.slot.h)};background:${r.slot.kleur}`}>
-	<div class="praktisch-strook" style={`height:${m(r.slot.strook.h)}`}>
-		<Beeld beeld={r.slot.strook.beeld} staticUrl={staticUrl} />
+					<section class={`praktisch-band praktisch-${band.vlak}`}>
+						<Blocks value={band.blokken} components={componenten} />
+						{i === 0 && (
+							<div class="praktisch-streek" style={`height:${m(pagina.streek.h)}`}>
+								<Beeld beeld={pagina.streek.beeld} staticUrl={staticUrl} />
+							</div>
+						)}
+					</section>
+				</Fragment>
+			))
+		}
+		{
+			banden.at(-1)?.vlak === "wit" && (
+				<div class="praktisch-rand praktisch-naar-slot">
+					<Beeld beeld={r.overgang.rand} staticUrl={staticUrl} />
+				</div>
+			)
+		}
+	</div>
+	<div class="praktisch-slot">
+		<div class="praktisch-strook">
+			<Beeld beeld={r.slot.strook.beeld} staticUrl={staticUrl} />
+		</div>
 	</div>
 </div>

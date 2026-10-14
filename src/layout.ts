@@ -111,10 +111,11 @@ export interface BlokMaat {
 // The measures of a block in the column; null when the column hides it.
 type MetKolom = { kolom?: PerStand<BlokMaat> | null };
 
-// A band holds its blocks; above 1242 it takes no box, so each block lies on the drawing.
+// A band holds its blocks; above 1242 it takes no box, so each block lies on the drawing. A cut-out of another page,
+// as a Praktisch hero shows from its source, names that page.
 export interface Band {
 	blokken: Blok[];
-	uitsnede?: { bestand: string; alt?: string };
+	uitsnede?: { bestand: string; pagina?: string; alt?: string };
 	kolom?: PerStand<BandMaat> | null;
 }
 
@@ -259,20 +260,33 @@ export interface Layout {
 }
 
 // The class of each role of a Praktisch block, per color.
-type Rollen = Record<"kop" | "subkop" | "tekst" | "link" | "kopcel" | "kopcelLaatste" | "cel" | "prijs" | "punt", string>;
+type Rollen = Record<"kop" | "subkop" | "tekst" | "link" | "kopcel" | "kopcelLaatste" | "kopcelVast" | "cel" | "prijs" | "punt", string>;
 
-// The shape of src/layout/algemeen/praktisch.json: the measures every Praktisch page shares.
-export interface PraktischRegels {
+// The measures of a Praktisch page that differ per breakpoint, the same on desktop as in the column.
+export interface PraktischStand {
 	band: { rand: number; boven: number; onder: number };
-	kleur: { wit: string; donker: string };
-	gat: { blok: number; naKolommen: number };
-	overgang: { h: number; rand: Beeld; "wit-donker": Beeld; "donker-wit": Beeld };
-	slot: { h: number; kleur: string; strook: { h: number; beeld: Beeld } };
+	gat: { blok: number; naKolommen: number; groep: number };
 	rij: { gat: number };
 	kolom: { gat: number; smal: number };
 	drie: { gat: number };
 	link: { ruimte: number };
 	lijst: { gat: number; punt: number };
+	tabel: { kopOnder: number; ruimte: number; gat: number; midden: number; laatste: number };
+	rooster: { ruimte: number; gat: number };
+}
+
+// In the column a brush edge plus the strip keep the ratio of their layer.
+export interface PraktischKolom extends PraktischStand {
+	overgang: { verhouding: string };
+	slot: { verhouding: string };
+}
+
+// The shape of src/layout/algemeen/praktisch.json: the measures every Praktisch page shares, with those of the column
+// per breakpoint under standen.
+export interface PraktischRegels extends PraktischStand {
+	kleur: { wit: string; donker: string };
+	overgang: { h: number; rand: Beeld; "wit-donker": Beeld; "donker-wit": Beeld };
+	slot: { h: number; kleur: string; strook: { h: number; beeld: Beeld } };
 	tabel: {
 		kopOnder: number;
 		ruimte: number;
@@ -287,6 +301,7 @@ export interface PraktischRegels {
 	rooster: { lijn: { h: number; kleur: string }; rijLijn: { h: number; kleur: string }; ruimte: number; wanneer: number; gat: number };
 	stijl: { wit: Rollen & { wanneer: string; wat: string }; donker: Rollen; lesrooster: string };
 	zinLink: { streep: string; dikte: number; afstand: number };
+	standen?: PerStand<PraktischKolom>;
 }
 
 // The shape of src/layout/menu.json.
