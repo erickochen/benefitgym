@@ -1,0 +1,20 @@
+/* "Lees hoe dit werkt": the summary is the button, its label plus chevron on one line. */
+.uitklap-knop {
+	display: flex;
+	align-items: center;
+	list-style: none;
+	cursor: pointer;
+}
+
+.uitklap-knop::-webkit-details-marker {
+	display: none;
+}
+
+.uitklap-knop > span {
+	display: block;
+}
+
+.uitklap-knop > svg {
+	display: block;
+	flex: none;
+}

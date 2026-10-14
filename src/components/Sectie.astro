@@ -1,9 +1,10 @@
 ---
 // One section at its measured height: the drawing with the blocks on top, or an empty built section.
+// A cut section stacks its upper part, the explainer's text in flow plus the part below, each showing its slice of one drawing.
 import { type Entry, type Sectie, waarde } from "../layout";
-import Knop from "./Knop.astro";
-import Logo from "./Logo.astro";
-import Tekst from "./Tekst.astro";
+import Blokken from "./Blokken.astro";
+import GebouwdeSectie from "./GebouwdeSectie.astro";
+import Uitklap from "./Uitklap.astro";
 
 interface Props {
 	sectie: Sectie;
@@ -15,29 +16,39 @@ interface Props {
 
 const { sectie, entry, slug, staticUrl, eerste } = Astro.props;
 const alt = sectie.alt ? ((waarde(entry, sectie.alt) as string | undefined) ?? "") : "";
+const src = sectie.tekening ? `${staticUrl}/tekeningen/${slug}/${sectie.tekening}` : undefined;
+const { snede } = sectie;
+const uitklap = snede ? sectie.blokken.find((blok) => blok.soort === "uitklap") : undefined;
+const boven = snede ? sectie.blokken.filter((blok) => blok !== uitklap) : sectie.blokken;
+// The slice of the drawing between two heights, the whole drawing scaled as on an uncut section.
+const venster = (vanaf: number) => `top:calc(${-vanaf} * var(--s));height:calc(${sectie.hoogte} * var(--s))`;
 ---
 
-<section class="sectie" style={`height:calc(${sectie.hoogte} * var(--s))`}>
-	{
-		sectie.tekening && (
-			<img
-				class="tekening"
-				src={`${staticUrl}/tekeningen/${slug}/${sectie.tekening}`}
-				alt={alt}
-				loading={eerste ? "eager" : "lazy"}
-				decoding="async"
-			/>
-		)
-	}
-	{
-		sectie.blokken.map((blok) =>
-			blok.soort === "logo" ? (
-				<Logo blok={blok} staticUrl={staticUrl} />
-			) : blok.soort === "knop" ? (
-				<Knop blok={blok} entry={entry} staticUrl={staticUrl} />
-			) : (
-				<Tekst blok={blok} entry={entry} />
-			),
-		)
-	}
-</section>
+{
+	sectie.gebouwd ? (
+		<GebouwdeSectie sectie={{ ...sectie, gebouwd: sectie.gebouwd }} entry={entry} staticUrl={staticUrl} />
+	) : snede ? (
+		<section class="sectie">
+			<div class="sectie-deel" style={`height:calc(${snede.y} * var(--s))`}>
+				<div class="tekening-venster">
+					<img class="tekening" src={src} alt={alt} loading="lazy" decoding="async" style={venster(0)} />
+				</div>
+				<Blokken blokken={boven} entry={entry} staticUrl={staticUrl} />
+			</div>
+			{uitklap?.soort === "uitklap" && <Uitklap blok={uitklap} entry={entry} />}
+			{snede.y < sectie.hoogte && (
+				<div class="sectie-deel" style={`height:calc(${sectie.hoogte - snede.y} * var(--s))`}>
+					<div class="tekening-venster">
+						<img class="tekening" src={src} alt="" loading="lazy" decoding="async" style={venster(snede.y)} />
+					</div>
+					<Blokken blokken={snede.blokken} entry={entry} staticUrl={staticUrl} />
+				</div>
+			)}
+		</section>
+	) : (
+		<section class="sectie" style={`height:calc(${sectie.hoogte} * var(--s))`}>
+			{src && <img class="tekening" src={src} alt={alt} loading={eerste ? "eager" : "lazy"} decoding="async" />}
+			<Blokken blokken={boven} entry={entry} staticUrl={staticUrl} />
+		</section>
+	)
+}

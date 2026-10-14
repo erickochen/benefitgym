@@ -1,6 +1,6 @@
 ---
 // The dark band at the foot of every page: link columns from menu primary, the address from widget area Footer, the profiles from Social plus menu juridisch below.
-import { getMenuWithCacheHint, getSiteSettings, getWidgetAreaWithCacheHint, type MenuItem } from "emdash";
+import { getMenuWithCacheHint, getSiteSettings, getWidgetAreaWithCacheHint, type MenuItem, sanitizeHref } from "emdash";
 import type { FooterLayout } from "../layout";
 import data from "../layout/algemeen/footer.json";
 import { COPYRIGHT, KOLOM_TEKEN, SCHEIDING, SITE_NAME, SOCIAAL, SOCIAAL_KOP } from "../teksten";
@@ -47,7 +47,7 @@ const regels = (adres.data?.widgets ?? [])
 		const kinderen = blok.children ?? [];
 		const marks = new Set(kinderen.flatMap((kind) => kind.marks ?? []));
 		const link = (blok.markDefs ?? []).find((def) => def._type === "link" && marks.has(def._key));
-		return { tekst: kinderen.map((kind) => kind.text ?? "").join(""), href: link?.href };
+		return { tekst: kinderen.map((kind) => kind.text ?? "").join(""), href: link?.href ? sanitizeHref(link.href) : undefined };
 	});
 
 // Social holds handles; the profile addresses are built from them. A full address or a leading @ is taken as typed.

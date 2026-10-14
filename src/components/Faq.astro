@@ -1,0 +1,71 @@
+---
+// The FAQ as an accordion after the W3C pattern, every category closed. A category is a term that holds a question
+// of this page, in the order of the terms; a question counts under its first term. Closed parts carry a class, not
+// hidden, so a text extractor still reads them.
+import { getEmDashCollection, getTaxonomyTermsWithCacheHint, getTermsForEntries, type PortableTextBlock } from "emdash";
+import { PortableText } from "emdash/ui";
+import { type Blok, plekVan } from "../layout";
+
+interface Props {
+	blok: Extract<Blok, { soort: "faq" }>;
+}
+
+// The arrow of the round button on a grid of 100 by 100, as the measured page draws it.
+const PIJL = "32.59,23.57 32.59,72.87 76.96,48.22";
+
+const { blok } = Astro.props;
+const [vragen, termen] = await Promise.all([
+	getEmDashCollection("vragen", { where: { pagina: blok.pagina }, orderBy: { volgorde: "asc" } }),
+	getTaxonomyTermsWithCacheHint("faq_categorie"),
+]);
+if (Astro.cache?.enabled) for (const { cacheHint } of [vragen, termen]) Astro.cache.set(cacheHint);
+const termVan = await getTermsForEntries(
+	"vragen",
+	vragen.entries.map((vraag) => vraag.data.id),
+	"faq_categorie",
+);
+const categorieen = termen.data
+	.map((term) => ({ term, vragen: vragen.entries.filter((vraag) => termVan.get(vraag.data.id)?.[0]?.id === term.id) }))
+	.filter((categorie) => categorie.vragen.length);
+const rij = `height:calc(${blok.rij.h} * var(--s));border-top:calc(${blok.rij.lijn} * var(--s)) solid ${blok.rij.kleur}`;
+const onder = `border-bottom:calc(${blok.rij.lijn} * var(--s)) solid ${blok.rij.kleur}`;
+const icoon = `left:calc(${blok.icoon.x} * var(--s));top:calc(${blok.icoon.y} * var(--s));width:calc(${blok.icoon.w} * var(--s));height:calc(${blok.icoon.w} * var(--s))`;
+---
+
+<div class="blok faq" style={plekVan(blok)}>
+	{
+		categorieen.map(({ term, vragen }, i) => (
+			<div class="faq-categorie" style={i === categorieen.length - 1 ? onder : undefined}>
+				<h3 class="faq-kop">
+					<button type="button" class={`faq-knop s-${blok.label.stijl}`} aria-expanded="false" aria-controls={`faq-${i}`} style={rij}>
+						<span style={plekVan(blok.label)}>{term.label}</span>
+						<svg viewBox="0 0 100 100" aria-hidden="true" style={icoon}>
+							<circle cx="50" cy="50" r="50" fill={blok.icoon.vlak} />
+							<polygon points={PIJL} fill={blok.icoon.pijl} />
+						</svg>
+					</button>
+				</h3>
+				<div id={`faq-${i}`} class="faq-paneel faq-dicht" role="region">
+					{vragen.map((vraag, j) =>
+						vraag.data.soort === "Inleiding" ? (
+							<div class="faq-antwoord" {...vraag.edit.antwoord}>
+								<PortableText value={(vraag.data.antwoord as PortableTextBlock[] | undefined) ?? []} />
+							</div>
+						) : (
+							<div class="faq-vraag">
+								<h4 class="faq-kop">
+									<button type="button" class="faq-vraagknop" aria-expanded="false" aria-controls={`faq-${i}-${j}`}>
+										<span {...vraag.edit.vraag}>{vraag.data.vraag}</span>
+									</button>
+								</h4>
+								<div id={`faq-${i}-${j}`} class="faq-antwoord faq-dicht" {...vraag.edit.antwoord}>
+									<PortableText value={(vraag.data.antwoord as PortableTextBlock[] | undefined) ?? []} />
+								</div>
+							</div>
+						),
+					)}
+				</div>
+			</div>
+		))
+	}
+</div>

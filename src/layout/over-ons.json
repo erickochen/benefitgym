@@ -411,7 +411,57 @@
   {
    "naam": "sectie-7",
    "hoogte": 725.09375,
-   "gebouwd": true,
+   "gebouwd": {
+    "formulier": "contact",
+    "privacy": "Privacy bij contact",
+    "bellen": "Liever bellen?",
+    "dek": {
+     "h": 240,
+     "kleur": "rgb(45, 45, 45)"
+    },
+    "inhoud": {
+     "boven": 72,
+     "onder": 56,
+     "links": 84,
+     "gat": 64,
+     "kolom": 505
+    },
+    "afstand": {
+     "h": 485,
+     "volgt": false
+    },
+    "strook": {
+     "h": 14,
+     "beeld": {
+      "bestand": "over-ons/strook",
+      "breedte": 2483,
+      "kleiner": [
+       512,
+       1024,
+       2048
+      ],
+      "sizes": "(min-width: 1242px) min(100vw, 1242px), (min-width: 810px) and (max-width: 1241.98px) min(100vw, 1242px), (max-width: 809.98px) min(100vw, 1242px)"
+     }
+    },
+    "tekst": {
+     "kop": {
+      "veld": "contact_kop",
+      "stijl": "black-cursief-52-7-wit"
+     },
+     "intro": {
+      "veld": "contact_intro",
+      "stijl": "regular-18-wit"
+     },
+     "bellen": {
+      "h": 44,
+      "stijl": "bold-18-wit--3"
+     },
+     "gaten": [
+      16,
+      24
+     ]
+    }
+   },
    "blokken": []
   }
  ]

@@ -277,6 +277,38 @@
      "x": 115.5,
      "y": 807.53125,
      "w": 1032
+    },
+    {
+     "soort": "reviews",
+     "pagina": "Kids Core Craft",
+     "x": 286.140625,
+     "y": 449.671875,
+     "w": 659,
+     "h": 199,
+     "quote": {
+      "w": 430,
+      "stijl": "black-cursief-27-8-grijs-midden",
+      "regels": {
+       "naam": 5,
+       "zonder": 6
+      }
+     },
+     "naam": {
+      "stijl": "black-23-5-grijs"
+     },
+     "pijl": {
+      "w": 48,
+      "h": 48,
+      "vorige": {
+       "bestand": "algemeen/review-vorige",
+       "breedte": 191
+      },
+      "volgende": {
+       "bestand": "algemeen/review-volgende",
+       "breedte": 196
+      }
+     },
+     "z": 5
     }
    ]
   },
@@ -294,41 +326,61 @@
      "w": 506
     },
     {
-     "soort": "tekst",
-     "veld": "klaar_kop",
-     "tag": "h2",
-     "stijl": "black-cursief-36-wit-regel-1-4",
-     "x": 256.828125,
-     "y": 763.15625,
-     "w": 759
-    },
-    {
-     "soort": "knop",
-     "veld": "klaar_knop",
-     "link": "proefles_link",
-     "stijl": "antique-21-donker",
-     "x": 467.234375,
-     "y": 846.59375,
-     "w": 365,
-     "h": 56,
-     "radius": 28,
-     "achtergrond": "rgba(0, 0, 0, 0)",
-     "beeld": {
-      "bestand": "kids-core-craft/klaar_knop",
-      "breedte": 730,
-      "kleiner": [
-       512
-      ],
-      "sizes": "(min-width: 1242px) 365px, (max-width: 809.98px) min(min(100vw, 1242px) - 48px, 365px), (min-width: 810px) and (max-width: 1241.98px) min(min(100vw, 1242px) - 96px, 365px)"
+     "soort": "uitklap",
+     "veld": "uitklap_knop",
+     "tekst": "uitklap_tekst",
+     "x": 111.765625,
+     "y": 166.90625,
+     "w": 196.203125,
+     "h": 24,
+     "stijl": "uitklapknop",
+     "pijl": {
+      "w": 12,
+      "gat": 10
      },
-     "tekst": {
-      "x": 28.25,
-      "y": 11.203125,
-      "w": 308.484375
-     },
-     "z": 5
+     "kaart": null
     }
-   ]
+   ],
+   "snede": {
+    "y": 694.234375,
+    "blokken": [
+     {
+      "soort": "tekst",
+      "veld": "klaar_kop",
+      "tag": "h2",
+      "stijl": "black-cursief-36-wit-regel-1-4",
+      "x": 256.828125,
+      "y": 68.921875,
+      "w": 759
+     },
+     {
+      "soort": "knop",
+      "veld": "klaar_knop",
+      "link": "proefles_link",
+      "stijl": "antique-21-donker",
+      "x": 467.234375,
+      "y": 152.359375,
+      "w": 365,
+      "h": 56,
+      "radius": 28,
+      "achtergrond": "rgba(0, 0, 0, 0)",
+      "beeld": {
+       "bestand": "kids-core-craft/klaar_knop",
+       "breedte": 730,
+       "kleiner": [
+        512
+       ],
+       "sizes": "(min-width: 1242px) 365px, (max-width: 809.98px) min(min(100vw, 1242px) - 48px, 365px), (min-width: 810px) and (max-width: 1241.98px) min(min(100vw, 1242px) - 96px, 365px)"
+      },
+      "tekst": {
+       "x": 28.25,
+       "y": 11.203125,
+       "w": 308.484375
+      },
+      "z": 5
+     }
+    ]
+   }
   },
   {
    "naam": "sectie-6",
@@ -338,18 +390,95 @@
     {
      "soort": "tekst",
      "veld": "faq_kop",
-     "tag": "p",
+     "tag": "h2",
      "stijl": "black-cursief-29-grijs",
      "x": 116.125,
      "y": 31.90625,
      "w": 579
+    },
+    {
+     "soort": "faq",
+     "pagina": "Kids Core Craft",
+     "x": 116.015625,
+     "y": 159.6875,
+     "w": 651.359375,
+     "rij": {
+      "h": 76.890625,
+      "lijn": 1,
+      "kleur": "rgb(46, 46, 46)"
+     },
+     "label": {
+      "x": 0,
+      "y": 26.921875,
+      "w": 587.5625,
+      "stijl": "faqcategorie"
+     },
+     "icoon": {
+      "x": 601.5625,
+      "y": 25.109375,
+      "w": 31.609375,
+      "vlak": "rgb(46, 46, 46)",
+      "pijl": "rgb(255, 255, 255)"
+     },
+     "z": 21
     }
    ]
   },
   {
    "naam": "sectie-7",
    "hoogte": 474.09375,
-   "gebouwd": true,
+   "gebouwd": {
+    "formulier": "wachtlijst",
+    "sport": "Kids Core Craft",
+    "privacy": "Privacy bij aanmelden",
+    "bellen": "Liever bellen?",
+    "dek": {
+     "h": 240,
+     "kleur": "rgb(45, 45, 45)"
+    },
+    "inhoud": {
+     "boven": 72,
+     "onder": 56,
+     "links": 84,
+     "gat": 64,
+     "kolom": 505
+    },
+    "afstand": {
+     "h": 234,
+     "volgt": true
+    },
+    "strook": {
+     "h": 14,
+     "beeld": {
+      "bestand": "kids-core-craft/strook",
+      "breedte": 2483,
+      "kleiner": [
+       512,
+       1024,
+       2048
+      ],
+      "sizes": "(min-width: 1242px) min(100vw, 1242px), (min-width: 810px) and (max-width: 1241.98px) min(100vw, 1242px), (max-width: 809.98px) min(100vw, 1242px)"
+     }
+    },
+    "tekst": {
+     "kop": {
+      "veld": "aanmelden_kop",
+      "stijl": "black-cursief-52-7-wit"
+     },
+     "intro": {
+      "veld": "aanmelden_intro",
+      "stijl": "regular-18-wit"
+     },
+     "bellen": {
+      "h": 44,
+      "stijl": "bold-18-wit--3"
+     },
+     "gaten": [
+      16,
+      24
+     ]
+    }
+   },
    "blokken": []
   }
  ]

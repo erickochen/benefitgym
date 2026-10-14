@@ -268,6 +268,38 @@
      "x": 384.265625,
      "y": 450.640625,
      "w": 430
+    },
+    {
+     "soort": "reviews",
+     "pagina": "Tigers",
+     "x": 270.125,
+     "y": 546.890625,
+     "w": 658,
+     "h": 199,
+     "quote": {
+      "w": 430,
+      "stijl": "black-cursief-27-8-grijs-midden",
+      "regels": {
+       "naam": 5,
+       "zonder": 6
+      }
+     },
+     "naam": {
+      "stijl": "black-23-5-grijs"
+     },
+     "pijl": {
+      "w": 48,
+      "h": 48,
+      "vorige": {
+       "bestand": "algemeen/review-vorige",
+       "breedte": 191
+      },
+      "volgende": {
+       "bestand": "algemeen/review-volgende",
+       "breedte": 196
+      }
+     },
+     "z": 5
     }
    ]
   },
@@ -334,6 +366,27 @@
       "w": 308.484375
      },
      "z": 5
+    },
+    {
+     "soort": "uitklap",
+     "veld": "uitklap_knop",
+     "tekst": "uitklap_tekst",
+     "x": 109.53125,
+     "y": 17.90625,
+     "w": 196.203125,
+     "h": 24,
+     "stijl": "uitklapknop--2",
+     "pijl": {
+      "w": 12,
+      "gat": 10
+     },
+     "kaart": {
+      "x": 72.71875,
+      "y": 58,
+      "w": 704.28125,
+      "z": 30
+     },
+     "z": 6
     }
    ]
   },
@@ -345,18 +398,95 @@
     {
      "soort": "tekst",
      "veld": "faq_kop",
-     "tag": "p",
+     "tag": "h2",
      "stijl": "black-cursief-29-grijs",
      "x": 84.703125,
      "y": -61,
      "w": 545
+    },
+    {
+     "soort": "faq",
+     "pagina": "Tigers",
+     "x": 84.625,
+     "y": 66.5625,
+     "w": 651.359375,
+     "rij": {
+      "h": 76.890625,
+      "lijn": 1,
+      "kleur": "rgb(46, 46, 46)"
+     },
+     "label": {
+      "x": 0,
+      "y": 26.921875,
+      "w": 587.5625,
+      "stijl": "faqcategorie"
+     },
+     "icoon": {
+      "x": 601.5625,
+      "y": 25.109375,
+      "w": 31.609375,
+      "vlak": "rgb(46, 46, 46)",
+      "pijl": "rgb(255, 255, 255)"
+     },
+     "z": 21
     }
    ]
   },
   {
    "naam": "sectie-8",
    "hoogte": 474.09375,
-   "gebouwd": true,
+   "gebouwd": {
+    "formulier": "wachtlijst",
+    "sport": "Tigers",
+    "privacy": "Privacy bij aanmelden",
+    "bellen": "Liever bellen?",
+    "dek": {
+     "h": 240,
+     "kleur": "rgb(45, 45, 45)"
+    },
+    "inhoud": {
+     "boven": 72,
+     "onder": 56,
+     "links": 84,
+     "gat": 64,
+     "kolom": 505
+    },
+    "afstand": {
+     "h": 234,
+     "volgt": true
+    },
+    "strook": {
+     "h": 14,
+     "beeld": {
+      "bestand": "tigers/strook",
+      "breedte": 2483,
+      "kleiner": [
+       512,
+       1024,
+       2048
+      ],
+      "sizes": "(min-width: 1242px) min(100vw, 1242px), (min-width: 810px) and (max-width: 1241.98px) min(100vw, 1242px), (max-width: 809.98px) min(100vw, 1242px)"
+     }
+    },
+    "tekst": {
+     "kop": {
+      "veld": "aanmelden_kop",
+      "stijl": "black-cursief-52-7-wit"
+     },
+     "intro": {
+      "veld": "aanmelden_intro",
+      "stijl": "regular-18-wit"
+     },
+     "bellen": {
+      "h": 44,
+      "stijl": "bold-18-wit--3"
+     },
+     "gaten": [
+      16,
+      24
+     ]
+    }
+   },
    "blokken": []
   }
  ]

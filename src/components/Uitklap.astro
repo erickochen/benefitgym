@@ -1,0 +1,28 @@
+---
+// "Lees hoe dit werkt" as a details element, closed. The summary sits on the measured place of the button;
+// the text lies in flow where its section is cut, or hangs as a card.
+import type { PortableTextBlock } from "emdash";
+import { PortableText } from "emdash/ui";
+import { type Blok, type Entry, plekVan, waarde } from "../layout";
+
+interface Props {
+	blok: Extract<Blok, { soort: "uitklap" }>;
+	entry: Entry;
+}
+
+const { blok, entry } = Astro.props;
+const knop = `${plekVan(blok)};gap:calc(${blok.pijl.gat} * var(--s))`;
+const pijl = `width:calc(${blok.pijl.w} * var(--s));height:calc(${blok.pijl.w} * var(--s))`;
+---
+
+<details class="uitklap">
+	<summary class={`blok uitklap-knop s-${blok.stijl}`} style={knop}>
+		<span {...entry.edit[blok.veld]}>{waarde(entry, blok.veld) as string}</span>
+		<svg viewBox="0 0 12 12" aria-hidden="true" style={pijl}>
+			<polyline points="1.5,4 6,8.5 10.5,4" fill="none" stroke="currentColor" stroke-width="2"></polyline>
+		</svg>
+	</summary>
+	<div class:list={["uitklap-tekst", blok.kaart && "blok"]} style={blok.kaart ? plekVan(blok.kaart) : undefined} {...entry.edit[blok.tekst]}>
+		<PortableText value={(waarde(entry, blok.tekst) as PortableTextBlock[] | undefined) ?? []} />
+	</div>
+</details>

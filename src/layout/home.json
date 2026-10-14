@@ -479,6 +479,38 @@
      "x": 422.265625,
      "y": 1054.328125,
      "w": 430
+    },
+    {
+     "soort": "reviews",
+     "pagina": "Home",
+     "x": 307.390625,
+     "y": 1133.203125,
+     "w": 659,
+     "h": 199,
+     "quote": {
+      "w": 430,
+      "stijl": "black-cursief-27-8-grijs-midden",
+      "regels": {
+       "naam": 5,
+       "zonder": 6
+      }
+     },
+     "naam": {
+      "stijl": "black-23-5-grijs"
+     },
+     "pijl": {
+      "w": 48,
+      "h": 48,
+      "vorige": {
+       "bestand": "algemeen/review-vorige",
+       "breedte": 191
+      },
+      "volgende": {
+       "bestand": "algemeen/review-volgende",
+       "breedte": 196
+      }
+     },
+     "z": 5
     }
    ]
   },

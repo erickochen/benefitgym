@@ -276,6 +276,38 @@
      "x": 105.1875,
      "y": 681.28125,
      "w": 600
+    },
+    {
+     "soort": "reviews",
+     "pagina": "EVOM Kids Fitness",
+     "x": 221.0625,
+     "y": 325.96875,
+     "w": 772,
+     "h": 199,
+     "quote": {
+      "w": 430,
+      "stijl": "black-cursief-27-8-grijs-midden",
+      "regels": {
+       "naam": 5,
+       "zonder": 6
+      }
+     },
+     "naam": {
+      "stijl": "black-23-5-grijs"
+     },
+     "pijl": {
+      "w": 48,
+      "h": 48,
+      "vorige": {
+       "bestand": "algemeen/review-vorige",
+       "breedte": 191
+      },
+      "volgende": {
+       "bestand": "algemeen/review-volgende",
+       "breedte": 196
+      }
+     },
+     "z": 5
     }
    ]
   },
@@ -293,41 +325,61 @@
      "w": 544
     },
     {
-     "soort": "tekst",
-     "veld": "klaar_kop",
-     "tag": "h2",
-     "stijl": "black-cursief-36-wit-regel-1-4",
-     "x": 204.796875,
-     "y": 560.90625,
-     "w": 835
-    },
-    {
-     "soort": "knop",
-     "veld": "klaar_knop",
-     "link": "proefles_link",
-     "stijl": "antique-21-donker",
-     "x": 437.921875,
-     "y": 643.8125,
-     "w": 365,
-     "h": 56,
-     "radius": 28,
-     "achtergrond": "rgba(0, 0, 0, 0)",
-     "beeld": {
-      "bestand": "kids-evom/klaar_knop",
-      "breedte": 730,
-      "kleiner": [
-       512
-      ],
-      "sizes": "(min-width: 1242px) 365px, (min-width: 810px) and (max-width: 1241.98px) min(min(100vw, 1242px) - 96px, 365px), (max-width: 809.98px) min(min(100vw, 1242px) - 48px, 365px)"
+     "soort": "uitklap",
+     "veld": "uitklap_knop",
+     "tekst": "uitklap_tekst",
+     "x": 108.421875,
+     "y": 88.234375,
+     "w": 196.203125,
+     "h": 24,
+     "stijl": "uitklapknop",
+     "pijl": {
+      "w": 12,
+      "gat": 10
      },
-     "tekst": {
-      "x": 28.25,
-      "y": 11.203125,
-      "w": 308.484375
-     },
-     "z": 5
+     "kaart": null
     }
-   ]
+   ],
+   "snede": {
+    "y": 480.265625,
+    "blokken": [
+     {
+      "soort": "tekst",
+      "veld": "klaar_kop",
+      "tag": "h2",
+      "stijl": "black-cursief-36-wit-regel-1-4",
+      "x": 204.796875,
+      "y": 80.640625,
+      "w": 835
+     },
+     {
+      "soort": "knop",
+      "veld": "klaar_knop",
+      "link": "proefles_link",
+      "stijl": "antique-21-donker",
+      "x": 437.921875,
+      "y": 163.546875,
+      "w": 365,
+      "h": 56,
+      "radius": 28,
+      "achtergrond": "rgba(0, 0, 0, 0)",
+      "beeld": {
+       "bestand": "kids-evom/klaar_knop",
+       "breedte": 730,
+       "kleiner": [
+        512
+       ],
+       "sizes": "(min-width: 1242px) 365px, (min-width: 810px) and (max-width: 1241.98px) min(min(100vw, 1242px) - 96px, 365px), (max-width: 809.98px) min(min(100vw, 1242px) - 48px, 365px)"
+      },
+      "tekst": {
+       "x": 28.25,
+       "y": 11.203125,
+       "w": 308.484375
+      },
+      "z": 5
+     }
+    ]
+   }
   },
   {
    "naam": "sectie-6",
@@ -337,18 +389,95 @@
     {
      "soort": "tekst",
      "veld": "faq_kop",
-     "tag": "p",
+     "tag": "h2",
      "stijl": "black-cursief-29-grijs",
      "x": 76.5,
      "y": -23,
      "w": 573
+    },
+    {
+     "soort": "faq",
+     "pagina": "EVOM Kids Fitness",
+     "x": 76.25,
+     "y": 105.34375,
+     "w": 651.359375,
+     "rij": {
+      "h": 76.890625,
+      "lijn": 1,
+      "kleur": "rgb(46, 46, 46)"
+     },
+     "label": {
+      "x": 0,
+      "y": 26.921875,
+      "w": 587.5625,
+      "stijl": "faqcategorie"
+     },
+     "icoon": {
+      "x": 601.5625,
+      "y": 25.109375,
+      "w": 31.609375,
+      "vlak": "rgb(46, 46, 46)",
+      "pijl": "rgb(255, 255, 255)"
+     },
+     "z": 21
     }
    ]
   },
   {
    "naam": "sectie-7",
    "hoogte": 411.09375,
-   "gebouwd": true,
+   "gebouwd": {
+    "formulier": "wachtlijst",
+    "sport": "EVOM Kids Fitness",
+    "privacy": "Privacy bij aanmelden",
+    "bellen": "Liever bellen?",
+    "dek": {
+     "h": 240,
+     "kleur": "rgb(45, 45, 45)"
+    },
+    "inhoud": {
+     "boven": 72,
+     "onder": 56,
+     "links": 84,
+     "gat": 64,
+     "kolom": 505
+    },
+    "afstand": {
+     "h": 171,
+     "volgt": true
+    },
+    "strook": {
+     "h": 14,
+     "beeld": {
+      "bestand": "kids-evom/strook",
+      "breedte": 2483,
+      "kleiner": [
+       512,
+       1024,
+       2048
+      ],
+      "sizes": "(min-width: 1242px) min(100vw, 1242px), (min-width: 810px) and (max-width: 1241.98px) min(100vw, 1242px), (max-width: 809.98px) min(100vw, 1242px)"
+     }
+    },
+    "tekst": {
+     "kop": {
+      "veld": "aanmelden_kop",
+      "stijl": "black-cursief-52-7-wit"
+     },
+     "intro": {
+      "veld": "aanmelden_intro",
+      "stijl": "regular-18-wit"
+     },
+     "bellen": {
+      "h": 44,
+      "stijl": "bold-18-wit--3"
+     },
+     "gaten": [
+      16,
+      24
+     ]
+    }
+   },
    "blokken": []
   }
  ]

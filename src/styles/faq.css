@@ -1,0 +1,29 @@
+/* The FAQ: one row per category, its label plus round button on measured places inside it. */
+.faq-kop {
+	margin: 0;
+	font: inherit;
+}
+
+.faq-knop {
+	position: relative;
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	text-align: left;
+	cursor: pointer;
+}
+
+.faq-knop > span,
+.faq-knop > svg {
+	position: absolute;
+	display: block;
+}
+
+/* A closed part stays in the HTML. */
+.faq-dicht {
+	display: none;
+}

@@ -1,0 +1,75 @@
+/* The review carousel: one slide per review in a rail that snaps, the arrows on its edges. */
+.reviews-rail {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	overflow-x: auto;
+	overflow-y: hidden;
+	scroll-snap-type: x mandatory;
+	scrollbar-width: none;
+}
+
+.reviews-rail::-webkit-scrollbar {
+	display: none;
+}
+
+/* The quote plus its name stand as one group in the middle of the slide. */
+.reviews-slide {
+	flex: none;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	scroll-snap-align: center;
+	scroll-snap-stop: always;
+}
+
+.reviews-slide > p {
+	margin: 0;
+}
+
+.reviews-quote {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.reviews-pijlen {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	min-width: 0;
+	pointer-events: none;
+}
+
+/* Clipped like the measured buttons, so the arrow layer stays as wide as the carousel. */
+.reviews-pijl {
+	display: block;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	cursor: pointer;
+	pointer-events: auto;
+}
+
+.reviews-pijl img {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+/* At the first review there is nothing before it. */
+.reviews-pijl:disabled {
+	opacity: 0;
+	pointer-events: none;
+	cursor: default;
+}

@@ -1,0 +1,86 @@
+---
+// A built section: a dark band over the foot of the drawing above, the heading, intro plus call link beside a form,
+// then room for the footer and the strip below it. The content stands at least as tall as measured; a section that
+// follows its content grows and shrinks with it, to the next whole pixel like the measured page.
+import { getWidgetAreaWithCacheHint, sanitizeHref } from "emdash";
+import { type Entry, maat, type Sectie, waarde } from "../layout";
+import Beeld from "./Beeld.astro";
+import Formulier from "./Formulier.astro";
+
+interface Span {
+	text?: string;
+	marks?: string[];
+}
+
+interface Blok {
+	children?: Span[];
+	markDefs?: { _key: string; _type: string; href?: string }[];
+}
+
+interface Props {
+	sectie: Sectie & { gebouwd: NonNullable<Sectie["gebouwd"]> };
+	entry: Entry;
+	staticUrl: string;
+}
+
+const { sectie, entry, staticUrl } = Astro.props;
+const g = sectie.gebouwd;
+const { data: widgets, cacheHint } = await getWidgetAreaWithCacheHint("onder_formulier");
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+const inhoudVan = (titel: string) =>
+	(widgets?.widgets.find((widget) => widget.type === "content" && widget.title === titel)?.content ?? []) as unknown as Blok[];
+// The call link is one line: its text plus the first address any part of it links to.
+const bellen = inhoudVan(g.bellen);
+const belTekst = bellen.flatMap((blok) => (blok.children ?? []).map((span) => span.text ?? "")).join("");
+const belLink = bellen.flatMap((blok) => blok.markDefs ?? []).find((def) => def._type === "link")?.href;
+const belHref = belLink ? sanitizeHref(belLink) : undefined;
+const inhoud = `margin-top:${maat(-g.dek.h)};min-height:${maat(g.afstand.h + g.dek.h)};padding:${maat(g.inhoud.boven)} 0 ${maat(g.inhoud.onder)} ${maat(g.inhoud.links)};gap:${maat(g.inhoud.gat)}`;
+const kolom = `width:${maat(g.inhoud.kolom)}`;
+---
+
+<section class="sectie gebouwd" style={`background:${g.dek.kleur}`}>
+	<div class="gebouwd-dek" style={`top:${maat(-g.dek.h)};height:${maat(g.dek.h)};background:${g.dek.kleur}`}></div>
+	<div class="gebouwd-inhoud" style={inhoud} data-volgt={g.afstand.volgt ? "" : undefined}>
+		<div class="gebouwd-tekst" style={kolom}>
+			<h2 class={`s-${g.tekst.kop.stijl}`} {...entry.edit[g.tekst.kop.veld]}>{waarde(entry, g.tekst.kop.veld) as string}</h2>
+			<p class={`s-${g.tekst.intro.stijl}`} style={`margin-top:${maat(g.tekst.gaten[0])}`} {...entry.edit[g.tekst.intro.veld]}>
+				{waarde(entry, g.tekst.intro.veld) as string}
+			</p>
+			{
+				belHref && (
+					<a class="gebouwd-bellen link" href={belHref} style={`height:${maat(g.tekst.bellen.h)};margin-top:${maat(g.tekst.gaten[1])}`}>
+						<p class={`s-${g.tekst.bellen.stijl}`}>{belTekst}</p>
+					</a>
+				)
+			}
+		</div>
+		<div class="gebouwd-formulier" style={kolom}>
+			<Formulier
+				slug={g.formulier}
+				staticUrl={staticUrl}
+				sport={g.sport}
+				planner={waarde(entry, "planner") as string | undefined}
+				geenData={waarde(entry, "aanmelden_geen_data") as string | undefined}
+				privacy={inhoudVan(g.privacy)}
+			/>
+		</div>
+	</div>
+	<div style={`height:${maat(sectie.hoogte - g.afstand.h)}`}></div>
+	<div class="gebouwd-strook" style={`height:${maat(g.strook.h)}`}>
+		<Beeld beeld={g.strook.beeld} staticUrl={staticUrl} />
+	</div>
+</section>
+
+<script>
+	// Content that the section follows: its padding plus the taller column, to the next whole pixel.
+	for (const inhoud of document.querySelectorAll<HTMLElement>(".gebouwd-inhoud[data-volgt]")) {
+		const kolommen = [...inhoud.children] as HTMLElement[];
+		const volg = () => {
+			const stijl = getComputedStyle(inhoud);
+			const hoog = Math.max(...kolommen.map((kolom) => kolom.getBoundingClientRect().height));
+			inhoud.style.minHeight = `${Math.ceil(Number.parseFloat(stijl.paddingTop) + hoog + Number.parseFloat(stijl.paddingBottom))}px`;
+		};
+		const kijker = new ResizeObserver(volg);
+		for (const kolom of kolommen) kijker.observe(kolom);
+	}
+</script>

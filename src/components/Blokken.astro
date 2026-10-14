@@ -1,0 +1,36 @@
+---
+// The blocks of one section, or of the part of a section below its cut, each with its own component.
+import type { Blok, Entry } from "../layout";
+import Faq from "./Faq.astro";
+import Knop from "./Knop.astro";
+import Logo from "./Logo.astro";
+import Reviews from "./Reviews.astro";
+import Tekst from "./Tekst.astro";
+import Uitklap from "./Uitklap.astro";
+
+interface Props {
+	blokken: Blok[];
+	entry: Entry;
+	staticUrl: string;
+}
+
+const { blokken, entry, staticUrl } = Astro.props;
+---
+
+{
+	blokken.map((blok) =>
+		blok.soort === "logo" ? (
+			<Logo blok={blok} staticUrl={staticUrl} />
+		) : blok.soort === "knop" ? (
+			<Knop blok={blok} entry={entry} staticUrl={staticUrl} />
+		) : blok.soort === "reviews" ? (
+			<Reviews blok={blok} staticUrl={staticUrl} />
+		) : blok.soort === "uitklap" ? (
+			<Uitklap blok={blok} entry={entry} />
+		) : blok.soort === "faq" ? (
+			<Faq blok={blok} />
+		) : (
+			<Tekst blok={blok} entry={entry} />
+		),
+	)
+}
