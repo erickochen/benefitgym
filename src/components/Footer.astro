@@ -1,7 +1,7 @@
 ---
 // The dark band at the foot of every page: link columns from menu primary, the address from widget area Footer, the profiles from Social plus menu juridisch below.
 import { getMenuWithCacheHint, getSiteSettings, getWidgetAreaWithCacheHint, type MenuItem, sanitizeHref } from "emdash";
-import type { FooterLayout } from "../layout";
+import { type FooterLayout, perStand } from "../layout";
 import data from "../layout/algemeen/footer.json";
 import { COPYRIGHT, KOLOM_TEKEN, SCHEIDING, SITE_NAME, SOCIAAL, SOCIAAL_KOP } from "../teksten";
 import Beeld from "./Beeld.astro";
@@ -103,9 +103,30 @@ const variabelen = Object.entries({
 })
 	.map(([naam, waarde]) => `${naam}:${waarde}`)
 	.join(";");
+// The narrow footer of the column per breakpoint, which footer.css reads below 1242.
+const px = (n: number) => `${n}px`;
+const kolomVars = f.smal
+	? perStand(f.smal, (k) => ({
+			"fk-vak": k.vak.map(px).join(" "),
+			"fk-z": String(k.z),
+			"fk-kolommen": k.kolommen.map(px).join(" "),
+			"fk-kolom": px(k.kolom),
+			"fk-boven": px(k.boven),
+			"fk-kop": px(k.kop),
+			"fk-rij": px(k.rij),
+			"fk-regel": px(k.regel),
+			"fk-logo-w": px(k.logo.w),
+			"fk-logo-h": px(k.logo.h),
+			"fk-na-logo": px(k.naLogo),
+			"fk-tussen": px(k.tussen),
+			"fk-onder": k.onder.rand.map(px).join(" "),
+			"fk-onder-gat": px(k.onder.gat),
+			"fk-onder-link": px(k.onder.link),
+		}))
+	: undefined;
 ---
 
-<footer class:list={["footer", onder !== undefined && "footer-op-pagina"]} style={variabelen}>
+<footer class:list={["footer", onder !== undefined && "footer-op-pagina"]} style={kolomVars ? `${variabelen};${kolomVars}` : variabelen}>
 	<div class="footer-kolommen">
 		{
 			kolommenVan(primary.data?.items ?? []).map((groep) => (

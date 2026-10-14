@@ -70,5 +70,43 @@
   "vast": 23,
   "logo": 299
  },
- "overgang": "200ms cubic-bezier(0.44, 0, 0.56, 1)"
+ "overgang": "200ms cubic-bezier(0.44, 0, 0.56, 1)",
+ "mobiel": {
+  "hoogte": 64,
+  "rand": 20,
+  "kleur": {
+   "rust": "rgba(0, 0, 0, 0)",
+   "vol": "rgb(255, 255, 255)"
+  },
+  "overgang": {
+   "balk": "background-color 0.12s ease-out 0s",
+   "badge": "opacity 0.12s ease-out 0s, visibility 0.12s ease-out 0s"
+  },
+  "badge": {
+   "w": 44,
+   "h": 44,
+   "maat": "contain",
+   "plek": "50% 50%",
+   "herhaal": "no-repeat",
+   "beeld": {
+    "bestand": "algemeen/menu-badge-kolom"
+   }
+  },
+  "knop": {
+   "w": 44,
+   "h": 44,
+   "streep": {
+    "x": 10,
+    "w": 24,
+    "h": 2,
+    "radius": 1,
+    "kleur": "rgb(46, 46, 46)",
+    "tops": [
+     14,
+     21,
+     28
+    ]
+   }
+  }
+ }
 }
