@@ -50,6 +50,7 @@ const seo = getSeoMeta(entry, {
 	canonical={seo.canonical}
 	content={{ collection, id: entry.data.id, slug }}
 	footerOnder={layout?.footer.onder}
+	kolom={layout?.kolom === true}
 >
 	{
 		layout ? (

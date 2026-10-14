@@ -1,14 +1,16 @@
 ---
 // An image as AVIF where the browser takes it, PNG or WebP otherwise, from the same srcset.
-import type { Beeld } from "../layout";
+// An image for one side of 1242 alone takes its files from sources for that side, so the other side fetches nothing.
+import { type Beeld, LEEG_BEELD } from "../layout";
 
 interface Props {
 	beeld: Beeld;
 	staticUrl: string;
 	class?: string;
+	media?: string;
 }
 
-const { beeld, staticUrl, class: klasse } = Astro.props;
+const { beeld, staticUrl, class: klasse, media } = Astro.props;
 const terug = beeld.terugval ?? "png";
 const pad = (achter: string, ext: string) => `${staticUrl}/tekeningen/${beeld.bestand}${achter}.${ext}`;
 const reeks = (ext: string) =>
@@ -18,6 +20,13 @@ const reeks = (ext: string) =>
 ---
 
 <picture>
-	<source type="image/avif" srcset={reeks("avif") ?? pad("", "avif")} sizes={beeld.sizes} />
-	<img class={klasse} src={pad("", terug)} srcset={reeks(terug)} sizes={beeld.sizes} alt="" />
+	<source type="image/avif" media={media} srcset={reeks("avif") ?? pad("", "avif")} sizes={beeld.sizes} />
+	{media && <source media={media} srcset={reeks(terug) ?? pad("", terug)} sizes={beeld.sizes} />}
+	{
+		media ? (
+			<img class={klasse} src={LEEG_BEELD} alt="" />
+		) : (
+			<img class={klasse} src={pad("", terug)} srcset={reeks(terug)} sizes={beeld.sizes} alt="" />
+		)
+	}
 </picture>

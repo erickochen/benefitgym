@@ -5,6 +5,20 @@
 	min-height: calc(var(--f-hoogte) * var(--s));
 }
 
+/* Above 1242 the footer lies over the foot of the last section; in the column it follows the page. */
+.footer-op-pagina {
+	position: absolute;
+	left: 0;
+	bottom: var(--f-op-pagina);
+}
+
+@media (max-width: 1241.98px) {
+	.met-kolom .footer-op-pagina {
+		position: relative;
+		bottom: auto;
+	}
+}
+
 .footer-kolommen {
 	display: flex;
 	align-items: flex-start;

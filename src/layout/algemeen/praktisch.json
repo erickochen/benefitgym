@@ -14,16 +14,16 @@
  "stijl": {
   "wit": {
    "kop": "black-cursief-31-oranje",
-   "punt": "regular-18-oranje--2",
-   "tekst": "regular-18-grijs-regel-1-444",
+   "punt": "regular-18-oranje--3",
+   "tekst": "regular-18-grijs-regel-1-444--2",
    "subkop": "black-cursief-22-grijs",
-   "link": "bold-18-grijs",
-   "kopcel": "bold-18-grijs",
-   "kopcelLaatste": "bold-18-grijs--2",
-   "cel": "regular-18-grijs-regel-1-444",
+   "link": "bold-18-grijs--2",
+   "kopcel": "bold-18-grijs--2",
+   "kopcelLaatste": "bold-18-grijs--3",
+   "cel": "regular-18-grijs-regel-1-444--2",
    "prijs": "black-cursief-25-grijs",
    "wanneer": "black-18-grijs--2",
-   "wat": "regular-18-grijs-regel-1-444--2"
+   "wat": "regular-18-grijs-regel-1-444--3"
   },
   "lesrooster": "lesrooster",
   "donker": {
@@ -32,10 +32,10 @@
    "kopcel": "bold-18-wit",
    "kopcelLaatste": "bold-18-wit--3",
    "cel": "regular-18-wit",
-   "prijs": "black-cursief-26-4-wit--2",
+   "prijs": "black-cursief-26-4-wit--3",
    "subkop": "black-cursief-18-wit",
    "link": "bold-18-wit",
-   "punt": "regular-18-oranje--2"
+   "punt": "regular-18-oranje--3"
   }
  },
  "lijst": {

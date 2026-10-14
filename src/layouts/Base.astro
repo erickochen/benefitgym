@@ -25,6 +25,8 @@ interface Props {
 	content?: { collection: string; id: string; slug?: string | null };
 	/** Where the footer sits: its distance to the bottom of the page in design units. */
 	footerOnder?: number;
+	/** The page has its column below 1242. */
+	kolom?: boolean;
 }
 
 // Each face carries the family name, weight and style the text styles ask for, so an element matches the same file.
@@ -42,7 +44,7 @@ const FONTS = [
 // The two faces above the fold: the hero intro plus the heading and the button.
 const PRELOAD = ["Interstate-BlackItalic.woff2", "AntiqueOliveCompact-Italic.woff2"];
 
-const { title, description, canonical, content, footerOnder } = Astro.props;
+const { title, description, canonical, content, footerOnder, kolom } = Astro.props;
 const staticUrl = leesStaticUrl();
 const fontCss = FONTS.map(
 	([family, file, weight, style]) =>
@@ -77,7 +79,7 @@ const pageCtx = createPublicPageContext({
 		{PRELOAD.map((file) => <link rel="preload" href={`${staticUrl}/fonts/${file}`} as="font" type="font/woff2" crossorigin />)}
 		<style is:inline set:html={fontCss} />
 	</head>
-	<body>
+	<body class={kolom ? "met-kolom" : undefined}>
 		<EmDashBodyStart page={pageCtx} />
 		<Menu staticUrl={staticUrl} />
 		<div class="kolom">

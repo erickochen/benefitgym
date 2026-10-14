@@ -1,7 +1,7 @@
 ---
 // The review carousel: a rail with one slide per review of this page, the first in view, plus the two drawn arrows.
 import { getEmDashCollection } from "emdash";
-import { type Blok, plekVan } from "../layout";
+import { type Blok, blokKlasse, blokStijl } from "../layout";
 import { REVIEWS } from "../teksten";
 import Beeld from "./Beeld.astro";
 
@@ -17,7 +17,7 @@ const reviews = entries.filter((review) => (review.data.paginas as string[] | un
 const pijl = `width:calc(${blok.pijl.w} * var(--s));height:calc(${blok.pijl.h} * var(--s))`;
 ---
 
-<div class="blok reviews" style={plekVan(blok)}>
+<div class:list={["blok", "reviews", blokKlasse(blok)]} style={blokStijl(blok)}>
 	<div class="reviews-rail" role="region" aria-roledescription={REVIEWS.rol} aria-label={REVIEWS.rail} aria-live="polite" tabindex="0">
 		{
 			reviews.map((review, i) => (

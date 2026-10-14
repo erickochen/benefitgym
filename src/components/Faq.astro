@@ -4,7 +4,7 @@
 // hidden, so a text extractor still reads them.
 import { getEmDashCollection, getTaxonomyTermsWithCacheHint, getTermsForEntries, type PortableTextBlock } from "emdash";
 import { PortableText } from "emdash/ui";
-import { type Blok, plekVan } from "../layout";
+import { type Blok, blokKlasse, blokStijl, plekStijl } from "../layout";
 
 interface Props {
 	blok: Extract<Blok, { soort: "faq" }>;
@@ -32,13 +32,13 @@ const onder = `border-bottom:calc(${blok.rij.lijn} * var(--s)) solid ${blok.rij.
 const icoon = `left:calc(${blok.icoon.x} * var(--s));top:calc(${blok.icoon.y} * var(--s));width:calc(${blok.icoon.w} * var(--s));height:calc(${blok.icoon.w} * var(--s))`;
 ---
 
-<div class="blok faq" style={plekVan(blok)}>
+<div class:list={["blok", "faq", blokKlasse(blok)]} style={blokStijl(blok)}>
 	{
 		categorieen.map(({ term, vragen }, i) => (
 			<div class="faq-categorie" style={i === categorieen.length - 1 ? onder : undefined}>
 				<h3 class="faq-kop">
 					<button type="button" class={`faq-knop s-${blok.label.stijl}`} aria-expanded="false" aria-controls={`faq-${i}`} style={rij}>
-						<span style={plekVan(blok.label)}>{term.label}</span>
+						<span style={plekStijl(blok.label)}>{term.label}</span>
 						<svg viewBox="0 0 100 100" aria-hidden="true" style={icoon}>
 							<circle cx="50" cy="50" r="50" fill={blok.icoon.vlak} />
 							<polygon points={PIJL} fill={blok.icoon.pijl} />

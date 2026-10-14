@@ -153,3 +153,10 @@ html {
 .menu.vast .menu-lijn {
 	display: block;
 }
+
+/* A page with its column shows no desktop bar below 1242; the bar of the column comes in its own form. */
+@media (max-width: 1241.98px) {
+	.met-kolom .menu {
+		display: none;
+	}
+}

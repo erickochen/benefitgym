@@ -1,6 +1,6 @@
 ---
-// The logo as a link home; the hidden text names the link.
-import { type Blok, plekVan } from "../layout";
+// The logo as a link home; the hidden text names the link. The column can show a logo of its own.
+import { type Blok, DESKTOP_MEDIA, KOLOM_MEDIA, blokKlasse, blokStijl } from "../layout";
 import { SITE_NAME } from "../teksten";
 import Beeld from "./Beeld.astro";
 
@@ -10,10 +10,11 @@ interface Props {
 }
 
 const { blok, staticUrl } = Astro.props;
-const plek = plekVan(blok);
+const kolomBeeld = blok.kolom?.tablet.beeld;
 ---
 
-<a class="blok logo" href="/" style={plek}>
-	<Beeld beeld={blok.beeld} staticUrl={staticUrl} />
+<a class:list={["blok", "logo", blokKlasse(blok)]} href="/" style={blokStijl(blok)}>
+	<Beeld beeld={blok.beeld} staticUrl={staticUrl} class={kolomBeeld ? "alleen-desktop" : undefined} media={kolomBeeld ? DESKTOP_MEDIA : undefined} />
+	{kolomBeeld && <Beeld beeld={kolomBeeld} staticUrl={staticUrl} class="alleen-kolom" media={KOLOM_MEDIA} />}
 	<span>{SITE_NAME}</span>
 </a>
