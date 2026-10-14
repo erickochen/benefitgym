@@ -11,12 +11,13 @@ export interface Vak extends Plek {
 	h: number;
 }
 
-// An image as AVIF plus PNG, with the smaller sizes of its srcset.
+// An image as AVIF plus PNG, or plus WebP when the measured page serves that, with the smaller sizes of its srcset.
 export interface Beeld {
 	bestand: string;
 	breedte: number;
 	kleiner?: number[];
 	sizes?: string;
+	terugval?: "webp";
 }
 
 // A block with a z-index lies above the next sections, as its measured item does.
@@ -138,6 +139,39 @@ export interface Layout {
 	// The footer lies over the foot of the page, this far above the bottom.
 	footer: { onder: number };
 	secties: Sectie[];
+	// A Praktisch page: the streak that hangs at the top of its first band.
+	praktisch?: { streek: { h: number; beeld: Beeld } };
+}
+
+// The class of each role of a Praktisch block, per color.
+type Rollen = Record<"kop" | "subkop" | "tekst" | "link" | "kopcel" | "kopcelLaatste" | "cel" | "prijs" | "punt", string>;
+
+// The shape of src/layout/algemeen/praktisch.json: the measures every Praktisch page shares.
+export interface PraktischRegels {
+	band: { rand: number; boven: number; onder: number };
+	kleur: { wit: string; donker: string };
+	gat: { blok: number; naKolommen: number };
+	overgang: { h: number; rand: Beeld; "wit-donker": Beeld; "donker-wit": Beeld };
+	slot: { h: number; kleur: string; strook: { h: number; beeld: Beeld } };
+	rij: { gat: number };
+	kolom: { gat: number; smal: number };
+	drie: { gat: number };
+	link: { ruimte: number };
+	lijst: { gat: number; punt: number };
+	tabel: {
+		kopOnder: number;
+		ruimte: number;
+		gat: number;
+		midden: number;
+		laatste: number;
+		kopLijn: number;
+		lijn: number;
+		kopLijnKleur: { wit: string; donker: string };
+		lijnKleur: { wit: string; donker: string };
+	};
+	rooster: { lijn: { h: number; kleur: string }; rijLijn: { h: number; kleur: string }; ruimte: number; wanneer: number; gat: number };
+	stijl: { wit: Rollen & { wanneer: string; wat: string }; donker: Rollen; lesrooster: string };
+	zinLink: { streep: string; dikte: number; afstand: number };
 }
 
 // The shape of src/layout/menu.json.

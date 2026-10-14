@@ -1,0 +1,144 @@
+{
+ "band": {
+  "rand": 84,
+  "boven": 96,
+  "onder": 96
+ },
+ "kleur": {
+  "wit": "rgb(255, 255, 255)",
+  "donker": "rgb(45, 45, 45)"
+ },
+ "rij": {
+  "gat": 64
+ },
+ "stijl": {
+  "wit": {
+   "kop": "black-cursief-31-oranje",
+   "punt": "regular-18-oranje--2",
+   "tekst": "regular-18-grijs-regel-1-444",
+   "subkop": "black-cursief-22-grijs",
+   "link": "bold-18-grijs",
+   "kopcel": "bold-18-grijs",
+   "kopcelLaatste": "bold-18-grijs--2",
+   "cel": "regular-18-grijs-regel-1-444",
+   "prijs": "black-cursief-25-grijs",
+   "wanneer": "black-18-grijs--2",
+   "wat": "regular-18-grijs-regel-1-444--2"
+  },
+  "lesrooster": "lesrooster",
+  "donker": {
+   "kop": "black-cursief-36-wit-regel-1-2",
+   "tekst": "regular-18-wit",
+   "kopcel": "bold-18-wit",
+   "kopcelLaatste": "bold-18-wit--3",
+   "cel": "regular-18-wit",
+   "prijs": "black-cursief-26-4-wit--2",
+   "subkop": "black-cursief-18-wit",
+   "link": "bold-18-wit",
+   "punt": "regular-18-oranje--2"
+  }
+ },
+ "lijst": {
+  "punt": 10,
+  "gat": 6
+ },
+ "kolom": {
+  "gat": 20,
+  "smal": 820
+ },
+ "gat": {
+  "blok": 96,
+  "naKolommen": 48
+ },
+ "link": {
+  "ruimte": 11
+ },
+ "overgang": {
+  "h": 267.546875,
+  "rand": {
+   "bestand": "algemeen/praktisch-rand",
+   "breedte": 1620,
+   "kleiner": [
+    512,
+    1024
+   ],
+   "sizes": "(min-width: 1242px) min(100vw, 1242px), (min-width: 810px) and (max-width: 1241.98px) min(100vw, 1242px), (max-width: 809.98px) min(100vw, 1242px)",
+   "terugval": "webp"
+  },
+  "wit-donker": {
+   "bestand": "algemeen/praktisch-wit-donker",
+   "breedte": 1620,
+   "kleiner": [
+    512,
+    1024
+   ],
+   "sizes": "(min-width: 1242px) min(100vw, 1242px), (min-width: 810px) and (max-width: 1241.98px) min(100vw, 1242px), (max-width: 809.98px) min(100vw, 1242px)",
+   "terugval": "webp"
+  },
+  "donker-wit": {
+   "bestand": "algemeen/praktisch-donker-wit",
+   "breedte": 1620,
+   "kleiner": [
+    512,
+    1024
+   ],
+   "sizes": "(min-width: 1242px) min(100vw, 1242px), (min-width: 810px) and (max-width: 1241.98px) min(100vw, 1242px), (max-width: 809.98px) min(100vw, 1242px)",
+   "terugval": "webp"
+  }
+ },
+ "slot": {
+  "h": 240.09375,
+  "kleur": "rgb(45, 45, 45)",
+  "strook": {
+   "h": 14,
+   "beeld": {
+    "bestand": "algemeen/praktisch-strook",
+    "breedte": 2483,
+    "kleiner": [
+     512,
+     1024,
+     2048
+    ],
+    "sizes": "(min-width: 1242px) min(100vw, 1242px), (min-width: 810px) and (max-width: 1241.98px) min(100vw, 1242px), (max-width: 809.98px) min(100vw, 1242px)"
+   }
+  }
+ },
+ "tabel": {
+  "kopOnder": 12,
+  "kopLijn": 2,
+  "kopLijnKleur": {
+   "wit": "rgb(46, 46, 46)",
+   "donker": "rgb(255, 255, 255)"
+  },
+  "gat": 16,
+  "ruimte": 14,
+  "lijn": 1,
+  "lijnKleur": {
+   "wit": "rgba(46, 46, 46, 0.2)",
+   "donker": "rgba(255, 255, 255, 0.3)"
+  },
+  "midden": 106,
+  "laatste": 156
+ },
+ "drie": {
+  "gat": 48
+ },
+ "rooster": {
+  "lijn": {
+   "h": 2,
+   "kleur": "rgb(46, 46, 46)"
+  },
+  "ruimte": 18,
+  "wanneer": 380,
+  "gat": 40,
+  "rijLijn": {
+   "h": 1,
+   "kleur": "rgba(46, 46, 46, 0.2)"
+  }
+ },
+ "zinLink": {
+  "streep": "rgb(236, 110, 29)",
+  "dikte": 2,
+  "afstand": 4
+ }
+}

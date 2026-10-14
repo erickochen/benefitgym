@@ -1,0 +1,21 @@
+---
+// The schedule of SportBit as it opens: the loading line above the box SportBit fills.
+import type { PraktischInhoudLesroosterBlock } from "../../../emdash-env";
+import type { PraktischRegels } from "../../layout";
+import data from "../../layout/algemeen/praktisch.json";
+import { LESROOSTER } from "../../teksten";
+
+interface Props {
+	value: PraktischInhoudLesroosterBlock;
+}
+
+const regels = data as PraktischRegels;
+const { value } = Astro.props;
+---
+
+<div class="praktisch-blok praktisch-kolom">
+	<div class="praktisch-lesrooster" data-adres={value.adres || undefined} data-rooster={value.rooster || undefined}>
+		<p class={`s-${regels.stijl.lesrooster}`}>{LESROOSTER.laden}</p>
+		<div></div>
+	</div>
+</div>

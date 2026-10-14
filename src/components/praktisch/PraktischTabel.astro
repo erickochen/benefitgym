@@ -1,0 +1,46 @@
+---
+// A table as rows with a line below each: the first cell takes the room left, the last stands right and never wraps.
+// With three or more cells the middle ones plus the last have a width of their own. A cell keeps its links plus emphasis.
+import type { PraktischRegels } from "../../layout";
+import data from "../../layout/algemeen/praktisch.json";
+import type { PtBlok, Vlak } from "../../praktisch";
+import Zin from "./Zin.astro";
+
+interface Props {
+	kop: PtBlok[] | null;
+	rijen: PtBlok[][];
+	vlak: Vlak;
+}
+
+const regels = data as PraktischRegels;
+const { kop, rijen, vlak } = Astro.props;
+const t = regels.tabel;
+const s = regels.stijl[vlak];
+const alle = [...(kop ? [{ cellen: kop, isKop: true }] : []), ...rijen.map((cellen) => ({ cellen, isKop: false }))];
+const lijn = (isKop: boolean) =>
+	`height:calc(${isKop ? t.kopLijn : t.lijn} * var(--s));background:${(isKop ? t.kopLijnKleur : t.lijnKleur)[vlak]}`;
+---
+
+<div class="praktisch-tabel" role="table">
+	{
+		alle.map(({ cellen, isKop }) => (
+			<Fragment>
+				<div class={`praktisch-tabelrij${isKop ? " praktisch-tabelkop" : ""}`} role="row">
+					{cellen.map((cel, j) => {
+						const laatste = cellen.length > 1 && j === cellen.length - 1;
+						const klasse = `s-${laatste ? (isKop ? s.kopcelLaatste : s.prijs) : isKop ? s.kopcel : s.cel}`;
+						const rol = isKop ? "columnheader" : "cell";
+						return laatste && cellen.length > 2 ? (
+							<div class="praktisch-laatste" role={rol}>
+								<p class={klasse}><Zin blok={cel} /></p>
+							</div>
+						) : (
+							<p class={j > 0 && !laatste ? `${klasse} praktisch-midden` : klasse} role={rol}><Zin blok={cel} /></p>
+						);
+					})}
+				</div>
+				<div style={lijn(isKop)} />
+			</Fragment>
+		))
+	}
+</div>

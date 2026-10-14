@@ -1,0 +1,208 @@
+/* The flow of a Praktisch page. The numbers come from praktisch.json as custom properties on .praktisch. */
+.praktisch p,
+.praktisch h2,
+.praktisch h3,
+.praktisch h4,
+.praktisch h5,
+.praktisch h6,
+.praktisch ul,
+.praktisch ol,
+.praktisch blockquote {
+	margin: 0;
+	padding: 0;
+}
+
+.praktisch ul,
+.praktisch ol {
+	list-style: none;
+}
+
+.praktisch-band {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	width: 100%;
+	padding: var(--p-boven) var(--p-rand) var(--p-onder);
+}
+
+.praktisch-wit {
+	background: var(--p-wit);
+}
+
+.praktisch-donker {
+	background: var(--p-donker);
+}
+
+.praktisch-blok + .praktisch-blok {
+	margin-top: var(--p-blok);
+}
+
+.praktisch-drie + .praktisch-blok {
+	margin-top: var(--p-na-kolommen);
+}
+
+/* The brush edges, the streak plus the strip fill their box the way a background image does. */
+.praktisch-rand,
+.praktisch-foto {
+	position: relative;
+}
+
+.praktisch-rand {
+	height: var(--p-overgang);
+}
+
+.praktisch-streek {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.praktisch-rand img,
+.praktisch-streek img,
+.praktisch-strook img,
+.praktisch-foto img {
+	position: absolute;
+	inset: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* A photo whose size is not known stands in the flow at its own height. */
+.praktisch-vrij img {
+	position: static;
+	height: auto;
+}
+
+.praktisch-rij,
+.praktisch-drie {
+	display: flex;
+	align-items: flex-start;
+}
+
+.praktisch-rij {
+	gap: var(--p-rij-gat);
+}
+
+.praktisch-drie {
+	gap: var(--p-drie-gat);
+}
+
+.praktisch-rij > *,
+.praktisch-drie > * {
+	flex: 1 1 0;
+	min-width: 0;
+}
+
+.praktisch-kolom {
+	display: flex;
+	flex-direction: column;
+	gap: var(--p-kolom-gat);
+}
+
+.praktisch-smal {
+	max-width: var(--p-smal);
+}
+
+.praktisch-link {
+	display: block;
+	padding: var(--p-link) 0;
+}
+
+.zin-link {
+	color: inherit;
+	-webkit-text-fill-color: inherit;
+	text-decoration-line: underline;
+	text-decoration-color: var(--p-link-streep);
+	text-decoration-thickness: var(--p-link-dikte);
+	text-underline-offset: var(--p-link-afstand);
+}
+
+.praktisch-lijst {
+	display: flex;
+	flex-direction: column;
+	gap: var(--p-lijst-gat);
+}
+
+.praktisch-punt {
+	display: flex;
+	gap: var(--p-punt);
+}
+
+.praktisch-puntinhoud {
+	display: flex;
+	flex: 1 1 0;
+	flex-direction: column;
+	gap: var(--p-lijst-gat);
+	min-width: 0;
+}
+
+.praktisch-tabel,
+.praktisch-rooster,
+.praktisch-vakantie {
+	display: flex;
+	flex-direction: column;
+}
+
+.praktisch-tabelrij {
+	display: flex;
+	align-items: center;
+	gap: var(--p-cel-gat);
+	padding: var(--p-cel-ruimte) 0;
+}
+
+.praktisch-tabelkop {
+	padding: 0 0 var(--p-kop-onder);
+}
+
+.praktisch-tabelrij > * {
+	flex: none;
+}
+
+.praktisch-tabelrij > :first-child {
+	flex: 1 1 0;
+	min-width: 0;
+}
+
+.praktisch-midden {
+	width: var(--p-midden);
+}
+
+.praktisch-laatste {
+	display: flex;
+	justify-content: flex-end;
+	width: var(--p-laatste);
+}
+
+.praktisch-periode {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--p-rooster-gat);
+	padding: var(--p-rooster-ruimte) 0;
+}
+
+.praktisch-periode > :first-child {
+	flex: none;
+	width: var(--p-wanneer);
+}
+
+.praktisch-periode > :last-child {
+	flex: 1 1 0;
+	min-width: 0;
+}
+
+/* The closing section: the footer lies over it, the strip runs along its foot. */
+.praktisch-slot {
+	position: relative;
+	width: 100%;
+}
+
+.praktisch-strook {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
