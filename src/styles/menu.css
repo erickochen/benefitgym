@@ -154,9 +154,79 @@ html {
 	display: block;
 }
 
-/* A page with its column shows no desktop bar below 1242; the bar of the column comes in its own form. */
+/* The bar of the column: the badge left plus the hamburger right, transparent with the badge hidden until the page
+logo has left the window, then white with the badge. Only a page with its column shows it, below 1242. */
+.menu-mobiel {
+	display: none;
+}
+
 @media (max-width: 1241.98px) {
-	.met-kolom .menu {
+	html:has(> .met-kolom) {
+		scroll-padding-top: var(--mobiel-hoogte);
+	}
+
+	.met-kolom .menu-binnen {
 		display: none;
+	}
+
+	.met-kolom .menu-mobiel {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		box-sizing: border-box;
+		height: var(--mobiel-hoogte);
+		padding: 0 var(--mobiel-rand);
+		background-color: var(--mobiel-rust);
+		transition: var(--mobiel-overgang);
+	}
+
+	.met-kolom .menu.vol .menu-mobiel {
+		background-color: var(--mobiel-vol);
+	}
+}
+
+.menu-mobiel-badge {
+	display: block;
+	flex: none;
+	width: var(--mobiel-badge-w);
+	height: var(--mobiel-badge-h);
+	background-size: var(--mobiel-badge-maat);
+	background-position: var(--mobiel-badge-plek);
+	background-repeat: var(--mobiel-badge-herhaal);
+	opacity: 0;
+	visibility: hidden;
+	transition: var(--mobiel-badge-overgang);
+}
+
+.menu.vol .menu-mobiel-badge {
+	opacity: 1;
+	visibility: visible;
+}
+
+.menu-hamburger {
+	position: relative;
+	flex: none;
+	width: var(--hamburger-w);
+	height: var(--hamburger-h);
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	cursor: pointer;
+}
+
+.menu-hamburger > span {
+	position: absolute;
+	left: var(--streep-x);
+	width: var(--streep-w);
+	height: var(--streep-h);
+	border-radius: var(--streep-radius);
+	background-color: var(--streep-kleur);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.met-kolom .menu-mobiel,
+	.menu-mobiel-badge {
+		transition: none;
 	}
 }

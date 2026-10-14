@@ -1,9 +1,10 @@
 ---
 // The fixed bar from menu primary on the measured places. It turns white past the first scroll mark plus shows the badge past the second.
+// Below 1242 a page with its column shows the bar of the column instead: the badge plus the closed hamburger.
 import { getMenuWithCacheHint, type MenuItem } from "emdash";
 import type { MenuLayout } from "../layout";
 import data from "../layout/algemeen/menu.json";
-import { SITE_NAME } from "../teksten";
+import { MENU, SITE_NAME } from "../teksten";
 import Beeld from "./Beeld.astro";
 
 interface Props {
@@ -31,7 +32,40 @@ const items = (menu?.items ?? []).map((item) => {
 });
 const hier = Astro.url.pathname.replace(/(.)\/$/, "$1");
 const rel = (item: MenuItem) => (item.target === "_blank" ? "noopener" : undefined);
+// The bar of the column measures in pixels, the same on the tablet plus the phone.
+const k = m.mobiel;
+const px = (n: number) => `${n}px`;
+const kolom = k
+	? {
+			"--mobiel-hoogte": px(k.hoogte),
+			"--mobiel-rand": px(k.rand),
+			"--mobiel-rust": k.kleur.rust,
+			"--mobiel-vol": k.kleur.vol,
+			"--mobiel-overgang": k.overgang.balk,
+			"--mobiel-badge-overgang": k.overgang.badge,
+			"--mobiel-badge-w": px(k.badge.w),
+			"--mobiel-badge-h": px(k.badge.h),
+			"--mobiel-badge-maat": k.badge.maat,
+			"--mobiel-badge-plek": k.badge.plek,
+			"--mobiel-badge-herhaal": k.badge.herhaal,
+			"--hamburger-w": px(k.knop.w),
+			"--hamburger-h": px(k.knop.h),
+			"--streep-x": px(k.knop.streep.x),
+			"--streep-w": px(k.knop.streep.w),
+			"--streep-h": px(k.knop.streep.h),
+			"--streep-radius": px(k.knop.streep.radius),
+			"--streep-kleur": k.knop.streep.kleur,
+		}
+	: {};
+// The badge is a background image like the measured one, as AVIF where the browser takes it.
+const badgeBeeld = (() => {
+	if (!k) return undefined;
+	const terug = k.badge.beeld.terugval ?? "png";
+	const pad = (ext: string) => `${staticUrl}/tekeningen/${k.badge.beeld.bestand}.${ext}`;
+	return `background-image:url("${pad(terug)}");background-image:image-set(url("${pad("avif")}") type("image/avif"), url("${pad(terug)}") type("image/${terug}"))`;
+})();
 const variabelen = Object.entries({
+	...kolom,
 	"--menu-z": m.z,
 	"--menu-hoogte": m.hoogte,
 	"--menu-vast-hoogte": m.vast.hoogte,
@@ -95,20 +129,44 @@ const variabelen = Object.entries({
 		</nav>
 		<div class="menu-lijn"></div>
 	</div>
+	{
+		k && (
+			<nav class="menu-mobiel" aria-label={MENU}>
+				<a class="menu-mobiel-badge" href="/" aria-label={SITE_NAME} style={badgeBeeld} />
+				<button type="button" class="menu-hamburger" aria-expanded="false" aria-label={MENU}>
+					{k.knop.streep.tops.map((top) => <span style={`top:${px(top)}`} />)}
+				</button>
+			</nav>
+		)
+	}
 </header>
 
 <script>
+	import { KOLOM_MEDIA } from "../layout";
+
 	// The bar switches where its two scroll marks leave the top of the window. Scrolling up switches it back at the same marks.
 	const menu = document.querySelector<HTMLElement>(".menu");
 	if (menu) {
 		const breedte = Number(menu.dataset.breedte);
 		const vast = Number(menu.dataset.vast);
 		const logo = Number(menu.dataset.logo);
+		// The bar of the column only shows on a page with its column, below 1242.
+		const metKolom = document.body.classList.contains("met-kolom");
+		const inKolom = matchMedia(KOLOM_MEDIA);
+		// The highest page logo that has a box, which the bar of the column follows.
+		const paginaLogo = () =>
+			[...document.querySelectorAll<HTMLElement>("main a.logo")]
+				.filter((a) => a.getClientRects().length)
+				.sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top)[0];
 		const zet = () => {
 			// The marks scale with the page, so they are compared in design units.
 			const y = (window.scrollY * breedte) / Math.min(window.innerWidth, breedte);
 			menu.classList.toggle("vast", y >= vast);
 			menu.classList.toggle("met-logo", y >= logo);
+			if (!metKolom || !inKolom.matches) return;
+			// The bar of the column turns white with its badge once the page logo has left the window, at once without one.
+			const merk = paginaLogo();
+			menu.classList.toggle("vol", !merk || merk.getBoundingClientRect().bottom <= 0);
 		};
 		addEventListener("scroll", zet, { passive: true });
 		addEventListener("resize", zet);

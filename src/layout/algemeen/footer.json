@@ -41,5 +41,79 @@
   "link": "light-cursief-11-wit",
   "adres": "bold-cursief-11-wit",
   "klein": "regular-12-oranje"
+ },
+ "smal": {
+  "tablet": {
+   "vak": [
+    0,
+    24,
+    0,
+    24
+   ],
+   "z": 20,
+   "kolommen": [
+    24,
+    24,
+    0,
+    24
+   ],
+   "kolom": 152,
+   "boven": 16,
+   "kop": 16,
+   "rij": 44,
+   "regel": 16,
+   "logo": {
+    "w": 132,
+    "h": 48.984375
+   },
+   "naLogo": 8,
+   "tussen": 16,
+   "onder": {
+    "rand": [
+     0,
+     24,
+     24,
+     24
+    ],
+    "gat": 4,
+    "link": 24
+   }
+  },
+  "phone": {
+   "vak": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "z": 20,
+   "kolommen": [
+    24,
+    24,
+    0,
+    24
+   ],
+   "kolom": 152,
+   "boven": 16,
+   "kop": 16,
+   "rij": 44,
+   "regel": 16,
+   "logo": {
+    "w": 132,
+    "h": 48.984375
+   },
+   "naLogo": 8,
+   "tussen": 16,
+   "onder": {
+    "rand": [
+     0,
+     24,
+     24,
+     24
+    ],
+    "gat": 4,
+    "link": 24
+   }
+  }
  }
 }

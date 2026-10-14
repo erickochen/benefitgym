@@ -3,6 +3,9 @@
 // The gym name in the footer plus the badge. Also the fallback title until Site Settings carry one.
 export const SITE_NAME = "Benefit Gym";
 
+// The name of the bar of the column plus its button, for a screen reader.
+export const MENU = "Menu";
+
 // The footer texts, word for word. The year behind the copyright follows the clock.
 export const KOLOM_TEKEN = ":";
 export const SOCIAAL_KOP = ["Volg ons op", "sociale media:"];

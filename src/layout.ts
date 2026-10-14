@@ -120,7 +120,7 @@ export interface Band {
 
 const pixels = (n: number) => `${n}px`;
 
-function perStand<T>(kolom: PerStand<T>, waarden: (maat: T) => Record<string, string | undefined>): string {
+export function perStand<T>(kolom: PerStand<T>, waarden: (maat: T) => Record<string, string | undefined>): string {
 	return (Object.keys(VOOR) as Stand[])
 		.flatMap((stand) =>
 			Object.entries(waarden(kolom[stand]))
@@ -303,6 +303,40 @@ export interface MenuLayout {
 	badge: Vak & { beeld: Beeld };
 	wissel: { vast: number; logo: number };
 	overgang: string;
+	mobiel?: MenuMobiel;
+}
+
+// A background image as AVIF plus PNG, or plus WebP when the measured page serves that.
+export interface Achtergrond {
+	bestand: string;
+	terugval?: "webp";
+}
+
+// The bar of the column in pixels, the same on the tablet plus the phone. It lies transparent with its badge hidden
+// until the page logo has left the window, then turns white with its badge.
+export interface MenuMobiel {
+	hoogte: number;
+	rand: number;
+	kleur: { rust: string; vol: string };
+	overgang: { balk: string; badge: string };
+	badge: { w: number; h: number; maat: string; plek: string; herhaal: string; beeld: Achtergrond };
+	knop: { w: number; h: number; streep: { x: number; w: number; h: number; radius: number; kleur: string; tops: number[] } };
+}
+
+// The narrow footer of the column per breakpoint in pixels, each padding as top, right, bottom and left.
+export interface FooterSmal {
+	vak: number[];
+	z: number;
+	kolommen: number[];
+	kolom: number;
+	boven: number;
+	kop: number;
+	rij: number;
+	regel: number;
+	logo: { w: number; h: number };
+	naLogo: number;
+	tussen: number;
+	onder: { rand: number[]; gat: number; link: number };
 }
 
 // The shape of src/layout/footer.json.
@@ -327,6 +361,7 @@ export interface FooterLayout {
 	sociaal: { boven: number };
 	onder: { boven: number; x: number; w: number; h: number; gat: number };
 	stijlen: { kop: string; link: string; adres: string; klein: string };
+	smal?: PerStand<FooterSmal>;
 }
 
 // Any page entry: the layout file names its fields as strings.

@@ -100,3 +100,111 @@
 	height: calc(var(--f-onder-h) * var(--s));
 	margin: calc(var(--f-onder-boven) * var(--s)) 0 0 calc(var(--f-onder-x) * var(--s));
 }
+
+/* The narrow footer of the column, on the breakpoints of the measured page. Its measures come per breakpoint as
+--t-fk-* plus --p-fk-*; the rules below read the ones that apply. */
+@media (min-width: 810px) and (max-width: 1241.98px) {
+	.met-kolom .footer {
+		--fk-vak: var(--t-fk-vak);
+		--fk-z: var(--t-fk-z);
+		--fk-kolommen: var(--t-fk-kolommen);
+		--fk-kolom: var(--t-fk-kolom);
+		--fk-boven: var(--t-fk-boven);
+		--fk-kop: var(--t-fk-kop);
+		--fk-rij: var(--t-fk-rij);
+		--fk-regel: var(--t-fk-regel);
+		--fk-logo-w: var(--t-fk-logo-w);
+		--fk-logo-h: var(--t-fk-logo-h);
+		--fk-na-logo: var(--t-fk-na-logo);
+		--fk-tussen: var(--t-fk-tussen);
+		--fk-onder: var(--t-fk-onder);
+		--fk-onder-gat: var(--t-fk-onder-gat);
+		--fk-onder-link: var(--t-fk-onder-link);
+	}
+}
+
+@media (max-width: 809.98px) {
+	.met-kolom .footer {
+		--fk-vak: var(--p-fk-vak);
+		--fk-z: var(--p-fk-z);
+		--fk-kolommen: var(--p-fk-kolommen);
+		--fk-kolom: var(--p-fk-kolom);
+		--fk-boven: var(--p-fk-boven);
+		--fk-kop: var(--p-fk-kop);
+		--fk-rij: var(--p-fk-rij);
+		--fk-regel: var(--p-fk-regel);
+		--fk-logo-w: var(--p-fk-logo-w);
+		--fk-logo-h: var(--p-fk-logo-h);
+		--fk-na-logo: var(--p-fk-na-logo);
+		--fk-tussen: var(--p-fk-tussen);
+		--fk-onder: var(--p-fk-onder);
+		--fk-onder-gat: var(--p-fk-onder-gat);
+		--fk-onder-link: var(--p-fk-onder-link);
+	}
+}
+
+/* Every column has the same width and wraps to the next row; no row has room around it, and the address stands at
+the left edge of its column like the rest. */
+@media (max-width: 1241.98px) {
+	.met-kolom .footer {
+		min-height: 0;
+		padding: var(--fk-vak);
+		z-index: var(--fk-z);
+	}
+
+	.met-kolom .footer-kolommen {
+		flex-wrap: wrap;
+		padding: var(--fk-kolommen);
+	}
+
+	.met-kolom .footer-kolom {
+		width: var(--fk-kolom);
+		padding-top: var(--fk-boven);
+	}
+
+	.met-kolom .footer-kop {
+		height: var(--fk-kop);
+	}
+
+	.met-kolom .footer-links > .footer-kop {
+		margin-bottom: 0;
+	}
+
+	.met-kolom .footer-rij {
+		height: var(--fk-rij);
+	}
+
+	.met-kolom .footer-regel {
+		height: var(--fk-regel);
+	}
+
+	.met-kolom .footer-inspring {
+		padding-left: 0;
+	}
+
+	.met-kolom .footer-na-regels {
+		margin-top: 0;
+	}
+
+	.met-kolom .footer-logo {
+		width: var(--fk-logo-w);
+		height: var(--fk-logo-h);
+		margin-bottom: var(--fk-na-logo);
+	}
+
+	/* The bottom line fills the band and wraps; a link keeps the height of its row, a text its own line. */
+	.met-kolom .footer-onder {
+		flex-wrap: wrap;
+		gap: var(--fk-onder-gat);
+		width: auto;
+		height: auto;
+		margin: var(--fk-tussen) 0 0;
+		padding: var(--fk-onder);
+	}
+
+	.met-kolom .footer-onder > a {
+		display: flex;
+		align-items: center;
+		height: var(--fk-onder-link);
+	}
+}
