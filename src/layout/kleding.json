@@ -1,6 +1,7 @@
 {
  "breedte": 1242,
  "hoogte": 5289.453125,
+ "kolom": true,
  "footer": {
   "onder": 14
  },
@@ -27,9 +28,77 @@
        "y": 42,
        "w": 286.890625,
        "h": 257.984375,
-       "z": 19
+       "z": 19,
+       "kolom": {
+        "tablet": {
+         "breedte": 200,
+         "verhouding": "1.124 / 1",
+         "beeld": {
+          "bestand": "kleding/logo-kolom",
+          "breedte": 800,
+          "kleiner": [
+           512
+          ],
+          "sizes": "(min-width: 810px) and (max-width: 1241.98px) 200px, (max-width: 809.98px) 150px"
+         }
+        },
+        "phone": {
+         "breedte": 150,
+         "verhouding": "1.124 / 1",
+         "beeld": {
+          "bestand": "kleding/logo-kolom",
+          "breedte": 800,
+          "kleiner": [
+           512
+          ],
+          "sizes": "(min-width: 810px) and (max-width: 1241.98px) 200px, (max-width: 809.98px) 150px"
+         }
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        14,
+        0,
+        8,
+        20
+       ],
+       "z": 101,
+       "breedte": "inhoud",
+       "zelf": "flex-start",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      },
+      "phone": {
+       "rand": [
+        14,
+        0,
+        8,
+        20
+       ],
+       "z": 101,
+       "breedte": "inhoud",
+       "zelf": "flex-start",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      }
+     }
     },
     {
      "blokken": [
@@ -37,12 +106,69 @@
        "soort": "tekst",
        "veld": "hero_paginatitel",
        "tag": "h1",
-       "stijl": "antique-40-2-oranje--2",
+       "stijl": "antique-40-2-oranje",
        "x": 1021.171875,
        "y": 100.765625,
-       "w": 180.828125
+       "w": 180.828125,
+       "kolom": {
+        "tablet": {
+         "breedte": "inhoud"
+        },
+        "phone": {
+         "breedte": "inhoud"
+        }
+       }
       }
-     ]
+     ],
+     "uitsnede": {
+      "bestand": "foto-1.webp",
+      "pagina": "mma",
+      "alt": "hero_alt"
+     },
+     "kolom": {
+      "tablet": {
+       "rand": [
+        24,
+        0,
+        0,
+        0
+       ],
+       "breedte": "vul",
+       "verhouding": "1.311 / 1",
+       "rij": {
+        "rand": [
+         0,
+         48,
+         0,
+         0
+        ],
+        "uitlijning": "flex-end",
+        "boven": 64,
+        "z": 2
+       }
+      },
+      "phone": {
+       "rand": [
+        16,
+        0,
+        0,
+        0
+       ],
+       "breedte": "vul",
+       "verhouding": "1.311 / 1",
+       "rij": {
+        "rand": [
+         0,
+         24,
+         0,
+         0
+        ],
+        "uitlijning": "flex-end",
+        "boven": 36,
+        "z": 2
+       }
+      }
+     }
     },
     {
      "blokken": [
@@ -50,12 +176,60 @@
        "soort": "tekst",
        "veld": "hero_intro",
        "tag": "p",
-       "stijl": "black-cursief-26-4-wit--2",
+       "stijl": "black-cursief-26-4-wit",
        "x": 117.734375,
        "y": 416.078125,
-       "w": 420
+       "w": 420,
+       "kolom": {
+        "tablet": {
+         "breedte": "vul"
+        },
+        "phone": {
+         "breedte": "vul"
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        32,
+        48,
+        8,
+        48
+       ],
+       "kleur": "rgb(19, 22, 29)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      },
+      "phone": {
+       "rand": [
+        32,
+        24,
+        8,
+        24
+       ],
+       "kleur": "rgb(19, 22, 29)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      }
+     }
     },
     {
      "blokken": [
@@ -63,7 +237,7 @@
        "soort": "knop",
        "veld": "hero_knop",
        "link": "proefles_link",
-       "stijl": "antique-21-donker--3",
+       "stijl": "antique-21-donker",
        "x": 83.953125,
        "y": 646.53125,
        "w": 254,
@@ -76,9 +250,71 @@
         "y": 10.703125,
         "w": 197.265625
        },
-       "z": 5
+       "z": 5,
+       "kolom": {
+        "tablet": {
+         "breedte": 254,
+         "hoogte": 55,
+         "vulling": "rgba(0, 0, 0, 0)",
+         "beeld": {
+          "bestand": "kleding/hero_knop-kolom",
+          "breedte": 424
+         }
+        },
+        "phone": {
+         "breedte": 254,
+         "hoogte": 55,
+         "vulling": "rgba(0, 0, 0, 0)",
+         "beeld": {
+          "bestand": "kleding/hero_knop-kolom",
+          "breedte": 424
+         }
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        8,
+        48,
+        0,
+        48
+       ],
+       "kleur": "rgb(19, 22, 29)",
+       "z": 5,
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "center"
+       }
+      },
+      "phone": {
+       "rand": [
+        8,
+        24,
+        0,
+        24
+       ],
+       "kleur": "rgb(19, 22, 29)",
+       "z": 5,
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "center"
+       }
+      }
+     }
     },
     {
      "blokken": [
@@ -86,12 +322,89 @@
        "soort": "tekst",
        "veld": "hero_kop",
        "tag": "h2",
-       "stijl": "antique-38-6-omlijnd-midden--2",
+       "stijl": "antique-38-6-omlijnd-midden",
        "x": 371.109375,
        "y": 838.609375,
-       "w": 550
+       "w": 550,
+       "kolom": {
+        "tablet": {
+         "breedte": "vul"
+        },
+        "phone": {
+         "breedte": "vul"
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        32,
+        48,
+        32,
+        48
+       ],
+       "kleur": "rgb(19, 22, 29)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      },
+      "phone": {
+       "rand": [
+        32,
+        24,
+        32,
+        24
+       ],
+       "kleur": "rgb(19, 22, 29)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      }
+     }
+    },
+    {
+     "blokken": [],
+     "uitsnede": {
+      "bestand": "balk-onder.webp",
+      "pagina": "mma"
+     },
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "breedte": "vul",
+       "verhouding": "11.172 / 1"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "breedte": "vul",
+       "verhouding": "11.172 / 1"
+      }
+     }
     }
    ]
   }
