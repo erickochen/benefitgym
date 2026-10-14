@@ -248,6 +248,38 @@
      "x": 110.28125,
      "y": 720.40625,
      "w": 535
+    },
+    {
+     "soort": "reviews",
+     "pagina": "SPEAR cursus",
+     "x": 281.671875,
+     "y": 153.375,
+     "w": 658,
+     "h": 199,
+     "quote": {
+      "w": 430,
+      "stijl": "black-cursief-27-8-grijs-midden",
+      "regels": {
+       "naam": 5,
+       "zonder": 6
+      }
+     },
+     "naam": {
+      "stijl": null
+     },
+     "pijl": {
+      "w": 48,
+      "h": 48,
+      "vorige": {
+       "bestand": "algemeen/review-vorige",
+       "breedte": 191
+      },
+      "volgende": {
+       "bestand": "algemeen/review-volgende",
+       "breedte": 196
+      }
+     },
+     "z": 5
     }
    ]
   },
@@ -290,6 +322,27 @@
       "w": 262.5
      },
      "z": 5
+    },
+    {
+     "soort": "uitklap",
+     "veld": "uitklap_knop",
+     "tekst": "uitklap_tekst",
+     "x": 109.53125,
+     "y": -92,
+     "w": 196.203125,
+     "h": 24,
+     "stijl": "uitklapknop",
+     "pijl": {
+      "w": 12,
+      "gat": 10
+     },
+     "kaart": {
+      "x": 77.71875,
+      "y": -52,
+      "w": 704.28125,
+      "z": 30
+     },
+     "z": 6
     }
    ]
   },
@@ -301,18 +354,95 @@
     {
      "soort": "tekst",
      "veld": "faq_kop",
-     "tag": "p",
+     "tag": "h2",
      "stijl": "black-cursief-29-grijs",
      "x": 457.046875,
      "y": 94.078125,
      "w": 617
+    },
+    {
+     "soort": "faq",
+     "pagina": "SPEAR cursus",
+     "x": 456.296875,
+     "y": 221.15625,
+     "w": 651.359375,
+     "rij": {
+      "h": 76.890625,
+      "lijn": 1,
+      "kleur": "rgb(46, 46, 46)"
+     },
+     "label": {
+      "x": 0,
+      "y": 25.796875,
+      "w": 587.5625,
+      "stijl": "faqcategorie"
+     },
+     "icoon": {
+      "x": 601.5625,
+      "y": 25.71875,
+      "w": 31.609375,
+      "vlak": "rgb(46, 46, 46)",
+      "pijl": "rgb(255, 255, 255)"
+     },
+     "z": 21
     }
    ]
   },
   {
    "naam": "sectie-7",
    "hoogte": 908.09375,
-   "gebouwd": true,
+   "gebouwd": {
+    "formulier": "spear-cursus",
+    "sport": "SPEAR cursus",
+    "privacy": "Privacy bij aanmelden",
+    "bellen": "Liever bellen?",
+    "dek": {
+     "h": 240,
+     "kleur": "rgb(45, 45, 45)"
+    },
+    "inhoud": {
+     "boven": 72,
+     "onder": 56,
+     "links": 84,
+     "gat": 64,
+     "kolom": 505
+    },
+    "afstand": {
+     "h": 668,
+     "volgt": true
+    },
+    "strook": {
+     "h": 14,
+     "beeld": {
+      "bestand": "spear-cursus/strook",
+      "breedte": 2483,
+      "kleiner": [
+       512,
+       1024,
+       2048
+      ],
+      "sizes": "(min-width: 1242px) min(100vw, 1242px), (min-width: 810px) and (max-width: 1241.98px) min(100vw, 1242px), (max-width: 809.98px) min(100vw, 1242px)"
+     }
+    },
+    "tekst": {
+     "kop": {
+      "veld": "aanmelden_kop",
+      "stijl": "black-cursief-52-7-wit"
+     },
+     "intro": {
+      "veld": "aanmelden_intro",
+      "stijl": "regular-18-wit"
+     },
+     "bellen": {
+      "h": 44,
+      "stijl": "bold-18-wit--3"
+     },
+     "gaten": [
+      16,
+      24
+     ]
+    }
+   },
    "blokken": []
   }
  ]

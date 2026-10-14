@@ -35,16 +35,101 @@ export type Blok = (
 			beeld: Beeld | null;
 			tekst: Plek;
 	  } & Vak)
+	| ({
+			soort: "reviews";
+			// The option in Pagina's that puts a review on this page.
+			pagina: string;
+			quote: { w: number; stijl: string; regels: { naam: number; zonder: number } };
+			naam: { stijl: string | null };
+			pijl: { w: number; h: number; vorige: Beeld; volgende: Beeld };
+	  } & Vak)
+	| ({
+			soort: "uitklap";
+			veld: string;
+			// The Portable Text field the button opens.
+			tekst: string;
+			stijl: string;
+			pijl: { w: number; gat: number };
+			// Where the text hangs as a card; without one it lies in flow at the cut of its section.
+			kaart: (Plek & { z?: number }) | null;
+	  } & Vak)
+	| ({
+			soort: "faq";
+			// The option in Pagina that puts a question on this page.
+			pagina: string;
+			rij: { h: number; lijn: number; kleur: string };
+			label: Plek & { stijl: string };
+			icoon: { x: number; y: number; w: number; vlak: string; pijl: string };
+	  } & Plek)
 ) & { z?: number };
 
-// A drawn section names its drawing; a built section has none and only keeps its height for now.
+// A built section: the band over the foot of the drawing above, the column beside the form, then room for the
+// footer plus the strip. Its spacer is the measured height; one that follows its content grows and shrinks with it.
+export interface Gebouwd {
+	// The slug of the plugin form.
+	formulier: string;
+	// The sport whose groups the tiles show.
+	sport?: string;
+	// The titles of the widgets in Onder formulier.
+	privacy: string;
+	bellen: string;
+	dek: { h: number; kleur: string };
+	inhoud: { boven: number; onder: number; links: number; gat: number; kolom: number };
+	afstand: { h: number; volgt: boolean };
+	strook: { h: number; beeld: Beeld };
+	tekst: {
+		kop: { veld: string; stijl: string };
+		intro: { veld: string; stijl: string };
+		bellen: { h: number; stijl: string };
+		gaten: number[];
+	};
+}
+
+// A drawn section names its drawing; a built section carries its form instead.
+// A cut splits a drawn section where an explainer's text lies in flow; the blocks below it count from the cut.
 export interface Sectie {
 	naam: string;
 	hoogte: number;
 	tekening?: string;
-	gebouwd?: boolean;
+	gebouwd?: Gebouwd;
 	alt?: string;
 	blokken: Blok[];
+	snede?: { y: number; blokken: Blok[] };
+}
+
+// The box of a field or a tile: border, rounding, fill plus padding as top, right, bottom and left.
+export interface VeldVak {
+	rand: number;
+	randKleur: string;
+	radius: string;
+	vulling: string;
+	padding: number[];
+}
+
+// The shape of src/layout/algemeen/formulier.json: the measures every form shares.
+export interface FormulierLayout {
+	label: string;
+	labelGat: number;
+	gat: number;
+	naast: number;
+	invoer: VeldVak & { h: number; stijl: string };
+	tekstvak: VeldVak & { h: number; stijl: string };
+	tegel: VeldVak & { gat: number; stip: { w: number; rand: number; kleur: string } };
+	tegelGat: number;
+	"tegel-datum": number;
+	"tegel-groep": number;
+	"kop-datum": string;
+	"kop-groep": string;
+	dag: string;
+	zacht: string;
+	klein: string;
+	link: { kleur: string; streep: string; dikte: number; afstand: number };
+	knop: { w: number; h: number; radius: string; schaduw: string; beeld: Beeld; stijl: string };
+}
+
+// A length in design units, or a measured percentage as it stands.
+export function maat(waarde: number | string): string {
+	return typeof waarde === "number" ? `calc(${waarde} * var(--s))` : waarde.endsWith("px") ? `calc(${Number.parseFloat(waarde)} * var(--s))` : waarde;
 }
 
 export interface Layout {

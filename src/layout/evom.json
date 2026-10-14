@@ -286,6 +286,38 @@
      "x": 96.125,
      "y": 639.875,
      "w": 455
+    },
+    {
+     "soort": "reviews",
+     "pagina": "EVOM Fitness",
+     "x": 281.671875,
+     "y": 283.9375,
+     "w": 658,
+     "h": 199,
+     "quote": {
+      "w": 430,
+      "stijl": "black-cursief-27-8-grijs-midden",
+      "regels": {
+       "naam": 5,
+       "zonder": 6
+      }
+     },
+     "naam": {
+      "stijl": "black-23-5-grijs"
+     },
+     "pijl": {
+      "w": 48,
+      "h": 48,
+      "vorige": {
+       "bestand": "algemeen/review-vorige",
+       "breedte": 191
+      },
+      "volgende": {
+       "bestand": "algemeen/review-volgende",
+       "breedte": 196
+      }
+     },
+     "z": 5
     }
    ]
   },
@@ -303,50 +335,70 @@
      "w": 538
     },
     {
-     "soort": "tekst",
-     "veld": "klaar_kop",
-     "tag": "h2",
-     "stijl": "black-cursief-36-wit-regel-1-4",
-     "x": 229.515625,
-     "y": 503.109375,
-     "w": 779
-    },
-    {
-     "soort": "tekst",
-     "veld": "klaar_tekst",
-     "tag": "h2",
-     "stijl": "bold-cursief-30-wit",
-     "x": 268.515625,
-     "y": 563.0625,
-     "w": 700
-    },
-    {
-     "soort": "knop",
-     "veld": "klaar_knop",
-     "link": "proefles_link",
-     "stijl": "antique-21-donker",
-     "x": 449.34375,
-     "y": 682.375,
-     "w": 365,
-     "h": 56,
-     "radius": 28,
-     "achtergrond": "rgba(0, 0, 0, 0)",
-     "beeld": {
-      "bestand": "evom/klaar_knop",
-      "breedte": 730,
-      "kleiner": [
-       512
-      ],
-      "sizes": "(min-width: 1242px) 365px, (min-width: 810px) and (max-width: 1241.98px) min(min(100vw, 1242px) - 96px, 365px), (max-width: 809.98px) min(min(100vw, 1242px) - 48px, 365px)"
+     "soort": "uitklap",
+     "veld": "uitklap_knop",
+     "tekst": "uitklap_tekst",
+     "x": 109.53125,
+     "y": 177.390625,
+     "w": 196.203125,
+     "h": 24,
+     "stijl": "uitklapknop",
+     "pijl": {
+      "w": 12,
+      "gat": 10
      },
-     "tekst": {
-      "x": 28.25,
-      "y": 11.203125,
-      "w": 308.484375
-     },
-     "z": 5
+     "kaart": null
     }
-   ]
+   ],
+   "snede": {
+    "y": 484.203125,
+    "blokken": [
+     {
+      "soort": "tekst",
+      "veld": "klaar_kop",
+      "tag": "h2",
+      "stijl": "black-cursief-36-wit-regel-1-4",
+      "x": 229.515625,
+      "y": 18.90625,
+      "w": 779
+     },
+     {
+      "soort": "tekst",
+      "veld": "klaar_tekst",
+      "tag": "h2",
+      "stijl": "bold-cursief-30-wit",
+      "x": 268.515625,
+      "y": 78.859375,
+      "w": 700
+     },
+     {
+      "soort": "knop",
+      "veld": "klaar_knop",
+      "link": "proefles_link",
+      "stijl": "antique-21-donker",
+      "x": 449.34375,
+      "y": 198.171875,
+      "w": 365,
+      "h": 56,
+      "radius": 28,
+      "achtergrond": "rgba(0, 0, 0, 0)",
+      "beeld": {
+       "bestand": "evom/klaar_knop",
+       "breedte": 730,
+       "kleiner": [
+        512
+       ],
+       "sizes": "(min-width: 1242px) 365px, (min-width: 810px) and (max-width: 1241.98px) min(min(100vw, 1242px) - 96px, 365px), (max-width: 809.98px) min(min(100vw, 1242px) - 48px, 365px)"
+      },
+      "tekst": {
+       "x": 28.25,
+       "y": 11.203125,
+       "w": 308.484375
+      },
+      "z": 5
+     }
+    ]
+   }
   },
   {
    "naam": "sectie-6",
@@ -356,11 +408,37 @@
     {
      "soort": "tekst",
      "veld": "faq_kop",
-     "tag": "p",
+     "tag": "h2",
      "stijl": "black-cursief-29-grijs",
      "x": 502.75,
      "y": -129,
      "w": 536
+    },
+    {
+     "soort": "faq",
+     "pagina": "EVOM Fitness",
+     "x": 502.640625,
+     "y": -1.609375,
+     "w": 651.359375,
+     "rij": {
+      "h": 76.890625,
+      "lijn": 1,
+      "kleur": "rgb(46, 46, 46)"
+     },
+     "label": {
+      "x": 0,
+      "y": 26.921875,
+      "w": 587.5625,
+      "stijl": "faqcategorie"
+     },
+     "icoon": {
+      "x": 601.5625,
+      "y": 25.109375,
+      "w": 31.609375,
+      "vlak": "rgb(46, 46, 46)",
+      "pijl": "rgb(255, 255, 255)"
+     },
+     "z": 21
     }
    ]
   }

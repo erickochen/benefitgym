@@ -274,6 +274,58 @@
      "x": 108.046875,
      "y": 560.96875,
      "w": 535
+    },
+    {
+     "soort": "reviews",
+     "pagina": "MMA",
+     "x": 304.15625,
+     "y": 35.71875,
+     "w": 658,
+     "h": 199,
+     "quote": {
+      "w": 430,
+      "stijl": "black-cursief-27-8-grijs-midden",
+      "regels": {
+       "naam": 5,
+       "zonder": 6
+      }
+     },
+     "naam": {
+      "stijl": null
+     },
+     "pijl": {
+      "w": 48,
+      "h": 48,
+      "vorige": {
+       "bestand": "algemeen/review-vorige",
+       "breedte": 191
+      },
+      "volgende": {
+       "bestand": "algemeen/review-volgende",
+       "breedte": 196
+      }
+     },
+     "z": 5
+    },
+    {
+     "soort": "uitklap",
+     "veld": "uitklap_knop",
+     "tekst": "uitklap_tekst",
+     "x": 108.421875,
+     "y": 959.0625,
+     "w": 196.203125,
+     "h": 24,
+     "stijl": "uitklapknop",
+     "pijl": {
+      "w": 12,
+      "gat": 10
+     },
+     "kaart": {
+      "x": 75.453125,
+      "y": 998.609375,
+      "w": 704.28125,
+      "z": 30
+     }
     }
    ]
   },
@@ -336,11 +388,37 @@
     {
      "soort": "tekst",
      "veld": "faq_kop",
-     "tag": "p",
+     "tag": "h2",
      "stijl": "black-cursief-29-grijs",
      "x": 471.953125,
      "y": -39,
      "w": 576
+    },
+    {
+     "soort": "faq",
+     "pagina": "MMA",
+     "x": 471.109375,
+     "y": 126.96875,
+     "w": 651.359375,
+     "rij": {
+      "h": 76.890625,
+      "lijn": 1,
+      "kleur": "rgb(46, 46, 46)"
+     },
+     "label": {
+      "x": 0,
+      "y": 26.921875,
+      "w": 587.5625,
+      "stijl": "faqcategorie"
+     },
+     "icoon": {
+      "x": 601.5625,
+      "y": 25.109375,
+      "w": 31.609375,
+      "vlak": "rgb(46, 46, 46)",
+      "pijl": "rgb(255, 255, 255)"
+     },
+     "z": 21
     }
    ]
   }

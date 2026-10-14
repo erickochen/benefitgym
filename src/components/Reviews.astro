@@ -1,0 +1,53 @@
+---
+// The review carousel: a rail with one slide per review of this page, the first in view, plus the two drawn arrows.
+import { getEmDashCollection } from "emdash";
+import { type Blok, plekVan } from "../layout";
+import { REVIEWS } from "../teksten";
+import Beeld from "./Beeld.astro";
+
+interface Props {
+	blok: Extract<Blok, { soort: "reviews" }>;
+	staticUrl: string;
+}
+
+const { blok, staticUrl } = Astro.props;
+const { entries, cacheHint } = await getEmDashCollection("reviews", { orderBy: { volgorde: "asc" } });
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+const reviews = entries.filter((review) => (review.data.paginas as string[] | undefined)?.includes(blok.pagina) && review.data.quote);
+const pijl = `width:calc(${blok.pijl.w} * var(--s));height:calc(${blok.pijl.h} * var(--s))`;
+---
+
+<div class="blok reviews" style={plekVan(blok)}>
+	<div class="reviews-rail" role="region" aria-roledescription={REVIEWS.rol} aria-label={REVIEWS.rail} aria-live="polite" tabindex="0">
+		{
+			reviews.map((review, i) => (
+				<div class="reviews-slide" role="group" aria-roledescription={REVIEWS.slide} aria-label={REVIEWS.van(i + 1, reviews.length)}>
+					<p
+						class={`reviews-quote s-${blok.quote.stijl}`}
+						style={`width:calc(${blok.quote.w} * var(--s));-webkit-line-clamp:${review.data.naam ? blok.quote.regels.naam : blok.quote.regels.zonder}`}
+						{...review.edit.quote}
+					>
+						{review.data.quote}
+					</p>
+					{review.data.naam && blok.naam.stijl && (
+						<p class={`reviews-naam s-${blok.naam.stijl}`} {...review.edit.naam}>
+							{review.data.naam}
+						</p>
+					)}
+				</div>
+			))
+		}
+	</div>
+	{
+		reviews.length > 1 && (
+			<fieldset class="reviews-pijlen" aria-label={REVIEWS.bediening}>
+				<button type="button" class="reviews-pijl" aria-label={REVIEWS.vorige} disabled style={pijl}>
+					<Beeld beeld={blok.pijl.vorige} staticUrl={staticUrl} />
+				</button>
+				<button type="button" class="reviews-pijl" aria-label={REVIEWS.volgende} style={pijl}>
+					<Beeld beeld={blok.pijl.volgende} staticUrl={staticUrl} />
+				</button>
+			</fieldset>
+		)
+	}
+</div>

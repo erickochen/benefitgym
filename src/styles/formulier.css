@@ -1,0 +1,234 @@
+/* A built section: the band reaches over the drawing above, the content stands on top of both.
+   Its own box holds the content's negative margin, so the section itself stays where it is. */
+.gebouwd {
+	display: flow-root;
+}
+
+.gebouwd-dek {
+	position: absolute;
+	left: 0;
+	width: 100%;
+}
+
+.gebouwd-inhoud {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	box-sizing: border-box;
+}
+
+.gebouwd-tekst,
+.gebouwd-formulier {
+	flex: none;
+}
+
+.gebouwd-tekst > h2,
+.gebouwd-tekst > p,
+.gebouwd-bellen > p {
+	margin: 0;
+}
+
+.gebouwd-bellen {
+	display: flex;
+	align-items: center;
+	width: fit-content;
+}
+
+.gebouwd-strook {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+}
+
+.gebouwd-strook img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* The form: one column of parts with one gap between them. */
+.formulier {
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+}
+
+.formulier p {
+	margin: 0;
+}
+
+.formulier-rij {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+/* Two halves share a row until there is no room for both. */
+.formulier-rij > .formulier-veld {
+	flex: 1 1 200px;
+}
+
+.formulier-veld,
+.formulier-plek,
+.formulier-wacht {
+	display: flex;
+	flex-direction: column;
+}
+
+.formulier-veld > label {
+	display: block;
+}
+
+.formulier-invoer {
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
+	margin: 0;
+	outline: none;
+	resize: none;
+}
+
+.formulier-keuze {
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+/* A legend does something of its own in every browser; floating, it behaves. */
+.formulier-keuze > legend {
+	float: left;
+	width: 100%;
+	padding: 0;
+}
+
+.formulier-tegels {
+	clear: both;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-auto-rows: 1fr;
+}
+
+.formulier-tegel {
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	border: var(--rand);
+	background: var(--vulling);
+	cursor: pointer;
+}
+
+.formulier-stip {
+	flex: none;
+	box-sizing: border-box;
+	margin: 0;
+	border: var(--rand);
+	border-radius: 50%;
+	background: transparent;
+	outline: none;
+	cursor: pointer;
+	appearance: none;
+}
+
+/* Focus plus a choice, after the form code: an orange ring inside, and a chosen tile becomes the pill of the
+   booking buttons with a dark letter. The measured page shows these only after a click. */
+.formulier {
+	--focus: rgb(236, 110, 29);
+	--pil-links: rgb(245, 159, 20);
+	--pil-rechts: rgb(234, 86, 28);
+	--pil-letter: rgb(19, 23, 29);
+	--focus-dik: calc(2 * var(--s));
+	--stip-kern: calc(5 * var(--s));
+}
+
+.formulier-invoer:focus,
+.formulier-tegel:has(.formulier-stip:focus-visible) {
+	box-shadow: inset 0 0 0 var(--focus-dik) var(--focus);
+}
+
+.formulier-tegel:has(.formulier-stip:checked) {
+	border-color: transparent;
+	background: linear-gradient(90deg, var(--pil-links), var(--pil-rechts)) border-box;
+}
+
+.formulier-tegel:has(.formulier-stip:checked) span {
+	color: var(--pil-letter);
+	-webkit-text-fill-color: var(--pil-letter);
+}
+
+.formulier-tegel:has(.formulier-stip:checked:focus-visible) {
+	box-shadow: inset 0 0 0 var(--focus-dik) var(--pil-letter);
+}
+
+.formulier-stip:checked {
+	border-color: var(--pil-letter);
+	background: radial-gradient(circle, var(--pil-letter) var(--stip-kern), transparent calc(var(--stip-kern) + 1px));
+}
+
+/* A box to tick, where a dot picks one: square with a slight rounding. */
+.formulier-stip.vinkje {
+	border-radius: calc(4 * var(--s));
+}
+
+.formulier-dag,
+.formulier-groep {
+	flex: 1;
+}
+
+.formulier-groep {
+	display: flex;
+	flex-direction: column;
+}
+
+.formulier-link {
+	text-decoration-line: underline;
+}
+
+.formulier-turnstile {
+	position: absolute;
+}
+
+/* Out of sight for a person; a spam bot fills it in. */
+.formulier-honing {
+	position: absolute;
+	left: -9999px;
+}
+
+.formulier-knop {
+	position: relative;
+	display: flex;
+	align-self: flex-start;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	cursor: pointer;
+}
+
+.formulier-knop img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.formulier-knop > span {
+	position: relative;
+}
+
+/* After a group tile the rest follows the choice: room shows the planner, a full group or another one the fields. */
+.formulier:not(:has(.formulier-stip.vrij:checked)) .formulier-plek,
+.formulier:has(.formulier-wacht):not(:has(.formulier-stip.wacht:checked)) :is(.formulier-wacht, .formulier-privacy, .formulier-knop),
+.formulier-uitleg {
+	display: none;
+}
+
+.formulier:has(.formulier-stip.vol:checked) .formulier-uitleg.vol,
+.formulier:has(.formulier-stip.anders:checked) .formulier-uitleg.anders {
+	display: block;
+}

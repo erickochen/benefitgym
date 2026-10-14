@@ -232,8 +232,27 @@
      "x": 108.796875,
      "y": 340.359375,
      "w": 382
+    },
+    {
+     "soort": "uitklap",
+     "veld": "uitklap_knop",
+     "tekst": "uitklap_tekst",
+     "x": 108.421875,
+     "y": 588.34375,
+     "w": 196.203125,
+     "h": 24,
+     "stijl": "uitklapknop--2",
+     "pijl": {
+      "w": 12,
+      "gat": 10
+     },
+     "kaart": null
     }
-   ]
+   ],
+   "snede": {
+    "y": 650.25,
+    "blokken": []
+   }
   },
   {
    "naam": "sectie-4",
@@ -257,6 +276,38 @@
      "x": 389.359375,
      "y": 344.703125,
      "w": 430
+    },
+    {
+     "soort": "reviews",
+     "pagina": "Yoga",
+     "x": 274.96875,
+     "y": 421.15625,
+     "w": 658,
+     "h": 199,
+     "quote": {
+      "w": 430,
+      "stijl": "black-cursief-27-8-grijs-midden",
+      "regels": {
+       "naam": 5,
+       "zonder": 6
+      }
+     },
+     "naam": {
+      "stijl": "black-23-5-grijs"
+     },
+     "pijl": {
+      "w": 48,
+      "h": 48,
+      "vorige": {
+       "bestand": "algemeen/review-vorige",
+       "breedte": 191
+      },
+      "volgende": {
+       "bestand": "algemeen/review-volgende",
+       "breedte": 196
+      }
+     },
+     "z": 5
     }
    ]
   },
@@ -319,11 +370,37 @@
     {
      "soort": "tekst",
      "veld": "faq_kop",
-     "tag": "p",
+     "tag": "h2",
      "stijl": "black-cursief-29-grijs",
      "x": 114.75,
      "y": 167.9375,
      "w": 450
+    },
+    {
+     "soort": "faq",
+     "pagina": "Yoga",
+     "x": 114.609375,
+     "y": 295.515625,
+     "w": 651.359375,
+     "rij": {
+      "h": 76.890625,
+      "lijn": 1,
+      "kleur": "rgb(46, 46, 46)"
+     },
+     "label": {
+      "x": 0,
+      "y": 26.921875,
+      "w": 587.5625,
+      "stijl": "faqcategorie"
+     },
+     "icoon": {
+      "x": 601.5625,
+      "y": 25.109375,
+      "w": 31.609375,
+      "vlak": "rgb(46, 46, 46)",
+      "pijl": "rgb(255, 255, 255)"
+     },
+     "z": 21
     }
    ]
   }
