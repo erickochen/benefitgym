@@ -21,6 +21,12 @@ export const REVIEWS = {
 	van: (i: number, n: number) => `${i} van ${n}`,
 };
 
+// The point before a list item on a Praktisch page.
+export const PUNT = "•";
+
+// The schedule before SportBit answers.
+export const LESROOSTER = { laden: "Rooster wordt geladen…" };
+
 // The sign-up forms: the last tile of each list, the state of a group, the hints after a choice plus the planner link.
 export const FORMULIER = {
 	anders: "De gewenste groep zit er niet tussen",

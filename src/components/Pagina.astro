@@ -1,6 +1,7 @@
 ---
-// Walks the layout file of a page and puts every section down.
+// Walks the layout file of a page and puts every section down, then the flow of a Praktisch page below its hero.
 import type { Entry, Layout } from "../layout";
+import Praktisch from "./Praktisch.astro";
 import Sectie from "./Sectie.astro";
 
 interface Props {
@@ -14,3 +15,4 @@ const { layout, entry, slug, staticUrl } = Astro.props;
 ---
 
 {layout.secties.map((sectie, i) => <Sectie sectie={sectie} entry={entry} slug={slug} staticUrl={staticUrl} eerste={i === 0} />)}
+{layout.praktisch && <Praktisch entry={entry} pagina={layout.praktisch} staticUrl={staticUrl} />}

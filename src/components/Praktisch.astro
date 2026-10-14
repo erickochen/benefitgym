@@ -1,0 +1,100 @@
+---
+// The flow of a Praktisch page below its hero: bands of one color with a brush edge between two of them, the edge into
+// the closing section after a white band, then the closing section the footer lies over. Each block type has its own
+// component, the way the EmDash docs on blocks map them.
+import { Blocks, defineBlockComponents } from "emdash/ui";
+import type { PraktischInhoudBlock } from "../../emdash-env";
+import type { Entry, Layout, PraktischRegels } from "../layout";
+import data from "../layout/algemeen/praktisch.json";
+import { bandenVan } from "../praktisch";
+import Beeld from "./Beeld.astro";
+import Kolommen from "./praktisch/Kolommen.astro";
+import Lesrooster from "./praktisch/Lesrooster.astro";
+import TekstBlok from "./praktisch/TekstBlok.astro";
+import TekstMetFoto from "./praktisch/TekstMetFoto.astro";
+import Vakanties from "./praktisch/Vakanties.astro";
+
+interface Props {
+	entry: Entry;
+	pagina: NonNullable<Layout["praktisch"]>;
+	staticUrl: string;
+}
+
+const regels = data as PraktischRegels;
+const { entry, pagina, staticUrl } = Astro.props;
+const banden = bandenVan(((entry.data as { inhoud?: PraktischInhoudBlock[] | null }).inhoud ?? []) as PraktischInhoudBlock[]);
+const componenten = defineBlockComponents<PraktischInhoudBlock>({
+	tekst_met_foto: TekstMetFoto,
+	kolommen: Kolommen,
+	tekst: TekstBlok,
+	vakanties: Vakanties,
+	lesrooster: Lesrooster,
+});
+const m = (n: number) => `calc(${n} * var(--s))`;
+const r = regels;
+// Every measure as a custom property, so praktisch.css holds the rules and praktisch.json the numbers.
+const maten = Object.entries({
+	"--p-rand": m(r.band.rand),
+	"--p-boven": m(r.band.boven),
+	"--p-onder": m(r.band.onder),
+	"--p-wit": r.kleur.wit,
+	"--p-donker": r.kleur.donker,
+	"--p-blok": m(r.gat.blok),
+	"--p-na-kolommen": m(r.gat.naKolommen),
+	"--p-overgang": m(r.overgang.h),
+	"--p-rij-gat": m(r.rij.gat),
+	"--p-kolom-gat": m(r.kolom.gat),
+	"--p-smal": m(r.kolom.smal),
+	"--p-drie-gat": m(r.drie.gat),
+	"--p-link": m(r.link.ruimte),
+	"--p-lijst-gat": m(r.lijst.gat),
+	"--p-punt": m(r.lijst.punt),
+	"--p-kop-onder": m(r.tabel.kopOnder),
+	"--p-cel-ruimte": m(r.tabel.ruimte),
+	"--p-cel-gat": m(r.tabel.gat),
+	"--p-midden": m(r.tabel.midden),
+	"--p-laatste": m(r.tabel.laatste),
+	"--p-rooster-ruimte": m(r.rooster.ruimte),
+	"--p-wanneer": m(r.rooster.wanneer),
+	"--p-rooster-gat": m(r.rooster.gat),
+	"--p-link-streep": r.zinLink.streep,
+	"--p-link-dikte": m(r.zinLink.dikte),
+	"--p-link-afstand": m(r.zinLink.afstand),
+})
+	.map(([naam, waarde]) => `${naam}:${waarde}`)
+	.join(";");
+---
+
+<div class="praktisch" style={maten} {...entry.edit.inhoud}>
+	{
+		banden.map((band, i) => (
+			<Fragment>
+				{i > 0 && (
+					<div class="praktisch-rand">
+						<Beeld beeld={r.overgang[`${banden[i - 1].vlak}-${band.vlak}` as "wit-donker" | "donker-wit"]} staticUrl={staticUrl} />
+					</div>
+				)}
+				<section class={`praktisch-band praktisch-${band.vlak}`}>
+					<Blocks value={band.blokken} components={componenten} />
+					{i === 0 && (
+						<div class="praktisch-streek" style={`height:${m(pagina.streek.h)}`}>
+							<Beeld beeld={pagina.streek.beeld} staticUrl={staticUrl} />
+						</div>
+					)}
+				</section>
+			</Fragment>
+		))
+	}
+	{
+		banden.at(-1)?.vlak === "wit" && (
+			<div class="praktisch-rand">
+				<Beeld beeld={r.overgang.rand} staticUrl={staticUrl} />
+			</div>
+		)
+	}
+</div>
+<div class="praktisch-slot" style={`height:${m(r.slot.h)};background:${r.slot.kleur}`}>
+	<div class="praktisch-strook" style={`height:${m(r.slot.strook.h)}`}>
+		<Beeld beeld={r.slot.strook.beeld} staticUrl={staticUrl} />
+	</div>
+</div>

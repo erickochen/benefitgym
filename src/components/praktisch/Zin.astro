@@ -1,0 +1,18 @@
+---
+// The runs of a paragraph: a link inside a sentence keeps the letter of its sentence with an underline.
+import { sanitizeHref } from "emdash";
+import { type PtBlok, stukkenVan } from "../../praktisch";
+
+interface Props {
+	blok: PtBlok;
+}
+
+const stukken = stukkenVan(Astro.props.blok);
+---
+
+{
+	stukken.map((stuk) => {
+		const tekst = stuk.sterk && stuk.nadruk ? <strong><em>{stuk.tekst}</em></strong> : stuk.sterk ? <strong>{stuk.tekst}</strong> : stuk.nadruk ? <em>{stuk.tekst}</em> : stuk.tekst;
+		return stuk.href ? <a class="zin-link" href={sanitizeHref(stuk.href)}>{tekst}</a> : tekst;
+	})
+}

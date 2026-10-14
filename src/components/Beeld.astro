@@ -1,5 +1,5 @@
 ---
-// An image as AVIF where the browser takes it, PNG otherwise, from the same srcset.
+// An image as AVIF where the browser takes it, PNG or WebP otherwise, from the same srcset.
 import type { Beeld } from "../layout";
 
 interface Props {
@@ -9,6 +9,7 @@ interface Props {
 }
 
 const { beeld, staticUrl, class: klasse } = Astro.props;
+const terug = beeld.terugval ?? "png";
 const pad = (achter: string, ext: string) => `${staticUrl}/tekeningen/${beeld.bestand}${achter}.${ext}`;
 const reeks = (ext: string) =>
 	beeld.kleiner?.length
@@ -18,5 +19,5 @@ const reeks = (ext: string) =>
 
 <picture>
 	<source type="image/avif" srcset={reeks("avif") ?? pad("", "avif")} sizes={beeld.sizes} />
-	<img class={klasse} src={pad("", "png")} srcset={reeks("png")} sizes={beeld.sizes} alt="" />
+	<img class={klasse} src={pad("", terug)} srcset={reeks(terug)} sizes={beeld.sizes} alt="" />
 </picture>

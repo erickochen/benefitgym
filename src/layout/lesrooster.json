@@ -1,0 +1,94 @@
+{
+ "breedte": 1242,
+ "hoogte": 1638.1875,
+ "footer": {
+  "onder": 14
+ },
+ "secties": [
+  {
+   "naam": "sectie-1",
+   "hoogte": 912.5625,
+   "tekening": "artwork-1.webp",
+   "alt": "hero_alt",
+   "blokken": [
+    {
+     "soort": "logo",
+     "beeld": {
+      "bestand": "lesrooster/logo",
+      "breedte": 974,
+      "kleiner": [
+       512
+      ],
+      "sizes": "(min-width: 1242px) calc(min(100vw, 1242px) * 0.231)"
+     },
+     "x": 44.703125,
+     "y": 42,
+     "w": 286.890625,
+     "h": 257.984375,
+     "z": 19
+    },
+    {
+     "soort": "tekst",
+     "veld": "hero_paginatitel",
+     "tag": "h1",
+     "stijl": "antique-40-2-oranje",
+     "x": 931.265625,
+     "y": 95.90625,
+     "w": 270.734375
+    },
+    {
+     "soort": "tekst",
+     "veld": "hero_intro",
+     "tag": "p",
+     "stijl": "black-cursief-26-4-wit",
+     "x": 107.671875,
+     "y": 524.046875,
+     "w": 431
+    },
+    {
+     "soort": "knop",
+     "veld": "hero_knop",
+     "link": "proefles_link",
+     "stijl": "antique-21-donker",
+     "x": 102.578125,
+     "y": 708.484375,
+     "w": 254,
+     "h": 55,
+     "radius": 28,
+     "achtergrond": "rgb(255, 255, 255)",
+     "beeld": null,
+     "tekst": {
+      "x": 28.359375,
+      "y": 10.703125,
+      "w": 197.265625
+     },
+     "z": 5
+    },
+    {
+     "soort": "tekst",
+     "veld": "hero_kop",
+     "tag": "h2",
+     "stijl": "antique-46-2-omlijnd-midden",
+     "x": 342.15625,
+     "y": 860.109375,
+     "w": 739
+    }
+   ]
+  }
+ ],
+ "praktisch": {
+  "streek": {
+   "h": 63.015625,
+   "beeld": {
+    "bestand": "lesrooster/streek",
+    "breedte": 2483,
+    "kleiner": [
+     512,
+     1024,
+     2048
+    ],
+    "sizes": "(min-width: 1242px) min(100vw, 1242px), (min-width: 810px) and (max-width: 1241.98px) min(100vw, 1242px), (max-width: 809.98px) min(100vw, 1242px)"
+   }
+  }
+ }
+}

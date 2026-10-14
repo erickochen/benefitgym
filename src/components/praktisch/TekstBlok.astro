@@ -1,0 +1,15 @@
+---
+// Running text without a photo, which stops at a width of its own.
+import type { PraktischInhoudTekstBlock } from "../../../emdash-env";
+import PraktischTekst from "./PraktischTekst.astro";
+
+interface Props {
+	value: PraktischInhoudTekstBlock;
+}
+
+const { value } = Astro.props;
+---
+
+<div class="praktisch-blok praktisch-kolom praktisch-smal">
+	<PraktischTekst value={value.tekst} vlak="wit" />
+</div>

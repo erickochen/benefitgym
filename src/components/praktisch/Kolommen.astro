@@ -1,0 +1,26 @@
+---
+// Up to three columns of the same width, each a heading plus its paragraphs. A blank line starts a new paragraph.
+import type { PraktischInhoudKolommenBlock } from "../../../emdash-env";
+import type { PraktischRegels } from "../../layout";
+import data from "../../layout/algemeen/praktisch.json";
+import { alineasVan } from "../../praktisch";
+
+interface Props {
+	value: PraktischInhoudKolommenBlock;
+}
+
+const regels = data as PraktischRegels;
+const { value } = Astro.props;
+const s = regels.stijl.wit;
+---
+
+<div class="praktisch-blok praktisch-drie">
+	{
+		(value.kolommen ?? []).map((kolom) => (
+			<div class="praktisch-kolom">
+				{kolom.kop && <p class={`s-${s.subkop}`}>{kolom.kop}</p>}
+				{alineasVan(kolom.tekst).map((alinea) => <p class={`s-${s.tekst}`}>{alinea}</p>)}
+			</div>
+		))
+	}
+</div>

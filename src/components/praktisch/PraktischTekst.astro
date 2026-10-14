@@ -1,0 +1,45 @@
+---
+// A Portable Text field of a Praktisch block in the parts of praktisch.ts, each in the class of its role. A part the
+// design has no form for, such as an image, gets the rendering of EmDash.
+import { type PortableTextBlock, sanitizeHref } from "emdash";
+import { PortableText } from "emdash/ui";
+import type { PraktischRegels } from "../../layout";
+import data from "../../layout/algemeen/praktisch.json";
+import { delenVan, type PtBlok, type Vlak } from "../../praktisch";
+import PraktischLijst from "./PraktischLijst.astro";
+import PraktischTabel from "./PraktischTabel.astro";
+import Zin from "./Zin.astro";
+
+interface Props {
+	value: PortableTextBlock[] | null | undefined;
+	vlak: Vlak;
+}
+
+const regels = data as PraktischRegels;
+const { value, vlak } = Astro.props;
+const s = regels.stijl[vlak];
+const delen = delenVan(value as PtBlok[] | null | undefined);
+---
+
+{
+	delen.map((deel) => {
+		if (deel.soort === "tekst") {
+			const alinea = <p class={`s-${s.tekst}`}><Zin blok={deel.blok} /></p>;
+			return deel.citaat ? <blockquote>{alinea}</blockquote> : alinea;
+		}
+		if (deel.soort === "link") {
+			return <a class="praktisch-link link" href={sanitizeHref(deel.href)}><p class={`s-${s.link}`}>{deel.tekst}</p></a>;
+		}
+		if (deel.soort === "subkop") {
+			const Kop = deel.tag;
+			return <Kop class={`s-${s.subkop}`}><Zin blok={deel.blok} /></Kop>;
+		}
+		if (deel.soort === "lijst") return <PraktischLijst lijst={deel} vlak={vlak} />;
+		if (deel.soort === "tabel") return <PraktischTabel kop={deel.kop} rijen={deel.rijen} vlak={vlak} />;
+		return (
+			<div>
+				<PortableText value={[deel.blok as unknown as PortableTextBlock]} />
+			</div>
+		);
+	})
+}

@@ -1,0 +1,32 @@
+---
+// A list with a point or a number before each item. A deeper list starts under the text of the item it follows.
+import type { PraktischRegels } from "../../layout";
+import data from "../../layout/algemeen/praktisch.json";
+import type { Lijst, Vlak } from "../../praktisch";
+import { PUNT } from "../../teksten";
+import Zin from "./Zin.astro";
+
+interface Props {
+	lijst: Lijst;
+	vlak: Vlak;
+}
+
+const regels = data as PraktischRegels;
+const { lijst, vlak } = Astro.props;
+const s = regels.stijl[vlak];
+const Tag = lijst.genummerd ? "ol" : "ul";
+---
+
+<Tag class="praktisch-lijst">
+	{
+		lijst.items.map((item, i) => (
+			<li class="praktisch-punt">
+				<span class={`s-${s.punt}`} aria-hidden="true">{lijst.genummerd ? `${i + 1}.` : PUNT}</span>
+				<div class="praktisch-puntinhoud">
+					<p class={`s-${s.tekst}`}><Zin blok={item.blok} /></p>
+					{item.onder.map((onder) => <Astro.self lijst={onder} vlak={vlak} />)}
+				</div>
+			</li>
+		))
+	}
+</Tag>

@@ -1,0 +1,32 @@
+---
+// A photo beside a column with its heading plus text, the photo on the side the panel names.
+import { Image } from "emdash/ui";
+import type { PraktischInhoudTekstMetFotoBlock } from "../../../emdash-env";
+import type { PraktischRegels } from "../../layout";
+import data from "../../layout/algemeen/praktisch.json";
+import { verhouding, vlakVan } from "../../praktisch";
+import PraktischTekst from "./PraktischTekst.astro";
+
+interface Props {
+	value: PraktischInhoudTekstMetFotoBlock;
+}
+
+const regels = data as PraktischRegels;
+const { value } = Astro.props;
+const vlak = vlakVan(value);
+const { foto } = value;
+const rechts = value.kant === "rechts";
+// The photo box keeps the ratio of its file, rounded the way the measured page rounds it. Without a photo the box stays
+// empty so the column keeps its half; a photo without its size stands in the flow at its own height.
+const vak = foto?.width && foto.height ? `aspect-ratio:${verhouding(foto.width, foto.height)}` : undefined;
+const klasse = foto && !vak ? "praktisch-foto praktisch-vrij" : "praktisch-foto";
+---
+
+<div class="praktisch-blok praktisch-rij">
+	{!rechts && <div class={klasse} style={vak}>{foto && <Image image={foto} />}</div>}
+	<div class="praktisch-kolom">
+		{value.kop && <h2 class={`s-${regels.stijl[vlak].kop}`}>{value.kop}</h2>}
+		<PraktischTekst value={value.tekst} vlak={vlak} />
+	</div>
+	{rechts && <div class={klasse} style={vak}>{foto && <Image image={foto} />}</div>}
+</div>

@@ -8,12 +8,13 @@ import { SITE_NAME } from "../teksten";
 
 // Fixed order: a Praktisch page with the slug of a sport page loses to it.
 const COLLECTIONS = ["sportpaginas", "over_ons", "praktisch"] as const;
-// One layout file per page; a page without one shows only its title until its subproject lands.
+// One layout file per page; a page without one shows only its title.
 const LAYOUTS = import.meta.glob<Layout>("../layout/*.json", { eager: true, import: "default" });
+// A Praktisch page without a drawing of its own takes the hero of this page.
+const PRAKTISCH_HERO = "tarieven";
 
 const slug = decodeSlug(Astro.params.slug);
 if (!slug) return Astro.rewrite("/404");
-const layout = LAYOUTS[`../layout/${slug}.json`];
 const staticUrl = leesStaticUrl();
 
 async function findPage(slug: string) {
@@ -29,6 +30,9 @@ const found = await findPage(slug);
 if (!found) return Astro.rewrite("/404");
 const { collection, entry, cacheHint } = found;
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+const eigen = LAYOUTS[`../layout/${slug}.json`];
+const bron = eigen || collection !== "praktisch" ? slug : PRAKTISCH_HERO;
+const layout = eigen ?? (collection === "praktisch" ? LAYOUTS[`../layout/${PRAKTISCH_HERO}.json`] : undefined);
 
 // An SEO title carries the gym name already; a page without one gets it behind its title.
 const ownTitle = (entry.data as { seo?: { title?: string | null } }).seo?.title;
@@ -49,7 +53,7 @@ const seo = getSeoMeta(entry, {
 >
 	{
 		layout ? (
-			<Pagina layout={layout} entry={entry} slug={slug} staticUrl={staticUrl} />
+			<Pagina layout={layout} entry={entry} slug={bron} staticUrl={staticUrl} />
 		) : (
 			<h1 {...entry.edit.title}>{entry.data.title}</h1>
 		)

@@ -1,0 +1,37 @@
+---
+// The holidays from their collection in the order of the panel: when plus what, between lines.
+import { getEmDashCollection } from "emdash";
+import type { PraktischInhoudVakantiesBlock } from "../../../emdash-env";
+import type { PraktischRegels } from "../../layout";
+import data from "../../layout/algemeen/praktisch.json";
+
+interface Props {
+	value: PraktischInhoudVakantiesBlock;
+}
+
+const regels = data as PraktischRegels;
+const { value } = Astro.props;
+const { entries, cacheHint } = await getEmDashCollection("vakanties", { orderBy: { volgorde: "asc" } });
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+const r = regels.rooster;
+const s = regels.stijl.wit;
+const lijn = ({ h, kleur }: { h: number; kleur: string }) => `height:calc(${h} * var(--s));background:${kleur}`;
+---
+
+<div class="praktisch-blok praktisch-kolom">
+	{value.kop && <h2 class={`s-${s.kop}`}>{value.kop}</h2>}
+	<div class="praktisch-rooster">
+		<div style={lijn(r.lijn)} />
+		{
+			entries.map((vakantie) => (
+				<div class="praktisch-vakantie">
+					<div class="praktisch-periode">
+						<p class={`s-${s.wanneer}`} {...vakantie.edit.wanneer}>{vakantie.data.wanneer}</p>
+						<p class={`s-${s.wat}`} {...vakantie.edit.wat}>{vakantie.data.wat}</p>
+					</div>
+					<div style={lijn(r.rijLijn)} />
+				</div>
+			))
+		}
+	</div>
+</div>
