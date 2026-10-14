@@ -2,7 +2,7 @@
 // One field on its measured place. A Portable Text field becomes a column of paragraphs.
 import type { PortableTextBlock } from "emdash";
 import { PortableText } from "emdash/ui";
-import { type Blok, type Entry, waarde } from "../layout";
+import { type Blok, type Entry, plekVan, waarde } from "../layout";
 
 interface Props {
 	blok: Extract<Blok, { soort: "tekst" | "alineas" | "cijfer" }>;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { blok, entry } = Astro.props;
-const plek = `left:calc(${blok.x} * var(--s));top:calc(${blok.y} * var(--s));width:calc(${blok.w} * var(--s))`;
+const plek = plekVan(blok);
 const klasse = `blok s-${blok.stijl}`;
 ---
 

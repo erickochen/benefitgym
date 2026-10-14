@@ -1,5 +1,5 @@
 ---
-// One drawn section at its measured height, the blocks on top.
+// One section at its measured height: the drawing with the blocks on top, or an empty built section.
 import { type Entry, type Sectie, waarde } from "../layout";
 import Knop from "./Knop.astro";
 import Logo from "./Logo.astro";
@@ -18,13 +18,17 @@ const alt = sectie.alt ? ((waarde(entry, sectie.alt) as string | undefined) ?? "
 ---
 
 <section class="sectie" style={`height:calc(${sectie.hoogte} * var(--s))`}>
-	<img
-		class="tekening"
-		src={`${staticUrl}/tekeningen/${slug}/${sectie.tekening}`}
-		alt={alt}
-		loading={eerste ? "eager" : "lazy"}
-		decoding="async"
-	/>
+	{
+		sectie.tekening && (
+			<img
+				class="tekening"
+				src={`${staticUrl}/tekeningen/${slug}/${sectie.tekening}`}
+				alt={alt}
+				loading={eerste ? "eager" : "lazy"}
+				decoding="async"
+			/>
+		)
+	}
 	{
 		sectie.blokken.map((blok) =>
 			blok.soort === "logo" ? (

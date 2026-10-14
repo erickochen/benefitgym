@@ -463,19 +463,11 @@
           }
         },
         {
-          "slug": "aanbod_6_ondertitel",
-          "label": "Aanbod 6 · Ondertitel",
-          "type": "string",
-          "validation": {
-            "maxLength": 90
-          }
-        },
-        {
           "slug": "aanbod_6_tekst",
           "label": "Aanbod 6 · Tekst",
           "type": "text",
           "validation": {
-            "maxLength": 210
+            "maxLength": 300
           }
         },
         {

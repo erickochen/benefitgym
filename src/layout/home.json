@@ -1,0 +1,620 @@
+{
+ "breedte": 1242,
+ "hoogte": 8939.828125,
+ "footer": {
+  "onder": 14.328125
+ },
+ "secties": [
+  {
+   "naam": "sectie-1",
+   "hoogte": 1024.75,
+   "tekening": "artwork-1.webp",
+   "alt": "hero_alt",
+   "blokken": [
+    {
+     "soort": "logo",
+     "beeld": {
+      "bestand": "home/logo",
+      "breedte": 1259,
+      "kleiner": [
+       512,
+       1024
+      ],
+      "sizes": "(min-width: 1242px) calc(min(100vw, 1242px) * 0.231)"
+     },
+     "x": 44.703125,
+     "y": 42,
+     "w": 286.890625,
+     "h": 257.984375,
+     "z": 19
+    },
+    {
+     "soort": "tekst",
+     "veld": "hero_intro",
+     "tag": "p",
+     "stijl": "black-cursief-26-4-wit",
+     "x": 107.671875,
+     "y": 504.046875,
+     "w": 431
+    },
+    {
+     "soort": "knop",
+     "veld": "hero_knop",
+     "link": "proefles_link",
+     "stijl": "antique-21-donker",
+     "x": 102.578125,
+     "y": 708.484375,
+     "w": 254,
+     "h": 55,
+     "radius": 28,
+     "achtergrond": "rgb(255, 255, 255)",
+     "beeld": null,
+     "tekst": {
+      "x": 28.359375,
+      "y": 10.703125,
+      "w": 197.265625
+     },
+     "z": 5
+    },
+    {
+     "soort": "tekst",
+     "veld": "hero_kop",
+     "tag": "h2",
+     "stijl": "antique-46-2-omlijnd-midden",
+     "x": 342.15625,
+     "y": 858.90625,
+     "w": 739
+    }
+   ]
+  },
+  {
+   "naam": "sectie-2",
+   "hoogte": 1570.15625,
+   "tekening": "artwork-2.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "intro_tekst",
+     "tag": "p",
+     "stijl": "black-cursief-36-3-zwart-midden",
+     "x": 256.828125,
+     "y": 35.0625,
+     "w": 743
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_kop",
+     "tag": "h2",
+     "stijl": "antique-32-2-omlijnd-midden",
+     "x": 288.140625,
+     "y": 567.109375,
+     "w": 689
+    },
+    {
+     "soort": "cijfer",
+     "n": 1,
+     "stijl": "antique-40-2-omlijnd",
+     "x": 394.953125,
+     "y": 648.695313,
+     "w": 46
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_1",
+     "tag": "p",
+     "stijl": "light-18-wit",
+     "x": 434.6875,
+     "y": 647.203125,
+     "w": 379
+    },
+    {
+     "soort": "cijfer",
+     "n": 2,
+     "stijl": "antique-40-2-omlijnd",
+     "x": 394.203125,
+     "y": 709.445313,
+     "w": 46
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_2",
+     "tag": "p",
+     "stijl": "light-18-wit",
+     "x": 434.6875,
+     "y": 718.75,
+     "w": 767
+    },
+    {
+     "soort": "cijfer",
+     "n": 3,
+     "stijl": "antique-40-2-omlijnd",
+     "x": 393.953125,
+     "y": 757.351563,
+     "w": 46
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_3",
+     "tag": "p",
+     "stijl": "light-18-wit",
+     "x": 434.6875,
+     "y": 766.65625,
+     "w": 767
+    },
+    {
+     "soort": "cijfer",
+     "n": 4,
+     "stijl": "antique-40-2-omlijnd",
+     "x": 394.203125,
+     "y": 805.648438,
+     "w": 46
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_4",
+     "tag": "p",
+     "stijl": "light-18-wit",
+     "x": 434.6875,
+     "y": 814.953125,
+     "w": 767
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_slot",
+     "tag": "p",
+     "stijl": "bold-cursief-18-wit",
+     "x": 434.6875,
+     "y": 863.09375,
+     "w": 767
+    },
+    {
+     "soort": "knop",
+     "veld": "stappen_knop",
+     "link": "proefles_link",
+     "stijl": "antique-21-donker",
+     "x": 438.171875,
+     "y": 923.40625,
+     "w": 365,
+     "h": 56,
+     "radius": 28,
+     "achtergrond": "rgba(0, 0, 0, 0)",
+     "beeld": {
+      "bestand": "home/stappen_knop",
+      "breedte": 730,
+      "kleiner": [
+       512
+      ],
+      "sizes": "(min-width: 1242px) 365px, (max-width: 809.98px) min(min(100vw, 1242px) - 48px, 365px), (min-width: 810px) and (max-width: 1241.98px) min(min(100vw, 1242px) - 96px, 365px)"
+     },
+     "tekst": {
+      "x": 28.25,
+      "y": 11.203125,
+      "w": 308.484375
+     },
+     "z": 5
+    }
+   ]
+  },
+  {
+   "naam": "sectie-3",
+   "hoogte": 980.265625,
+   "tekening": "artwork-3.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "aanbod_kop",
+     "tag": "h2",
+     "stijl": "black-cursief-57-oranje",
+     "x": 150.265625,
+     "y": 25.28125,
+     "w": 259
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_1_naam",
+     "tag": "h2",
+     "stijl": "black-cursief-36-wit-regel-1-2",
+     "x": 99.359375,
+     "y": 259.65625,
+     "w": 1099
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_1_onderschrift",
+     "tag": "p",
+     "stijl": "black-cursief-18-wit",
+     "x": 102.453125,
+     "y": 307.640625,
+     "w": 400
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_1_tekst",
+     "tag": "p",
+     "stijl": "regular-18-wit",
+     "x": 102.453125,
+     "y": 356.28125,
+     "w": 436
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_2_naam",
+     "tag": "h2",
+     "stijl": "black-cursief-36-5-wit",
+     "x": 700.859375,
+     "y": 602.90625,
+     "w": 500
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_2_tekst",
+     "tag": "p",
+     "stijl": "regular-18-wit",
+     "x": 700.859375,
+     "y": 675,
+     "w": 380
+    }
+   ]
+  },
+  {
+   "naam": "sectie-4",
+   "hoogte": 850.09375,
+   "tekening": "artwork-4.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "aanbod_3_naam",
+     "tag": "h2",
+     "stijl": "black-cursief-36-wit-regel-1-2",
+     "x": 99.359375,
+     "y": 103.015625,
+     "w": 1099
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_3_leeftijd",
+     "tag": "p",
+     "stijl": "black-cursief-18-wit",
+     "x": 447.109375,
+     "y": 122.5,
+     "w": 400
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_3_onderschrift",
+     "tag": "p",
+     "stijl": "black-cursief-18-wit",
+     "x": 102.453125,
+     "y": 151,
+     "w": 400
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_3_tekst",
+     "tag": "p",
+     "stijl": "regular-18-wit",
+     "x": 102.453125,
+     "y": 199.671875,
+     "w": 430
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_4_naam",
+     "tag": "h2",
+     "stijl": "black-cursief-36-5-wit",
+     "x": 700.859375,
+     "y": 410.15625,
+     "w": 500
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_4_ondertitel",
+     "tag": "p",
+     "stijl": "bold-18-wit",
+     "x": 702.34375,
+     "y": 482.328125,
+     "w": 355
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_4_tekst",
+     "tag": "p",
+     "stijl": "regular-18-wit",
+     "x": 702.34375,
+     "y": 560.46875,
+     "w": 376
+    }
+   ]
+  },
+  {
+   "naam": "sectie-5",
+   "hoogte": 830.203125,
+   "tekening": "artwork-5.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "aanbod_5_naam",
+     "tag": "h2",
+     "stijl": "black-cursief-36-5-wit",
+     "x": 99.359375,
+     "y": 43.859375,
+     "w": 1099
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_5_ondertitel",
+     "tag": "p",
+     "stijl": "bold-18-wit",
+     "x": 102.453125,
+     "y": 114.5,
+     "w": 381
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_5_tekst",
+     "tag": "p",
+     "stijl": "regular-18-wit",
+     "x": 102.453125,
+     "y": 192.515625,
+     "w": 390
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_6_naam",
+     "tag": "h2",
+     "stijl": "black-cursief-36-5-wit",
+     "x": 700.859375,
+     "y": 382.96875,
+     "w": 500
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_6_leeftijd",
+     "tag": "p",
+     "stijl": "black-cursief-18-wit",
+     "x": 987.875,
+     "y": 402.453125,
+     "w": 214
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_6_tekst",
+     "tag": "p",
+     "stijl": "regular-18-wit",
+     "x": 700.859375,
+     "y": 455.109375,
+     "w": 389
+    }
+   ]
+  },
+  {
+   "naam": "sectie-6",
+   "hoogte": 530.3125,
+   "tekening": "artwork-6.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "aanbod_7_naam",
+     "tag": "h2",
+     "stijl": "black-cursief-36-5-wit",
+     "x": 99.359375,
+     "y": 15.53125,
+     "w": 1099
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_7_leeftijd",
+     "tag": "p",
+     "stijl": "black-cursief-18-wit",
+     "x": 223.546875,
+     "y": 35.015625,
+     "w": 977
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_7_onderschrift",
+     "tag": "p",
+     "stijl": "black-cursief-18-wit",
+     "x": 102.453125,
+     "y": 63.53125,
+     "w": 400
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_7_ondertitel",
+     "tag": "p",
+     "stijl": "bold-18-wit",
+     "x": 102.453125,
+     "y": 112.171875,
+     "w": 355
+    },
+    {
+     "soort": "tekst",
+     "veld": "aanbod_7_tekst",
+     "tag": "p",
+     "stijl": "regular-18-wit",
+     "x": 102.453125,
+     "y": 190.1875,
+     "w": 433
+    }
+   ]
+  },
+  {
+   "naam": "sectie-7",
+   "hoogte": 1520.1875,
+   "tekening": "artwork-7.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "vlak_kop",
+     "tag": "p",
+     "stijl": "bold-cursief-24-wit-midden",
+     "x": 217.09375,
+     "y": 24.96875,
+     "w": 844
+    },
+    {
+     "soort": "tekst",
+     "veld": "vlak_tekst",
+     "tag": "p",
+     "stijl": "regular-24-wit-midden",
+     "x": 218.578125,
+     "y": 162,
+     "w": 843
+    },
+    {
+     "soort": "tekst",
+     "veld": "quote",
+     "tag": "h2",
+     "stijl": "antique-52-8-omlijnd-midden",
+     "x": 109.53125,
+     "y": 712.96875,
+     "w": 1080
+    },
+    {
+     "soort": "tekst",
+     "veld": "reviews_kop",
+     "tag": "h2",
+     "stijl": "black-cursief-25-grijs-midden",
+     "x": 422.265625,
+     "y": 1054.328125,
+     "w": 430
+    }
+   ]
+  },
+  {
+   "naam": "sectie-8",
+   "hoogte": 880.21875,
+   "tekening": "artwork-8.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "slotquote",
+     "tag": "p",
+     "stijl": "black-cursief-42-8-wit",
+     "x": 111.765625,
+     "y": 129.890625,
+     "w": 1088
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen2_kop",
+     "tag": "h2",
+     "stijl": "antique-32-2-omlijnd-grijs-midden",
+     "x": 276.34375,
+     "y": 362.625,
+     "w": 689
+    },
+    {
+     "soort": "cijfer",
+     "n": 1,
+     "stijl": "antique-43-grijs",
+     "x": 384.5,
+     "y": 436.617188,
+     "w": 46
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen2_1",
+     "tag": "p",
+     "stijl": "light-18-grijs",
+     "x": 422.265625,
+     "y": 441.515625,
+     "w": 379
+    },
+    {
+     "soort": "cijfer",
+     "n": 2,
+     "stijl": "antique-43-grijs",
+     "x": 384.5,
+     "y": 495.914063,
+     "w": 46
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen2_2",
+     "tag": "p",
+     "stijl": "light-18-grijs",
+     "x": 422.265625,
+     "y": 513.421875,
+     "w": 779
+    },
+    {
+     "soort": "cijfer",
+     "n": 3,
+     "stijl": "antique-43-grijs",
+     "x": 384.5,
+     "y": 544.226563,
+     "w": 46
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen2_3",
+     "tag": "p",
+     "stijl": "light-18-grijs",
+     "x": 422.265625,
+     "y": 561.734375,
+     "w": 779
+    },
+    {
+     "soort": "cijfer",
+     "n": 4,
+     "stijl": "antique-43-grijs",
+     "x": 384.5,
+     "y": 591.898438,
+     "w": 46
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen2_4",
+     "tag": "p",
+     "stijl": "light-18-grijs",
+     "x": 422.265625,
+     "y": 609.40625,
+     "w": 779
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen2_slot",
+     "tag": "p",
+     "stijl": "bold-cursief-18-grijs",
+     "x": 422.265625,
+     "y": 656.4375,
+     "w": 779
+    },
+    {
+     "soort": "knop",
+     "veld": "stappen2_knop",
+     "link": "proefles_link",
+     "stijl": "antique-21-donker",
+     "x": 427.234375,
+     "y": 719.15625,
+     "w": 365,
+     "h": 56,
+     "radius": 28,
+     "achtergrond": "rgba(0, 0, 0, 0)",
+     "beeld": {
+      "bestand": "home/stappen2_knop",
+      "breedte": 730,
+      "kleiner": [
+       512
+      ],
+      "sizes": "(min-width: 1242px) 365px, (max-width: 809.98px) min(min(100vw, 1242px) - 48px, 365px), (min-width: 810px) and (max-width: 1241.98px) min(min(100vw, 1242px) - 96px, 365px)"
+     },
+     "tekst": {
+      "x": 28.25,
+      "y": 11.203125,
+      "w": 308.484375
+     },
+     "z": 5
+    }
+   ]
+  },
+  {
+   "naam": "sectie-9",
+   "hoogte": 753.640625,
+   "tekening": "artwork-9.webp",
+   "blokken": []
+  }
+ ]
+}

@@ -1,0 +1,363 @@
+{
+ "breedte": 1242,
+ "hoogte": 7152.9375,
+ "footer": {
+  "onder": 14
+ },
+ "secties": [
+  {
+   "naam": "sectie-1",
+   "hoogte": 954.640625,
+   "tekening": "artwork-1.webp",
+   "alt": "hero_alt",
+   "blokken": [
+    {
+     "soort": "logo",
+     "beeld": {
+      "bestand": "tigers/logo",
+      "breedte": 974,
+      "kleiner": [
+       512
+      ],
+      "sizes": "(min-width: 1242px) calc(min(100vw, 1242px) * 0.231)"
+     },
+     "x": 44.703125,
+     "y": 42,
+     "w": 286.890625,
+     "h": 257.984375,
+     "z": 19
+    },
+    {
+     "soort": "tekst",
+     "veld": "hero_paginatitel",
+     "tag": "h1",
+     "stijl": "antique-40-2-oranje",
+     "x": 1052.890625,
+     "y": 102.4375,
+     "w": 149.109375
+    },
+    {
+     "soort": "tekst",
+     "veld": "hero_intro",
+     "tag": "p",
+     "stijl": "black-cursief-26-4-wit",
+     "x": 115.25,
+     "y": 388.125,
+     "w": 388
+    },
+    {
+     "soort": "knop",
+     "veld": "hero_knop",
+     "link": "proefles_link",
+     "stijl": "antique-21-donker",
+     "x": 85.4375,
+     "y": 694.625,
+     "w": 254,
+     "h": 55,
+     "radius": 28,
+     "achtergrond": "rgb(255, 255, 255)",
+     "beeld": null,
+     "tekst": {
+      "x": 28.359375,
+      "y": 10.703125,
+      "w": 197.265625
+     },
+     "z": 5
+    },
+    {
+     "soort": "tekst",
+     "veld": "hero_kop",
+     "tag": "h2",
+     "stijl": "antique-38-6-omlijnd-midden",
+     "x": 285.65625,
+     "y": 820.875,
+     "w": 702
+    }
+   ]
+  },
+  {
+   "naam": "sectie-2",
+   "hoogte": 953.171875,
+   "tekening": "artwork-2.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "intro_kop",
+     "tag": "p",
+     "stijl": "bold-18-blauw",
+     "x": 75.75,
+     "y": 41.84375,
+     "w": 470
+    },
+    {
+     "soort": "alineas",
+     "veld": "intro_tekst",
+     "stijl": "regular-18-blauw",
+     "x": 75.75,
+     "y": 113.671875,
+     "w": 539
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_kop",
+     "tag": "h2",
+     "stijl": "antique-52-8-omlijnd-midden",
+     "x": 203.6875,
+     "y": 607.03125,
+     "w": 806
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_ondertitel",
+     "tag": "p",
+     "stijl": "antique-22-wit",
+     "x": 418.046875,
+     "y": 718.75,
+     "w": 785
+    },
+    {
+     "soort": "cijfer",
+     "n": 1,
+     "stijl": "antique-40-2-omlijnd",
+     "x": 364.4375,
+     "y": 761.632813,
+     "w": 46
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_1",
+     "tag": "p",
+     "stijl": "light-18-wit",
+     "x": 405.75,
+     "y": 770.9375,
+     "w": 798
+    },
+    {
+     "soort": "cijfer",
+     "n": 2,
+     "stijl": "antique-40-2-omlijnd",
+     "x": 363.6875,
+     "y": 810.492188,
+     "w": 46
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_2",
+     "tag": "p",
+     "stijl": "light-18-wit",
+     "x": 405.75,
+     "y": 819.796875,
+     "w": 798
+    },
+    {
+     "soort": "cijfer",
+     "n": 3,
+     "stijl": "antique-40-2-omlijnd",
+     "x": 363.25,
+     "y": 869.414063,
+     "w": 46
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_3",
+     "tag": "p",
+     "stijl": "light-18-wit",
+     "x": 404.265625,
+     "y": 867.921875,
+     "w": 481
+    },
+    {
+     "soort": "cijfer",
+     "n": 4,
+     "stijl": "antique-40-2-omlijnd",
+     "x": 363.6875,
+     "y": 930.179688,
+     "w": 46,
+     "z": 1
+    },
+    {
+     "soort": "tekst",
+     "veld": "stappen_4",
+     "tag": "p",
+     "stijl": "light-18-wit",
+     "x": 405.75,
+     "y": 939.484375,
+     "w": 798,
+     "z": 1
+    }
+   ]
+  },
+  {
+   "naam": "sectie-3",
+   "hoogte": 954.640625,
+   "tekening": "artwork-3.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "stappen_slot",
+     "tag": "p",
+     "stijl": "bold-cursief-18-wit",
+     "x": 404.265625,
+     "y": 35.65625,
+     "w": 484
+    },
+    {
+     "soort": "knop",
+     "veld": "stappen_knop",
+     "link": "proefles_link",
+     "stijl": "antique-21-donker",
+     "x": 438.171875,
+     "y": 139.15625,
+     "w": 365,
+     "h": 56,
+     "radius": 28,
+     "achtergrond": "rgba(0, 0, 0, 0)",
+     "beeld": {
+      "bestand": "tigers/stappen_knop",
+      "breedte": 730,
+      "kleiner": [
+       512
+      ],
+      "sizes": "(min-width: 1242px) 365px, (min-width: 810px) and (max-width: 1241.98px) min(min(100vw, 1242px) - 96px, 365px), (max-width: 809.98px) min(min(100vw, 1242px) - 48px, 365px)"
+     },
+     "tekst": {
+      "x": 28.25,
+      "y": 11.203125,
+      "w": 308.484375
+     },
+     "z": 5
+    },
+    {
+     "soort": "tekst",
+     "veld": "kolom_inleiding",
+     "tag": "h2",
+     "stijl": "black-cursief-31-oranje",
+     "x": 127.421875,
+     "y": 336.484375,
+     "w": 543
+    },
+    {
+     "soort": "alineas",
+     "veld": "kolom_tekst",
+     "stijl": "regular-18-oranje",
+     "x": 121.203125,
+     "y": 540.234375,
+     "w": 547
+    }
+   ]
+  },
+  {
+   "naam": "sectie-4",
+   "hoogte": 953.171875,
+   "tekening": "artwork-4.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "quote",
+     "tag": "h2",
+     "stijl": "antique-46-2-omlijnd-midden",
+     "x": 107.296875,
+     "y": 105.625,
+     "w": 929
+    },
+    {
+     "soort": "tekst",
+     "veld": "reviews_kop",
+     "tag": "h2",
+     "stijl": "black-cursief-25-grijs-midden",
+     "x": 384.265625,
+     "y": 450.640625,
+     "w": 430
+    }
+   ]
+  },
+  {
+   "naam": "sectie-5",
+   "hoogte": 957.59375,
+   "tekening": "artwork-5.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "waarom_kop",
+     "tag": "h2",
+     "stijl": "black-cursief-57-oranje",
+     "x": 104.3125,
+     "y": 626.953125,
+     "w": 751
+    }
+   ]
+  },
+  {
+   "naam": "sectie-6",
+   "hoogte": 951.71875,
+   "tekening": "artwork-6.webp",
+   "blokken": [
+    {
+     "soort": "alineas",
+     "veld": "waarom_tekst",
+     "stijl": "regular-18-oranje",
+     "x": 105.1875,
+     "y": -177.9375,
+     "w": 589
+    },
+    {
+     "soort": "tekst",
+     "veld": "klaar_kop",
+     "tag": "h2",
+     "stijl": "black-cursief-36-5-wit",
+     "x": 782.203125,
+     "y": 481.203125,
+     "w": 384
+    },
+    {
+     "soort": "knop",
+     "veld": "klaar_knop",
+     "link": "proefles_link",
+     "stijl": "antique-21-donker",
+     "x": 782.203125,
+     "y": 609.40625,
+     "w": 365,
+     "h": 56,
+     "radius": 28,
+     "achtergrond": "rgba(0, 0, 0, 0)",
+     "beeld": {
+      "bestand": "tigers/klaar_knop",
+      "breedte": 730,
+      "kleiner": [
+       512
+      ],
+      "sizes": "(min-width: 1242px) 365px, (min-width: 810px) and (max-width: 1241.98px) min(min(100vw, 1242px) - 96px, 365px), (max-width: 809.98px) min(min(100vw, 1242px) - 48px, 365px)"
+     },
+     "tekst": {
+      "x": 28.25,
+      "y": 11.203125,
+      "w": 308.484375
+     },
+     "z": 5
+    }
+   ]
+  },
+  {
+   "naam": "sectie-7",
+   "hoogte": 953.90625,
+   "tekening": "artwork-7.webp",
+   "blokken": [
+    {
+     "soort": "tekst",
+     "veld": "faq_kop",
+     "tag": "p",
+     "stijl": "black-cursief-29-grijs",
+     "x": 84.703125,
+     "y": -61,
+     "w": 545
+    }
+   ]
+  },
+  {
+   "naam": "sectie-8",
+   "hoogte": 474.09375,
+   "gebouwd": true,
+   "blokken": []
+  }
+ ]
+}
