@@ -69,7 +69,8 @@ const hrefVan = (blok: Blok, span: Span) => {
 };
 // A file field sends its file only as multipart.
 const bestanden = velden.some((veld) => veld.type === "file");
-const knop = `width:${maat(v.knop.w)};height:${maat(v.knop.h)};border-radius:${maat(v.knop.radius)};box-shadow:${v.knop.schaduw}`;
+// The width goes as a custom property, so the column can stretch the button.
+const knop = `--knop-w:${maat(v.knop.w)};height:${maat(v.knop.h)};border-radius:${maat(v.knop.radius)};box-shadow:${v.knop.schaduw}`;
 const deelProps = { slug, datums, groepen, sport, geenData };
 ---
 

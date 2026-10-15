@@ -22,6 +22,8 @@ export const REVIEWS = {
 	vorige: "Vorige review",
 	volgende: "Volgende review",
 	van: (i: number, n: number) => `${i} van ${n}`,
+	// A dot below the carousel on the phone.
+	bolletje: (i: number) => `Review ${i}`,
 };
 
 // The point before a list item on a Praktisch page.

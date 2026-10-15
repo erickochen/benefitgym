@@ -1551,15 +1551,23 @@
          "breedte": 196
         }
        },
+       "bolletjes": {
+        "onder": 10,
+        "rand": 10,
+        "half": 7,
+        "stip": 10,
+        "kleur": "rgb(46, 46, 46)",
+        "uit": 0.6
+       },
        "z": 5,
        "kolom": {
         "tablet": {
          "breedte": "vul",
-         "hoogte": 223
+         "hoogte": 199
         },
         "phone": {
          "breedte": "vul",
-         "hoogte": 283
+         "hoogte": 243
         }
        }
       }
@@ -1574,7 +1582,17 @@
        ],
        "kleur": "rgb(236, 110, 29)",
        "z": 0,
-       "breedte": "vul"
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         24,
+         24,
+         24
+        ],
+        "kleur": "rgb(255, 255, 255)",
+        "uitlijning": "flex-start"
+       }
       },
       "phone": {
        "rand": [
@@ -1585,7 +1603,17 @@
        ],
        "kleur": "rgb(236, 110, 29)",
        "z": 0,
-       "breedte": "vul"
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         16,
+         40,
+         16
+        ],
+        "kleur": "rgb(255, 255, 255)",
+        "uitlijning": "flex-start"
+       }
       }
      }
     },
@@ -1763,12 +1791,12 @@
        "kaart": null,
        "kolom": {
         "tablet": {
-         "breedte": "vul",
-         "hoogte": 56
+         "breedte": "inhoud",
+         "onder": 32
         },
         "phone": {
-         "breedte": "vul",
-         "hoogte": 56
+         "breedte": "inhoud",
+         "onder": 32
         }
        }
       }
@@ -2082,6 +2110,7 @@
        "x": 76.25,
        "y": 105.34375,
        "w": 651.359375,
+       "boven": 166.34375,
        "rij": {
         "h": 76.890625,
         "lijn": 1,
@@ -2099,6 +2128,33 @@
         "w": 31.609375,
         "vlak": "rgb(46, 46, 46)",
         "pijl": "rgb(255, 255, 255)"
+       },
+       "smal": {
+        "rij": 60,
+        "knop": 32,
+        "icoon": 14,
+        "ruimte": 48,
+        "korps": 18,
+        "regel": 1.3
+       },
+       "ontwerp": {
+        "breedte": 1241.49,
+        "x": 76.2202,
+        "w": 651.098,
+        "boven": 166.2837,
+        "rij": 76.8682,
+        "lijn": 1,
+        "korps": 18,
+        "label": {
+         "x": 0,
+         "y": 26.921,
+         "w": 587.3281
+        },
+        "icoon": {
+         "x": 601.3281,
+         "y": 25.1114,
+         "w": 31.6105
+        }
        },
        "z": 21,
        "kolom": {
@@ -2189,6 +2245,27 @@
       16,
       24
      ]
+    },
+    "kolom": {
+     "tablet": {
+      "rand": [
+       72,
+       48,
+       56,
+       48
+      ],
+      "gat": 32
+     },
+     "phone": {
+      "rand": [
+       72,
+       24,
+       56,
+       24
+      ],
+      "gat": 32
+     },
+     "strook": "88.678 / 1"
     }
    },
    "banden": []

@@ -43,6 +43,9 @@ export type Blok = (
 			quote: { w: number; stijl: string; regels: { naam: number; zonder: number } };
 			naam: { stijl: string | null };
 			pijl: { w: number; h: number; vorige: Beeld; volgende: Beeld };
+			// The row of dots that replaces the arrows on the phone, in pixels: its distance to the foot of the carousel,
+			// the room around it plus half the gap between two dots, the dot, its color and the opacity of a dot not in view.
+			bolletjes?: { onder: number; rand: number; half: number; stip: number; kleur: string; uit: number };
 	  } & Vak)
 	| ({
 			soort: "uitklap";
@@ -58,9 +61,26 @@ export type Blok = (
 			soort: "faq";
 			// The option in Pagina that puts a question on this page.
 			pagina: string;
+			// The room above the first row inside its holder.
+			boven: number;
 			rij: { h: number; lijn: number; kleur: string };
 			label: Plek & { stijl: string };
 			icoon: { x: number; y: number; w: number; vlak: string; pijl: string };
+			// The rows of a narrow list in the column, in pixels: the height, the round button with its top, the room
+			// kept for it plus the size of the label, with its line height as a factor of that size.
+			smal?: { rij: number; knop: number; icoon: number; ruimte: number; korps: number; regel: number };
+			// The wide list in the column: design units on the scale of its own width over the design width.
+			ontwerp?: {
+				breedte: number;
+				x: number;
+				w: number;
+				boven: number;
+				rij: number;
+				lijn: number;
+				korps: number;
+				label: Plek;
+				icoon: Plek;
+			};
 	  } & Plek)
 ) & { z?: number } & MetKolom;
 
@@ -106,6 +126,8 @@ export interface BlokMaat {
 	beeld?: Beeld;
 	// The fill of a button.
 	vulling?: string;
+	// The room below the block before what follows it in its band.
+	onder?: number;
 }
 
 // The measures of a block in the column; null when the column hides it.
@@ -183,6 +205,7 @@ export function kolomVars(blok: MetKolom): string | undefined {
 		"k-ratio": m.verhouding,
 		"k-inspring": m.inspring === undefined ? undefined : pixels(m.inspring),
 		"k-vulling": m.vulling,
+		"k-onder": m.onder === undefined ? undefined : pixels(m.onder),
 	}));
 }
 
@@ -215,6 +238,8 @@ export interface Gebouwd {
 		bellen: { h: number; stijl: string };
 		gaten: number[];
 	};
+	// In the column, in pixels: the padding plus the gap of the content per breakpoint, with the ratio of the strip.
+	kolom?: PerStand<{ rand: number[]; gat: number }> & { strook: string };
 }
 
 // A drawn section names its drawing; a built section carries its form instead.
