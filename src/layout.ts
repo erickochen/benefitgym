@@ -362,7 +362,65 @@ export interface MenuLayout {
 	badge: Vak & { beeld: Beeld };
 	wissel: { vast: number; logo: number };
 	overgang: string;
+	paneel: MenuPaneel;
 	mobiel?: MenuMobiel;
+}
+
+// A focus ring as an outline.
+export interface Ring {
+	stijl: string;
+	dikte: number;
+	kleur: string;
+	afstand: number;
+}
+
+// A heading or a row in a panel: its height, padding as top, right, bottom and left, alignment, rounding plus transition.
+export interface PaneelVorm {
+	h: number;
+	rand: number[];
+	uitlijning: string;
+	radius: number;
+	overgang: string;
+	stijl: string;
+}
+
+// The panels under the desktop bar, one per item with children, closed until hover, a click or ArrowDown.
+export interface MenuPaneel {
+	vak: { rand: number[]; gat: number; radius: number; schaduw: string; achtergrond: string; z: number };
+	chevron: { open: string; overgang: string };
+	kop: PaneelVorm;
+	rij: PaneelVorm & { vlak: string; ring: Ring };
+	panelen: { links: number; boven: number; kolommen: number[] }[];
+}
+
+// The panel of the column below its bar, plus the back-to-top button one screen down.
+export interface MenuMobielPaneel {
+	rand: number[];
+	achtergrond: string;
+	schaduw: string;
+	z: number;
+	kop: PaneelVorm;
+	rij: Omit<PaneelVorm, "stijl"> & { vlak: string; ring: Ring };
+	stijl: { pagina: string; rij: string };
+	huidig: { kleur: string; dikte: number; afstand: number };
+	lijn: { boven: number; zij: number; onder: number; h: number; kleur: string };
+	inloggen: { gat: number; icoon: { svg: string; w: number; h: number } };
+	knop: { boven: number; zij: number; h: number; radius: number; achtergrond: string; ring: Ring; stijl: string };
+	hamburger: { strepen: { top: number; transform: string; opacity: number }[]; overgang: string };
+}
+
+export interface MenuTerug {
+	w: number;
+	h: number;
+	rechts: number;
+	onder: number;
+	achtergrond: string;
+	radius: string;
+	schaduw: string;
+	ring: string;
+	overgang: string;
+	z: number;
+	icoon: { svg: string; w: number; h: number };
 }
 
 // A background image as AVIF plus PNG, or plus WebP when the measured page serves that.
@@ -380,6 +438,8 @@ export interface MenuMobiel {
 	overgang: { balk: string; badge: string };
 	badge: { w: number; h: number; maat: string; plek: string; herhaal: string; beeld: Achtergrond };
 	knop: { w: number; h: number; streep: { x: number; w: number; h: number; radius: number; kleur: string; tops: number[] } };
+	paneel: MenuMobielPaneel;
+	terug: MenuTerug;
 }
 
 // The narrow footer of the column per breakpoint in pixels, each padding as top, right, bottom and left.
