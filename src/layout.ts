@@ -112,11 +112,28 @@ export interface BlokMaat {
 type MetKolom = { kolom?: PerStand<BlokMaat> | null };
 
 // A band holds its blocks; above 1242 it takes no box, so each block lies on the drawing. A cut-out of another page,
-// as a Praktisch hero shows from its source, names that page.
+// as a Praktisch hero shows from its source, names that page. A tile holds bands of its own. A portrait names the
+// field of its person, which stands in when its alt text is empty.
 export interface Band {
 	blokken: Blok[];
-	uitsnede?: { bestand: string; pagina?: string; alt?: string };
+	uitsnede?: { bestand: string; pagina?: string; alt?: string; altNaam?: string };
 	kolom?: PerStand<BandMaat> | null;
+	banden?: Band[];
+}
+
+// A section of tiles in the column: its number of equal columns, the gap between the tiles plus its own padding.
+export interface RasterMaat {
+	kolommen: number;
+	gat: number;
+	rand: number[];
+}
+
+export function rasterVars(raster: PerStand<RasterMaat>): string {
+	return perStand(raster, (m) => ({
+		"s-kolommen": m.kolommen.toString(),
+		"s-gat": pixels(m.gat),
+		"s-rand": m.rand.map(pixels).join(" "),
+	}));
 }
 
 const pixels = (n: number) => `${n}px`;
@@ -208,6 +225,8 @@ export interface Sectie {
 	tekening?: string;
 	gebouwd?: Gebouwd;
 	alt?: string;
+	// The grid of a section of tiles below 1242.
+	raster?: PerStand<RasterMaat>;
 	banden: Band[];
 	snede?: { y: number; banden: Band[] };
 }

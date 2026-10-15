@@ -153,6 +153,12 @@ img.alleen-kolom {
 /* The column, on the breakpoints of the measured page. Each element carries its measures per breakpoint as
 --t-* plus --p-*. The rules below read the ones that apply. */
 @media (min-width: 810px) and (max-width: 1241.98px) {
+	.met-kolom .sectie {
+		--s-kolommen: var(--t-s-kolommen);
+		--s-gat: var(--t-s-gat);
+		--s-rand: var(--t-s-rand);
+	}
+
 	.met-kolom .band {
 		--b-rand: var(--t-b-rand);
 		--b-kleur: var(--t-b-kleur);
@@ -186,6 +192,12 @@ img.alleen-kolom {
 }
 
 @media (max-width: 809.98px) {
+	.met-kolom .sectie {
+		--s-kolommen: var(--p-s-kolommen);
+		--s-gat: var(--p-s-gat);
+		--s-rand: var(--p-s-rand);
+	}
+
 	.met-kolom .band {
 		--b-rand: var(--p-b-rand);
 		--b-kleur: var(--p-b-kleur);
@@ -232,6 +244,16 @@ img.alleen-kolom {
 		display: flex;
 		flex-direction: column;
 		height: auto;
+	}
+
+	/* A section of tiles: equal columns, every row as tall as the tallest tile. */
+	.met-kolom .sectie.raster {
+		display: grid;
+		grid-template-columns: repeat(var(--s-kolommen), minmax(0, 1fr));
+		grid-auto-rows: 1fr;
+		gap: var(--s-gat);
+		box-sizing: border-box;
+		padding: var(--s-rand);
 	}
 
 	.met-kolom .sectie > .tekening,

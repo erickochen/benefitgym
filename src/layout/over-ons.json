@@ -1,6 +1,7 @@
 {
  "breedte": 1242,
  "hoogte": 6628.84375,
+ "kolom": true,
  "footer": {
   "onder": 14
  },
@@ -26,9 +27,77 @@
        "y": 42,
        "w": 286.890625,
        "h": 257.984375,
-       "z": 19
+       "z": 19,
+       "kolom": {
+        "tablet": {
+         "breedte": 200,
+         "verhouding": "1.124 / 1",
+         "beeld": {
+          "bestand": "over-ons/logo-kolom",
+          "breedte": 800,
+          "kleiner": [
+           512
+          ],
+          "sizes": "(min-width: 810px) and (max-width: 1241.98px) 200px, (max-width: 809.98px) 150px"
+         }
+        },
+        "phone": {
+         "breedte": 150,
+         "verhouding": "1.124 / 1",
+         "beeld": {
+          "bestand": "over-ons/logo-kolom",
+          "breedte": 800,
+          "kleiner": [
+           512
+          ],
+          "sizes": "(min-width: 810px) and (max-width: 1241.98px) 200px, (max-width: 809.98px) 150px"
+         }
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        14,
+        0,
+        8,
+        20
+       ],
+       "z": 101,
+       "breedte": "inhoud",
+       "zelf": "flex-start",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      },
+      "phone": {
+       "rand": [
+        14,
+        0,
+        8,
+        20
+       ],
+       "z": 101,
+       "breedte": "inhoud",
+       "zelf": "flex-start",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      }
+     }
     },
     {
      "blokken": [
@@ -39,9 +108,65 @@
        "stijl": "antique-40-2-wit",
        "x": 989.828125,
        "y": 113.890625,
-       "w": 212.171875
+       "w": 212.171875,
+       "kolom": {
+        "tablet": {
+         "breedte": "inhoud"
+        },
+        "phone": {
+         "breedte": "inhoud"
+        }
+       }
       }
-     ]
+     ],
+     "uitsnede": {
+      "bestand": "strook-1.webp",
+      "alt": "hero_alt"
+     },
+     "kolom": {
+      "tablet": {
+       "rand": [
+        24,
+        0,
+        0,
+        0
+       ],
+       "breedte": "vul",
+       "verhouding": "7.297 / 1",
+       "rij": {
+        "rand": [
+         0,
+         48,
+         0,
+         0
+        ],
+        "uitlijning": "flex-end",
+        "boven": 64,
+        "z": 2
+       }
+      },
+      "phone": {
+       "rand": [
+        16,
+        0,
+        0,
+        0
+       ],
+       "breedte": "vul",
+       "verhouding": "7.297 / 1",
+       "rij": {
+        "rand": [
+         0,
+         24,
+         0,
+         0
+        ],
+        "uitlijning": "flex-end",
+        "boven": 36,
+        "z": 2
+       }
+      }
+     }
     },
     {
      "blokken": [
@@ -52,9 +177,57 @@
        "stijl": "black-cursief-55-9-wit",
        "x": 198.21875,
        "y": 347.703125,
-       "w": 830
+       "w": 830,
+       "kolom": {
+        "tablet": {
+         "breedte": "vul"
+        },
+        "phone": {
+         "breedte": "vul"
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        32,
+        48,
+        8,
+        48
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      },
+      "phone": {
+       "rand": [
+        32,
+        24,
+        8,
+        24
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      }
+     }
     },
     {
      "blokken": [
@@ -65,9 +238,57 @@
        "stijl": "antique-22-wit-midden",
        "x": 213.609375,
        "y": 504.046875,
-       "w": 797
+       "w": 797,
+       "kolom": {
+        "tablet": {
+         "breedte": "vul"
+        },
+        "phone": {
+         "breedte": "vul"
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        8,
+        48,
+        16,
+        48
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      },
+      "phone": {
+       "rand": [
+        8,
+        24,
+        16,
+        24
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      }
+     }
     },
     {
      "blokken": [
@@ -75,7 +296,7 @@
        "soort": "knop",
        "veld": "hero_knop",
        "link": "proefles_link",
-       "stijl": "antique-21-donker--3",
+       "stijl": "antique-21-donker--2",
        "x": 493.8125,
        "y": 603.203125,
        "w": 254,
@@ -88,9 +309,91 @@
         "y": 10.703125,
         "w": 197.265625
        },
-       "z": 5
+       "z": 5,
+       "kolom": {
+        "tablet": {
+         "breedte": 254,
+         "hoogte": 55,
+         "vulling": "rgb(255, 255, 255)"
+        },
+        "phone": {
+         "breedte": 254,
+         "hoogte": 55,
+         "vulling": "rgb(255, 255, 255)"
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        8,
+        48,
+        32,
+        48
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "z": 5,
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "center"
+       }
+      },
+      "phone": {
+       "rand": [
+        8,
+        24,
+        32,
+        24
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "z": 5,
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "center"
+       }
+      }
+     }
+    },
+    {
+     "blokken": [],
+     "uitsnede": {
+      "bestand": "strook-2.webp"
+     },
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "breedte": "vul",
+       "verhouding": "2.656 / 1"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "breedte": "vul",
+       "verhouding": "2.656 / 1"
+      }
+     }
     }
    ]
   },
@@ -105,12 +408,60 @@
        "soort": "tekst",
        "veld": "over_kop",
        "tag": "h2",
-       "stijl": "black-cursief-52-7-wit",
+       "stijl": "black-cursief-52-7-wit--2",
        "x": 136.609375,
        "y": -8,
-       "w": 1063
+       "w": 1063,
+       "kolom": {
+        "tablet": {
+         "breedte": "vul"
+        },
+        "phone": {
+         "breedte": "vul"
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        32,
+        48,
+        8,
+        48
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      },
+      "phone": {
+       "rand": [
+        32,
+        24,
+        8,
+        24
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      }
+     }
     },
     {
      "blokken": [
@@ -120,9 +471,85 @@
        "stijl": "regular-18-wit",
        "x": 140.46875,
        "y": 80.453125,
-       "w": 505
+       "w": 505,
+       "kolom": {
+        "tablet": {
+         "breedte": "vul"
+        },
+        "phone": {
+         "breedte": "vul"
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        8,
+        48,
+        32,
+        48
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      },
+      "phone": {
+       "rand": [
+        8,
+        24,
+        32,
+        24
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      }
+     }
+    },
+    {
+     "blokken": [],
+     "uitsnede": {
+      "bestand": "strook-3.webp"
+     },
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "breedte": "vul",
+       "verhouding": "1.372 / 1"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "breedte": "vul",
+       "verhouding": "1.372 / 1"
+      }
+     }
     },
     {
      "blokken": [
@@ -133,9 +560,57 @@
        "stijl": "black-cursief-57-grijs",
        "x": 928.5,
        "y": 898.046875,
-       "w": 173
+       "w": 173,
+       "kolom": {
+        "tablet": {
+         "breedte": "vul"
+        },
+        "phone": {
+         "breedte": "vul"
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        32,
+        48,
+        32,
+        48
+       ],
+       "kleur": "rgb(255, 255, 255)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      },
+      "phone": {
+       "rand": [
+        32,
+        24,
+        32,
+        24
+       ],
+       "kleur": "rgb(255, 255, 255)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      }
+     }
     }
    ]
   },
@@ -143,164 +618,1111 @@
    "naam": "sectie-3",
    "hoogte": 962.03125,
    "tekening": "artwork-3.webp",
+   "raster": {
+    "tablet": {
+     "kolommen": 3,
+     "gat": 16,
+     "rand": [
+      0,
+      48,
+      16,
+      48
+     ]
+    },
+    "phone": {
+     "kolommen": 2,
+     "gat": 12,
+     "rand": [
+      0,
+      24,
+      12,
+      24
+     ]
+    }
+   },
    "banden": [
     {
-     "blokken": [
+     "blokken": [],
+     "banden": [
       {
-       "soort": "tekst",
-       "veld": "team_1_naam",
-       "tag": "h3",
-       "stijl": "black-cursief-50-8-grijs",
-       "x": 518.03125,
-       "y": 124.234375,
-       "w": 684
+       "blokken": [],
+       "uitsnede": {
+        "bestand": "tegel-1.png",
+        "alt": "team_1_alt",
+        "altNaam": "team_1_naam"
+       },
+       "kolom": {
+        "tablet": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        },
+        "phone": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_1_naam",
+         "tag": "h3",
+         "stijl": "black-cursief-50-8-grijs",
+         "x": 518.03125,
+         "y": 124.234375,
+         "w": 684,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          16,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          12,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_1_rol",
+         "tag": "p",
+         "stijl": "bold-cursief-14-3-grijs",
+         "x": 516.421875,
+         "y": 185.46875,
+         "w": 685,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          4,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          4,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        16,
+        0
+       ],
+       "kleur": "rgb(236, 110, 29)",
+       "z": 0,
+       "breedte": "vul"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        12,
+        0
+       ],
+       "kleur": "rgb(236, 110, 29)",
+       "breedte": "vul"
+      }
+     }
     },
     {
-     "blokken": [
+     "blokken": [],
+     "banden": [
       {
-       "soort": "tekst",
-       "veld": "team_1_rol",
-       "tag": "p",
-       "stijl": "bold-cursief-14-3-grijs",
-       "x": 516.421875,
-       "y": 185.46875,
-       "w": 685
+       "blokken": [],
+       "uitsnede": {
+        "bestand": "tegel-2.png",
+        "alt": "team_2_alt",
+        "altNaam": "team_2_naam"
+       },
+       "kolom": {
+        "tablet": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        },
+        "phone": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_2_naam",
+         "tag": "h3",
+         "stijl": "black-cursief-50-8-oranje",
+         "x": 931.5,
+         "y": 317.3125,
+         "w": 270,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          16,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          12,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_2_rol",
+         "tag": "p",
+         "stijl": "bold-cursief-14-3-oranje",
+         "x": 920.3125,
+         "y": 376.015625,
+         "w": 190,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          4,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          4,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        16,
+        0
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "z": 0,
+       "breedte": "vul"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        12,
+        0
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "breedte": "vul"
+      }
+     }
     },
     {
-     "blokken": [
+     "blokken": [],
+     "banden": [
       {
-       "soort": "tekst",
-       "veld": "team_2_naam",
-       "tag": "h3",
-       "stijl": "black-cursief-50-8-oranje",
-       "x": 931.5,
-       "y": 317.3125,
-       "w": 270
+       "blokken": [],
+       "uitsnede": {
+        "bestand": "tegel-3.png",
+        "alt": "team_3_alt",
+        "altNaam": "team_3_naam"
+       },
+       "kolom": {
+        "tablet": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        },
+        "phone": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_3_naam",
+         "tag": "h3",
+         "stijl": "black-cursief-50-8-oranje",
+         "x": 324.15625,
+         "y": 407.203125,
+         "w": 599,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          16,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          12,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_3_rol",
+         "tag": "p",
+         "stijl": "bold-cursief-14-3-oranje-rechts",
+         "x": 301.171875,
+         "y": 470.265625,
+         "w": 190,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          4,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          4,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        16,
+        0
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "z": 0,
+       "breedte": "vul"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        12,
+        0
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "breedte": "vul"
+      }
+     }
     },
     {
-     "blokken": [
+     "blokken": [],
+     "banden": [
       {
-       "soort": "tekst",
-       "veld": "team_2_rol",
-       "tag": "p",
-       "stijl": "bold-cursief-14-3-oranje",
-       "x": 920.3125,
-       "y": 376.015625,
-       "w": 190
+       "blokken": [],
+       "uitsnede": {
+        "bestand": "tegel-4.png",
+        "alt": "team_4_alt",
+        "altNaam": "team_4_naam"
+       },
+       "kolom": {
+        "tablet": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        },
+        "phone": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_4_naam",
+         "tag": "h3",
+         "stijl": "black-cursief-50-8-grijs",
+         "x": 491.828125,
+         "y": 662.390625,
+         "w": 712,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          16,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          12,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_4_rol",
+         "tag": "p",
+         "stijl": "bold-cursief-14-3-grijs",
+         "x": 486.859375,
+         "y": 724.1875,
+         "w": 716,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          4,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          4,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        16,
+        0
+       ],
+       "kleur": "rgb(236, 110, 29)",
+       "z": 0,
+       "breedte": "vul"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        12,
+        0
+       ],
+       "kleur": "rgb(236, 110, 29)",
+       "breedte": "vul"
+      }
+     }
     },
     {
-     "blokken": [
+     "blokken": [],
+     "banden": [
       {
-       "soort": "tekst",
-       "veld": "team_3_naam",
-       "tag": "h3",
-       "stijl": "black-cursief-50-8-oranje",
-       "x": 324.15625,
-       "y": 407.203125,
-       "w": 599
+       "blokken": [],
+       "uitsnede": {
+        "bestand": "tegel-5.png",
+        "alt": "team_5_alt",
+        "altNaam": "team_5_naam"
+       },
+       "kolom": {
+        "tablet": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        },
+        "phone": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_5_naam",
+         "tag": "h3",
+         "stijl": "black-cursief-50-8-oranje",
+         "x": 959.0625,
+         "y": 838.046875,
+         "w": 243,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          16,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          12,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_5_rol",
+         "tag": "p",
+         "stijl": "bold-cursief-14-3-oranje",
+         "x": 922.296875,
+         "y": 903.921875,
+         "w": 150,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          4,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          4,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        16,
+        0
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "z": 0,
+       "breedte": "vul"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        12,
+        0
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "breedte": "vul"
+      }
+     }
     },
     {
-     "blokken": [
+     "blokken": [],
+     "banden": [
       {
-       "soort": "tekst",
-       "veld": "team_3_rol",
-       "tag": "p",
-       "stijl": "bold-cursief-14-3-oranje-rechts",
-       "x": 301.171875,
-       "y": 470.265625,
-       "w": 190
-      }
-     ]
-    },
-    {
-     "blokken": [
+       "blokken": [],
+       "uitsnede": {
+        "bestand": "tegel-6.png",
+        "alt": "team_6_alt",
+        "altNaam": "team_6_naam"
+       },
+       "kolom": {
+        "tablet": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        },
+        "phone": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        }
+       }
+      },
       {
-       "soort": "tekst",
-       "veld": "team_4_naam",
-       "tag": "h3",
-       "stijl": "black-cursief-50-8-grijs",
-       "x": 491.828125,
-       "y": 662.390625,
-       "w": 712
-      }
-     ]
-    },
-    {
-     "blokken": [
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_6_naam",
+         "tag": "h3",
+         "stijl": "black-cursief-50-8-oranje",
+         "x": 328.625,
+         "y": 962.03125,
+         "w": 872,
+         "z": 3,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          16,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          12,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
+      },
       {
-       "soort": "tekst",
-       "veld": "team_4_rol",
-       "tag": "p",
-       "stijl": "bold-cursief-14-3-grijs",
-       "x": 486.859375,
-       "y": 724.1875,
-       "w": 716
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_6_rol",
+         "tag": "p",
+         "stijl": "bold-cursief-14-3-oranje-rechts",
+         "x": 368.109375,
+         "y": 1032.40625,
+         "w": 150,
+         "z": 3,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          4,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          4,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
       }
-     ]
-    },
-    {
-     "blokken": [
-      {
-       "soort": "tekst",
-       "veld": "team_5_naam",
-       "tag": "h3",
-       "stijl": "black-cursief-50-8-oranje",
-       "x": 959.0625,
-       "y": 838.046875,
-       "w": 243
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        16,
+        0
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "z": 3,
+       "breedte": "vul"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        12,
+        0
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "z": 3,
+       "breedte": "vul"
       }
-     ]
-    },
-    {
-     "blokken": [
-      {
-       "soort": "tekst",
-       "veld": "team_5_rol",
-       "tag": "p",
-       "stijl": "bold-cursief-14-3-oranje",
-       "x": 922.296875,
-       "y": 903.921875,
-       "w": 150
-      }
-     ]
-    },
-    {
-     "blokken": [
-      {
-       "soort": "tekst",
-       "veld": "team_6_naam",
-       "tag": "h3",
-       "stijl": "black-cursief-50-8-oranje",
-       "x": 328.625,
-       "y": 962.03125,
-       "w": 872,
-       "z": 3
-      }
-     ]
-    },
-    {
-     "blokken": [
-      {
-       "soort": "tekst",
-       "veld": "team_6_rol",
-       "tag": "p",
-       "stijl": "bold-cursief-14-3-oranje-rechts",
-       "x": 368.109375,
-       "y": 1032.40625,
-       "w": 150,
-       "z": 3
-      }
-     ]
+     }
     }
    ]
   },
@@ -308,190 +1730,1291 @@
    "naam": "sectie-4",
    "hoogte": 979.484375,
    "tekening": "artwork-4.webp",
+   "raster": {
+    "tablet": {
+     "kolommen": 3,
+     "gat": 16,
+     "rand": [
+      0,
+      48,
+      32,
+      48
+     ]
+    },
+    "phone": {
+     "kolommen": 2,
+     "gat": 12,
+     "rand": [
+      0,
+      24,
+      32,
+      24
+     ]
+    }
+   },
    "banden": [
     {
-     "blokken": [
+     "blokken": [],
+     "banden": [
       {
-       "soort": "tekst",
-       "veld": "team_7_naam",
-       "tag": "h3",
-       "stijl": "black-cursief-50-8-grijs",
-       "x": 381.40625,
-       "y": 218.609375,
-       "w": 198
+       "blokken": [],
+       "uitsnede": {
+        "bestand": "tegel-7.png",
+        "alt": "team_7_alt",
+        "altNaam": "team_7_naam"
+       },
+       "kolom": {
+        "tablet": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        },
+        "phone": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_7_naam",
+         "tag": "h3",
+         "stijl": "black-cursief-50-8-grijs",
+         "x": 381.40625,
+         "y": 218.609375,
+         "w": 198,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          16,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          12,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_7_rol",
+         "tag": "p",
+         "stijl": "bold-cursief-14-3-grijs--2",
+         "x": 378.796875,
+         "y": 279.09375,
+         "w": 210.828125,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          4,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          4,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        16,
+        0
+       ],
+       "kleur": "rgb(236, 110, 29)",
+       "z": 0,
+       "breedte": "vul"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        12,
+        0
+       ],
+       "kleur": "rgb(236, 110, 29)",
+       "breedte": "vul"
+      }
+     }
     },
     {
-     "blokken": [
+     "blokken": [],
+     "banden": [
       {
-       "soort": "tekst",
-       "veld": "team_7_rol",
-       "tag": "p",
-       "stijl": "bold-cursief-14-3-grijs--2",
-       "x": 378.796875,
-       "y": 279.09375,
-       "w": 210.828125
+       "blokken": [],
+       "uitsnede": {
+        "bestand": "tegel-8.png",
+        "alt": "team_8_alt",
+        "altNaam": "team_8_naam"
+       },
+       "kolom": {
+        "tablet": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        },
+        "phone": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_8_naam",
+         "tag": "h3",
+         "stijl": "black-cursief-50-8-grijs",
+         "x": 584.234375,
+         "y": 278.34375,
+         "w": 616,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          16,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          12,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_8_rol",
+         "tag": "p",
+         "stijl": "bold-cursief-14-3-grijs--2",
+         "x": 559.203125,
+         "y": 339.25,
+         "w": 210.828125,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          4,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          4,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        16,
+        0
+       ],
+       "kleur": "rgb(236, 110, 29)",
+       "z": 0,
+       "breedte": "vul"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        12,
+        0
+       ],
+       "kleur": "rgb(236, 110, 29)",
+       "breedte": "vul"
+      }
+     }
     },
     {
-     "blokken": [
+     "blokken": [],
+     "banden": [
       {
-       "soort": "tekst",
-       "veld": "team_8_naam",
-       "tag": "h3",
-       "stijl": "black-cursief-50-8-grijs",
-       "x": 584.234375,
-       "y": 278.34375,
-       "w": 616
+       "blokken": [],
+       "uitsnede": {
+        "bestand": "tegel-9.png",
+        "alt": "team_9_alt",
+        "altNaam": "team_9_naam"
+       },
+       "kolom": {
+        "tablet": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        },
+        "phone": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_9_naam",
+         "tag": "h3",
+         "stijl": "black-cursief-50-8-oranje",
+         "x": 750.03125,
+         "y": 442.296875,
+         "w": 451,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          16,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          12,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_9_rol",
+         "tag": "p",
+         "stijl": "bold-cursief-14-3-oranje",
+         "x": 754.625,
+         "y": 509.015625,
+         "w": 446,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          4,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          4,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        16,
+        0
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "z": 0,
+       "breedte": "vul"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        12,
+        0
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "breedte": "vul"
+      }
+     }
     },
     {
-     "blokken": [
+     "blokken": [],
+     "banden": [
       {
-       "soort": "tekst",
-       "veld": "team_8_rol",
-       "tag": "p",
-       "stijl": "bold-cursief-14-3-grijs--2",
-       "x": 559.203125,
-       "y": 339.25,
-       "w": 210.828125
+       "blokken": [],
+       "uitsnede": {
+        "bestand": "tegel-10.png",
+        "alt": "team_10_alt",
+        "altNaam": "team_10_naam"
+       },
+       "kolom": {
+        "tablet": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        },
+        "phone": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_10_naam",
+         "tag": "h3",
+         "stijl": "black-cursief-50-8-oranje",
+         "x": 168.65625,
+         "y": 528.28125,
+         "w": 581,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          16,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          12,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_10_rol",
+         "tag": "p",
+         "stijl": "bold-cursief-14-3-oranje",
+         "x": 158.21875,
+         "y": 592.265625,
+         "w": 1044,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          4,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          4,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        16,
+        0
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "z": 0,
+       "breedte": "vul"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        12,
+        0
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "breedte": "vul"
+      }
+     }
     },
     {
-     "blokken": [
+     "blokken": [],
+     "banden": [
       {
-       "soort": "tekst",
-       "veld": "team_9_naam",
-       "tag": "h3",
-       "stijl": "black-cursief-50-8-oranje",
-       "x": 750.03125,
-       "y": 442.296875,
-       "w": 451
+       "blokken": [],
+       "uitsnede": {
+        "bestand": "tegel-11.png",
+        "alt": "team_11_alt",
+        "altNaam": "team_11_naam"
+       },
+       "kolom": {
+        "tablet": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        },
+        "phone": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_11_naam",
+         "tag": "h3",
+         "stijl": "black-cursief-50-8-grijs",
+         "x": 903.546875,
+         "y": 635.609375,
+         "w": 299,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          16,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          12,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_11_rol",
+         "tag": "p",
+         "stijl": "bold-cursief-14-3-grijs",
+         "x": 892.859375,
+         "y": 695.015625,
+         "w": 215,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          4,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          4,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        16,
+        0
+       ],
+       "kleur": "rgb(236, 110, 29)",
+       "z": 0,
+       "breedte": "vul"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        12,
+        0
+       ],
+       "kleur": "rgb(236, 110, 29)",
+       "breedte": "vul"
+      }
+     }
     },
     {
-     "blokken": [
+     "blokken": [],
+     "banden": [
       {
-       "soort": "tekst",
-       "veld": "team_9_rol",
-       "tag": "p",
-       "stijl": "bold-cursief-14-3-oranje",
-       "x": 754.625,
-       "y": 509.015625,
-       "w": 446
+       "blokken": [],
+       "uitsnede": {
+        "bestand": "tegel-12.png",
+        "alt": "team_12_alt",
+        "altNaam": "team_12_naam"
+       },
+       "kolom": {
+        "tablet": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        },
+        "phone": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_12_naam",
+         "tag": "h3",
+         "stijl": "black-cursief-50-8-grijs",
+         "x": 442.140625,
+         "y": 714.203125,
+         "w": 455,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          16,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          12,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
+      },
+      {
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_12_rol",
+         "tag": "p",
+         "stijl": "bold-cursief-14-3-grijs",
+         "x": 442.640625,
+         "y": 779.171875,
+         "w": 761,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          4,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          4,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        16,
+        0
+       ],
+       "kleur": "rgb(236, 110, 29)",
+       "z": 0,
+       "breedte": "vul"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        12,
+        0
+       ],
+       "kleur": "rgb(236, 110, 29)",
+       "breedte": "vul"
+      }
+     }
     },
     {
-     "blokken": [
+     "blokken": [],
+     "banden": [
       {
-       "soort": "tekst",
-       "veld": "team_10_naam",
-       "tag": "h3",
-       "stijl": "black-cursief-50-8-oranje",
-       "x": 168.65625,
-       "y": 528.28125,
-       "w": 581
-      }
-     ]
-    },
-    {
-     "blokken": [
+       "blokken": [],
+       "uitsnede": {
+        "bestand": "tegel-13.png",
+        "alt": "team_13_alt",
+        "altNaam": "team_13_naam"
+       },
+       "kolom": {
+        "tablet": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        },
+        "phone": {
+         "rand": [
+          0,
+          0,
+          0,
+          0
+         ],
+         "breedte": "vul",
+         "verhouding": "0.8 / 1"
+        }
+       }
+      },
       {
-       "soort": "tekst",
-       "veld": "team_10_rol",
-       "tag": "p",
-       "stijl": "bold-cursief-14-3-oranje",
-       "x": 158.21875,
-       "y": 592.265625,
-       "w": 1044
-      }
-     ]
-    },
-    {
-     "blokken": [
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_13_naam",
+         "tag": "h3",
+         "stijl": "black-cursief-50-8-oranje",
+         "x": 368.859375,
+         "y": 1023.90625,
+         "w": 834,
+         "z": 3,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          16,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          12,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
+      },
       {
-       "soort": "tekst",
-       "veld": "team_11_naam",
-       "tag": "h3",
-       "stijl": "black-cursief-50-8-grijs",
-       "x": 903.546875,
-       "y": 635.609375,
-       "w": 299
+       "blokken": [
+        {
+         "soort": "tekst",
+         "veld": "team_13_rol",
+         "tag": "p",
+         "stijl": "bold-cursief-14-3-oranje--2",
+         "x": 285.8125,
+         "y": 1088.515625,
+         "w": 210.984375,
+         "z": 3,
+         "kolom": {
+          "tablet": {
+           "breedte": "vul"
+          },
+          "phone": {
+           "breedte": "vul"
+          }
+         }
+        }
+       ],
+       "kolom": {
+        "tablet": {
+         "rand": [
+          4,
+          16,
+          0,
+          16
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        },
+        "phone": {
+         "rand": [
+          4,
+          12,
+          0,
+          12
+         ],
+         "z": 0,
+         "breedte": "vul",
+         "rij": {
+          "rand": [
+           0,
+           0,
+           0,
+           0
+          ],
+          "uitlijning": "flex-start"
+         }
+        }
+       }
       }
-     ]
-    },
-    {
-     "blokken": [
-      {
-       "soort": "tekst",
-       "veld": "team_11_rol",
-       "tag": "p",
-       "stijl": "bold-cursief-14-3-grijs",
-       "x": 892.859375,
-       "y": 695.015625,
-       "w": 215
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        16,
+        0
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "z": 3,
+       "breedte": "vul"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        12,
+        0
+       ],
+       "kleur": "rgb(45, 45, 45)",
+       "z": 3,
+       "breedte": "vul"
       }
-     ]
-    },
-    {
-     "blokken": [
-      {
-       "soort": "tekst",
-       "veld": "team_12_naam",
-       "tag": "h3",
-       "stijl": "black-cursief-50-8-grijs",
-       "x": 442.140625,
-       "y": 714.203125,
-       "w": 455
-      }
-     ]
-    },
-    {
-     "blokken": [
-      {
-       "soort": "tekst",
-       "veld": "team_12_rol",
-       "tag": "p",
-       "stijl": "bold-cursief-14-3-grijs",
-       "x": 442.640625,
-       "y": 779.171875,
-       "w": 761
-      }
-     ]
-    },
-    {
-     "blokken": [
-      {
-       "soort": "tekst",
-       "veld": "team_13_naam",
-       "tag": "h3",
-       "stijl": "black-cursief-50-8-oranje",
-       "x": 368.859375,
-       "y": 1023.90625,
-       "w": 834,
-       "z": 3
-      }
-     ]
-    },
-    {
-     "blokken": [
-      {
-       "soort": "tekst",
-       "veld": "team_13_rol",
-       "tag": "p",
-       "stijl": "bold-cursief-14-3-oranje--2",
-       "x": 285.8125,
-       "y": 1088.515625,
-       "w": 210.984375,
-       "z": 3
-      }
-     ]
+     }
     }
    ]
   },
@@ -501,17 +3024,93 @@
    "tekening": "artwork-5.webp",
    "banden": [
     {
+     "blokken": [],
+     "uitsnede": {
+      "bestand": "foto-17.webp"
+     },
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "breedte": "vul",
+       "verhouding": "0.828 / 1"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "breedte": "vul",
+       "verhouding": "0.828 / 1"
+      }
+     }
+    },
+    {
      "blokken": [
       {
        "soort": "tekst",
        "veld": "missie_kop",
        "tag": "h2",
-       "stijl": "black-cursief-52-7-wit",
+       "stijl": "black-cursief-52-7-wit--2",
        "x": 783.0625,
        "y": 469.734375,
-       "w": 419
+       "w": 419,
+       "kolom": {
+        "tablet": {
+         "breedte": "vul"
+        },
+        "phone": {
+         "breedte": "vul"
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        32,
+        48,
+        8,
+        48
+       ],
+       "kleur": "rgb(236, 110, 29)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      },
+      "phone": {
+       "rand": [
+        32,
+        24,
+        8,
+        24
+       ],
+       "kleur": "rgb(236, 110, 29)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      }
+     }
     },
     {
      "blokken": [
@@ -522,9 +3121,57 @@
        "stijl": "black-cursief-34-1-wit",
        "x": 693.015625,
        "y": 557.4375,
-       "w": 446
+       "w": 446,
+       "kolom": {
+        "tablet": {
+         "breedte": "vul"
+        },
+        "phone": {
+         "breedte": "vul"
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        8,
+        48,
+        32,
+        48
+       ],
+       "kleur": "rgb(236, 110, 29)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      },
+      "phone": {
+       "rand": [
+        8,
+        24,
+        32,
+        24
+       ],
+       "kleur": "rgb(236, 110, 29)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      }
+     }
     }
    ]
   },
@@ -542,21 +3189,145 @@
        "stijl": "black-cursief-52-7-oranje",
        "x": 133.875,
        "y": 167.515625,
-       "w": 1067
+       "w": 1067,
+       "kolom": {
+        "tablet": {
+         "breedte": "vul"
+        },
+        "phone": {
+         "breedte": "vul"
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        32,
+        48,
+        8,
+        48
+       ],
+       "kleur": "rgb(255, 255, 255)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      },
+      "phone": {
+       "rand": [
+        32,
+        24,
+        8,
+        24
+       ],
+       "kleur": "rgb(255, 255, 255)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      }
+     }
     },
     {
      "blokken": [
       {
        "soort": "alineas",
        "veld": "visie_tekst",
-       "stijl": "regular-18-grijs-regel-1-444--2",
+       "stijl": "regular-18-grijs-regel-1-444",
        "x": 138.21875,
        "y": 255.765625,
-       "w": 507
+       "w": 507,
+       "kolom": {
+        "tablet": {
+         "breedte": "vul"
+        },
+        "phone": {
+         "breedte": "vul"
+        }
+       }
       }
-     ]
+     ],
+     "kolom": {
+      "tablet": {
+       "rand": [
+        8,
+        48,
+        32,
+        48
+       ],
+       "kleur": "rgb(255, 255, 255)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      },
+      "phone": {
+       "rand": [
+        8,
+        24,
+        32,
+        24
+       ],
+       "kleur": "rgb(255, 255, 255)",
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         0,
+         0,
+         0
+        ],
+        "uitlijning": "flex-start"
+       }
+      }
+     }
+    },
+    {
+     "blokken": [],
+     "uitsnede": {
+      "bestand": "strook-18.webp"
+     },
+     "kolom": {
+      "tablet": {
+       "rand": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "breedte": "vul",
+       "verhouding": "5.062 / 1"
+      },
+      "phone": {
+       "rand": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "breedte": "vul",
+       "verhouding": "5.062 / 1"
+      }
+     }
     }
    ]
   },
@@ -602,7 +3373,7 @@
      },
      "intro": {
       "veld": "contact_intro",
-      "stijl": "regular-18-wit"
+      "stijl": "regular-18-wit--2"
      },
      "bellen": {
       "h": 44,

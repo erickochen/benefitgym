@@ -2,7 +2,7 @@
 // One section at its measured height: the drawing with the bands on top, or an empty built section.
 // A cut section stacks its upper part, the explainer's text in flow plus the part below, each showing its slice of one drawing.
 // Below 1242 the section is a column of its bands and the drawing goes.
-import { type Entry, type Sectie, bandVars, waarde } from "../layout";
+import { type Entry, type Sectie, bandVars, rasterVars, waarde } from "../layout";
 import Band from "./Band.astro";
 import GebouwdeSectie from "./GebouwdeSectie.astro";
 import Uitklap from "./Uitklap.astro";
@@ -55,7 +55,10 @@ const venster = (vanaf: number) => `top:calc(${-vanaf} * var(--s));height:calc($
 			)}
 		</section>
 	) : (
-		<section class="sectie" style={hoogte(sectie.hoogte)}>
+		<section
+			class:list={["sectie", sectie.raster && "raster"]}
+			style={sectie.raster ? `${hoogte(sectie.hoogte)};${rasterVars(sectie.raster)}` : hoogte(sectie.hoogte)}
+		>
 			{src && <img class="tekening" src={src} alt={alt} loading={eerste ? "eager" : "lazy"} decoding="async" />}
 			{boven.map((band, i) => <Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} eerste={i === eersteUitsnede} />)}
 		</section>
