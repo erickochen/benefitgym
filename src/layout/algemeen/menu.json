@@ -71,6 +71,75 @@
   "logo": 299
  },
  "overgang": "200ms cubic-bezier(0.44, 0, 0.56, 1)",
+ "paneel": {
+  "vak": {
+   "rand": [
+    24,
+    14,
+    24,
+    14
+   ],
+   "gat": 20,
+   "radius": 10,
+   "schaduw": "rgba(46, 46, 46, 0.12) 0px 0px 0px 1px",
+   "achtergrond": "rgb(255, 255, 255)",
+   "z": 10
+  },
+  "chevron": {
+   "open": "matrix(-1, 0, 0, -1, 0, 0)",
+   "overgang": "transform 0.12s ease-out 0s"
+  },
+  "kop": {
+   "h": 34,
+   "rand": [
+    0,
+    10,
+    0,
+    10
+   ],
+   "uitlijning": "center",
+   "radius": 0,
+   "overgang": "all 0s ease 0s",
+   "stijl": "menu-paneel-kop"
+  },
+  "rij": {
+   "h": 44,
+   "rand": [
+    0,
+    10,
+    0,
+    10
+   ],
+   "uitlijning": "center",
+   "radius": 6,
+   "overgang": "background-color 0.12s ease-out 0s",
+   "vlak": "rgb(252, 235, 223)",
+   "ring": {
+    "stijl": "solid",
+    "dikte": 2,
+    "kleur": "rgb(236, 110, 29)",
+    "afstand": -2
+   },
+   "stijl": "menu-paneel-rij"
+  },
+  "panelen": [
+   {
+    "links": -101,
+    "boven": 44,
+    "kolommen": [
+     220,
+     280
+    ]
+   },
+   {
+    "links": -8,
+    "boven": 44,
+    "kolommen": [
+     220
+    ]
+   }
+  ]
+ },
  "mobiel": {
   "hoogte": 64,
   "rand": 20,
@@ -106,6 +175,124 @@
      21,
      28
     ]
+   }
+  },
+  "paneel": {
+   "rand": [
+    8,
+    10,
+    24,
+    10
+   ],
+   "achtergrond": "rgb(255, 255, 255)",
+   "schaduw": "rgba(0, 0, 0, 0.08) 0px 8px 16px 0px",
+   "z": 10,
+   "rij": {
+    "h": 48,
+    "rand": [
+     0,
+     10,
+     0,
+     10
+    ],
+    "uitlijning": "center",
+    "radius": 6,
+    "overgang": "background-color 0.12s ease-out 0s",
+    "vlak": "rgb(252, 235, 223)",
+    "ring": {
+     "stijl": "solid",
+     "dikte": 2,
+     "kleur": "rgb(236, 110, 29)",
+     "afstand": -2
+    }
+   },
+   "lijn": {
+    "boven": 16,
+    "zij": 10,
+    "onder": 16,
+    "h": 1,
+    "kleur": "rgba(46, 46, 46, 0.12)"
+   },
+   "inloggen": {
+    "gat": 6,
+    "icoon": {
+     "svg": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><circle cx=\"8\" cy=\"4.5\" r=\"3.2\" fill=\"rgb(46, 46, 46)\"></circle><path d=\"M1.5 15.5a6.5 6.5 0 0 1 13 0z\" fill=\"rgb(46, 46, 46)\"></path></svg>",
+     "w": 16,
+     "h": 16
+    }
+   },
+   "hamburger": {
+    "strepen": [
+     {
+      "top": 21,
+      "transform": "matrix(0.707107, 0.707107, -0.707107, 0.707107, 0, 0)",
+      "opacity": 1
+     },
+     {
+      "top": 21,
+      "transform": "matrix(1, 0, 0, 1, 0, 0)",
+      "opacity": 0
+     },
+     {
+      "top": 21,
+      "transform": "matrix(0.707107, -0.707107, 0.707107, 0.707107, 0, 0)",
+      "opacity": 1
+     }
+    ],
+    "overgang": "top 0.12s ease-out 0s, transform 0.12s ease-out 0s, opacity 0.12s ease-out 0s"
+   },
+   "kop": {
+    "h": 32,
+    "rand": [
+     0,
+     10,
+     6,
+     10
+    ],
+    "uitlijning": "flex-end",
+    "radius": 0,
+    "overgang": "all 0s ease 0s",
+    "stijl": "menu-mobiel-kop"
+   },
+   "knop": {
+    "boven": 16,
+    "zij": 10,
+    "h": 52,
+    "radius": 26,
+    "achtergrond": "linear-gradient(105deg, rgb(255, 171, 0), rgb(237, 78, 22))",
+    "ring": {
+     "stijl": "solid",
+     "dikte": 2,
+     "kleur": "rgb(46, 46, 46)",
+     "afstand": 2
+    },
+    "stijl": "menu-mobiel-knop"
+   },
+   "stijl": {
+    "pagina": "menu-mobiel-pagina",
+    "rij": "menu-mobiel-rij"
+   },
+   "huidig": {
+    "kleur": "rgb(236, 110, 29)",
+    "dikte": 2,
+    "afstand": 6
+   }
+  },
+  "terug": {
+   "w": 44,
+   "h": 44,
+   "rechts": 20,
+   "onder": 20,
+   "achtergrond": "rgba(19, 23, 29, 0.62)",
+   "radius": "50%",
+   "schaduw": "rgba(0, 0, 0, 0.25) 0px 2px 8px 0px",
+   "ring": "rgba(0, 0, 0, 0.25) 0px 2px 8px 0px",
+   "overgang": "opacity 0.12s ease-out 0s, visibility 0.12s ease-out 0s",
+   "z": 200,
+   "icoon": {
+    "svg": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" aria-hidden=\"true\"><path d=\"M9 3 L15.5 9.5 L14 11 L10.2 7.2 V15.5 H7.8 V7.2 L4 11 L2.5 9.5 Z\" fill=\"rgb(255, 255, 255)\"></path></svg>",
+    "w": 18,
+    "h": 18
    }
   }
  }

@@ -1,10 +1,10 @@
 ---
 // The fixed bar from menu primary on the measured places. It turns white past the first scroll mark plus shows the badge past the second.
-// Below 1242 a page with its column shows the bar of the column instead: the badge plus the closed hamburger.
+// Below 1242 a page with its column shows the bar of the column instead: the badge plus the hamburger with its panel.
 import { getMenuWithCacheHint, type MenuItem } from "emdash";
 import type { MenuLayout } from "../layout";
 import data from "../layout/algemeen/menu.json";
-import { MENU, SITE_NAME } from "../teksten";
+import { MENU, NIEUW_TABBLAD, SITE_NAME, TERUG } from "../teksten";
 import Beeld from "./Beeld.astro";
 
 interface Props {
@@ -24,17 +24,45 @@ function soortVan(item: MenuItem) {
 	return item.children.length ? "uitklap" : "pagina";
 }
 
-// Each measured page link keeps its own width, in order; a link added later fits its text.
+// What an item with children opens: a group per child with children, plus its own pages as a group under its label.
+// Headings show on desktop once the panel holds a real group; the column always shows them. No row goes missing.
+const groepenVan = (item: MenuItem) => {
+	const groepen: { kop: string; rijen: MenuItem[]; los: boolean }[] = [];
+	for (const kind of item.children) {
+		const vorige = groepen.at(-1);
+		if (kind.children.length) groepen.push({ kop: kind.label, rijen: kind.children, los: false });
+		else if (vorige?.los) vorige.rijen.push(kind);
+		else groepen.push({ kop: item.label, rijen: [kind], los: true });
+	}
+	return { metKop: item.children.some((c) => c.children.length), groepen };
+};
+
+// Each measured page link keeps its own width, in order; a link added later fits its text. Each panel takes its
+// measured place plus column widths in order; a column added later takes the width of the last.
 let paginaNr = 0;
+let paneelNr = 0;
 const items = (menu?.items ?? []).map((item) => {
 	const soort = soortVan(item);
-	return { item, soort, breedte: soort === "pagina" ? m.pagina.breedtes[paginaNr++] : undefined };
+	const paneel = soort === "uitklap" ? { nr: paneelNr, maat: m.paneel.panelen[paneelNr++] ?? m.paneel.panelen.at(-1)!, ...groepenVan(item) } : undefined;
+	return { item, soort, paneel, breedte: soort === "pagina" ? m.pagina.breedtes[paginaNr++] : undefined };
 });
 const hier = Astro.url.pathname.replace(/(.)\/$/, "$1");
 const rel = (item: MenuItem) => (item.target === "_blank" ? "noopener" : undefined);
+// The panel of the column: pages as rows, every group as a heading with its rows, then the login plus the button.
+type Regel = { pagina: MenuItem } | { groep: { kop: string; rijen: MenuItem[] } };
+const lijst = items.flatMap(({ item, soort, paneel }): Regel[] =>
+	soort === "pagina" ? [{ pagina: item }] : paneel ? paneel.groepen.map((g) => ({ groep: g })) : [],
+);
+const inloggen = items.find((i) => i.soort === "inloggen")?.item;
+const proef = items.find((i) => i.soort === "knop")?.item;
+const p = m.paneel;
+const rand = (naam: string, waarden: number[]) =>
+	Object.fromEntries(["t", "r", "b", "l"].map((kant, i) => [`--${naam}-${kant}`, waarden[i]]));
 // The bar of the column measures in pixels, the same on the tablet plus the phone.
 const k = m.mobiel;
 const px = (n: number) => `${n}px`;
+const pxRand = (waarden: number[]) => waarden.map(px).join(" ");
+const ring = (r: { stijl: string; dikte: number; kleur: string }) => `${px(r.dikte)} ${r.stijl} ${r.kleur}`;
 const kolom = k
 	? {
 			"--mobiel-hoogte": px(k.hoogte),
@@ -55,6 +83,48 @@ const kolom = k
 			"--streep-h": px(k.knop.streep.h),
 			"--streep-radius": px(k.knop.streep.radius),
 			"--streep-kleur": k.knop.streep.kleur,
+			"--streep-overgang": k.paneel.hamburger.overgang,
+			"--mp-rand": pxRand(k.paneel.rand),
+			"--mp-achtergrond": k.paneel.achtergrond,
+			"--mp-schaduw": k.paneel.schaduw,
+			"--mp-z": k.paneel.z,
+			"--mp-kop-h": px(k.paneel.kop.h),
+			"--mp-kop-rand": pxRand(k.paneel.kop.rand),
+			"--mp-kop-uitlijning": k.paneel.kop.uitlijning,
+			"--mp-rij-h": px(k.paneel.rij.h),
+			"--mp-rij-rand": pxRand(k.paneel.rij.rand),
+			"--mp-rij-uitlijning": k.paneel.rij.uitlijning,
+			"--mp-rij-radius": px(k.paneel.rij.radius),
+			"--mp-rij-overgang": k.paneel.rij.overgang,
+			"--mp-rij-vlak": k.paneel.rij.vlak,
+			"--mp-rij-ring": ring(k.paneel.rij.ring),
+			"--mp-rij-ring-afstand": px(k.paneel.rij.ring.afstand),
+			"--mp-huidig-kleur": k.paneel.huidig.kleur,
+			"--mp-huidig-dikte": px(k.paneel.huidig.dikte),
+			"--mp-huidig-afstand": px(k.paneel.huidig.afstand),
+			"--mp-lijn-boven": px(k.paneel.lijn.boven),
+			"--mp-lijn-zij": px(k.paneel.lijn.zij),
+			"--mp-lijn-onder": px(k.paneel.lijn.onder),
+			"--mp-lijn-h": px(k.paneel.lijn.h),
+			"--mp-lijn-kleur": k.paneel.lijn.kleur,
+			"--mp-icoon-gat": px(k.paneel.inloggen.gat),
+			"--mp-knop-boven": px(k.paneel.knop.boven),
+			"--mp-knop-zij": px(k.paneel.knop.zij),
+			"--mp-knop-h": px(k.paneel.knop.h),
+			"--mp-knop-radius": px(k.paneel.knop.radius),
+			"--mp-knop-achtergrond": k.paneel.knop.achtergrond,
+			"--mp-knop-ring": ring(k.paneel.knop.ring),
+			"--mp-knop-ring-afstand": px(k.paneel.knop.ring.afstand),
+			"--terug-w": px(k.terug.w),
+			"--terug-h": px(k.terug.h),
+			"--terug-rechts": px(k.terug.rechts),
+			"--terug-onder": px(k.terug.onder),
+			"--terug-achtergrond": k.terug.achtergrond,
+			"--terug-radius": k.terug.radius,
+			"--terug-schaduw": k.terug.schaduw,
+			"--terug-ring": k.terug.ring,
+			"--terug-overgang": k.terug.overgang,
+			"--terug-z": k.terug.z,
 		}
 	: {};
 // The badge is a background image like the measured one, as AVIF where the browser takes it.
@@ -78,6 +148,25 @@ const variabelen = Object.entries({
 	"--uitklap-rechts": m.uitklap.rechts,
 	"--uitklap-gat": m.uitklap.gat,
 	"--chevron": m.uitklap.chevron,
+	"--chevron-open": p.chevron.open,
+	"--chevron-overgang": p.chevron.overgang,
+	...rand("paneel", p.vak.rand),
+	"--paneel-gat": p.vak.gat,
+	"--paneel-radius": p.vak.radius,
+	"--paneel-schaduw": p.vak.schaduw,
+	"--paneel-achtergrond": p.vak.achtergrond,
+	"--paneel-z": p.vak.z,
+	"--kop-h": p.kop.h,
+	...rand("kop", p.kop.rand),
+	"--kop-uitlijning": p.kop.uitlijning,
+	"--rij-h": p.rij.h,
+	...rand("rij", p.rij.rand),
+	"--rij-uitlijning": p.rij.uitlijning,
+	"--rij-radius": p.rij.radius,
+	"--rij-overgang": p.rij.overgang,
+	"--rij-vlak": p.rij.vlak,
+	"--rij-ring": ring(p.rij.ring),
+	"--rij-ring-afstand": p.rij.ring.afstand,
 	"--knop-voor": m.knop.voor,
 	"--knop-w": m.knop.w,
 	"--knop-h": m.knop.h,
@@ -107,9 +196,19 @@ const variabelen = Object.entries({
 		<a class="menu-badge link" href="/"><Beeld beeld={m.badge.beeld} staticUrl={staticUrl} /><span>{SITE_NAME}</span></a>
 		<nav class="menu-balk">
 			{
-				items.map(({ item, soort, breedte }) =>
-					soort === "uitklap" ? (
-						<button type="button" class={`menu-item menu-uitklap s-${m.uitklap.stijl}`} aria-expanded="false">{item.label}<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 3.5 L5 7 L8.5 3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
+				items.map(({ item, soort, paneel, breedte }) =>
+					paneel ? (
+						<div class="menu-uitklap-houder">
+							<button type="button" class={`menu-item menu-uitklap s-${m.uitklap.stijl}`} aria-expanded="false" aria-controls={`menu-paneel-${paneel.nr}`}>{item.label}<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 3.5 L5 7 L8.5 3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
+							<div id={`menu-paneel-${paneel.nr}`} class="menu-paneel menu-dicht" style={`--paneel-links:${paneel.maat.links};--paneel-boven:${paneel.maat.boven}`}>
+								{paneel.groepen.map((g, j) => (
+									<div class="menu-paneel-kolom" style={`width:calc(${paneel.maat.kolommen[j] ?? paneel.maat.kolommen.at(-1)} * var(--s))`}>
+										{paneel.metKop && <div class={`menu-paneel-kop s-${p.kop.stijl}`}>{g.kop}</div>}
+										<ul>{g.rijen.map((r) => <li><a class={`menu-paneel-rij s-${p.rij.stijl}`} href={r.url} target={r.target} rel={rel(r)}>{r.label}</a></li>)}</ul>
+									</div>
+								))}
+							</div>
+						</div>
 					) : soort === "knop" ? (
 						<a class="menu-item menu-knop link" href={item.url} target={item.target} rel={rel(item)}><Beeld beeld={m.knop.beeld} staticUrl={staticUrl} /><span class={`s-${m.knop.stijl}`}>{item.label}</span></a>
 					) : soort === "inloggen" ? (
@@ -133,16 +232,39 @@ const variabelen = Object.entries({
 		k && (
 			<nav class="menu-mobiel" aria-label={MENU}>
 				<a class="menu-mobiel-badge" href="/" aria-label={SITE_NAME} style={badgeBeeld} />
-				<button type="button" class="menu-hamburger" aria-expanded="false" aria-label={MENU}>
-					{k.knop.streep.tops.map((top) => <span style={`top:${px(top)}`} />)}
+				<button type="button" class="menu-hamburger" aria-expanded="false" aria-controls="menu-mobiel-paneel" aria-label={MENU}>
+					{k.knop.streep.tops.map((top, i) => {
+						const open = k.paneel.hamburger.strepen[i];
+						return <span style={`--top:${px(top)};--open-top:${px(open.top)};--open-transform:${open.transform};--open-opacity:${open.opacity}`} />;
+					})}
 				</button>
+				<div id="menu-mobiel-paneel" class="menu-mobiel-paneel menu-dicht">
+					<ul>
+						{lijst.map((regel) =>
+							"pagina" in regel ? (
+								<li><a class={`menu-mobiel-rij s-${k.paneel.stijl.pagina}`} href={regel.pagina.url} aria-current={regel.pagina.url === hier ? "page" : undefined}>{regel.pagina.label}</a></li>
+							) : (
+								<li>
+									<div class={`menu-mobiel-kop s-${k.paneel.kop.stijl}`}>{regel.groep.kop}</div>
+									<ul>{regel.groep.rijen.map((r) => <li><a class={`menu-mobiel-rij s-${k.paneel.stijl.rij}`} href={r.url} aria-current={r.url === hier ? "page" : undefined}>{r.label}</a></li>)}</ul>
+								</li>
+							),
+						)}
+					</ul>
+					<hr class="menu-mobiel-lijn" />
+					{inloggen && <a class={`menu-mobiel-rij menu-mobiel-inloggen s-${k.paneel.stijl.rij}`} href={inloggen.url} target={inloggen.target} rel={rel(inloggen)}><Fragment set:html={k.paneel.inloggen.icoon.svg} />{inloggen.label}{inloggen.target === "_blank" && <span class="menu-verborgen">{NIEUW_TABBLAD}</span>}</a>}
+					{proef && <a class={`menu-mobiel-knop s-${k.paneel.knop.stijl}`} href={proef.url} target={proef.target} rel={rel(proef)}>{proef.label}</a>}
+				</div>
 			</nav>
 		)
 	}
 </header>
+{k && <button type="button" class="menu-terug" aria-label={TERUG}><Fragment set:html={k.terug.icoon.svg} /></button>}
 
 <script>
 	import { KOLOM_MEDIA } from "../layout";
+	import { zetMobiel } from "../scripts/mobiel";
+	import { zetPanelen } from "../scripts/panelen";
 
 	// The bar switches where its two scroll marks leave the top of the window. Scrolling up switches it back at the same marks.
 	const menu = document.querySelector<HTMLElement>(".menu");
@@ -171,5 +293,7 @@ const variabelen = Object.entries({
 		addEventListener("scroll", zet, { passive: true });
 		addEventListener("resize", zet);
 		zet();
+		zetPanelen(menu);
+		zetMobiel(menu, paginaLogo);
 	}
 </script>

@@ -6,6 +6,10 @@ export const SITE_NAME = "Benefit Gym";
 // The name of the bar of the column plus its button, for a screen reader.
 export const MENU = "Menu";
 
+// The name of the button that scrolls back up, plus what a screen reader hears after a link that opens a new tab.
+export const TERUG = "Terug naar boven";
+export const NIEUW_TABBLAD = ", opent in een nieuw tabblad";
+
 // The footer texts, word for word. The year behind the copyright follows the clock.
 export const KOLOM_TEKEN = ":";
 export const SOCIAAL_KOP = ["Volg ons op", "sociale media:"];

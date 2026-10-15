@@ -85,6 +85,79 @@ html {
 	flex: none;
 	width: calc(var(--chevron) * var(--s));
 	height: calc(var(--chevron) * var(--s));
+	transition: var(--chevron-overgang);
+}
+
+.menu-uitklap[aria-expanded="true"] > svg {
+	transform: var(--chevron-open);
+}
+
+/* A panel hangs under its button at its measured place, closed until hover, a click or ArrowDown. */
+.menu-uitklap-houder {
+	position: relative;
+	display: flex;
+	flex: none;
+}
+
+.menu-paneel {
+	position: absolute;
+	top: calc(var(--paneel-boven) * var(--s));
+	left: calc(var(--paneel-links) * var(--s));
+	z-index: var(--paneel-z);
+	display: flex;
+	gap: calc(var(--paneel-gat) * var(--s));
+	box-sizing: border-box;
+	padding: calc(var(--paneel-t) * var(--s)) calc(var(--paneel-r) * var(--s)) calc(var(--paneel-b) * var(--s)) calc(var(--paneel-l) * var(--s));
+	background-color: var(--paneel-achtergrond);
+	border-radius: calc(var(--paneel-radius) * var(--s));
+	box-shadow: var(--paneel-schaduw);
+}
+
+.menu-paneel.menu-dicht,
+.menu-mobiel-paneel.menu-dicht {
+	display: none;
+}
+
+.menu-paneel-kolom {
+	flex: none;
+}
+
+.menu-paneel ul,
+.menu-mobiel-paneel ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.menu-paneel-kop {
+	display: flex;
+	align-items: var(--kop-uitlijning);
+	box-sizing: border-box;
+	height: calc(var(--kop-h) * var(--s));
+	padding: calc(var(--kop-t) * var(--s)) calc(var(--kop-r) * var(--s)) calc(var(--kop-b) * var(--s)) calc(var(--kop-l) * var(--s));
+}
+
+.menu-paneel-rij {
+	display: flex;
+	align-items: var(--rij-uitlijning);
+	box-sizing: border-box;
+	height: calc(var(--rij-h) * var(--s));
+	padding: calc(var(--rij-t) * var(--s)) calc(var(--rij-r) * var(--s)) calc(var(--rij-b) * var(--s)) calc(var(--rij-l) * var(--s));
+	border-radius: calc(var(--rij-radius) * var(--s));
+	text-decoration-line: none;
+	outline: none;
+	transition: var(--rij-overgang);
+}
+
+/* A row lights up under the mouse plus with focus, where its ring comes along. */
+.menu-paneel-rij:hover,
+.menu-paneel-rij:focus {
+	background-color: var(--rij-vlak);
+}
+
+.menu-paneel-rij:focus {
+	outline: var(--rij-ring);
+	outline-offset: calc(var(--rij-ring-afstand) * var(--s));
 }
 
 .menu-knop {
@@ -127,9 +200,11 @@ html {
 	opacity: 0;
 }
 
+/* The badge lies above the bar, which runs under it, so a click on it reaches the link. */
 .menu-badge {
 	display: none;
 	position: absolute;
+	z-index: 1;
 	left: calc(var(--badge-x) * var(--s));
 	top: calc(var(--badge-y) * var(--s));
 	width: calc(var(--badge-w) * var(--s));
@@ -180,9 +255,144 @@ logo has left the window, then white with the badge. Only a page with its column
 		transition: var(--mobiel-overgang);
 	}
 
-	.met-kolom .menu.vol .menu-mobiel {
+	.met-kolom .menu.vol .menu-mobiel,
+	.met-kolom .menu.open .menu-mobiel {
 		background-color: var(--mobiel-vol);
 	}
+
+	/* One screen down the button shows, while the panel is closed; scrolling up it hides again. */
+	.met-kolom .menu-terug {
+		position: fixed;
+		right: var(--terug-rechts);
+		bottom: calc(var(--terug-onder) + env(safe-area-inset-bottom, 0px));
+		z-index: var(--terug-z);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: var(--terug-w);
+		height: var(--terug-h);
+		margin: 0;
+		padding: 0;
+		border: 0;
+		border-radius: var(--terug-radius);
+		background-color: var(--terug-achtergrond);
+		box-shadow: var(--terug-schaduw);
+		cursor: pointer;
+		opacity: 0;
+		visibility: hidden;
+		outline: none;
+		transition: var(--terug-overgang);
+	}
+
+	.met-kolom .menu-terug.toon {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	.met-kolom .menu-terug:focus {
+		box-shadow: var(--terug-ring);
+	}
+}
+
+.menu-terug {
+	display: none;
+}
+
+/* The panel of the column fills the width under the bar plus scrolls on its own when it runs past the window. */
+.menu-mobiel-paneel {
+	position: absolute;
+	top: var(--mobiel-hoogte);
+	left: 0;
+	right: 0;
+	z-index: var(--mp-z);
+	display: block;
+	max-height: calc(100vh - var(--mobiel-hoogte));
+	max-height: calc(100dvh - var(--mobiel-hoogte));
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	box-sizing: border-box;
+	padding: var(--mp-rand);
+	background-color: var(--mp-achtergrond);
+	box-shadow: var(--mp-schaduw);
+}
+
+.menu-mobiel-kop {
+	display: flex;
+	align-items: var(--mp-kop-uitlijning);
+	box-sizing: border-box;
+	height: var(--mp-kop-h);
+	padding: var(--mp-kop-rand);
+}
+
+.menu-mobiel-rij {
+	display: flex;
+	align-items: var(--mp-rij-uitlijning);
+	box-sizing: border-box;
+	height: var(--mp-rij-h);
+	padding: var(--mp-rij-rand);
+	border-radius: var(--mp-rij-radius);
+	text-decoration-line: none;
+	outline: none;
+	transition: var(--mp-rij-overgang);
+}
+
+.menu-mobiel-rij[aria-current="page"] {
+	text-decoration-line: underline;
+	text-decoration-color: var(--mp-huidig-kleur);
+	text-decoration-thickness: var(--mp-huidig-dikte);
+	text-underline-offset: var(--mp-huidig-afstand);
+}
+
+.menu-mobiel-rij:hover,
+.menu-mobiel-rij:focus {
+	background-color: var(--mp-rij-vlak);
+}
+
+.menu-mobiel-rij:focus {
+	outline: var(--mp-rij-ring);
+	outline-offset: var(--mp-rij-ring-afstand);
+}
+
+.menu-mobiel-lijn {
+	height: var(--mp-lijn-h);
+	margin: var(--mp-lijn-boven) var(--mp-lijn-zij) var(--mp-lijn-onder);
+	border: 0;
+	background-color: var(--mp-lijn-kleur);
+}
+
+.menu-mobiel-inloggen {
+	gap: var(--mp-icoon-gat);
+}
+
+.menu-mobiel-inloggen > svg {
+	flex: none;
+}
+
+/* What a screen reader hears after the login, not on screen. */
+.menu-verborgen {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+.menu-mobiel-knop {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: var(--mp-knop-h);
+	margin: var(--mp-knop-boven) var(--mp-knop-zij) 0;
+	border-radius: var(--mp-knop-radius);
+	background-image: var(--mp-knop-achtergrond);
+	text-decoration-line: none;
+	outline: none;
+}
+
+.menu-mobiel-knop:focus {
+	outline: var(--mp-knop-ring);
+	outline-offset: var(--mp-knop-ring-afstand);
 }
 
 .menu-mobiel-badge {
@@ -198,7 +408,8 @@ logo has left the window, then white with the badge. Only a page with its column
 	transition: var(--mobiel-badge-overgang);
 }
 
-.menu.vol .menu-mobiel-badge {
+.menu.vol .menu-mobiel-badge,
+.menu.open .menu-mobiel-badge {
 	opacity: 1;
 	visibility: visible;
 }
@@ -217,16 +428,30 @@ logo has left the window, then white with the badge. Only a page with its column
 
 .menu-hamburger > span {
 	position: absolute;
+	top: var(--top);
 	left: var(--streep-x);
 	width: var(--streep-w);
 	height: var(--streep-h);
 	border-radius: var(--streep-radius);
 	background-color: var(--streep-kleur);
+	transition: var(--streep-overgang);
+}
+
+/* Open, the three bars become a cross. */
+.menu-hamburger[aria-expanded="true"] > span {
+	top: var(--open-top);
+	transform: var(--open-transform);
+	opacity: var(--open-opacity);
 }
 
 @media (prefers-reduced-motion: reduce) {
 	.met-kolom .menu-mobiel,
-	.menu-mobiel-badge {
+	.menu-mobiel-badge,
+	.menu-hamburger > span,
+	.menu-uitklap > svg,
+	.menu-paneel-rij,
+	.menu-mobiel-rij,
+	.met-kolom .menu-terug {
 		transition: none;
 	}
 }
