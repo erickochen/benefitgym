@@ -30,10 +30,12 @@
 	margin: 0;
 }
 
+/* As wide as its slide up to its own width. */
 .reviews-quote {
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
+	width: 100%;
 }
 
 .reviews-pijlen {
@@ -72,4 +74,56 @@
 	opacity: 0;
 	pointer-events: none;
 	cursor: default;
+}
+
+/* One dot per review, the current one full; only the phone shows them. */
+.reviews-bolletjes {
+	display: none;
+	position: absolute;
+	left: 50%;
+	bottom: var(--rb-onder);
+	transform: translateX(-50%);
+	pointer-events: auto;
+}
+
+.reviews-bolletje {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
+	padding: var(--rb-rand) var(--rb-half);
+	border: 0;
+	background: transparent;
+	cursor: pointer;
+}
+
+.reviews-bolletje:first-child {
+	padding-left: var(--rb-rand);
+}
+
+.reviews-bolletje:last-child {
+	padding-right: var(--rb-rand);
+}
+
+.reviews-bolletje > span {
+	display: block;
+	width: var(--rb-stip);
+	height: var(--rb-stip);
+	border-radius: 50%;
+	background: var(--rb-kleur);
+	opacity: var(--rb-uit);
+}
+
+.reviews-bolletje[aria-current="true"] > span {
+	opacity: 1;
+}
+
+@media (max-width: 809.98px) {
+	.met-kolom .reviews-pijl {
+		display: none;
+	}
+
+	.met-kolom .reviews-bolletjes {
+		display: flex;
+	}
 }

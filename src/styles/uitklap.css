@@ -1,4 +1,4 @@
-/* "Lees hoe dit werkt": the summary is the button, its label plus chevron on one line. */
+/* The explainer: the summary is the button, its label plus chevron on one line. */
 .uitklap-knop {
 	display: flex;
 	align-items: center;

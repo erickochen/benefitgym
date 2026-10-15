@@ -1,5 +1,6 @@
 ---
 // The review carousel: a rail with one slide per review of this page, the first in view, plus the two drawn arrows.
+// On the phone a row of dots takes the place of the arrows.
 import { getEmDashCollection } from "emdash";
 import { type Blok, blokKlasse, blokStijl } from "../layout";
 import { REVIEWS } from "../teksten";
@@ -15,6 +16,10 @@ const { entries, cacheHint } = await getEmDashCollection("reviews", { orderBy: {
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 const reviews = entries.filter((review) => (review.data.paginas as string[] | undefined)?.includes(blok.pagina) && review.data.quote);
 const pijl = `width:calc(${blok.pijl.w} * var(--s));height:calc(${blok.pijl.h} * var(--s))`;
+const b = blok.bolletjes;
+const bolletjes = b
+	? `--rb-onder:${b.onder}px;--rb-rand:${b.rand}px;--rb-half:${b.half}px;--rb-stip:${b.stip}px;--rb-kleur:${b.kleur};--rb-uit:${b.uit}`
+	: undefined;
 ---
 
 <div class:list={["blok", "reviews", blokKlasse(blok)]} style={blokStijl(blok)}>
@@ -24,7 +29,7 @@ const pijl = `width:calc(${blok.pijl.w} * var(--s));height:calc(${blok.pijl.h} *
 				<div class="reviews-slide" role="group" aria-roledescription={REVIEWS.slide} aria-label={REVIEWS.van(i + 1, reviews.length)}>
 					<p
 						class={`reviews-quote s-${blok.quote.stijl}`}
-						style={`width:calc(${blok.quote.w} * var(--s));-webkit-line-clamp:${review.data.naam ? blok.quote.regels.naam : blok.quote.regels.zonder}`}
+						style={`max-width:calc(${blok.quote.w} * var(--s));-webkit-line-clamp:${review.data.naam ? blok.quote.regels.naam : blok.quote.regels.zonder}`}
 						{...review.edit.quote}
 					>
 						{review.data.quote}
@@ -47,6 +52,17 @@ const pijl = `width:calc(${blok.pijl.w} * var(--s));height:calc(${blok.pijl.h} *
 				<button type="button" class="reviews-pijl" aria-label={REVIEWS.volgende} style={pijl}>
 					<Beeld beeld={blok.pijl.volgende} staticUrl={staticUrl} />
 				</button>
+				{
+					bolletjes && (
+						<div class="reviews-bolletjes" style={bolletjes}>
+							{reviews.map((_, i) => (
+								<button type="button" class="reviews-bolletje" aria-label={REVIEWS.bolletje(i + 1)} aria-current={i === 0 ? "true" : undefined}>
+									<span />
+								</button>
+							))}
+						</div>
+					)
+				}
 			</fieldset>
 		)
 	}

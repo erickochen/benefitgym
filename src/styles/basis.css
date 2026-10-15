@@ -188,6 +188,7 @@ img.alleen-kolom {
 		--k-ratio: var(--t-k-ratio);
 		--k-inspring: var(--t-k-inspring);
 		--k-vulling: var(--t-k-vulling);
+		--k-onder: var(--t-k-onder);
 	}
 }
 
@@ -227,6 +228,7 @@ img.alleen-kolom {
 		--k-ratio: var(--p-k-ratio);
 		--k-inspring: var(--p-k-inspring);
 		--k-vulling: var(--p-k-vulling);
+		--k-onder: var(--p-k-onder);
 	}
 }
 
@@ -311,6 +313,7 @@ img.alleen-kolom {
 		min-width: 0;
 		height: var(--k-hoogte, auto);
 		aspect-ratio: var(--k-ratio, auto);
+		margin-bottom: var(--k-onder, 0);
 		z-index: auto;
 	}
 

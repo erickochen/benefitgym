@@ -1,7 +1,8 @@
 ---
 // A built section: a dark band over the foot of the drawing above, the heading, intro plus call link beside a form,
 // then room for the footer and the strip below it. The content stands at least as tall as measured; a section that
-// follows its content grows and shrinks with it, to the next whole pixel like the measured page.
+// follows its content grows and shrinks with it, to the next whole pixel like the measured page. In the column the
+// content stands in the stack, its two columns under each other, with the strip below the footer.
 import { getWidgetAreaWithCacheHint, sanitizeHref } from "emdash";
 import { type Entry, maat, type Sectie, waarde } from "../layout";
 import Beeld from "./Beeld.astro";
@@ -34,14 +35,33 @@ const bellen = inhoudVan(g.bellen);
 const belTekst = bellen.flatMap((blok) => (blok.children ?? []).map((span) => span.text ?? "")).join("");
 const belLink = bellen.flatMap((blok) => blok.markDefs ?? []).find((def) => def._type === "link")?.href;
 const belHref = belLink ? sanitizeHref(belLink) : undefined;
-const inhoud = `margin-top:${maat(-g.dek.h)};min-height:${maat(g.afstand.h + g.dek.h)};padding:${maat(g.inhoud.boven)} 0 ${maat(g.inhoud.onder)} ${maat(g.inhoud.links)};gap:${maat(g.inhoud.gat)}`;
-const kolom = `width:${maat(g.inhoud.kolom)}`;
+const pixels = (n: number) => `${n}px`;
+// Every measure goes as a custom property, so the column can set its own.
+const maten = [
+	`background:${g.dek.kleur}`,
+	`--g-dek:${maat(g.dek.h)}`,
+	`--g-min:${maat(g.afstand.h + g.dek.h)}`,
+	`--g-rand:${maat(g.inhoud.boven)} 0 ${maat(g.inhoud.onder)} ${maat(g.inhoud.links)}`,
+	`--g-gat:${maat(g.inhoud.gat)}`,
+	`--g-kolom:${maat(g.inhoud.kolom)}`,
+	`--g-ruimte:${maat(sectie.hoogte - g.afstand.h)}`,
+	`--g-strook:${maat(g.strook.h)}`,
+	...(g.kolom
+		? [
+				`--g-strook-ratio:${g.kolom.strook}`,
+				`--t-g-rand:${g.kolom.tablet.rand.map(pixels).join(" ")}`,
+				`--t-g-gat:${pixels(g.kolom.tablet.gat)}`,
+				`--p-g-rand:${g.kolom.phone.rand.map(pixels).join(" ")}`,
+				`--p-g-gat:${pixels(g.kolom.phone.gat)}`,
+			]
+		: []),
+].join(";");
 ---
 
-<section class="sectie gebouwd" style={`background:${g.dek.kleur}`}>
-	<div class="gebouwd-dek" style={`top:${maat(-g.dek.h)};height:${maat(g.dek.h)};background:${g.dek.kleur}`}></div>
-	<div class="gebouwd-inhoud" style={inhoud} data-volgt={g.afstand.volgt ? "" : undefined}>
-		<div class="gebouwd-tekst" style={kolom}>
+<section class="sectie gebouwd" style={maten}>
+	<div class="gebouwd-dek" style={`background:${g.dek.kleur}`}></div>
+	<div class="gebouwd-inhoud" data-volgt={g.afstand.volgt ? "" : undefined}>
+		<div class="gebouwd-tekst">
 			<h2 class={`s-${g.tekst.kop.stijl}`} {...entry.edit[g.tekst.kop.veld]}>{waarde(entry, g.tekst.kop.veld) as string}</h2>
 			<p class={`s-${g.tekst.intro.stijl}`} style={`margin-top:${maat(g.tekst.gaten[0])}`} {...entry.edit[g.tekst.intro.veld]}>
 				{waarde(entry, g.tekst.intro.veld) as string}
@@ -54,7 +74,7 @@ const kolom = `width:${maat(g.inhoud.kolom)}`;
 				)
 			}
 		</div>
-		<div class="gebouwd-formulier" style={kolom}>
+		<div class="gebouwd-formulier">
 			<Formulier
 				slug={g.formulier}
 				staticUrl={staticUrl}
@@ -65,8 +85,8 @@ const kolom = `width:${maat(g.inhoud.kolom)}`;
 			/>
 		</div>
 	</div>
-	<div style={`height:${maat(sectie.hoogte - g.afstand.h)}`}></div>
-	<div class="gebouwd-strook" style={`height:${maat(g.strook.h)}`}>
+	<div class="gebouwd-ruimte"></div>
+	<div class="gebouwd-strook">
 		<Beeld beeld={g.strook.beeld} staticUrl={staticUrl} />
 	</div>
 </section>
@@ -78,7 +98,7 @@ const kolom = `width:${maat(g.inhoud.kolom)}`;
 		const volg = () => {
 			const stijl = getComputedStyle(inhoud);
 			const hoog = Math.max(...kolommen.map((kolom) => kolom.getBoundingClientRect().height));
-			inhoud.style.minHeight = `${Math.ceil(Number.parseFloat(stijl.paddingTop) + hoog + Number.parseFloat(stijl.paddingBottom))}px`;
+			inhoud.style.setProperty("--g-volg", `${Math.ceil(Number.parseFloat(stijl.paddingTop) + hoog + Number.parseFloat(stijl.paddingBottom))}px`);
 		};
 		const kijker = new ResizeObserver(volg);
 		for (const kolom of kolommen) kijker.observe(kolom);

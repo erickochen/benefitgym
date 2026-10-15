@@ -3236,15 +3236,23 @@
          "breedte": 196
         }
        },
+       "bolletjes": {
+        "onder": 10,
+        "rand": 10,
+        "half": 7,
+        "stip": 10,
+        "kleur": "rgb(46, 46, 46)",
+        "uit": 0.6
+       },
        "z": 5,
        "kolom": {
         "tablet": {
          "breedte": "vul",
-         "hoogte": 223
+         "hoogte": 199
         },
         "phone": {
          "breedte": "vul",
-         "hoogte": 283
+         "hoogte": 243
         }
        }
       }
@@ -3259,7 +3267,17 @@
        ],
        "kleur": "rgb(236, 110, 29)",
        "z": 0,
-       "breedte": "vul"
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         24,
+         24,
+         24
+        ],
+        "kleur": "rgb(255, 255, 255)",
+        "uitlijning": "flex-start"
+       }
       },
       "phone": {
        "rand": [
@@ -3270,7 +3288,17 @@
        ],
        "kleur": "rgb(236, 110, 29)",
        "z": 0,
-       "breedte": "vul"
+       "breedte": "vul",
+       "rij": {
+        "rand": [
+         0,
+         16,
+         40,
+         16
+        ],
+        "kleur": "rgb(255, 255, 255)",
+        "uitlijning": "flex-start"
+       }
       }
      }
     },

@@ -98,7 +98,7 @@ const voorwaarde = veld.condition ? JSON.stringify(veld.condition) : undefined;
 	) : soort === GROEP ? (
 		<fieldset class="formulier-keuze" data-condition={voorwaarde} aria-describedby={hulp}>
 			<legend class={`s-${v["kop-groep"]}`} style={kop}>{veld.label}</legend>
-			<div class="formulier-tegels" style={gat(v.tegelGat)}>
+			<div class="formulier-tegels los" style={gat(v.tegelGat)}>
 				{groepen.map((groep) => (
 					<label class="formulier-tegel" style={tegel(v["tegel-groep"])}>
 						<input type="radio" class:list={["formulier-stip", groep.vol ? "vol wacht" : "vrij"]} style={stip} name={veld.name} value={groep.waarde} required={veld.required} />

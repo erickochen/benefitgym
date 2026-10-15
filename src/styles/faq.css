@@ -9,9 +9,11 @@
 	display: block;
 	box-sizing: border-box;
 	width: 100%;
+	height: calc(var(--faq-rij) * var(--s));
 	margin: 0;
 	padding: 0;
 	border: 0;
+	border-top: calc(var(--faq-lijn) * var(--s)) solid var(--faq-kleur);
 	background: none;
 	text-align: left;
 	cursor: pointer;
@@ -23,7 +25,81 @@
 	display: block;
 }
 
+.faq-knop > span {
+	left: calc(var(--faq-label-x) * var(--s));
+	top: calc(var(--faq-label-y) * var(--s));
+	width: calc(var(--faq-label-w) * var(--s));
+}
+
+.faq-knop > svg {
+	left: calc(var(--faq-icoon-x) * var(--s));
+	top: calc(var(--faq-icoon-y) * var(--s));
+	width: calc(var(--faq-icoon-w) * var(--s));
+	height: calc(var(--faq-icoon-w) * var(--s));
+}
+
+/* Only the last category draws a line below it too. */
+.faq-categorie:last-child {
+	border-bottom: calc(var(--faq-lijn) * var(--s)) solid var(--faq-kleur);
+}
+
 /* A closed part stays in the HTML. */
 .faq-dicht {
 	display: none;
+}
+
+/* In the column the list switches on its own width, as the measured list does: narrow rows below it, the list of
+   desktop on the scale of that width from there on. bouw_layout.mjs reads this width. */
+@media (max-width: 1241.98px) {
+	.met-kolom .faq {
+		container: faq / inline-size;
+	}
+}
+
+/* One class more than a text style, so the narrow size wins over it. */
+@container faq (width < 1000px) {
+	.faq .faq-knop {
+		display: flex;
+		align-items: center;
+		height: auto;
+		min-height: var(--faq-smal-rij);
+		padding-right: var(--faq-smal-ruimte);
+		font-size: var(--faq-smal-korps);
+		line-height: var(--faq-smal-regel);
+	}
+
+	.faq .faq-knop > span {
+		position: static;
+		width: auto;
+	}
+
+	.faq .faq-knop > svg {
+		left: auto;
+		right: 0;
+		top: var(--faq-smal-icoon);
+		width: var(--faq-smal-knop);
+		height: var(--faq-smal-knop);
+	}
+}
+
+/* The design units of the list take the place of the desktop measures, on the scale of its own width. */
+@container faq (width >= 1000px) {
+	.faq-lijst {
+		--s: calc(100cqw / var(--faq-o-breedte));
+		--faq-rij: var(--faq-o-rij);
+		--faq-lijn: var(--faq-o-lijn);
+		--faq-label-x: var(--faq-o-label-x);
+		--faq-label-y: var(--faq-o-label-y);
+		--faq-label-w: var(--faq-o-label-w);
+		--faq-icoon-x: var(--faq-o-icoon-x);
+		--faq-icoon-y: var(--faq-o-icoon-y);
+		--faq-icoon-w: var(--faq-o-icoon-w);
+		margin-left: calc(var(--faq-o-x) * var(--s));
+		width: calc(var(--faq-o-w) * var(--s));
+		padding-top: calc(var(--faq-o-boven) * var(--s));
+	}
+
+	.faq .faq-knop {
+		font-size: calc(var(--faq-o-korps) * var(--s));
+	}
 }

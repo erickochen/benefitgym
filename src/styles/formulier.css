@@ -7,19 +7,32 @@
 .gebouwd-dek {
 	position: absolute;
 	left: 0;
+	top: calc(-1 * var(--g-dek));
 	width: 100%;
+	height: var(--g-dek);
 }
 
+/* At least as tall as measured or as the content it follows. */
 .gebouwd-inhoud {
 	position: relative;
 	display: flex;
 	align-items: flex-start;
 	box-sizing: border-box;
+	margin-top: calc(-1 * var(--g-dek));
+	min-height: var(--g-volg, var(--g-min));
+	padding: var(--g-rand);
+	gap: var(--g-gat);
 }
 
 .gebouwd-tekst,
 .gebouwd-formulier {
 	flex: none;
+	width: var(--g-kolom);
+}
+
+/* The room the footer lies over. */
+.gebouwd-ruimte {
+	height: var(--g-ruimte);
 }
 
 .gebouwd-tekst > h2,
@@ -34,11 +47,13 @@
 	width: fit-content;
 }
 
+/* Below the footer, along the foot of the section. */
 .gebouwd-strook {
 	position: absolute;
 	left: 0;
 	bottom: 0;
 	width: 100%;
+	height: var(--g-strook);
 }
 
 .gebouwd-strook img {
@@ -46,6 +61,65 @@
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+
+/* In the column the content stands in the stack with the padding plus the gap of its breakpoint, its two columns
+   under each other; the footer plus the strip follow it. */
+@media (min-width: 810px) and (max-width: 1241.98px) {
+	.met-kolom .gebouwd {
+		--g-k-rand: var(--t-g-rand);
+		--g-k-gat: var(--t-g-gat);
+	}
+}
+
+@media (max-width: 809.98px) {
+	.met-kolom .gebouwd {
+		--g-k-rand: var(--p-g-rand);
+		--g-k-gat: var(--p-g-gat);
+	}
+}
+
+@media (max-width: 1241.98px) {
+	.met-kolom .gebouwd-dek,
+	.met-kolom .gebouwd-ruimte {
+		display: none;
+	}
+
+	.met-kolom .gebouwd-inhoud {
+		flex-direction: column;
+		align-items: stretch;
+		margin-top: 0;
+		min-height: 0;
+		padding: var(--g-k-rand);
+		gap: var(--g-k-gat);
+	}
+
+	.met-kolom .gebouwd-tekst,
+	.met-kolom .gebouwd-formulier {
+		width: auto;
+	}
+
+	.met-kolom .formulier-knop {
+		align-self: stretch;
+		width: auto;
+	}
+
+	.met-kolom .formulier-tegels.los {
+		display: flex;
+		flex-direction: column;
+	}
+
+	/* The footer follows the page in the column, so the strip hangs below it, from the foot of the page column. */
+	.met-kolom .sectie.gebouwd {
+		position: static;
+	}
+
+	.met-kolom .gebouwd-strook {
+		top: 100%;
+		bottom: auto;
+		height: auto;
+		aspect-ratio: var(--g-strook-ratio);
+	}
 }
 
 /* The form: one column of parts with one gap between them. */
@@ -103,6 +177,7 @@
 	padding: 0;
 }
 
+/* Tiles of one height, the tallest; in the column a group tile takes its own height instead. */
 .formulier-tegels {
 	clear: both;
 	display: grid;
@@ -199,6 +274,7 @@
 	position: relative;
 	display: flex;
 	align-self: flex-start;
+	width: var(--knop-w);
 	align-items: center;
 	justify-content: center;
 	overflow: hidden;
