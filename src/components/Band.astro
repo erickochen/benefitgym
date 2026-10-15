@@ -1,6 +1,6 @@
 ---
 // One band of a section: a box with its padding and color in the column, no box above it. A cut-out of another page
-// comes from the folder of that page.
+// comes from the folder of that page. A tile holds bands of its own.
 import { type Band, type Entry, bandVars, rijVars, waarde } from "../layout";
 import Blokken from "./Blokken.astro";
 import Uitsnede from "./Uitsnede.astro";
@@ -14,11 +14,14 @@ interface Props {
 }
 
 const { band, entry, slug, staticUrl, eerste } = Astro.props;
-const alt = band.uitsnede?.alt ? ((waarde(entry, band.uitsnede.alt) as string | undefined) ?? "") : "";
+const tekstVan = (veld?: string) => (veld ? ((waarde(entry, veld) as string | undefined) ?? "") : "");
+// A portrait without an alt text of its own is named by the person it shows.
+const alt = tekstVan(band.uitsnede?.alt) || tekstVan(band.uitsnede?.altNaam);
 ---
 
 <div class:list={["band", band.kolom === null && "zonder-kolom"]} style={band.kolom ? bandVars(band.kolom) : undefined}>
 	{band.uitsnede && <Uitsnede bestand={`${band.uitsnede.pagina ?? slug}/mobiel/${band.uitsnede.bestand}`} alt={alt} staticUrl={staticUrl} eerste={eerste} />}
+	{band.banden?.map((deel) => <Astro.self band={deel} entry={entry} slug={slug} staticUrl={staticUrl} eerste={false} />)}
 	{
 		band.blokken.length > 0 && (
 			<div class="rij" style={band.kolom ? rijVars(band.kolom) : undefined}>
