@@ -1789,6 +1789,11 @@
         "gat": 10
        },
        "kaart": null,
+       "ontwerp": 1241.49,
+       "band": {
+        "links": 105.81,
+        "breed": 720
+       },
        "kolom": {
         "tablet": {
          "breedte": "inhoud",

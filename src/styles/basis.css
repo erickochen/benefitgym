@@ -5,8 +5,14 @@
 	--s: calc(min(100vw, var(--cap)) / var(--cap-getal));
 }
 
+/* A jump to an anchor keeps 64 free above it on every width, as the measured page does. An anchor keeps 72 more. */
 html {
 	background: rgb(26, 26, 26);
+	scroll-padding-top: 64px;
+}
+
+.anker {
+	scroll-margin-top: 72px;
 }
 
 body {
@@ -21,6 +27,10 @@ body {
 	width: 100%;
 	max-width: var(--cap);
 	margin-inline: auto;
+}
+
+.kolom-strook {
+	display: none;
 }
 
 /* The image inside keeps the layout role of the picture around it. */
@@ -179,6 +189,10 @@ img.alleen-kolom {
 		--r-z: var(--t-r-z);
 	}
 
+	.met-kolom .kolom-strook {
+		--ks-ratio: var(--t-ks-ratio);
+	}
+
 	.met-kolom .blok,
 	.met-kolom .cijfer-vak {
 		--k-breedte: var(--t-k-breedte);
@@ -219,6 +233,10 @@ img.alleen-kolom {
 		--r-z: var(--p-r-z);
 	}
 
+	.met-kolom .kolom-strook {
+		--ks-ratio: var(--p-ks-ratio);
+	}
+
 	.met-kolom .blok,
 	.met-kolom .cijfer-vak {
 		--k-breedte: var(--p-k-breedte);
@@ -240,6 +258,20 @@ img.alleen-kolom {
 	/* The column never scrolls sideways, as the measured page does not. */
 	.met-kolom .kolom {
 		overflow-x: clip;
+	}
+
+	/* The strip below the footer follows the column in the flow of the page, as on the measured page. */
+	.met-kolom .kolom-strook {
+		display: block;
+		width: 100%;
+		aspect-ratio: var(--ks-ratio);
+	}
+
+	.met-kolom .kolom-strook img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 
 	.met-kolom .sectie {

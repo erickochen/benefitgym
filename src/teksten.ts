@@ -30,6 +30,9 @@ export const REVIEWS = {
 	bolletje: (i: number) => `Review ${i}`,
 };
 
+// The button at the foot of an open explainer.
+export const INKLAPPEN = "Inklappen";
+
 // The point before a list item on a Praktisch page.
 export const PUNT = "•";
 

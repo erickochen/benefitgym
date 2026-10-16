@@ -56,6 +56,10 @@ export type Blok = (
 			pijl: { w: number; gat: number };
 			// Where the text hangs as a card; without one it lies in flow at the cut of its section.
 			kaart: (Plek & { z?: number }) | null;
+			// The design width the open text scales its own measures by.
+			ontwerp: number;
+			// Text in flow on desktop: where it starts plus how wide it runs, in units of the design width.
+			band?: { links: number; breed: number };
 	  } & Vak)
 	| ({
 			soort: "faq";
@@ -83,6 +87,12 @@ export type Blok = (
 			};
 	  } & Plek)
 ) & { z?: number } & MetKolom;
+
+// The anchors a link can jump to: the heading of the group Waarom plus the contact form. A sign-up form jumps to the
+// top of its section instead, so its heading comes along.
+export const ANKER_VELD: Record<string, string> = { waarom_kop: "waarom" };
+export const ANKER_CONTACT = "contact";
+export const ANKER_AANMELDEN = "aanmelden";
 
 // The column below 1242: the measured page's Tablet from 810, its Phone below. basis.css carries the same query.
 export const KOLOM_MEDIA = "(max-width: 1241.98px)";
@@ -301,6 +311,23 @@ export interface Layout {
 	secties: Sectie[];
 	// A Praktisch page: the streak that hangs at the top of its first band.
 	praktisch?: { streek: { h: number; beeld: Beeld } };
+}
+
+/* The strip below the footer in the column, with its ratio per breakpoint: that of a built section, or the one every
+Praktisch page shares. None for a page without its column or without such a strip. */
+export interface StrookInKolom {
+	verhouding: PerStand<string>;
+	beeld: Beeld;
+}
+export function strookInKolom(layout: Layout | undefined, praktisch: PraktischRegels): StrookInKolom | undefined {
+	if (!layout?.kolom) return undefined;
+	const gebouwd = layout.secties.find((sectie) => sectie.gebouwd?.kolom)?.gebouwd;
+	if (gebouwd?.kolom) return { verhouding: { tablet: gebouwd.kolom.strook, phone: gebouwd.kolom.strook }, beeld: gebouwd.strook.beeld };
+	if (layout.praktisch && praktisch.standen) {
+		const { tablet, phone } = praktisch.standen;
+		return { verhouding: { tablet: tablet.slot.verhouding, phone: phone.slot.verhouding }, beeld: praktisch.slot.strook.beeld };
+	}
+	return undefined;
 }
 
 // The class of each role of a Praktisch block, per color.

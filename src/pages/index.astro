@@ -1,7 +1,8 @@
 ---
 import { getEmDashEntry, getSeoMeta, getSiteSettings } from "emdash";
 import Pagina from "../components/Pagina.astro";
-import type { Layout } from "../layout";
+import { strookInKolom, type Layout, type PraktischRegels } from "../layout";
+import praktisch from "../layout/algemeen/praktisch.json";
 import data from "../layout/home.json";
 import Base from "../layouts/Base.astro";
 import { staticUrl as leesStaticUrl } from "../static";
@@ -32,6 +33,7 @@ const seo = getSeoMeta(home, {
 	content={{ collection: "home", id: home.data.id, slug: SLUG }}
 	footerOnder={layout.footer.onder}
 	kolom={layout.kolom === true}
+	strook={strookInKolom(layout, praktisch as PraktischRegels)}
 >
 	<Pagina layout={layout} entry={home} slug={SLUG} staticUrl={leesStaticUrl()} />
 </Base>

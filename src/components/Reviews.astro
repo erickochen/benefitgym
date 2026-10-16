@@ -3,6 +3,7 @@
 // On the phone a row of dots takes the place of the arrows.
 import { getEmDashCollection } from "emdash";
 import { type Blok, blokKlasse, blokStijl } from "../layout";
+import { BOLLETJES_MEE, BOLLETJES_ZICHT } from "../scripts/reviews";
 import { REVIEWS } from "../teksten";
 import Beeld from "./Beeld.astro";
 
@@ -20,13 +21,21 @@ const b = blok.bolletjes;
 const bolletjes = b
 	? `--rb-onder:${b.onder}px;--rb-rand:${b.rand}px;--rb-half:${b.half}px;--rb-stip:${b.stip}px;--rb-kleur:${b.kleur};--rb-uit:${b.uit}`
 	: undefined;
+// A long row slides inside a window of its own, so the current dot stays in view.
+const schuift = reviews.length >= BOLLETJES_MEE;
 ---
 
 <div class:list={["blok", "reviews", blokKlasse(blok)]} style={blokStijl(blok)}>
 	<div class="reviews-rail" role="region" aria-roledescription={REVIEWS.rol} aria-label={REVIEWS.rail} aria-live="polite" tabindex="0">
 		{
 			reviews.map((review, i) => (
-				<div class="reviews-slide" role="group" aria-roledescription={REVIEWS.slide} aria-label={REVIEWS.van(i + 1, reviews.length)}>
+				<div
+					class="reviews-slide"
+					role="group"
+					aria-roledescription={REVIEWS.slide}
+					aria-label={REVIEWS.van(i + 1, reviews.length)}
+					aria-hidden={i > 0 ? "true" : "false"}
+				>
 					<p
 						class={`reviews-quote s-${blok.quote.stijl}`}
 						style={`max-width:calc(${blok.quote.w} * var(--s));-webkit-line-clamp:${review.data.naam ? blok.quote.regels.naam : blok.quote.regels.zonder}`}
@@ -46,7 +55,7 @@ const bolletjes = b
 	{
 		reviews.length > 1 && (
 			<fieldset class="reviews-pijlen" aria-label={REVIEWS.bediening}>
-				<button type="button" class="reviews-pijl" aria-label={REVIEWS.vorige} disabled style={pijl}>
+				<button type="button" class="reviews-pijl" aria-label={REVIEWS.vorige} data-uit tabindex="-1" style={pijl}>
 					<Beeld beeld={blok.pijl.vorige} staticUrl={staticUrl} />
 				</button>
 				<button type="button" class="reviews-pijl" aria-label={REVIEWS.volgende} style={pijl}>
@@ -54,12 +63,14 @@ const bolletjes = b
 				</button>
 				{
 					bolletjes && (
-						<div class="reviews-bolletjes" style={bolletjes}>
-							{reviews.map((_, i) => (
-								<button type="button" class="reviews-bolletje" aria-label={REVIEWS.bolletje(i + 1)} aria-current={i === 0 ? "true" : undefined}>
-									<span />
-								</button>
-							))}
+						<div class:list={["reviews-bolletjes", schuift && "schuift"]} style={schuift ? `${bolletjes};--rb-zicht:${BOLLETJES_ZICHT}` : bolletjes}>
+							<div class="reviews-bolletjes-rij">
+								{reviews.map((_, i) => (
+									<button type="button" class="reviews-bolletje" aria-label={REVIEWS.bolletje(i + 1)} aria-current={i === 0 ? "true" : undefined}>
+										<span />
+									</button>
+								))}
+							</div>
 						</div>
 					)
 				}
@@ -67,3 +78,9 @@ const bolletjes = b
 		)
 	}
 </div>
+
+<script>
+	import { zetReviews } from "../scripts/reviews";
+
+	for (const blok of document.querySelectorAll<HTMLElement>(".reviews")) zetReviews(blok);
+</script>

@@ -100,6 +100,9 @@ const stijl = [blokStijl(blok), ...Object.entries(maten).map(([naam, waarde]) =>
 									<h4 class="faq-kop">
 										<button type="button" class="faq-vraagknop" aria-expanded="false" aria-controls={`faq-${i}-${j}`}>
 											<span {...vraag.edit.vraag}>{vraag.data.vraag}</span>
+											<svg viewBox="0 0 100 100" aria-hidden="true">
+												<polygon points={PIJL} fill={blok.icoon.vlak} />
+											</svg>
 										</button>
 									</h4>
 									<div id={`faq-${i}-${j}`} class="faq-antwoord faq-dicht" {...vraag.edit.antwoord}>
@@ -114,3 +117,9 @@ const stijl = [blokStijl(blok), ...Object.entries(maten).map(([naam, waarde]) =>
 		}
 	</div>
 </div>
+
+<script>
+	import { zetFaq } from "../scripts/faq";
+
+	for (const blok of document.querySelectorAll<HTMLElement>(".faq")) zetFaq(blok);
+</script>

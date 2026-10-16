@@ -4,7 +4,7 @@
 // follows its content grows and shrinks with it, to the next whole pixel like the measured page. In the column the
 // content stands in the stack, its two columns under each other, with the strip below the footer.
 import { getWidgetAreaWithCacheHint, sanitizeHref } from "emdash";
-import { type Entry, maat, type Sectie, waarde } from "../layout";
+import { ANKER_AANMELDEN, ANKER_CONTACT, type Entry, maat, type Sectie, waarde } from "../layout";
 import Beeld from "./Beeld.astro";
 import Formulier from "./Formulier.astro";
 
@@ -36,6 +36,8 @@ const belTekst = bellen.flatMap((blok) => (blok.children ?? []).map((span) => sp
 const belLink = bellen.flatMap((blok) => blok.markDefs ?? []).find((def) => def._type === "link")?.href;
 const belHref = belLink ? sanitizeHref(belLink) : undefined;
 const pixels = (n: number) => `${n}px`;
+// The contact form is the anchor itself; a sign-up section is its anchor from the top of its content.
+const contact = g.formulier === ANKER_CONTACT;
 // Every measure goes as a custom property, so the column can set its own.
 const maten = [
 	`background:${g.dek.kleur}`,
@@ -60,7 +62,7 @@ const maten = [
 
 <section class="sectie gebouwd" style={maten}>
 	<div class="gebouwd-dek" style={`background:${g.dek.kleur}`}></div>
-	<div class="gebouwd-inhoud" data-volgt={g.afstand.volgt ? "" : undefined}>
+	<div id={contact ? undefined : ANKER_AANMELDEN} class="gebouwd-inhoud" data-volgt={g.afstand.volgt ? "" : undefined}>
 		<div class="gebouwd-tekst">
 			<h2 class={`s-${g.tekst.kop.stijl}`} {...entry.edit[g.tekst.kop.veld]}>{waarde(entry, g.tekst.kop.veld) as string}</h2>
 			<p class={`s-${g.tekst.intro.stijl}`} style={`margin-top:${maat(g.tekst.gaten[0])}`} {...entry.edit[g.tekst.intro.veld]}>
@@ -77,6 +79,7 @@ const maten = [
 		<div class="gebouwd-formulier">
 			<Formulier
 				slug={g.formulier}
+				anker={contact ? ANKER_CONTACT : undefined}
 				staticUrl={staticUrl}
 				sport={g.sport}
 				planner={waarde(entry, "planner") as string | undefined}

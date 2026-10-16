@@ -1,4 +1,17 @@
-/* The explainer: the summary is the button, its label plus chevron on one line. */
+/* The explainer: the summary is the button, its label plus chevron on one line. Under the mouse or with keyboard focus
+   the label underlines in its own color as the measured button does. Keyboard focus draws an orange ring too. */
+.uitklap {
+	--u-grijs: rgb(46, 46, 46);
+	--u-donker: rgb(45, 45, 45);
+	--u-wit: rgb(255, 255, 255);
+	--u-oranje: rgb(236, 110, 29);
+	--u-streep: 2px;
+	--u-streep-afstand: 4px;
+	--u-draai: transform 160ms ease-out;
+	--u-bold: "Interstate Bold", "Interstate Bold Placeholder", sans-serif;
+	--u-regular: "Interstate Regular", "Interstate Regular Placeholder", sans-serif;
+}
+
 .uitklap-knop {
 	display: flex;
 	align-items: center;
@@ -17,4 +30,121 @@
 .uitklap-knop > svg {
 	display: block;
 	flex: none;
+	transition: var(--u-draai);
+}
+
+.uitklap[open] > .uitklap-knop > svg {
+	transform: rotate(180deg);
+}
+
+.uitklap-knop:is(:hover, :focus-visible) > span,
+.uitklap-inklappen:is(:hover, :focus-visible) > span {
+	text-decoration: underline;
+	text-underline-offset: var(--u-streep-afstand);
+}
+
+.uitklap-knop:focus-visible,
+.uitklap-inklappen:focus-visible {
+	outline: var(--u-streep) solid var(--u-oranje);
+	outline-offset: var(--u-streep-afstand);
+}
+
+/* The open text, as the measured component draws it: the running text of the page at 18 on a line of 1.444, 14 between
+   parts, lists indented 26, a heading at 20 on 1.2. Its edges scale with the cap over the design width. */
+.uitklap-tekst {
+	--u-k: calc(var(--cap) / var(--u-ontwerp));
+	outline: none;
+}
+
+.uitklap-kolom {
+	color: var(--u-grijs);
+	font-family: var(--u-regular);
+	font-size: 18px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1.444;
+	letter-spacing: normal;
+	text-align: left;
+}
+
+.uitklap-inhoud :is(p, ul, ol, h1, h2, h3, h4, h5, h6) {
+	margin: 0 0 14px;
+}
+
+.uitklap-inhoud :is(ul, ol) {
+	padding-left: 26px;
+}
+
+.uitklap-inhoud :is(h1, h2, h3, h4, h5, h6) {
+	font-family: var(--u-bold);
+	font-size: 20px;
+	font-weight: normal;
+	line-height: 1.2;
+}
+
+.uitklap-inklappen {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	margin: 7px 0 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: inherit;
+	font-family: var(--u-bold);
+	font-size: 18px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1.2;
+	cursor: pointer;
+}
+
+.uitklap-inklappen > svg {
+	display: block;
+	flex: none;
+	width: 12px;
+	height: 12px;
+}
+
+/* On desktop a band is a dark strip over the full width with its text in the room of the design; a card is white with
+   rounded corners plus a shadow. */
+.uitklap[data-stand="band"] .uitklap-vlak {
+	background: var(--u-donker);
+	padding: calc(36 * var(--u-k)) 0 calc(44 * var(--u-k));
+}
+
+.uitklap[data-stand="band"] .uitklap-kolom {
+	margin-left: calc(var(--u-links) / var(--u-ontwerp) * 100%);
+	width: calc(var(--u-breed) / var(--u-ontwerp) * 100%);
+	color: var(--u-wit);
+}
+
+.uitklap[data-stand="kaart"] .uitklap-tekst {
+	box-sizing: border-box;
+	padding: calc(32 * var(--u-k));
+	background: var(--u-wit);
+	border-radius: 4px;
+	box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+}
+
+/* In the column every text is a white block in flow: the measured component draws it so below 1150 of its own width,
+   and its room there is at most 1145. */
+@media (max-width: 1241.98px) {
+	.met-kolom .uitklap .uitklap-vlak {
+		background: var(--u-wit);
+		padding: 8px 0 24px;
+	}
+
+	.met-kolom .uitklap .uitklap-kolom {
+		margin-left: 0;
+		width: auto;
+		color: var(--u-grijs);
+	}
+
+	.met-kolom .uitklap[data-stand="kaart"] .uitklap-tekst {
+		padding: 0;
+		background: none;
+		border-radius: 0;
+		box-shadow: none;
+	}
 }

@@ -5,10 +5,6 @@
 	initial-value: 0;
 }
 
-html {
-	scroll-padding-top: calc(var(--menu-vast-hoogte) * var(--s));
-}
-
 /* The fixed holder spans the window and the bar sits centered in it, so the browser rasters it from the same origin as the measured page. */
 .menu {
 	--vast: 0;
@@ -236,10 +232,6 @@ logo has left the window, then white with the badge. Only a page with its column
 }
 
 @media (max-width: 1241.98px) {
-	html:has(> .met-kolom) {
-		scroll-padding-top: var(--mobiel-hoogte);
-	}
-
 	.met-kolom .menu-binnen {
 		display: none;
 	}
