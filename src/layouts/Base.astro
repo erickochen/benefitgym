@@ -112,3 +112,8 @@ const pageCtx = createPublicPageContext({
 		<EmDashBodyEnd page={pageCtx} />
 	</body>
 </html>
+
+<script>
+	// The toolbar of the editor only renders on an edit view; the length guard of live editing loads along with it.
+	if (document.getElementById("emdash-toolbar")) void import("../scripts/live-edit").then((m) => m.zetLiveEdit());
+</script>
