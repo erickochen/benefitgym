@@ -1,7 +1,8 @@
 /* A form of the forms plugin. The browser checks every field on sending; the message is the Dutch one of the field,
 under it plus in the browser's own bubble. A field without one keeps the browser's message. The first error in the
 form is announced. A field with an error checks itself again on every change plus when it loses focus. A valid form
-goes as JSON to the submit route of the plugin, with the Turnstile token when the form asks for one. The button turns
+goes as JSON to the submit route of the plugin, with the Turnstile token when the form asks for one. When Turnstile
+asks the visitor something, its box stands above the button and a send waits for the answer. The button turns
 a ring while it goes and shows the confirmation from the panel once it arrived, until a field changes. An error of the
 plugin on a field becomes the message of that field; any other failure shows one line below the button. */
 
@@ -13,9 +14,11 @@ interface Antwoord {
 }
 
 const TURNSTILE = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-// How long a send waits for Turnstile to hand its token over.
+// How long a send waits for Turnstile to hand its token over, unless Turnstile asks the visitor something.
 const TOKEN_WACHT = 10000;
 const TOKEN_STAP = 100;
+// The width of the normal widget; a narrower form gets the compact one.
+const TURNSTILE_BREED = 300;
 
 interface Turnstile {
 	render(element: HTMLElement, opties: Record<string, unknown>): string;
@@ -163,6 +166,8 @@ export function zetFormulier(form: HTMLFormElement, meldingen: Record<string, st
 	// Turnstile only shows when it has something to ask.
 	const vak = form.querySelector<HTMLElement>(".formulier-turnstile");
 	let token = "";
+	// The box joins the form once Turnstile asks and keeps its place until the next challenge.
+	let vraagt = false;
 	// A token holds for one send, so after each send the widget fetches a fresh one.
 	let vernieuw = () => {};
 	if (vak?.dataset.sitekey) {
@@ -171,12 +176,23 @@ export function zetFormulier(form: HTMLFormElement, meldingen: Record<string, st
 				const widget = t.render(vak, {
 					sitekey: vak.dataset.sitekey,
 					appearance: "interaction-only",
+					size: form.clientWidth < TURNSTILE_BREED ? "compact" : "normal",
 					"refresh-expired": "auto",
 					callback: (waarde: string) => (token = waarde),
 					"expired-callback": () => (token = ""),
+					"before-interactive-callback": () => {
+						vraagt = true;
+						vak.classList.add("vraagt");
+					},
+					"after-interactive-callback": () => (vraagt = false),
+					// A challenge that fails or runs out of time asks nothing, so a waiting send falls back to its limit.
+					"timeout-callback": () => (vraagt = false),
+					"error-callback": () => (vraagt = false),
 				});
 				vernieuw = () => {
 					token = "";
+					vraagt = false;
+					vak.classList.remove("vraagt");
 					t.reset(widget);
 				};
 			})
@@ -184,7 +200,7 @@ export function zetFormulier(form: HTMLFormElement, meldingen: Record<string, st
 	}
 	const wachtOpToken = async () => {
 		if (!vak?.dataset.sitekey) return true;
-		for (let gewacht = 0; !token && gewacht < TOKEN_WACHT; gewacht += TOKEN_STAP) await new Promise((r) => setTimeout(r, TOKEN_STAP));
+		for (let gewacht = 0; !token && (vraagt || gewacht < TOKEN_WACHT); gewacht += vraagt ? 0 : TOKEN_STAP) await new Promise((r) => setTimeout(r, TOKEN_STAP));
 		return Boolean(token);
 	};
 
