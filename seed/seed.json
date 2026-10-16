@@ -1950,6 +1950,14 @@
           }
         },
         {
+          "slug": "email",
+          "label": "E-mail",
+          "type": "string",
+          "validation": {
+            "maxLength": 30
+          }
+        },
+        {
           "slug": "oprichtingsjaar",
           "label": "Oprichtingsjaar",
           "type": "string",
