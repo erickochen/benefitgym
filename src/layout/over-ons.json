@@ -120,8 +120,7 @@
       }
      ],
      "uitsnede": {
-      "bestand": "strook-1.webp",
-      "alt": "hero_alt"
+      "bestand": "strook-1.webp"
      },
      "kolom": {
       "tablet": {
@@ -618,6 +617,14 @@
    "naam": "sectie-3",
    "hoogte": 962.03125,
    "tekening": "artwork-3.webp",
+   "alts": [
+    "team_1_alt",
+    "team_2_alt",
+    "team_3_alt",
+    "team_4_alt",
+    "team_5_alt",
+    "team_6_alt"
+   ],
    "raster": {
     "tablet": {
      "kolommen": 3,
@@ -1730,6 +1737,15 @@
    "naam": "sectie-4",
    "hoogte": 979.484375,
    "tekening": "artwork-4.webp",
+   "alts": [
+    "team_7_alt",
+    "team_8_alt",
+    "team_9_alt",
+    "team_10_alt",
+    "team_11_alt",
+    "team_12_alt",
+    "team_13_alt"
+   ],
    "raster": {
     "tablet": {
      "kolommen": 3,
@@ -3022,11 +3038,15 @@
    "naam": "sectie-5",
    "hoogte": 984.140625,
    "tekening": "artwork-5.webp",
+   "alts": [
+    "foto_2_alt"
+   ],
    "banden": [
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "foto-17.webp"
+      "bestand": "foto-17.webp",
+      "alt": "foto_2_alt"
      },
      "kolom": {
       "tablet": {

@@ -74,6 +74,8 @@ const bestanden = velden.some((veld) => veld.type === "file");
 // The width goes as a custom property, so the column can stretch the button.
 const knop = `--knop-w:${maat(v.knop.w)};height:${maat(v.knop.h)};border-radius:${maat(v.knop.radius)};box-shadow:${v.knop.schaduw}`;
 const deelProps = { slug, datums, groepen, sport, geenData };
+// The padding of a field runs top, right, bottom, left; a message under it starts at the right one, less its line.
+const RECHTS = 1;
 ---
 
 {
@@ -85,7 +87,8 @@ const deelProps = { slug, datums, groepen, sport, geenData };
 			action={`${ROUTE}/submit`}
 			enctype={bestanden ? "multipart/form-data" : undefined}
 			data-formulier={definitie.slug}
-			style={gat(v.gat)}
+			data-fout={`s-${v.klein}`}
+			style={`${gat(v.gat)};--fout-boven:${maat(v.labelGat)};--veld-binnen:${maat(v.invoer.padding[RECHTS])}`}
 		>
 			<input type="hidden" name="formId" value={definitie.slug} />
 			{
@@ -133,8 +136,17 @@ const deelProps = { slug, datums, groepen, sport, geenData };
 			{definitie._turnstileSiteKey && <div class="formulier-turnstile" data-sitekey={definitie._turnstileSiteKey} />}
 			<button type="submit" class="formulier-knop" style={knop}>
 				<Beeld beeld={v.knop.beeld} staticUrl={staticUrl} />
-				<span class={`s-${v.knop.stijl}`}>{definitie.settings.submitLabel}</span>
+				<span class={`formulier-knop-tekst s-${v.knop.stijl}`}>{definitie.settings.submitLabel}</span>
+				<span class="formulier-ring" aria-hidden="true" />
 			</button>
+			<p class="formulier-status verborgen" role="status" />
 		</form>
 	)
 }
+
+<script>
+	import { zetFormulier } from "../scripts/formulier";
+	import { FORMULIER, MELDINGEN } from "../teksten";
+
+	for (const form of document.querySelectorAll<HTMLFormElement>("form.formulier")) zetFormulier(form, MELDINGEN, { mis: FORMULIER.mis });
+</script>
