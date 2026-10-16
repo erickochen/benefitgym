@@ -623,6 +623,22 @@
           }
         },
         {
+          "slug": "foto_2_alt",
+          "label": "Foto 2 · Alt-tekst",
+          "type": "string",
+          "validation": {
+            "maxLength": 90
+          }
+        },
+        {
+          "slug": "foto_3_alt",
+          "label": "Foto 3 · Alt-tekst",
+          "type": "string",
+          "validation": {
+            "maxLength": 90
+          }
+        },
+        {
           "slug": "proefles_link",
           "label": "Proefles · Link",
           "type": "url"
@@ -901,9 +917,120 @@
           "type": "url"
         },
         {
+          "slug": "foto_2_alt",
+          "label": "Foto 2 · Alt-tekst",
+          "type": "string",
+          "validation": {
+            "maxLength": 100
+          }
+        },
+        {
+          "slug": "foto_3_alt",
+          "label": "Foto 3 · Alt-tekst",
+          "type": "string",
+          "validation": {
+            "maxLength": 100
+          }
+        },
+        {
+          "slug": "foto_4_alt",
+          "label": "Foto 4 · Alt-tekst",
+          "type": "string",
+          "validation": {
+            "maxLength": 100
+          }
+        },
+        {
+          "slug": "foto_5_alt",
+          "label": "Foto 5 · Alt-tekst",
+          "type": "string",
+          "validation": {
+            "maxLength": 90
+          }
+        },
+        {
+          "slug": "foto_6_alt",
+          "label": "Foto 6 · Alt-tekst",
+          "type": "string",
+          "validation": {
+            "maxLength": 100
+          }
+        },
+        {
           "slug": "proefles_link",
           "label": "Proefles · Link",
           "type": "url"
+        },
+        {
+          "slug": "zoek_soort",
+          "label": "Zoekmachines · Soort",
+          "type": "select",
+          "validation": {
+            "options": [
+              "Les",
+              "Cursus"
+            ]
+          }
+        },
+        {
+          "slug": "zoek_soort_les",
+          "label": "Zoekmachines · Soort les",
+          "type": "string",
+          "validation": {
+            "maxLength": 40
+          }
+        },
+        {
+          "slug": "zoek_samenvatting",
+          "label": "Zoekmachines · Samenvatting",
+          "type": "text",
+          "validation": {
+            "maxLength": 340
+          }
+        },
+        {
+          "slug": "zoek_leeftijd_van",
+          "label": "Zoekmachines · Leeftijd van",
+          "type": "integer"
+        },
+        {
+          "slug": "zoek_leeftijd_tot",
+          "label": "Zoekmachines · Leeftijd tot",
+          "type": "integer"
+        },
+        {
+          "slug": "zoek_prijs",
+          "label": "Zoekmachines · Prijs per maand",
+          "type": "number"
+        },
+        {
+          "slug": "zoek_prijs_uitleg",
+          "label": "Zoekmachines · Uitleg bij de prijs",
+          "type": "string",
+          "validation": {
+            "maxLength": 50
+          }
+        },
+        {
+          "slug": "zoek_duur",
+          "label": "Zoekmachines · Duur in uren",
+          "type": "number"
+        },
+        {
+          "slug": "zoek_andere_naam",
+          "label": "Zoekmachines · Andere naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 30
+          }
+        },
+        {
+          "slug": "llms_regel",
+          "label": "Zoekmachines · Regel voor llms.txt",
+          "type": "string",
+          "validation": {
+            "maxLength": 60
+          }
         }
       ]
     },
@@ -1346,9 +1473,25 @@
           }
         },
         {
+          "slug": "foto_2_alt",
+          "label": "Foto 2 · Alt-tekst",
+          "type": "string",
+          "validation": {
+            "maxLength": 70
+          }
+        },
+        {
           "slug": "proefles_link",
           "label": "Proefles · Link",
           "type": "url"
+        },
+        {
+          "slug": "llms_regel",
+          "label": "Zoekmachines · Regel voor llms.txt",
+          "type": "string",
+          "validation": {
+            "maxLength": 40
+          }
         }
       ]
     },
@@ -1435,6 +1578,14 @@
               "lesrooster"
             ],
             "maxItems": 20
+          }
+        },
+        {
+          "slug": "llms_regel",
+          "label": "Zoekmachines · Regel voor llms.txt",
+          "type": "string",
+          "validation": {
+            "maxLength": 60
           }
         }
       ]
@@ -1720,6 +1871,130 @@
         "revisions"
       ],
       "sortOrder": 90
+    },
+    {
+      "slug": "gegevens",
+      "label": "Gegevens",
+      "labelSingular": "Gegevens",
+      "titleField": "naam",
+      "admin": {
+        "quickCreate": false,
+        "listColumns": [
+          "plaats"
+        ]
+      },
+      "fields": [
+        {
+          "slug": "naam",
+          "label": "Naam",
+          "type": "string",
+          "required": true,
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "andere_naam",
+          "label": "Andere naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 30
+          }
+        },
+        {
+          "slug": "straat",
+          "label": "Straat",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "postcode",
+          "label": "Postcode",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "plaats",
+          "label": "Plaats",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "provincie",
+          "label": "Provincie",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "land",
+          "label": "Land",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "telefoon",
+          "label": "Telefoon",
+          "type": "string",
+          "validation": {
+            "maxLength": 30
+          }
+        },
+        {
+          "slug": "oprichtingsjaar",
+          "label": "Oprichtingsjaar",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "prijsbereik",
+          "label": "Prijsbereik",
+          "type": "string",
+          "validation": {
+            "maxLength": 30
+          }
+        },
+        {
+          "slug": "breedtegraad",
+          "label": "Breedtegraad",
+          "type": "number"
+        },
+        {
+          "slug": "lengtegraad",
+          "label": "Lengtegraad",
+          "type": "number"
+        },
+        {
+          "slug": "kaartlink",
+          "label": "Kaartlink",
+          "type": "url"
+        },
+        {
+          "slug": "llms_inleiding",
+          "label": "Inleiding voor llms.txt",
+          "type": "text",
+          "validation": {
+            "maxLength": 240
+          }
+        }
+      ],
+      "routable": false,
+      "supports": [
+        "drafts",
+        "revisions"
+      ],
+      "sortOrder": 100
     }
   ],
   "taxonomies": [

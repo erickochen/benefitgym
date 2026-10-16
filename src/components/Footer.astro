@@ -1,6 +1,8 @@
 ---
-// The dark band at the foot of every page: link columns from menu primary, the address from widget area Footer, the profiles from Social plus menu juridisch below.
-import { getMenuWithCacheHint, getSiteSettings, getWidgetAreaWithCacheHint, type MenuItem, sanitizeHref } from "emdash";
+// The dark band at the foot of every page: link columns from menu primary, the address from the list Gegevens with
+// the lines of widget area Footer below it, the profiles from Social plus menu juridisch below.
+import { getEmDashEntry, getMenuWithCacheHint, getSiteSettings, getWidgetAreaWithCacheHint, type MenuItem, sanitizeHref } from "emdash";
+import { adresRegels, GEGEVENS_SLUG, type GegevensData, profielen as profielenVan } from "../gegevens";
 import { type FooterLayout, perStand } from "../layout";
 import data from "../layout/algemeen/footer.json";
 import { COPYRIGHT, KOLOM_TEKEN, SCHEIDING, SITE_NAME, SOCIAAL, SOCIAAL_KOP } from "../teksten";
@@ -24,12 +26,13 @@ interface Blok {
 
 const { staticUrl, onder } = Astro.props;
 const f = data as FooterLayout;
-const [primary, juridisch, adres] = await Promise.all([
+const [primary, juridisch, adres, gegevens] = await Promise.all([
 	getMenuWithCacheHint("primary"),
 	getMenuWithCacheHint("juridisch"),
 	getWidgetAreaWithCacheHint("footer"),
+	getEmDashEntry("gegevens", GEGEVENS_SLUG),
 ]);
-if (Astro.cache?.enabled) for (const { cacheHint } of [primary, juridisch, adres]) Astro.cache.set(cacheHint);
+if (Astro.cache?.enabled) for (const { cacheHint } of [primary, juridisch, adres, gegevens]) Astro.cache.set(cacheHint);
 const settings = await getSiteSettings();
 
 // A group whose children are all plain links is a column, in menu order.
@@ -39,8 +42,8 @@ function kolommenVan(items: MenuItem[]): MenuItem[] {
 	);
 }
 
-// Each block of the address widget is one line; a block with a link is a link row.
-const regels = (adres.data?.widgets ?? [])
+// The address from Gegevens, then each block of the widget as one line; a block with a link is a link row.
+const widgetRegels = (adres.data?.widgets ?? [])
 	.filter((widget) => widget.type === "content")
 	.flatMap((widget) => (widget.content ?? []) as unknown as Blok[])
 	.map((blok) => {
@@ -49,16 +52,9 @@ const regels = (adres.data?.widgets ?? [])
 		const link = (blok.markDefs ?? []).find((def) => def._type === "link" && marks.has(def._key));
 		return { tekst: kinderen.map((kind) => kind.text ?? "").join(""), href: link?.href ? sanitizeHref(link.href) : undefined };
 	});
+const regels = [...adresRegels(gegevens.entry?.data as GegevensData | undefined), ...widgetRegels];
 
-// Social holds handles; the profile addresses are built from them. A full address or a leading @ is taken as typed.
-const profiel = (handle: string | undefined, bouw: (h: string) => string) => {
-	const schoon = handle?.trim().replace(/^@/, "");
-	return !schoon ? undefined : /^https?:\/\//.test(schoon) ? schoon : bouw(schoon);
-};
-const profielen = [
-	{ label: SOCIAAL.instagram, href: profiel(settings.social?.instagram, (h) => `https://www.instagram.com/${h}/`) },
-	{ label: SOCIAAL.facebook, href: profiel(settings.social?.facebook, (h) => `https://www.facebook.com/${h}`) },
-].filter((p) => p.href);
+const profielen = profielenVan(settings.social).map((p) => ({ label: SOCIAAL[p.netwerk], href: p.href }));
 
 // A time zone the browser does not know falls back to UTC rather than breaking every page.
 function ditJaar(timeZone: string | undefined) {

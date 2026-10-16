@@ -2,7 +2,7 @@
 // One section at its measured height: the drawing with the bands on top, or an empty built section.
 // A cut section stacks its upper part, the explainer's text in flow plus the part below, each showing its slice of one drawing.
 // Below 1242 the section is a column of its bands and the drawing goes.
-import { type Entry, type Sectie, bandVars, rasterVars, waarde } from "../layout";
+import { type Entry, type Sectie, altVan, bandVars, rasterVars } from "../layout";
 import Band from "./Band.astro";
 import GebouwdeSectie from "./GebouwdeSectie.astro";
 import Uitklap from "./Uitklap.astro";
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const { sectie, entry, slug, staticUrl, eerste } = Astro.props;
-const alt = sectie.alt ? ((waarde(entry, sectie.alt) as string | undefined) ?? "") : "";
+const alt = altVan(entry, sectie.alts);
 const src = sectie.tekening ? `${staticUrl}/tekeningen/${slug}/${sectie.tekening}` : undefined;
 const { snede } = sectie;
 const uitklapBand = snede ? sectie.banden.find((band) => band.blokken[0]?.soort === "uitklap") : undefined;
