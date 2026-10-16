@@ -24,6 +24,8 @@
 			"bucket_name": "benefitgym-media",
 		},
 	],
+	// Query results of EmDash. Without an id Wrangler provisions the namespace on the first deploy and finds it again later.
+	"kv_namespaces": [{ "binding": "CACHE" }],
 	// Outgoing mail through Cloudflare Email Sending.
 	"send_email": [{ "name": "EMAIL" }],
 	// Sandboxed plugins require Worker Loader, available on Workers paid plans.
