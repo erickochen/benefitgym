@@ -30,8 +30,9 @@ const INVOER = ["text", "email", "tel", "url", "number", "date", "file"] as cons
 
 const { velden, slug, datums, groepen, sport, geenData } = Astro.props;
 const v = data as FormulierLayout;
+// The border color goes through a variable, so a field with a message can turn it orange.
 const vak = (doos: VeldVak & { h?: number }) =>
-	`${doos.h ? `height:${maat(doos.h)};` : ""}padding:${doos.padding.map(maat).join(" ")};border:${maat(doos.rand)} solid ${doos.randKleur};border-radius:${maat(doos.radius)};background:${doos.vulling}`;
+	`${doos.h ? `height:${maat(doos.h)};` : ""}padding:${doos.padding.map(maat).join(" ")};border:${maat(doos.rand)} solid var(--veld-rand, ${doos.randKleur});border-radius:${maat(doos.radius)};background:${doos.vulling}`;
 // A tile and its dot take their border plus fill as variables, so a chosen or focused state can replace them.
 const tegel = (hoogte: number) =>
 	`min-height:${maat(hoogte)};gap:${maat(v.tegel.gat)};padding:${v.tegel.padding.map(maat).join(" ")};border-radius:${maat(v.tegel.radius)};--rand:${maat(v.tegel.rand)} solid ${v.tegel.randKleur};--vulling:${v.tegel.vulling}`;
@@ -137,11 +138,13 @@ const voorwaarde = veld.condition ? JSON.stringify(veld.condition) : undefined;
 			{hulp && <p id={hulp} class={`s-${v.klein}`} style={uitleg}>{veld.helpText}</p>}
 		</fieldset>
 	) : soort === "checkbox" ? (
-		<label class="formulier-tegel" style={tegel(v["tegel-datum"])} data-condition={voorwaarde}>
-			<input type="checkbox" class="formulier-stip vinkje" style={stip} name={veld.name} value={veld.defaultValue || "1"} required={veld.required} aria-describedby={hulp} />
-			<span class={`formulier-dag s-${v.dag}`}>{veld.label}</span>
-			{hulp && <span id={hulp} class="verborgen">{veld.helpText}</span>}
-		</label>
+		<div class="formulier-veld" style={gat(v.labelGat)} data-condition={voorwaarde}>
+			<label class="formulier-tegel" style={tegel(v["tegel-datum"])}>
+				<input type="checkbox" class="formulier-stip vinkje" style={stip} name={veld.name} value={veld.defaultValue || "1"} required={veld.required} aria-describedby={hulp} data-hulp={hulp} />
+				<span class={`formulier-dag s-${v.dag}`}>{veld.label}</span>
+				{hulp && <span id={hulp} class="verborgen">{veld.helpText}</span>}
+			</label>
+		</div>
 	) : soort === "hidden" ? (
 		<input type="hidden" name={veld.name} value={veld.defaultValue} />
 	) : (
@@ -158,9 +161,10 @@ const voorwaarde = veld.condition ? JSON.stringify(veld.condition) : undefined;
 					minlength={veld.validation?.minLength}
 					maxlength={veld.validation?.maxLength}
 					aria-describedby={hulp}
+					data-hulp={hulp}
 				/>
 			) : soort === "select" ? (
-				<select class={`formulier-invoer s-${v.invoer.stijl}`} style={vak(v.invoer)} id={id} name={veld.name} required={veld.required} aria-describedby={hulp}>
+				<select class={`formulier-invoer s-${v.invoer.stijl}`} style={vak(v.invoer)} id={id} name={veld.name} required={veld.required} aria-describedby={hulp} data-hulp={hulp}>
 					{(veld.options ?? []).map((optie) => <option value={optie.value}>{optie.label}</option>)}
 				</select>
 			) : (
@@ -178,6 +182,7 @@ const voorwaarde = veld.condition ? JSON.stringify(veld.condition) : undefined;
 					pattern={veld.validation?.pattern}
 					accept={veld.validation?.accept}
 					aria-describedby={hulp}
+					data-hulp={hulp}
 				/>
 			)}
 			{hulp && <span id={hulp} class={`s-${v.klein}`}>{veld.helpText}</span>}

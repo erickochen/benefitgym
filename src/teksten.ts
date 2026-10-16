@@ -51,4 +51,20 @@ export const FORMULIER = {
 	planner: "Plan je gratis proefles",
 	geenDatum: "Geen van deze data, hou me op de hoogte",
 	opDeHoogte: "Hou me op de hoogte",
+	// The line below the button when a form does not arrive.
+	mis: "Er ging iets mis",
+};
+
+// The message under a field the browser refuses, by the name of the field in the panel.
+export const MELDINGEN: Record<string, string> = {
+	naam: "Vul je naam in.",
+	email: "Vul een geldig e-mailadres in.",
+	bericht: "Schrijf je vraag in het bericht.",
+	voornaam: "Vul je voornaam in.",
+	achternaam: "Vul je achternaam in.",
+	telefoon: "Vul een geldig telefoonnummer in.",
+	datum: "Kies een datum of de laatste optie.",
+	groep: "Kies een groep.",
+	naam_kind: "Vul de naam van je kind in.",
+	naam_ouder: "Vul je naam in.",
 };
