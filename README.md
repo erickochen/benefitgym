@@ -20,7 +20,7 @@ Public pages are cached at the edge in the Workers Cache through Astro's Cloudfl
 
 ## Search engines and agents
 
-The structured data comes from a small native plugin in `src/plugins/`, through the `page:metadata` hook. On `/` it is the graph of the gym from the list Gegevens plus Settings. On each sport page it is a Service or a Course from its group Zoekmachines. Other pages carry no block. Every address in it follows `EMDASH_SITE_URL`. `/llms.txt` is built from the site title, Gegevens and menu `primary`. A request that asks for `text/markdown` gets the `main` of a page as markdown from the Worker in `src/worker.ts`, with a `Vary: Accept` on both answers. The favicon, the logo and the social image of each page are media, set in Settings and in the SEO panel. The page for an address that does not exist reads its text from the widget area Niet gevonden.
+The structured data comes from a small native plugin in `src/plugins/`, through the `page:metadata` hook. On `/` it is the graph of the gym from the list Gegevens plus Settings, with the social image of `/` as its image. Every page carries `og:locale`. On each sport page it is a Service or a Course from its group Zoekmachines. Other pages carry no block. Every address in it follows `EMDASH_SITE_URL`. `/llms.txt` is built from the site title, Gegevens and menu `primary`. A request that asks for `text/markdown` gets the `main` of a page as markdown from the Worker in `src/worker.ts`, with a `Vary: Accept` on both answers. The favicon, the logo and the social image of each page are media, set in Settings and in the SEO panel. The page for an address that does not exist reads its text from the widget area Niet gevonden.
 
 ## Deploying
 

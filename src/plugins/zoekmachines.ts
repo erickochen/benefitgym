@@ -1,6 +1,6 @@
 // The structured data of the site through the page:metadata hook, the route the EmDash docs give for replacing
 // JSON-LD. On / the graph of the gym plus the website, on a sport page a Service or a Course, elsewhere no block.
-// Every address follows EMDASH_SITE_URL. The site name stays in og:site_name.
+// Every address follows EMDASH_SITE_URL. The site name plus the language go in og:site_name and og:locale.
 import { definePlugin, getEmDashEntry, getSiteSettings, type PageMetadataContribution, type PublicPageContext } from "emdash";
 import { GEGEVENS_SLUG, type GegevensData, internationaal, profielen } from "../gegevens";
 import { siteUrl } from "../site-url";
@@ -8,6 +8,8 @@ import { ZOEKMACHINES_ID, ZOEKMACHINES_VERSIE } from "./zoekmachines-id.mjs";
 
 const SCHEMA = "https://schema.org";
 const TAAL = "nl";
+// Open Graph writes a locale as language_TERRITORY.
+const OG_TAAL = "nl_NL";
 const MUNT = "EUR";
 // The page that lists every price; an offer points there.
 const TARIEVEN = "/tarieven";
@@ -42,9 +44,17 @@ async function gegevens(): Promise<GegevensData | undefined> {
 	return (await getEmDashEntry("gegevens", GEGEVENS_SLUG)).entry?.data as GegevensData | undefined;
 }
 
-async function graaf(site: string, g: GegevensData) {
+// An address on the host that served the page moves onto EMDASH_SITE_URL; an address elsewhere stays as it is.
+function opSite(adres: string, page: PublicPageContext, site: string): string {
+	const url = new URL(adres, site);
+	return url.origin === new URL(page.url).origin ? new URL(`${url.pathname}${url.search}`, site).href : url.href;
+}
+
+async function graaf(site: string, page: PublicPageContext, g: GegevensData) {
 	const settings = await getSiteSettings();
 	const gym = `${site}/#gym`;
+	// The image of the gym is the social image of /, with the fallback og:image takes.
+	const beeld = page.image || settings.seo?.defaultOgImage?.url;
 	return {
 		"@context": SCHEMA,
 		"@graph": [
@@ -55,7 +65,9 @@ async function graaf(site: string, g: GegevensData) {
 				alternateName: g.andere_naam,
 				url: `${site}/`,
 				logo: settings.logo?.url ? new URL(settings.logo.url, site).href : undefined,
+				image: beeld ? opSite(beeld, page, site) : undefined,
 				telephone: g.telefoon ? internationaal(g.telefoon) : undefined,
+				email: g.email,
 				foundingDate: g.oprichtingsjaar,
 				priceRange: g.prijsbereik,
 				address: {
@@ -108,13 +120,14 @@ async function bijdragen(page: PublicPageContext): Promise<PageMetadataContribut
 	const settings = await getSiteSettings();
 	const uit: PageMetadataContribution[] = [];
 	if (settings.title) uit.push({ kind: "property", property: "og:site_name", content: settings.title });
+	uit.push({ kind: "property", property: "og:locale", content: OG_TAAL });
 	const soort = page.content?.collection;
 	if (soort !== "home" && soort !== "sportpaginas") return uit;
 	const g = await gegevens();
 	if (!g) return uit;
 	const site = siteUrl();
 	if (soort === "home") {
-		uit.push({ kind: "jsonld", id: BLOK, graph: schoon(await graaf(site, g)) });
+		uit.push({ kind: "jsonld", id: BLOK, graph: schoon(await graaf(site, page, g)) });
 		return uit;
 	}
 	const slug = page.content?.slug;

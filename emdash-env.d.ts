@@ -371,6 +371,7 @@ export interface Gegeven {
   provincie?: string;
   land?: string;
   telefoon?: string;
+  email?: string;
   oprichtingsjaar?: string;
   prijsbereik?: string;
   breedtegraad?: number;
