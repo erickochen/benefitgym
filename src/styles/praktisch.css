@@ -147,6 +147,23 @@ the three columns stands closer. The layout generator measures the same rule in 
 	min-width: 0;
 }
 
+/* A numbered list starts every item past its widest number, with the numbers flush right. */
+ol.praktisch-lijst {
+	display: grid;
+	grid-template-columns: max-content minmax(0, 1fr);
+	column-gap: var(--p-punt);
+}
+
+ol.praktisch-lijst > .praktisch-punt {
+	display: grid;
+	grid-column: 1 / -1;
+	grid-template-columns: subgrid;
+}
+
+ol.praktisch-lijst > .praktisch-punt > :first-child {
+	justify-self: end;
+}
+
 .praktisch-tabel,
 .praktisch-rooster,
 .praktisch-vakantie {
