@@ -1,6 +1,9 @@
 // The schedule of SportBit: the ids its script looks for, the class names of the block plus the CSS that dresses its
 // HTML in the letters plus colors of the site. SportBit sets everything to all: unset, so a doubled id wins.
 
+// The SportBit environment of the gym, for a block that leaves its address empty.
+export const ADRES = "https://elitebenefitgym.sportbitapp.nl/";
+
 // SportBit fills the box with this id, so a page holds one; its popup hangs on the body under the second.
 export const ROOSTER_ID = "sportbit-rooster";
 export const VENSTER_ID = "sportbit-popup";

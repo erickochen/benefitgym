@@ -1,7 +1,7 @@
 /* The schedule of SportBit in the page itself: its script plus stylesheet load once, its lessons plus week arrows become
 buttons with a name. The focus comes back after a week change plus stays in the popup until it closes. Only the box in
 view takes the id, since SportBit fills one per page. */
-import { LEEG, LINK, MELDING, ROOSTER_ID, STAND, VAK, VENSTER_ID } from "../lesrooster";
+import { ADRES, LEEG, LINK, MELDING, ROOSTER_ID, STAND, VAK, VENSTER_ID } from "../lesrooster";
 import { LESROOSTER } from "../teksten";
 
 // ms a box waits for SportBit before it shows the way out.
@@ -80,7 +80,7 @@ export function zetLesrooster(houder: HTMLElement) {
 	let regel = houder.querySelector<HTMLElement>(`.${STAND}`);
 	if (!vak || !melding || !regel) return;
 	const stijl = regel.className;
-	const basis = (houder.dataset.adres ?? "").trim().replace(/\/*$/, "/");
+	const basis = (houder.dataset.adres?.trim() || ADRES).replace(/\/*$/, "/");
 	const rooster = (houder.dataset.rooster ?? "").trim() || null;
 	let stand: Stand = "laden";
 	let grens = 0;
