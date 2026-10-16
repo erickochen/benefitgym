@@ -141,8 +141,11 @@ export function zetFormulier(form: HTMLFormElement, meldingen: Record<string, st
 		if (status) status.textContent = stand === "klaar" ? tekst : "";
 	};
 	let klaar = false;
+	// A field that changes while the form goes makes the answer stale, so the button does not confirm it.
+	let gewijzigd = false;
 	const terug = () => {
 		form.querySelector(".formulier-mis")?.remove();
+		if (bezig) gewijzigd = true;
 		if (!klaar) return;
 		klaar = false;
 		zetKnop("rust");
@@ -194,6 +197,7 @@ export function zetFormulier(form: HTMLFormElement, meldingen: Record<string, st
 		// A form that went or arrived waits for a change before it goes again.
 		if (bezig || klaar) return;
 		bezig = true;
+		gewijzigd = false;
 		form.querySelector(".formulier-mis")?.remove();
 		zetKnop("bezig");
 		try {
@@ -213,6 +217,10 @@ export function zetFormulier(form: HTMLFormElement, meldingen: Record<string, st
 			const body = (await r.json().catch(() => ({}))) as { data?: Antwoord } & Antwoord;
 			const antwoord = body.data ?? body;
 			if (antwoord.success) {
+				if (gewijzigd) {
+					zetKnop("rust");
+					return;
+				}
 				klaar = true;
 				zetKnop("klaar", antwoord.message || verstuur);
 				return;
