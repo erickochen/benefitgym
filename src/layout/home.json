@@ -10,6 +10,13 @@
    "naam": "sectie-1",
    "hoogte": 1024.75,
    "tekening": "artwork-1.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "alts": [
     "hero_alt"
    ],
@@ -107,7 +114,14 @@
      "blokken": [],
      "uitsnede": {
       "bestand": "foto-1.webp",
-      "alt": "hero_alt"
+      "alt": "hero_alt",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -342,7 +356,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "balk-onder.webp"
+      "bestand": "balk-onder.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -373,6 +394,13 @@
    "naam": "sectie-2",
    "hoogte": 1570.15625,
    "tekening": "artwork-2.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "banden": [
     {
      "blokken": [
@@ -438,7 +466,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "strook-2.webp"
+      "bestand": "strook-2.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -1019,6 +1054,13 @@
    "naam": "sectie-3",
    "hoogte": 980.265625,
    "tekening": "artwork-3.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "alts": [
     "aanbod_1_alt",
     "aanbod_2_alt",
@@ -1090,7 +1132,13 @@
      "blokken": [],
      "uitsnede": {
       "bestand": "aanbod-foto-1.webp",
-      "alt": "aanbod_1_alt"
+      "alt": "aanbod_1_alt",
+      "breedte": 1130,
+      "kleiner": [
+       480,
+       720,
+       1080
+      ]
      },
      "kolom": {
       "tablet": {
@@ -1301,7 +1349,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "aanbod-onder-1.webp"
+      "bestand": "aanbod-onder-1.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -1330,7 +1385,12 @@
      "blokken": [],
      "uitsnede": {
       "bestand": "aanbod-foto-2.webp",
-      "alt": "aanbod_2_alt"
+      "alt": "aanbod_2_alt",
+      "breedte": 1079,
+      "kleiner": [
+       480,
+       720
+      ]
      },
      "kolom": {
       "tablet": {
@@ -1480,7 +1540,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "aanbod-onder-2.webp"
+      "bestand": "aanbod-onder-2.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -1509,7 +1576,13 @@
      "blokken": [],
      "uitsnede": {
       "bestand": "aanbod-foto-3.webp",
-      "alt": "aanbod_3_alt"
+      "alt": "aanbod_3_alt",
+      "breedte": 1140,
+      "kleiner": [
+       480,
+       720,
+       1080
+      ]
      },
      "kolom": {
       "tablet": {
@@ -1540,6 +1613,13 @@
    "naam": "sectie-4",
    "hoogte": 850.09375,
    "tekening": "artwork-4.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "alts": [
     "aanbod_4_alt",
     "aanbod_5_alt"
@@ -1792,7 +1872,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "aanbod-onder-3.webp"
+      "bestand": "aanbod-onder-3.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -1821,7 +1908,13 @@
      "blokken": [],
      "uitsnede": {
       "bestand": "aanbod-foto-4.webp",
-      "alt": "aanbod_4_alt"
+      "alt": "aanbod_4_alt",
+      "breedte": 1088,
+      "kleiner": [
+       480,
+       720,
+       1080
+      ]
      },
      "kolom": {
       "tablet": {
@@ -2032,7 +2125,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "aanbod-onder-4.webp"
+      "bestand": "aanbod-onder-4.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -2061,7 +2161,13 @@
      "blokken": [],
      "uitsnede": {
       "bestand": "aanbod-foto-5.webp",
-      "alt": "aanbod_5_alt"
+      "alt": "aanbod_5_alt",
+      "breedte": 1140,
+      "kleiner": [
+       480,
+       720,
+       1080
+      ]
      },
      "kolom": {
       "tablet": {
@@ -2092,6 +2198,13 @@
    "naam": "sectie-5",
    "hoogte": 830.203125,
    "tekening": "artwork-5.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "alts": [
     "aanbod_6_alt",
     "aanbod_7_alt"
@@ -2283,7 +2396,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "aanbod-onder-5.webp"
+      "bestand": "aanbod-onder-5.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -2312,7 +2432,13 @@
      "blokken": [],
      "uitsnede": {
       "bestand": "aanbod-foto-6.webp",
-      "alt": "aanbod_6_alt"
+      "alt": "aanbod_6_alt",
+      "breedte": 1088,
+      "kleiner": [
+       480,
+       720,
+       1080
+      ]
      },
      "kolom": {
       "tablet": {
@@ -2523,7 +2649,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "aanbod-onder-6.webp"
+      "bestand": "aanbod-onder-6.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -2552,7 +2685,13 @@
      "blokken": [],
      "uitsnede": {
       "bestand": "aanbod-foto-7.webp",
-      "alt": "aanbod_7_alt"
+      "alt": "aanbod_7_alt",
+      "breedte": 1140,
+      "kleiner": [
+       480,
+       720,
+       1080
+      ]
      },
      "kolom": {
       "tablet": {
@@ -2583,6 +2722,13 @@
    "naam": "sectie-6",
    "hoogte": 530.3125,
    "tekening": "artwork-6.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "banden": [
     {
      "blokken": [
@@ -2892,7 +3038,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "aanbod-onder-7.webp"
+      "bestand": "aanbod-onder-7.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -2923,6 +3076,13 @@
    "naam": "sectie-7",
    "hoogte": 1520.1875,
    "tekening": "artwork-7.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "alts": [
     "foto_2_alt"
    ],
@@ -3053,7 +3213,14 @@
      "blokken": [],
      "uitsnede": {
       "bestand": "foto-4.webp",
-      "alt": "foto_2_alt"
+      "alt": "foto_2_alt",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -3142,7 +3309,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "strook-5.webp"
+      "bestand": "strook-5.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -3331,7 +3505,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "strook-6.webp"
+      "bestand": "strook-6.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -3362,6 +3543,13 @@
    "naam": "sectie-8",
    "hoogte": 880.21875,
    "tekening": "artwork-8.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "banden": [
     {
      "blokken": [
@@ -3427,7 +3615,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "strook-7.webp"
+      "bestand": "strook-7.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -4016,6 +4211,13 @@
    "naam": "sectie-9",
    "hoogte": 753.640625,
    "tekening": "artwork-9.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "alts": [
     "foto_3_alt"
    ],
@@ -4024,7 +4226,14 @@
      "blokken": [],
      "uitsnede": {
       "bestand": "foto-8.webp",
-      "alt": "foto_3_alt"
+      "alt": "foto_3_alt",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {

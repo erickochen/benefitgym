@@ -10,6 +10,13 @@
    "naam": "sectie-1",
    "hoogte": 972.578125,
    "tekening": "artwork-1.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "banden": [
     {
      "blokken": [
@@ -120,7 +127,14 @@
       }
      ],
      "uitsnede": {
-      "bestand": "strook-1.webp"
+      "bestand": "strook-1.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -369,7 +383,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "strook-2.webp"
+      "bestand": "strook-2.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -400,6 +421,13 @@
    "naam": "sectie-2",
    "hoogte": 1021.375,
    "tekening": "artwork-2.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "banden": [
     {
      "blokken": [
@@ -525,7 +553,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "strook-3.webp"
+      "bestand": "strook-3.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -617,6 +652,13 @@
    "naam": "sectie-3",
    "hoogte": 962.03125,
    "tekening": "artwork-3.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "alts": [
     "team_1_alt",
     "team_2_alt",
@@ -655,6 +697,8 @@
        "blokken": [],
        "uitsnede": {
         "bestand": "tegel-1.png",
+        "breedte": 480,
+        "kleiner": [],
         "alt": "team_1_alt",
         "altNaam": "team_1_naam"
        },
@@ -835,6 +879,8 @@
        "blokken": [],
        "uitsnede": {
         "bestand": "tegel-2.png",
+        "breedte": 480,
+        "kleiner": [],
         "alt": "team_2_alt",
         "altNaam": "team_2_naam"
        },
@@ -1015,6 +1061,8 @@
        "blokken": [],
        "uitsnede": {
         "bestand": "tegel-3.png",
+        "breedte": 480,
+        "kleiner": [],
         "alt": "team_3_alt",
         "altNaam": "team_3_naam"
        },
@@ -1195,6 +1243,8 @@
        "blokken": [],
        "uitsnede": {
         "bestand": "tegel-4.png",
+        "breedte": 480,
+        "kleiner": [],
         "alt": "team_4_alt",
         "altNaam": "team_4_naam"
        },
@@ -1375,6 +1425,8 @@
        "blokken": [],
        "uitsnede": {
         "bestand": "tegel-5.png",
+        "breedte": 480,
+        "kleiner": [],
         "alt": "team_5_alt",
         "altNaam": "team_5_naam"
        },
@@ -1555,6 +1607,8 @@
        "blokken": [],
        "uitsnede": {
         "bestand": "tegel-6.png",
+        "breedte": 480,
+        "kleiner": [],
         "alt": "team_6_alt",
         "altNaam": "team_6_naam"
        },
@@ -1737,6 +1791,13 @@
    "naam": "sectie-4",
    "hoogte": 979.484375,
    "tekening": "artwork-4.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "alts": [
     "team_7_alt",
     "team_8_alt",
@@ -1776,6 +1837,8 @@
        "blokken": [],
        "uitsnede": {
         "bestand": "tegel-7.png",
+        "breedte": 480,
+        "kleiner": [],
         "alt": "team_7_alt",
         "altNaam": "team_7_naam"
        },
@@ -1956,6 +2019,8 @@
        "blokken": [],
        "uitsnede": {
         "bestand": "tegel-8.png",
+        "breedte": 480,
+        "kleiner": [],
         "alt": "team_8_alt",
         "altNaam": "team_8_naam"
        },
@@ -2136,6 +2201,8 @@
        "blokken": [],
        "uitsnede": {
         "bestand": "tegel-9.png",
+        "breedte": 480,
+        "kleiner": [],
         "alt": "team_9_alt",
         "altNaam": "team_9_naam"
        },
@@ -2316,6 +2383,8 @@
        "blokken": [],
        "uitsnede": {
         "bestand": "tegel-10.png",
+        "breedte": 480,
+        "kleiner": [],
         "alt": "team_10_alt",
         "altNaam": "team_10_naam"
        },
@@ -2496,6 +2565,8 @@
        "blokken": [],
        "uitsnede": {
         "bestand": "tegel-11.png",
+        "breedte": 480,
+        "kleiner": [],
         "alt": "team_11_alt",
         "altNaam": "team_11_naam"
        },
@@ -2676,6 +2747,8 @@
        "blokken": [],
        "uitsnede": {
         "bestand": "tegel-12.png",
+        "breedte": 480,
+        "kleiner": [],
         "alt": "team_12_alt",
         "altNaam": "team_12_naam"
        },
@@ -2856,6 +2929,8 @@
        "blokken": [],
        "uitsnede": {
         "bestand": "tegel-13.png",
+        "breedte": 480,
+        "kleiner": [],
         "alt": "team_13_alt",
         "altNaam": "team_13_naam"
        },
@@ -3038,6 +3113,13 @@
    "naam": "sectie-5",
    "hoogte": 984.140625,
    "tekening": "artwork-5.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "alts": [
     "foto_2_alt"
    ],
@@ -3046,7 +3128,14 @@
      "blokken": [],
      "uitsnede": {
       "bestand": "foto-17.webp",
-      "alt": "foto_2_alt"
+      "alt": "foto_2_alt",
+      "breedte": 1372,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -3199,6 +3288,13 @@
    "naam": "sectie-6",
    "hoogte": 984.140625,
    "tekening": "artwork-6.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "banden": [
     {
      "blokken": [
@@ -3324,7 +3420,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "strook-18.webp"
+      "bestand": "strook-18.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {

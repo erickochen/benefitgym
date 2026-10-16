@@ -20,7 +20,7 @@ const alt = tekstVan(band.uitsnede?.alt) || tekstVan(band.uitsnede?.altNaam);
 ---
 
 <div class:list={["band", band.kolom === null && "zonder-kolom"]} style={band.kolom ? bandVars(band.kolom) : undefined}>
-	{band.uitsnede && <Uitsnede bestand={`${band.uitsnede.pagina ?? slug}/mobiel/${band.uitsnede.bestand}`} alt={alt} staticUrl={staticUrl} eerste={eerste} />}
+	{band.uitsnede && <Uitsnede bestand={`${band.uitsnede.pagina ?? slug}/mobiel/${band.uitsnede.bestand}`} maten={band.uitsnede} alt={alt} staticUrl={staticUrl} eerste={eerste} />}
 	{band.banden?.map((deel) => <Astro.self band={deel} entry={entry} slug={slug} staticUrl={staticUrl} eerste={false} />)}
 	{
 		band.blokken.length > 0 && (

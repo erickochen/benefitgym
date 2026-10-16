@@ -10,6 +10,13 @@
    "naam": "sectie-1",
    "hoogte": 1023.0625,
    "tekening": "artwork-1.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "alts": [
     "hero_alt",
     "foto_2_alt"
@@ -125,7 +132,14 @@
      ],
      "uitsnede": {
       "bestand": "foto-1.webp",
-      "alt": "hero_alt"
+      "alt": "hero_alt",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -382,7 +396,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "balk-onder.webp"
+      "bestand": "balk-onder.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -411,7 +432,13 @@
      "blokken": [],
      "uitsnede": {
       "bestand": "foto-2.webp",
-      "alt": "foto_2_alt"
+      "alt": "foto_2_alt",
+      "breedte": 1216,
+      "kleiner": [
+       480,
+       720,
+       1080
+      ]
      },
      "kolom": {
       "tablet": {
@@ -442,6 +469,13 @@
    "naam": "sectie-2",
    "hoogte": 1001.609375,
    "tekening": "artwork-2.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "banden": [
     {
      "blokken": [
@@ -506,7 +540,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "strook-3.webp"
+      "bestand": "strook-3.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -853,6 +894,13 @@
    "naam": "sectie-3",
    "hoogte": 1044.5625,
    "tekening": "artwork-3.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "alts": [
     "foto_3_alt"
    ],
@@ -1010,7 +1058,13 @@
      "blokken": [],
      "uitsnede": {
       "bestand": "foto-4.webp",
-      "alt": "foto_3_alt"
+      "alt": "foto_3_alt",
+      "breedte": 1200,
+      "kleiner": [
+       480,
+       720,
+       1080
+      ]
      },
      "kolom": {
       "tablet": {
@@ -1220,7 +1274,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "strook-5.webp"
+      "bestand": "strook-5.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -1251,6 +1312,13 @@
    "naam": "sectie-4",
    "hoogte": 1034.125,
    "tekening": "artwork-4.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "alts": [
     "foto_4_alt"
    ],
@@ -1481,7 +1549,13 @@
      "blokken": [],
      "uitsnede": {
       "bestand": "foto-6.webp",
-      "alt": "foto_4_alt"
+      "alt": "foto_4_alt",
+      "breedte": 1082,
+      "kleiner": [
+       480,
+       720,
+       1080
+      ]
      },
      "kolom": {
       "tablet": {
@@ -1572,6 +1646,13 @@
    "naam": "sectie-5",
    "hoogte": 1012.21875,
    "tekening": "artwork-5.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "alts": [
     "foto_5_alt"
    ],
@@ -1639,7 +1720,14 @@
     {
      "blokken": [],
      "uitsnede": {
-      "bestand": "strook-7.webp"
+      "bestand": "strook-7.webp",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -1668,7 +1756,14 @@
      "blokken": [],
      "uitsnede": {
       "bestand": "foto-8.webp",
-      "alt": "foto_5_alt"
+      "alt": "foto_5_alt",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -1848,6 +1943,13 @@
    "naam": "sectie-6",
    "hoogte": 1023.0625,
    "tekening": "artwork-6.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "alts": [
     "foto_6_alt"
    ],
@@ -1856,7 +1958,12 @@
      "blokken": [],
      "uitsnede": {
       "bestand": "foto-9.webp",
-      "alt": "foto_6_alt"
+      "alt": "foto_6_alt",
+      "breedte": 800,
+      "kleiner": [
+       480,
+       720
+      ]
      },
      "kolom": {
       "tablet": {
