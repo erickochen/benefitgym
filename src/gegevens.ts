@@ -29,12 +29,12 @@ export interface AdresRegel {
 	href?: string;
 }
 
-/** The address lines of the footer: street, place plus the phone as a link. The page shows the place without its postcode. */
+/** The address lines of the footer: street, postcode with place plus the phone as a link. */
 export function adresRegels(g: GegevensData | undefined): AdresRegel[] {
 	if (!g) return [];
 	const regels: AdresRegel[] = [];
 	if (g.straat) regels.push({ tekst: g.straat });
-	if (g.plaats) regels.push({ tekst: g.plaats });
+	if (g.plaats) regels.push({ tekst: [g.postcode, g.plaats].filter(Boolean).join(" ") });
 	if (g.telefoon) regels.push({ tekst: g.telefoon, href: `tel:${internationaal(g.telefoon)}` });
 	return regels;
 }
