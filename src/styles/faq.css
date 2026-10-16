@@ -1,4 +1,24 @@
-/* The FAQ: one row per category, its label plus round button on measured places inside it. */
+/* The FAQ: one row per category, its label plus round button on measured places inside it. Open, the questions plus
+   answers follow the measured list in its design units on its own scale: the running text of the page at 18 on a line
+   of 1.444, indented 26, a question row of 54 plus 14 between parts, the arrows turning in 160 ms. */
+.faq {
+	--faq-tekst: 18;
+	--faq-regel: 1.444;
+	--faq-inspring: 26;
+	--faq-vraag: 54;
+	--faq-gat: 14;
+	--faq-draai: transform 160ms ease-out;
+	--faq-vlak: rgb(255, 255, 255);
+	--faq-streep: rgb(236, 110, 29);
+	--faq-streep-dikte: 2px;
+	--faq-streep-afstand: 4px;
+	--faq-bold: "Interstate Bold", "Interstate Bold Placeholder", sans-serif;
+	--faq-regular: "Interstate Regular", "Interstate Regular Placeholder", sans-serif;
+	/* On desktop the list is as wide as the cap. */
+	--faq-k: calc(var(--cap) / var(--faq-o-breedte));
+	--faq-knop: calc(var(--faq-o-icoon-w) * var(--faq-k));
+}
+
 .faq-kop {
 	margin: 0;
 	font: inherit;
@@ -36,16 +56,113 @@
 	top: calc(var(--faq-icoon-y) * var(--s));
 	width: calc(var(--faq-icoon-w) * var(--s));
 	height: calc(var(--faq-icoon-w) * var(--s));
+	transition: var(--faq-draai);
 }
 
-/* Only the last category draws a line below it too. */
+/* Only the last category draws a line below it too; while one is open, that one does. */
 .faq-categorie:last-child {
 	border-bottom: calc(var(--faq-lijn) * var(--s)) solid var(--faq-kleur);
 }
 
-/* A closed part stays in the HTML. */
-.faq-dicht {
+.faq-lijst.faq-open .faq-categorie:last-child {
+	border-bottom: 0;
+}
+
+.faq-lijst.faq-open .faq-categorie.faq-aan {
+	border-bottom: calc(var(--faq-lijn) * var(--s)) solid var(--faq-kleur);
+}
+
+/* A closed part stays in the HTML, as does what steps aside while something else is open. */
+.faq-dicht,
+.faq-opzij {
 	display: none;
+}
+
+.faq-knop[aria-expanded="true"] > svg,
+.faq-vraagknop[aria-expanded="true"] > svg {
+	transform: rotate(90deg);
+}
+
+.faq-paneel {
+	padding: 0 0 calc(var(--faq-gat) * var(--faq-k)) calc(var(--faq-inspring) * var(--faq-k));
+}
+
+.faq-vraagknop {
+	position: relative;
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
+	min-height: calc(var(--faq-vraag) * var(--faq-k));
+	margin: 0;
+	padding: calc(var(--faq-gat) / 2 * var(--faq-k)) calc(var(--faq-knop) + var(--faq-gat) * var(--faq-k)) calc(var(--faq-gat) / 2 * var(--faq-k)) 0;
+	border: 0;
+	background: none;
+	color: var(--faq-kleur);
+	font-family: var(--faq-bold);
+	font-size: calc(var(--faq-tekst) * var(--faq-k));
+	font-style: normal;
+	font-weight: 400;
+	line-height: var(--faq-regel);
+	letter-spacing: normal;
+	text-align: left;
+	cursor: pointer;
+}
+
+.faq-vraagknop > svg {
+	position: absolute;
+	display: block;
+	right: calc(var(--faq-gat) * var(--faq-k));
+	top: calc(var(--faq-vraag) / 2 * var(--faq-k) - var(--faq-knop) / 4);
+	width: calc(var(--faq-knop) / 2);
+	height: calc(var(--faq-knop) / 2);
+	transition: var(--faq-draai);
+}
+
+/* An answer stands on white, since a long one can land on the paint below the list. */
+.faq-antwoord {
+	padding: 0 var(--faq-knop) calc(var(--faq-gat) * var(--faq-k)) 0;
+	background: var(--faq-vlak);
+	color: var(--faq-kleur);
+	font-family: var(--faq-regular);
+	font-size: calc(var(--faq-tekst) * var(--faq-k));
+	font-style: normal;
+	font-weight: 400;
+	line-height: var(--faq-regel);
+	letter-spacing: normal;
+}
+
+.faq-antwoord p,
+.faq-antwoord ul,
+.faq-antwoord ol,
+.faq-antwoord :is(h1, h2, h3, h4, h5, h6) {
+	margin: 0 0 calc(var(--faq-gat) * var(--faq-k));
+}
+
+.faq-antwoord li > p {
+	margin: 0;
+}
+
+.faq-antwoord ul,
+.faq-antwoord ol {
+	padding-left: calc(var(--faq-inspring) * var(--faq-k));
+}
+
+.faq-antwoord a {
+	color: var(--faq-kleur);
+	text-decoration: underline;
+	text-decoration-color: var(--faq-streep);
+	text-decoration-thickness: var(--faq-streep-dikte);
+	text-underline-offset: var(--faq-streep-afstand);
+}
+
+.faq-antwoord :is(strong, b, h1, h2, h3, h4, h5, h6) {
+	font-family: var(--faq-bold);
+	font-weight: normal;
+}
+
+.faq-antwoord :is(h1, h2, h3, h4, h5, h6) {
+	font-size: inherit;
+	line-height: inherit;
 }
 
 /* In the column the list switches on its own width, as the measured list does: narrow rows below it, the list of
@@ -56,8 +173,13 @@
 	}
 }
 
-/* One class more than a text style, so the narrow size wins over it. */
+/* One class more than a text style, so the narrow size wins over it. Open, the narrow list counts in pixels. */
 @container faq (width < 1000px) {
+	.faq-lijst {
+		--faq-k: 1px;
+		--faq-knop: var(--faq-smal-knop);
+	}
+
 	.faq .faq-knop {
 		display: flex;
 		align-items: center;
@@ -86,6 +208,8 @@
 @container faq (width >= 1000px) {
 	.faq-lijst {
 		--s: calc(100cqw / var(--faq-o-breedte));
+		--faq-k: var(--s);
+		--faq-knop: calc(var(--faq-o-icoon-w) * var(--faq-k));
 		--faq-rij: var(--faq-o-rij);
 		--faq-lijn: var(--faq-o-lijn);
 		--faq-label-x: var(--faq-o-label-x);

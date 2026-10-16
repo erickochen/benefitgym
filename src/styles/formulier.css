@@ -109,16 +109,9 @@
 		flex-direction: column;
 	}
 
-	/* The footer follows the page in the column, so the strip hangs below it, from the foot of the page column. */
-	.met-kolom .sectie.gebouwd {
-		position: static;
-	}
-
+	/* The footer follows the page in the column, so the strip below it follows the column, from the page layout. */
 	.met-kolom .gebouwd-strook {
-		top: 100%;
-		bottom: auto;
-		height: auto;
-		aspect-ratio: var(--g-strook-ratio);
+		display: none;
 	}
 }
 

@@ -306,17 +306,8 @@ the three columns stands closer. The layout generator measures the same rule in 
 		display: none;
 	}
 
-	/* The footer follows the page in the column, so the strip hangs below it, from the foot of the page column. */
+	/* The footer follows the page in the column, so the strip below it follows the column, from the page layout. */
 	.met-kolom .praktisch-slot {
-		position: absolute;
-		top: 100%;
-		left: 0;
-		height: auto;
-		aspect-ratio: var(--p-strook-verhouding);
-	}
-
-	.met-kolom .praktisch-strook {
-		top: 0;
-		height: auto;
+		display: none;
 	}
 }

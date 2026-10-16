@@ -51,7 +51,8 @@
 	pointer-events: none;
 }
 
-/* Clipped like the measured buttons, so the arrow layer stays as wide as the carousel. */
+/* Clipped like the measured buttons, so the arrow layer stays as wide as the carousel. An arrow fades as the measured
+   one does. */
 .reviews-pijl {
 	display: block;
 	overflow: hidden;
@@ -61,6 +62,7 @@
 	background: transparent;
 	cursor: pointer;
 	pointer-events: auto;
+	transition: opacity 200ms ease-out;
 }
 
 .reviews-pijl img {
@@ -69,8 +71,8 @@
 	height: 100%;
 }
 
-/* At the first review there is nothing before it. */
-.reviews-pijl:disabled {
+/* An arrow with no review on its side: at the first review nothing comes before it. */
+.reviews-pijl[data-uit] {
 	opacity: 0;
 	pointer-events: none;
 	cursor: default;
@@ -84,6 +86,21 @@
 	bottom: var(--rb-onder);
 	transform: translateX(-50%);
 	pointer-events: auto;
+}
+
+.reviews-bolletjes-rij {
+	display: flex;
+}
+
+/* A long row shows --rb-zicht dots and slides by whole dots, so the current one stays in view. */
+.reviews-bolletjes.schuift {
+	--rb-stap: calc(var(--rb-stip) + 2 * var(--rb-half));
+	width: calc(2 * var(--rb-rand) + var(--rb-zicht) * var(--rb-stap) - 2 * var(--rb-half));
+	overflow: clip;
+}
+
+.reviews-bolletjes.schuift .reviews-bolletjes-rij {
+	transform: translateX(calc(-1 * var(--rb-eerste, 0) * var(--rb-stap)));
 }
 
 .reviews-bolletje {

@@ -23,6 +23,8 @@ interface Blok {
 
 interface Props {
 	slug: string;
+	// The anchor a link jumps to, on the form itself.
+	anker?: string;
 	staticUrl: string;
 	// The sport whose groups a group field shows.
 	sport?: string;
@@ -33,7 +35,7 @@ interface Props {
 	privacy: Blok[];
 }
 
-const { slug, staticUrl, sport, planner, geenData, privacy } = Astro.props;
+const { slug, anker, staticUrl, sport, planner, geenData, privacy } = Astro.props;
 const v = data as FormulierLayout;
 const definitie = await definitieVan(slug, Astro.locals, Astro.url);
 const velden = definitie?.pages.flatMap((pagina) => pagina.fields) ?? [];
@@ -77,7 +79,8 @@ const deelProps = { slug, datums, groepen, sport, geenData };
 {
 	definitie && (
 		<form
-			class="formulier"
+			id={anker}
+			class:list={["formulier", anker && "anker"]}
 			method="post"
 			action={`${ROUTE}/submit`}
 			enctype={bestanden ? "multipart/form-data" : undefined}
