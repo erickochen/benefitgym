@@ -1,7 +1,7 @@
 // llms.txt from the panel: the site title, the introduction in Gegevens, then each page of menu primary that carries
 // a line for llms.txt, in menu order. The lessons go first, the other pages under Praktisch.
 import type { APIRoute } from "astro";
-import { getEmDashEntry, getMenuWithCacheHint, getSiteSettings, type MenuItem } from "emdash";
+import { getEmDashEntry, getMenuWithCacheHint, getSiteSettingsWithCacheHint, type MenuItem } from "emdash";
 import { GEGEVENS_SLUG, type GegevensData } from "../gegevens";
 import { siteUrl } from "../site-url";
 import { SITE_NAME } from "../teksten";
@@ -29,8 +29,13 @@ async function pagina(slug: string) {
 
 export const GET: APIRoute = async ({ cache }) => {
 	const site = siteUrl();
-	const [settings, menu, gegevens] = await Promise.all([getSiteSettings(), getMenuWithCacheHint("primary"), getEmDashEntry("gegevens", GEGEVENS_SLUG)]);
-	const hints = [menu.cacheHint, gegevens.cacheHint];
+	const [instellingen, menu, gegevens] = await Promise.all([
+		getSiteSettingsWithCacheHint(),
+		getMenuWithCacheHint("primary"),
+		getEmDashEntry("gegevens", GEGEVENS_SLUG),
+	]);
+	const settings = instellingen.data;
+	const hints = [instellingen.cacheHint, menu.cacheHint, gegevens.cacheHint];
 	const lijsten = { [LESSEN]: [] as string[], [PRAKTISCH]: [] as string[] };
 	for (const pad of [...new Set(paden(menu.data?.items ?? []))]) {
 		const gevonden = await pagina(pad.slice(1));
