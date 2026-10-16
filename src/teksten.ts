@@ -36,8 +36,22 @@ export const INKLAPPEN = "Inklappen";
 // The point before a list item on a Praktisch page.
 export const PUNT = "•";
 
-// The schedule before SportBit answers.
-export const LESROOSTER = { laden: "Rooster wordt geladen…" };
+// The schedule of SportBit: its states, the names of its buttons plus the line for a week without lessons.
+export const LESROOSTER = {
+	laden: "Rooster wordt geladen…",
+	fout: "Het rooster laadt nu niet.",
+	naarSportbit: "Bekijk het rooster bij SportBit",
+	dubbel: "SportBit toont één rooster per pagina. Dit tweede blijft leeg.",
+	vorige: "Vorige week",
+	volgende: "Volgende week",
+	dezeWeek: "Deze week",
+	sluiten: "Sluiten",
+	geenMeer: "Er staan deze week geen lessen meer op het rooster.",
+	geen: "Er staan deze week geen lessen op het rooster.",
+	// Behind the name of a lesson that is over, plus between the two times of a lesson or a week.
+	geweest: "al geweest",
+	tot: " tot ",
+};
 
 // The sign-up forms: the last tile of each list, the state of a group, the hints after a choice plus the planner link.
 export const FORMULIER = {

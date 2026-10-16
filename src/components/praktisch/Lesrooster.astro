@@ -1,8 +1,10 @@
 ---
-// The schedule of SportBit as it opens: the loading line above the box SportBit fills.
+// The schedule of SportBit: the loading line above the box SportBit fills, its CSS plus the line a screen reader hears
+// after a week change. The script loads SportBit with the address plus the schedule id of the block.
 import type { PraktischInhoudLesroosterBlock } from "../../../emdash-env";
 import type { PraktischRegels } from "../../layout";
 import data from "../../layout/algemeen/praktisch.json";
+import { HOUDER, LESROOSTER_CSS, MELDING, STAND, VAK } from "../../lesrooster";
 import { LESROOSTER } from "../../teksten";
 
 interface Props {
@@ -14,8 +16,17 @@ const { value } = Astro.props;
 ---
 
 <div class="praktisch-blok praktisch-kolom">
-	<div class="praktisch-lesrooster" data-adres={value.adres || undefined} data-rooster={value.rooster || undefined}>
-		<p class={`s-${regels.stijl.lesrooster}`}>{LESROOSTER.laden}</p>
-		<div></div>
+	<div class={HOUDER} data-adres={value.adres || undefined} data-rooster={value.rooster || undefined}>
+		<style is:inline set:html={LESROOSTER_CSS} />
+		<p class={`s-${regels.stijl.lesrooster} ${STAND}`}>{LESROOSTER.laden}</p>
+		<div class={VAK}></div>
+		<p class={MELDING} aria-live="polite"></p>
 	</div>
 </div>
+
+<script>
+	import { HOUDER } from "../../lesrooster";
+	import { zetLesrooster } from "../../scripts/lesrooster";
+
+	for (const houder of document.querySelectorAll<HTMLElement>(`.${HOUDER}`)) zetLesrooster(houder);
+</script>
