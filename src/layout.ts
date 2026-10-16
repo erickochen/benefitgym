@@ -259,7 +259,8 @@ export interface Sectie {
 	hoogte: number;
 	tekening?: string;
 	gebouwd?: Gebouwd;
-	alt?: string;
+	// The alt fields of the photos in the drawing, in reading order.
+	alts?: string[];
 	// The grid of a section of tiles below 1242.
 	raster?: PerStand<RasterMaat>;
 	banden: Band[];
@@ -531,4 +532,10 @@ export function plekStijl(deel: Plek): string {
 
 export function waarde(entry: Entry, veld: string): unknown {
 	return (entry.data as Record<string, unknown>)[veld];
+}
+
+// The alt text of a drawing: that of its one photo, or each filled one as a sentence in reading order.
+export function altVan(entry: Entry, velden: string[] = []): string {
+	const teksten = velden.map((veld) => String(waarde(entry, veld) ?? "").trim()).filter(Boolean);
+	return teksten.length === 1 ? teksten[0] : teksten.map((tekst) => (/[.!?]$/.test(tekst) ? tekst : `${tekst}.`)).join(" ");
 }

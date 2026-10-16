@@ -10,7 +10,9 @@
    "naam": "sectie-1",
    "hoogte": 926.171875,
    "tekening": "artwork-1.webp",
-   "alt": "hero_alt",
+   "alts": [
+    "hero_alt"
+   ],
    "banden": [
     {
      "blokken": [

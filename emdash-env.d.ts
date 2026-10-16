@@ -65,6 +65,8 @@ export interface Home {
   stappen2_4?: string;
   stappen2_slot?: string;
   stappen2_knop?: string;
+  foto_2_alt?: string;
+  foto_3_alt?: string;
   proefles_link?: string;
   createdAt: Date;
   updatedAt: Date;
@@ -112,7 +114,22 @@ export interface Sportpagina {
   aanmelden_intro?: string;
   aanmelden_geen_data?: string;
   planner?: string;
+  foto_2_alt?: string;
+  foto_3_alt?: string;
+  foto_4_alt?: string;
+  foto_5_alt?: string;
+  foto_6_alt?: string;
   proefles_link?: string;
+  zoek_soort?: "Les" | "Cursus";
+  zoek_soort_les?: string;
+  zoek_samenvatting?: string;
+  zoek_leeftijd_van?: number;
+  zoek_leeftijd_tot?: number;
+  zoek_prijs?: number;
+  zoek_prijs_uitleg?: string;
+  zoek_duur?: number;
+  zoek_andere_naam?: string;
+  llms_regel?: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -178,7 +195,9 @@ export interface OverOn {
   visie_tekst?: PortableTextBlock[];
   contact_kop?: string;
   contact_intro?: string;
+  foto_2_alt?: string;
   proefles_link?: string;
+  llms_regel?: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -251,6 +270,7 @@ export interface Praktisch {
   hero_alt?: string;
   proefles_link?: string;
   inhoud?: PraktischInhoudBlock[];
+  llms_regel?: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -339,6 +359,32 @@ export interface Vakanty {
   terms?: Record<string, TaxonomyTerm[]>;
 }
 
+export interface Gegeven {
+  id: string;
+  slug: string | null;
+  status: string;
+  naam: string;
+  andere_naam?: string;
+  straat?: string;
+  postcode?: string;
+  plaats?: string;
+  provincie?: string;
+  land?: string;
+  telefoon?: string;
+  oprichtingsjaar?: string;
+  prijsbereik?: string;
+  breedtegraad?: number;
+  lengtegraad?: number;
+  kaartlink?: string;
+  llms_inleiding?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
 declare module "emdash" {
   interface EmDashCollections {
     home: Home;
@@ -350,5 +396,6 @@ declare module "emdash" {
     groepen: Groepen;
     cursusdata: Cursusdata;
     vakanties: Vakanty;
+    gegevens: Gegeven;
   }
 }

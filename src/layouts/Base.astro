@@ -7,7 +7,6 @@ import Menu from "../components/Menu.astro";
 import Beeld from "../components/Beeld.astro";
 import type { StrookInKolom } from "../layout";
 import { staticUrl as leesStaticUrl } from "../static";
-import { SITE_NAME } from "../teksten";
 import "../styles/basis.css";
 import "../styles/tekst.css";
 import "../styles/menu.css";
@@ -31,6 +30,8 @@ interface Props {
 	kolom?: boolean;
 	/** The strip below the footer in the column, in the flow of the page. */
 	strook?: StrookInKolom;
+	/** Only the content, without the bar plus the footer, as the page that does not exist. */
+	kaal?: boolean;
 }
 
 // Each face carries the family name, weight and style the text styles ask for, so an element matches the same file.
@@ -48,7 +49,7 @@ const FONTS = [
 // The two faces above the fold: the hero intro plus the heading and the button.
 const PRELOAD = ["Interstate-BlackItalic.woff2", "AntiqueOliveCompact-Italic.woff2"];
 
-const { title, description, canonical, content, footerOnder, kolom, strook } = Astro.props;
+const { title, description, canonical, content, footerOnder, kolom, strook, kaal } = Astro.props;
 const staticUrl = leesStaticUrl();
 const fontCss = FONTS.map(
 	([family, file, weight, style]) =>
@@ -58,8 +59,8 @@ const fontCss = FONTS.map(
 const settingsResult = await getSiteSettingsWithCacheHint();
 if (Astro.cache?.enabled) Astro.cache.set(settingsResult.cacheHint);
 
-const siteTitle = settingsResult.data?.title ?? SITE_NAME;
-
+// No siteName: with it EmDash adds a bare WebSite block to every page. The structured-data plugin puts the graph on /
+// plus og:site_name on every page instead.
 const pageCtx = createPublicPageContext({
 	Astro,
 	kind: content ? "content" : "custom",
@@ -69,7 +70,6 @@ const pageCtx = createPublicPageContext({
 	description: description ?? settingsResult.data?.tagline,
 	canonical,
 	content,
-	siteName: siteTitle,
 });
 ---
 
@@ -83,15 +83,25 @@ const pageCtx = createPublicPageContext({
 		{PRELOAD.map((file) => <link rel="preload" href={`${staticUrl}/fonts/${file}`} as="font" type="font/woff2" crossorigin />)}
 		<style is:inline set:html={fontCss} />
 	</head>
-	<body class={kolom ? "met-kolom" : undefined}>
+	<body class:list={[kolom && "met-kolom", kaal && "kaal"]}>
 		<EmDashBodyStart page={pageCtx} />
-		<Menu staticUrl={staticUrl} />
-		<div class="kolom">
-			<main>
-				<slot />
-			</main>
-			<Footer staticUrl={staticUrl} onder={footerOnder} />
-		</div>
+		{
+			kaal ? (
+				<main class="kaal-inhoud">
+					<slot />
+				</main>
+			) : (
+				<Fragment>
+					<Menu staticUrl={staticUrl} />
+					<div class="kolom">
+						<main>
+							<slot />
+						</main>
+						<Footer staticUrl={staticUrl} onder={footerOnder} />
+					</div>
+				</Fragment>
+			)
+		}
 		{
 			strook && (
 				<div class="kolom-strook" aria-hidden="true" style={`--t-ks-ratio:${strook.verhouding.tablet};--p-ks-ratio:${strook.verhouding.phone}`}>
