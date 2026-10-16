@@ -316,7 +316,8 @@
 	text-decoration-line: underline;
 }
 
-.formulier-turnstile {
+/* Out of the flow until Turnstile asks the visitor something; then its box stands above the button. */
+.formulier-turnstile:not(.vraagt) {
 	position: absolute;
 }
 
@@ -402,7 +403,7 @@
 
 /* After a group tile the rest follows the choice: room shows the planner, a full group or another one the fields. */
 .formulier:not(:has(.formulier-stip.vrij:checked)) .formulier-plek,
-.formulier:has(.formulier-wacht):not(:has(.formulier-stip.wacht:checked)) :is(.formulier-wacht, .formulier-privacy, .formulier-knop),
+.formulier:has(.formulier-wacht):not(:has(.formulier-stip.wacht:checked)) :is(.formulier-wacht, .formulier-privacy, .formulier-turnstile, .formulier-knop),
 .formulier-uitleg {
 	display: none;
 }
