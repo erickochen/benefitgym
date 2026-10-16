@@ -143,12 +143,33 @@ export interface BlokMaat {
 // The measures of a block in the column; null when the column hides it.
 type MetKolom = { kolom?: PerStand<BlokMaat> | null };
 
+// A drawing or a cut-out: its width in pixels plus the smaller copies beside it, each named <name>-<width>.webp.
+export interface Maten {
+	breedte: number;
+	kleiner: number[];
+}
+
+// The srcset of such an image, the smaller copies first and the original last. Without smaller copies there is none,
+// so the image keeps its own width as its intrinsic size, which a grid of tiles sizes its rows by.
+export function reeksVan(pad: string, maten: Maten): string | undefined {
+	if (!maten.kleiner.length) return undefined;
+	const punt = pad.lastIndexOf(".");
+	const stam = pad.slice(0, punt);
+	const ext = pad.slice(punt);
+	return [...maten.kleiner.map((w) => `${stam}-${w}${ext} ${w}w`), `${pad} ${maten.breedte}w`].join(", ");
+}
+
+// A drawing shows at the width of the design on every desktop screen; a cut-out fills the viewport.
+const ONTWERP_BREEDTE = 1242;
+export const TEKENING_SIZES = `${ONTWERP_BREEDTE}px`;
+export const UITSNEDE_SIZES = "100vw";
+
 // A band holds its blocks; above 1242 it takes no box, so each block lies on the drawing. A cut-out of another page,
 // as a Praktisch hero shows from its source, names that page. A tile holds bands of its own. A portrait names the
 // field of its person, which stands in when its alt text is empty.
 export interface Band {
 	blokken: Blok[];
-	uitsnede?: { bestand: string; pagina?: string; alt?: string; altNaam?: string };
+	uitsnede?: { bestand: string; pagina?: string; alt?: string; altNaam?: string } & Maten;
 	kolom?: PerStand<BandMaat> | null;
 	banden?: Band[];
 }
@@ -258,6 +279,7 @@ export interface Sectie {
 	naam: string;
 	hoogte: number;
 	tekening?: string;
+	tekeningMaten?: Maten;
 	gebouwd?: Gebouwd;
 	// The alt fields of the photos in the drawing, in reading order.
 	alts?: string[];

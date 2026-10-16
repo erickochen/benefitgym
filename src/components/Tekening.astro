@@ -1,0 +1,31 @@
+---
+// The drawing of a section, in the size of the screen. On a page with a column it only loads above 1242, so a phone
+// fetches nothing for it. The first drawing of the page loads at once and first.
+import { DESKTOP_MEDIA, LEEG_BEELD, type Maten, reeksVan, TEKENING_SIZES } from "../layout";
+
+interface Props {
+	src: string;
+	maten: Maten;
+	alt: string;
+	eerste: boolean;
+	kolom: boolean;
+	style?: string;
+}
+
+const { src, maten, alt, eerste, kolom, style } = Astro.props;
+const srcset = reeksVan(src, maten);
+const sizes = srcset ? TEKENING_SIZES : undefined;
+const laden = eerste ? "eager" : "lazy";
+const voorrang = eerste ? "high" : undefined;
+---
+
+{
+	kolom ? (
+		<picture>
+			<source media={DESKTOP_MEDIA} srcset={srcset ?? src} sizes={sizes} />
+			<img class="tekening" src={LEEG_BEELD} alt={alt} loading={laden} fetchpriority={voorrang} decoding="async" style={style} />
+		</picture>
+	) : (
+		<img class="tekening" src={src} srcset={srcset} sizes={sizes} alt={alt} loading={laden} fetchpriority={voorrang} decoding="async" style={style} />
+	)
+}

@@ -46,12 +46,19 @@ picture {
 	background: rgb(255, 255, 255);
 }
 
-.sectie > .tekening {
+.sectie > .tekening,
+.sectie > picture > .tekening {
 	position: absolute;
 	inset: 0;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+
+/* The picture around a drawing takes no box, so its source would become an empty cell in a grid of tiles. */
+.sectie > picture > source,
+.tekening-venster > picture > source {
+	display: none;
 }
 
 /* A part of a cut section; its window shows its slice of the drawing, the blocks may still reach past it. */
@@ -66,7 +73,8 @@ picture {
 	overflow: hidden;
 }
 
-.tekening-venster > .tekening {
+.tekening-venster > .tekening,
+.tekening-venster > picture > .tekening {
 	position: absolute;
 	left: 0;
 	width: 100%;
@@ -291,6 +299,7 @@ img.alleen-kolom {
 	}
 
 	.met-kolom .sectie > .tekening,
+	.met-kolom .sectie > picture > .tekening,
 	.met-kolom .tekening-venster {
 		display: none;
 	}

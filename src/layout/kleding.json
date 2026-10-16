@@ -10,6 +10,13 @@
    "naam": "sectie-1",
    "hoogte": 926.171875,
    "tekening": "artwork-1.webp",
+   "tekeningMaten": {
+    "breedte": 2483,
+    "kleiner": [
+     1242,
+     1863
+    ]
+   },
    "alts": [
     "hero_alt"
    ],
@@ -125,7 +132,14 @@
      "uitsnede": {
       "bestand": "foto-1.webp",
       "pagina": "mma",
-      "alt": "hero_alt"
+      "alt": "hero_alt",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {
@@ -383,7 +397,14 @@
      "blokken": [],
      "uitsnede": {
       "bestand": "balk-onder.webp",
-      "pagina": "mma"
+      "pagina": "mma",
+      "breedte": 1620,
+      "kleiner": [
+       480,
+       720,
+       1080,
+       1320
+      ]
      },
      "kolom": {
       "tablet": {

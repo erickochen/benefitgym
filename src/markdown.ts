@@ -117,6 +117,16 @@ function adres(href: string | undefined, basis: string): string | undefined {
 	}
 }
 
+// An image that waits for its media query carries a blank pixel as src; its address is the largest candidate of the
+// source beside it.
+function bronVan(img: Knoop): string | undefined {
+	const src = img.attrs.src;
+	if (!src?.startsWith("data:")) return src;
+	const source = img.ouder?.kinderen.find((c): c is Knoop => typeof c !== "string" && c.tag === "source" && Boolean(c.attrs.srcset));
+	const kandidaten = (source?.attrs.srcset ?? "").split(",").map((k) => k.trim().split(/\s+/)).filter((k) => k[0]);
+	return kandidaten.sort((a, b) => Number.parseInt(b[1] ?? "0", 10) - Number.parseInt(a[1] ?? "0", 10))[0]?.[0];
+}
+
 class Schrijver {
 	blokken: string[] = [];
 	private regel = "";
@@ -141,7 +151,7 @@ class Schrijver {
 
 	private beeld(k: Knoop): string {
 		const alt = schoon(ontcijfer(k.attrs.alt ?? ""));
-		const src = adres(k.attrs.src, this.basis);
+		const src = adres(bronVan(k), this.basis);
 		// A crop for the column repeats the alt text its drawing already carries.
 		return alt && src && !(k.attrs.class ?? "").split(/\s+/).includes("uitsnede") ? `![${ontsnap(alt)}](${src})` : "";
 	}

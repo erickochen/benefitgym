@@ -5,6 +5,7 @@
 import { type Entry, type Sectie, altVan, bandVars, rasterVars } from "../layout";
 import Band from "./Band.astro";
 import GebouwdeSectie from "./GebouwdeSectie.astro";
+import Tekening from "./Tekening.astro";
 import Uitklap from "./Uitklap.astro";
 
 interface Props {
@@ -13,11 +14,13 @@ interface Props {
 	slug: string;
 	staticUrl: string;
 	eerste: boolean;
+	// The page has its column below 1242, so the drawing only loads above it.
+	kolom: boolean;
 }
 
-const { sectie, entry, slug, staticUrl, eerste } = Astro.props;
+const { sectie, entry, slug, staticUrl, eerste, kolom } = Astro.props;
 const alt = altVan(entry, sectie.alts);
-const src = sectie.tekening ? `${staticUrl}/tekeningen/${slug}/${sectie.tekening}` : undefined;
+const tekening = sectie.tekening && sectie.tekeningMaten ? { src: `${staticUrl}/tekeningen/${slug}/${sectie.tekening}`, maten: sectie.tekeningMaten } : undefined;
 const { snede } = sectie;
 const uitklapBand = snede ? sectie.banden.find((band) => band.blokken[0]?.soort === "uitklap") : undefined;
 const uitklap = uitklapBand?.blokken[0];
@@ -36,7 +39,7 @@ const venster = (vanaf: number) => `top:calc(${-vanaf} * var(--s));height:calc($
 		<section class="sectie">
 			<div class="sectie-deel" style={hoogte(snede.y)}>
 				<div class="tekening-venster">
-					<img class="tekening" src={src} alt={alt} loading="lazy" decoding="async" style={venster(0)} />
+					{tekening && <Tekening src={tekening.src} maten={tekening.maten} alt={alt} eerste={eerste} kolom={kolom} style={venster(0)} />}
 				</div>
 				{boven.map((band, i) => <Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} eerste={i === eersteUitsnede} />)}
 			</div>
@@ -48,7 +51,7 @@ const venster = (vanaf: number) => `top:calc(${-vanaf} * var(--s));height:calc($
 			{snede.y < sectie.hoogte && (
 				<div class="sectie-deel" style={hoogte(sectie.hoogte - snede.y)}>
 					<div class="tekening-venster">
-						<img class="tekening" src={src} alt="" loading="lazy" decoding="async" style={venster(snede.y)} />
+						{tekening && <Tekening src={tekening.src} maten={tekening.maten} alt="" eerste={false} kolom={kolom} style={venster(snede.y)} />}
 					</div>
 					{snede.banden.map((band) => <Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} eerste={false} />)}
 				</div>
@@ -59,7 +62,7 @@ const venster = (vanaf: number) => `top:calc(${-vanaf} * var(--s));height:calc($
 			class:list={["sectie", sectie.raster && "raster"]}
 			style={sectie.raster ? `${hoogte(sectie.hoogte)};${rasterVars(sectie.raster)}` : hoogte(sectie.hoogte)}
 		>
-			{src && <img class="tekening" src={src} alt={alt} loading={eerste ? "eager" : "lazy"} decoding="async" />}
+			{tekening && <Tekening src={tekening.src} maten={tekening.maten} alt={alt} eerste={eerste} kolom={kolom} />}
 			{boven.map((band, i) => <Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} eerste={i === eersteUitsnede} />)}
 		</section>
 	)
