@@ -19,13 +19,29 @@ const laden = eerste ? "eager" : "lazy";
 const voorrang = eerste ? "high" : undefined;
 ---
 
-{
-	kolom ? (
-		<picture>
-			<source media={DESKTOP_MEDIA} srcset={srcset ?? src} sizes={sizes} />
-			<img class="tekening" src={LEEG_BEELD} alt={alt} loading={laden} fetchpriority={voorrang} decoding="async" style={style} />
-		</picture>
-	) : (
-		<img class="tekening" src={src} srcset={srcset} sizes={sizes} alt={alt} loading={laden} fetchpriority={voorrang} decoding="async" style={style} />
-	)
-}
+{kolom ? (
+	<picture>
+		<source media={DESKTOP_MEDIA} srcset={srcset ?? src} sizes={sizes} />
+		<img
+			class="tekening"
+			src={LEEG_BEELD}
+			alt={alt}
+			loading={laden}
+			fetchpriority={voorrang}
+			decoding="async"
+			style={style}
+		/>
+	</picture>
+) : (
+	<img
+		class="tekening"
+		src={src}
+		srcset={srcset}
+		sizes={sizes}
+		alt={alt}
+		loading={laden}
+		fetchpriority={voorrang}
+		decoding="async"
+		style={style}
+	/>
+)}

@@ -1,7 +1,13 @@
 // The structured data of the site through the page:metadata hook, the route the EmDash docs give for replacing
 // JSON-LD. On / the graph of the gym plus the website, on a sport page a Service or a Course, elsewhere no block.
 // Every address follows EMDASH_SITE_URL. The site name plus the language go in og:site_name and og:locale.
-import { definePlugin, getEmDashEntry, getSiteSettings, type PageMetadataContribution, type PublicPageContext } from "emdash";
+import {
+	definePlugin,
+	getEmDashEntry,
+	getSiteSettings,
+	type PageMetadataContribution,
+	type PublicPageContext,
+} from "emdash";
 import { GEGEVENS_SLUG, type GegevensData, internationaal, profielen } from "../gegevens";
 import { siteUrl } from "../site-url";
 import { ZOEKMACHINES_ID, ZOEKMACHINES_VERSIE } from "./zoekmachines-id.mjs";
@@ -35,7 +41,11 @@ const leeg = (w: unknown) => w === undefined || w === null || w === "";
 function schoon<T>(w: T): T {
 	if (Array.isArray(w)) return w.map(schoon) as T;
 	if (w && typeof w === "object") {
-		return Object.fromEntries(Object.entries(w).filter(([, v]) => !leeg(v)).map(([k, v]) => [k, schoon(v)])) as T;
+		return Object.fromEntries(
+			Object.entries(w)
+				.filter(([, v]) => !leeg(v))
+				.map(([k, v]) => [k, schoon(v)]),
+		) as T;
 	}
 	return w;
 }
@@ -78,7 +88,10 @@ async function graaf(site: string, page: PublicPageContext, g: GegevensData) {
 					addressRegion: g.provincie,
 					addressCountry: g.land,
 				},
-				geo: leeg(g.breedtegraad) || leeg(g.lengtegraad) ? undefined : { "@type": "GeoCoordinates", latitude: g.breedtegraad, longitude: g.lengtegraad },
+				geo:
+					leeg(g.breedtegraad) || leeg(g.lengtegraad)
+						? undefined
+						: { "@type": "GeoCoordinates", latitude: g.breedtegraad, longitude: g.lengtegraad },
 				hasMap: g.kaartlink,
 				sameAs: profielen(settings.social).map((p) => p.href),
 			},
@@ -96,10 +109,19 @@ async function graaf(site: string, page: PublicPageContext, g: GegevensData) {
 
 function les(site: string, page: PublicPageContext, d: Zoekmachines, g: GegevensData) {
 	const cursus = d.zoek_soort === "Cursus";
-	const leeftijd = leeg(d.zoek_leeftijd_van) && leeg(d.zoek_leeftijd_tot) ? undefined
-		: { "@type": "PeopleAudience", suggestedMinAge: d.zoek_leeftijd_van, suggestedMaxAge: d.zoek_leeftijd_tot };
-	const aanbod = leeg(d.zoek_prijs) ? undefined
-		: { "@type": "Offer", price: String(d.zoek_prijs), priceCurrency: MUNT, description: d.zoek_prijs_uitleg, url: `${site}${TARIEVEN}` };
+	const leeftijd =
+		leeg(d.zoek_leeftijd_van) && leeg(d.zoek_leeftijd_tot)
+			? undefined
+			: { "@type": "PeopleAudience", suggestedMinAge: d.zoek_leeftijd_van, suggestedMaxAge: d.zoek_leeftijd_tot };
+	const aanbod = leeg(d.zoek_prijs)
+		? undefined
+		: {
+				"@type": "Offer",
+				price: String(d.zoek_prijs),
+				priceCurrency: MUNT,
+				description: d.zoek_prijs_uitleg,
+				url: `${site}${TARIEVEN}`,
+			};
 	return {
 		"@context": SCHEMA,
 		"@type": cursus ? "Course" : "Service",

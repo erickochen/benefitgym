@@ -43,14 +43,20 @@ export const GET: APIRoute = async ({ cache }) => {
 		hints.push(gevonden.cacheHint);
 		const data = gevonden.entry.data as { title?: string; llms_regel?: string };
 		if (!data.llms_regel || !data.title) continue;
-		lijsten[gevonden.collectie === LES_COLLECTIE ? LESSEN : PRAKTISCH].push(`- [${data.title}](${site}${pad}): ${data.llms_regel}`);
+		lijsten[gevonden.collectie === LES_COLLECTIE ? LESSEN : PRAKTISCH].push(
+			`- [${data.title}](${site}${pad}): ${data.llms_regel}`,
+		);
 	}
 	if (cache?.enabled) for (const hint of hints) cache.set(hint);
-	const inleiding = ((gegevens.entry?.data as GegevensData | undefined)?.llms_inleiding ?? "").split("\n").filter((r) => r.trim());
+	const inleiding = ((gegevens.entry?.data as GegevensData | undefined)?.llms_inleiding ?? "")
+		.split("\n")
+		.filter((r) => r.trim());
 	const delen = [
 		`# ${settings.title ?? SITE_NAME}`,
 		...(inleiding.length ? [inleiding.map((r) => `> ${r}`).join("\n")] : []),
-		...Object.entries(lijsten).filter(([, regels]) => regels.length).map(([kop, regels]) => `## ${kop}\n\n${regels.join("\n")}`),
+		...Object.entries(lijsten)
+			.filter(([, regels]) => regels.length)
+			.map(([kop, regels]) => `## ${kop}\n\n${regels.join("\n")}`),
 	];
 	// Markdown in a text file, so a browser shows it as it is.
 	return new Response(`${delen.join("\n\n")}\n`, { headers: { "Content-Type": "text/plain; charset=utf-8" } });

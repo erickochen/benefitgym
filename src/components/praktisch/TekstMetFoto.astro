@@ -23,10 +23,18 @@ const klasse = foto && !vak ? "praktisch-foto praktisch-vrij" : "praktisch-foto"
 ---
 
 <div class="praktisch-blok praktisch-rij">
-	{!rechts && <div class={klasse} style={vak}>{foto && <Image image={foto} />}</div>}
+	{!rechts && (
+		<div class={klasse} style={vak}>
+			{foto && <Image image={foto} />}
+		</div>
+	)}
 	<div class="praktisch-kolom">
 		{value.kop && <h2 class={`s-${regels.stijl[vlak].kop}`}>{value.kop}</h2>}
 		<PraktischTekst value={value.tekst} vlak={vlak} />
 	</div>
-	{rechts && <div class={klasse} style={vak}>{foto && <Image image={foto} />}</div>}
+	{rechts && (
+		<div class={klasse} style={vak}>
+			{foto && <Image image={foto} />}
+		</div>
+	)}
 </div>

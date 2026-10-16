@@ -36,13 +36,13 @@ const teken = settings.favicon?.url;
 <Base title={kop ? `${kop} | ${siteTitel}` : siteTitel} kaal>
 	{teken && <img class="niet-gevonden-teken" src={teken} alt="" width="21" height="21" />}
 	{kop && <h1 class="niet-gevonden-kop">{kop}</h1>}
-	{
-		regels.map((regel) =>
-			regel.href ? (
-				<a class="niet-gevonden-knop" href={regel.href}>{regel.tekst}</a>
-			) : (
-				<p class="niet-gevonden-regel">{regel.tekst}</p>
-			),
-		)
-	}
+	{regels.map((regel) =>
+		regel.href ? (
+			<a class="niet-gevonden-knop" href={regel.href}>
+				{regel.tekst}
+			</a>
+		) : (
+			<p class="niet-gevonden-regel">{regel.tekst}</p>
+		),
+	)}
 </Base>

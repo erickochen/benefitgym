@@ -60,7 +60,8 @@ export const FORMULIER = {
 	plek: "Plek vrij",
 	vol: "Wachtlijst",
 	uitlegPlek: "Er is plek in deze groep. Plan de gratis proefles in onze planner.",
-	uitlegVol: "Deze groep is vol. Zet je kind op de wachtlijst. Zodra er plek is, krijg je een uitnodiging voor een gratis proefles.",
+	uitlegVol:
+		"Deze groep is vol. Zet je kind op de wachtlijst. Zodra er plek is, krijg je een uitnodiging voor een gratis proefles.",
 	uitlegAnders: "Laat je gegevens achter, dan zoeken we samen een groep die past.",
 	planner: "Plan je gratis proefles",
 	geenDatum: "Geen van deze data, hou me op de hoogte",

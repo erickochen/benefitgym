@@ -15,12 +15,12 @@ const s = regels.stijl.wit;
 ---
 
 <div class="praktisch-blok praktisch-drie">
-	{
-		(value.kolommen ?? []).map((kolom) => (
-			<div class="praktisch-kolom">
-				{kolom.kop && <p class={`s-${s.subkop}`}>{kolom.kop}</p>}
-				{alineasVan(kolom.tekst).map((alinea) => <p class={`s-${s.tekst}`}>{alinea}</p>)}
-			</div>
-		))
-	}
+	{(value.kolommen ?? []).map((kolom) => (
+		<div class="praktisch-kolom">
+			{kolom.kop && <p class={`s-${s.subkop}`}>{kolom.kop}</p>}
+			{alineasVan(kolom.tekst).map((alinea) => (
+				<p class={`s-${s.tekst}`}>{alinea}</p>
+			))}
+		</div>
+	))}
 </div>

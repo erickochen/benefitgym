@@ -56,8 +56,6 @@ export async function definitieVan(slug: string, locals: App.Locals, adres: URL)
 		body: JSON.stringify({ id: slug }),
 	});
 	const antwoord = (await handler?.(PLUGIN, "POST", "/definition", verzoek).catch(() => null)) as
-		| { success?: boolean; data?: Definitie }
-		| null
-		| undefined;
+		{ success?: boolean; data?: Definitie } | null | undefined;
 	return antwoord?.success && antwoord.data?.status === "active" ? antwoord.data : null;
 }

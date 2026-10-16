@@ -17,20 +17,18 @@ interface Props {
 const { blokken, entry, staticUrl } = Astro.props;
 ---
 
-{
-	blokken.map((blok) =>
-		blok.soort === "logo" ? (
-			<Logo blok={blok} staticUrl={staticUrl} />
-		) : blok.soort === "knop" ? (
-			<Knop blok={blok} entry={entry} staticUrl={staticUrl} />
-		) : blok.soort === "reviews" ? (
-			<Reviews blok={blok} staticUrl={staticUrl} />
-		) : blok.soort === "uitklap" ? (
-			<Uitklap blok={blok} entry={entry} />
-		) : blok.soort === "faq" ? (
-			<Faq blok={blok} />
-		) : (
-			<Tekst blok={blok} entry={entry} />
-		),
-	)
-}
+{blokken.map((blok) =>
+	blok.soort === "logo" ? (
+		<Logo blok={blok} staticUrl={staticUrl} />
+	) : blok.soort === "knop" ? (
+		<Knop blok={blok} entry={entry} staticUrl={staticUrl} />
+	) : blok.soort === "reviews" ? (
+		<Reviews blok={blok} staticUrl={staticUrl} />
+	) : blok.soort === "uitklap" ? (
+		<Uitklap blok={blok} entry={entry} />
+	) : blok.soort === "faq" ? (
+		<Faq blok={blok} />
+	) : (
+		<Tekst blok={blok} entry={entry} />
+	),
+)}

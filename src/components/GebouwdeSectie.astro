@@ -29,7 +29,8 @@ const g = sectie.gebouwd;
 const { data: widgets, cacheHint } = await getWidgetAreaWithCacheHint("onder_formulier");
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 const inhoudVan = (titel: string) =>
-	(widgets?.widgets.find((widget) => widget.type === "content" && widget.title === titel)?.content ?? []) as unknown as Blok[];
+	(widgets?.widgets.find((widget) => widget.type === "content" && widget.title === titel)?.content ??
+		[]) as unknown as Blok[];
 // The call link is one line: its text plus the first address any part of it links to.
 const bellen = inhoudVan(g.bellen);
 const belTekst = bellen.flatMap((blok) => (blok.children ?? []).map((span) => span.text ?? "")).join("");
@@ -64,17 +65,25 @@ const maten = [
 	<div class="gebouwd-dek" style={`background:${g.dek.kleur}`}></div>
 	<div id={contact ? undefined : ANKER_AANMELDEN} class="gebouwd-inhoud" data-volgt={g.afstand.volgt ? "" : undefined}>
 		<div class="gebouwd-tekst">
-			<h2 class={`s-${g.tekst.kop.stijl}`} {...entry.edit[g.tekst.kop.veld]}>{waarde(entry, g.tekst.kop.veld) as string}</h2>
-			<p class={`s-${g.tekst.intro.stijl}`} style={`margin-top:${maat(g.tekst.gaten[0])}`} {...entry.edit[g.tekst.intro.veld]}>
+			<h2 class={`s-${g.tekst.kop.stijl}`} {...entry.edit[g.tekst.kop.veld]}>
+				{waarde(entry, g.tekst.kop.veld) as string}
+			</h2>
+			<p
+				class={`s-${g.tekst.intro.stijl}`}
+				style={`margin-top:${maat(g.tekst.gaten[0])}`}
+				{...entry.edit[g.tekst.intro.veld]}
+			>
 				{waarde(entry, g.tekst.intro.veld) as string}
 			</p>
-			{
-				belHref && (
-					<a class="gebouwd-bellen link" href={belHref} style={`height:${maat(g.tekst.bellen.h)};margin-top:${maat(g.tekst.gaten[1])}`}>
-						<p class={`s-${g.tekst.bellen.stijl}`}>{belTekst}</p>
-					</a>
-				)
-			}
+			{belHref && (
+				<a
+					class="gebouwd-bellen link"
+					href={belHref}
+					style={`height:${maat(g.tekst.bellen.h)};margin-top:${maat(g.tekst.gaten[1])}`}
+				>
+					<p class={`s-${g.tekst.bellen.stijl}`}>{belTekst}</p>
+				</a>
+			)}
 		</div>
 		<div class="gebouwd-formulier">
 			<Formulier
@@ -101,7 +110,10 @@ const maten = [
 		const volg = () => {
 			const stijl = getComputedStyle(inhoud);
 			const hoog = Math.max(...kolommen.map((kolom) => kolom.getBoundingClientRect().height));
-			inhoud.style.setProperty("--g-volg", `${Math.ceil(Number.parseFloat(stijl.paddingTop) + hoog + Number.parseFloat(stijl.paddingBottom))}px`);
+			inhoud.style.setProperty(
+				"--g-volg",
+				`${Math.ceil(Number.parseFloat(stijl.paddingTop) + hoog + Number.parseFloat(stijl.paddingBottom))}px`,
+			);
 		};
 		const kijker = new ResizeObserver(volg);
 		for (const kolom of kolommen) kijker.observe(kolom);

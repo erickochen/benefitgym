@@ -54,10 +54,13 @@ export function zetFormulier(form: HTMLFormElement, meldingen: Record<string, st
 	const stijl = form.dataset.fout ?? "";
 	// Under the worker types the field types do not fit Element as a query type, so the query goes through HTMLElement.
 	const invoer = () =>
-		([...form.querySelectorAll<HTMLElement>("input, textarea, select")] as unknown as Invoer[]).filter((e) => e.type !== "hidden" && Boolean(e.name));
+		([...form.querySelectorAll<HTMLElement>("input, textarea, select")] as unknown as Invoer[]).filter(
+			(e) => e.type !== "hidden" && Boolean(e.name),
+		);
 
 	// The part a field's message hangs in: its own field, or the fieldset of a choice of tiles.
-	const deelVan = (veld: Invoer) => veld.closest<HTMLElement>(".formulier-keuze, .formulier-veld") ?? veld.parentElement;
+	const deelVan = (veld: Invoer) =>
+		veld.closest<HTMLElement>(".formulier-keuze, .formulier-veld") ?? veld.parentElement;
 	const foutId = (veld: Invoer) => `${form.dataset.formulier}-${veld.name}-fout`;
 	const melding = (veld: Invoer) => meldingen[veld.name] ?? veld.validationMessage;
 
@@ -200,7 +203,8 @@ export function zetFormulier(form: HTMLFormElement, meldingen: Record<string, st
 	}
 	const wachtOpToken = async () => {
 		if (!vak?.dataset.sitekey) return true;
-		for (let gewacht = 0; !token && (vraagt || gewacht < TOKEN_WACHT); gewacht += vraagt ? 0 : TOKEN_STAP) await new Promise((r) => setTimeout(r, TOKEN_STAP));
+		for (let gewacht = 0; !token && (vraagt || gewacht < TOKEN_WACHT); gewacht += vraagt ? 0 : TOKEN_STAP)
+			await new Promise((r) => setTimeout(r, TOKEN_STAP));
 		return Boolean(token);
 	};
 
@@ -227,7 +231,11 @@ export function zetFormulier(form: HTMLFormElement, meldingen: Record<string, st
 				else data[naam] = waarde;
 			}
 			if (token) data["cf-turnstile-response"] = token;
-			const verzoek = fetch(form.action, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ formId, data }) });
+			const verzoek = fetch(form.action, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ formId, data }),
+			});
 			if (token) vernieuw();
 			const r = await verzoek;
 			const body = (await r.json().catch(() => ({}))) as { data?: Antwoord } & Antwoord;
@@ -242,7 +250,11 @@ export function zetFormulier(form: HTMLFormElement, meldingen: Record<string, st
 				return;
 			}
 			// A field the plugin refuses gets its own message; anything else is one line below the button.
-			const velden = (antwoord.errors ?? []).flatMap((f) => invoer().filter((v) => v.name === f.field).slice(0, 1));
+			const velden = (antwoord.errors ?? []).flatMap((f) =>
+				invoer()
+					.filter((v) => v.name === f.field)
+					.slice(0, 1),
+			);
 			if (!velden.length || velden.some((v) => !meldingen[v.name])) throw new Error("onbekende fout");
 			zetKnop("rust");
 			for (const v of velden) toon(v, meldingen[v.name]);

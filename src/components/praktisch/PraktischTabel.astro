@@ -25,27 +25,29 @@ const lijn = (isKop: boolean) =>
 ---
 
 <div class="praktisch-tabel" role="table">
-	{
-		alle.map(({ cellen, isKop }) => (
-			<Fragment>
-				<div class={`praktisch-tabelrij${isKop ? " praktisch-tabelkop" : ""}`} role="row">
-					{cellen.map((cel, j) => {
-						const laatste = cellen.length > 1 && j === cellen.length - 1;
-						const eigenBreedte = cellen.length >= EIGEN_BREEDTE;
-						const kopLaatste = eigenBreedte ? s.kopcelVast : s.kopcelLaatste;
-						const klasse = `s-${laatste ? (isKop ? kopLaatste : s.prijs) : isKop ? s.kopcel : s.cel}`;
-						const rol = isKop ? "columnheader" : "cell";
-						return laatste && eigenBreedte ? (
-							<div class="praktisch-laatste" role={rol}>
-								<p class={klasse}><Zin blok={cel} /></p>
-							</div>
-						) : (
-							<p class={j > 0 && !laatste ? `${klasse} praktisch-midden` : klasse} role={rol}><Zin blok={cel} /></p>
-						);
-					})}
-				</div>
-				<div style={lijn(isKop)} />
-			</Fragment>
-		))
-	}
+	{alle.map(({ cellen, isKop }) => (
+		<Fragment>
+			<div class={`praktisch-tabelrij${isKop ? " praktisch-tabelkop" : ""}`} role="row">
+				{cellen.map((cel, j) => {
+					const laatste = cellen.length > 1 && j === cellen.length - 1;
+					const eigenBreedte = cellen.length >= EIGEN_BREEDTE;
+					const kopLaatste = eigenBreedte ? s.kopcelVast : s.kopcelLaatste;
+					const klasse = `s-${laatste ? (isKop ? kopLaatste : s.prijs) : isKop ? s.kopcel : s.cel}`;
+					const rol = isKop ? "columnheader" : "cell";
+					return laatste && eigenBreedte ? (
+						<div class="praktisch-laatste" role={rol}>
+							<p class={klasse}>
+								<Zin blok={cel} />
+							</p>
+						</div>
+					) : (
+						<p class={j > 0 && !laatste ? `${klasse} praktisch-midden` : klasse} role={rol}>
+							<Zin blok={cel} />
+						</p>
+					);
+				})}
+			</div>
+			<div style={lijn(isKop)} />
+		</Fragment>
+	))}
 </div>

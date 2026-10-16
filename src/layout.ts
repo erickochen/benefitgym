@@ -321,7 +321,11 @@ export interface FormulierLayout {
 
 // A length in design units, or a measured percentage as it stands.
 export function maat(waarde: number | string): string {
-	return typeof waarde === "number" ? `calc(${waarde} * var(--s))` : waarde.endsWith("px") ? `calc(${Number.parseFloat(waarde)} * var(--s))` : waarde;
+	return typeof waarde === "number"
+		? `calc(${waarde} * var(--s))`
+		: waarde.endsWith("px")
+			? `calc(${Number.parseFloat(waarde)} * var(--s))`
+			: waarde;
 }
 
 export interface Layout {
@@ -345,16 +349,23 @@ export interface StrookInKolom {
 export function strookInKolom(layout: Layout | undefined, praktisch: PraktischRegels): StrookInKolom | undefined {
 	if (!layout?.kolom) return undefined;
 	const gebouwd = layout.secties.find((sectie) => sectie.gebouwd?.kolom)?.gebouwd;
-	if (gebouwd?.kolom) return { verhouding: { tablet: gebouwd.kolom.strook, phone: gebouwd.kolom.strook }, beeld: gebouwd.strook.beeld };
+	if (gebouwd?.kolom)
+		return { verhouding: { tablet: gebouwd.kolom.strook, phone: gebouwd.kolom.strook }, beeld: gebouwd.strook.beeld };
 	if (layout.praktisch && praktisch.standen) {
 		const { tablet, phone } = praktisch.standen;
-		return { verhouding: { tablet: tablet.slot.verhouding, phone: phone.slot.verhouding }, beeld: praktisch.slot.strook.beeld };
+		return {
+			verhouding: { tablet: tablet.slot.verhouding, phone: phone.slot.verhouding },
+			beeld: praktisch.slot.strook.beeld,
+		};
 	}
 	return undefined;
 }
 
 // The class of each role of a Praktisch block, per color.
-type Rollen = Record<"kop" | "subkop" | "tekst" | "link" | "kopcel" | "kopcelLaatste" | "kopcelVast" | "cel" | "prijs" | "punt", string>;
+type Rollen = Record<
+	"kop" | "subkop" | "tekst" | "link" | "kopcel" | "kopcelLaatste" | "kopcelVast" | "cel" | "prijs" | "punt",
+	string
+>;
 
 // The measures of a Praktisch page that differ per breakpoint, the same on desktop as in the column.
 export interface PraktischStand {
@@ -392,7 +403,13 @@ export interface PraktischRegels extends PraktischStand {
 		kopLijnKleur: { wit: string; donker: string };
 		lijnKleur: { wit: string; donker: string };
 	};
-	rooster: { lijn: { h: number; kleur: string }; rijLijn: { h: number; kleur: string }; ruimte: number; wanneer: number; gat: number };
+	rooster: {
+		lijn: { h: number; kleur: string };
+		rijLijn: { h: number; kleur: string };
+		ruimte: number;
+		wanneer: number;
+		gat: number;
+	};
 	stijl: { wit: Rollen & { wanneer: string; wat: string }; donker: Rollen; lesrooster: string };
 	zinLink: { streep: string; dikte: number; afstand: number };
 	standen?: PerStand<PraktischKolom>;
@@ -487,7 +504,11 @@ export interface MenuMobiel {
 	kleur: { rust: string; vol: string };
 	overgang: { balk: string; badge: string };
 	badge: { w: number; h: number; maat: string; plek: string; herhaal: string; beeld: Achtergrond };
-	knop: { w: number; h: number; streep: { x: number; w: number; h: number; radius: number; kleur: string; tops: number[] } };
+	knop: {
+		w: number;
+		h: number;
+		streep: { x: number; w: number; h: number; radius: number; kleur: string; tops: number[] };
+	};
 	paneel: MenuMobielPaneel;
 	terug: MenuTerug;
 }
@@ -559,5 +580,7 @@ export function waarde(entry: Entry, veld: string): unknown {
 // The alt text of a drawing: that of its one photo, or each filled one as a sentence in reading order.
 export function altVan(entry: Entry, velden: string[] = []): string {
 	const teksten = velden.map((veld) => String(waarde(entry, veld) ?? "").trim()).filter(Boolean);
-	return teksten.length === 1 ? teksten[0] : teksten.map((tekst) => (/[.!?]$/.test(tekst) ? tekst : `${tekst}.`)).join(" ");
+	return teksten.length === 1
+		? teksten[0]
+		: teksten.map((tekst) => (/[.!?]$/.test(tekst) ? tekst : `${tekst}.`)).join(" ");
 }

@@ -1,0 +1,12 @@
+# Generated: the layout files plus the model seed come from the content scripts, the types from Astro and Wrangler.
+src/layout/
+src/styles/tekst.css
+seed/
+emdash-env.d.ts
+worker-configuration.d.ts
+# Written by pnpm.
+package.json
+pnpm-lock.yaml
+pnpm-workspace.yaml
+# Prose keeps the line breaks it was written with.
+README.md

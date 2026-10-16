@@ -54,11 +54,9 @@ const seo = getSeoMeta(entry, {
 	kolom={layout?.kolom === true}
 	strook={strookInKolom(layout, praktisch as PraktischRegels)}
 >
-	{
-		layout ? (
-			<Pagina layout={layout} entry={entry} slug={bron} staticUrl={staticUrl} />
-		) : (
-			<h1 {...entry.edit.title}>{entry.data.title}</h1>
-		)
-	}
+	{layout ? (
+		<Pagina layout={layout} entry={entry} slug={bron} staticUrl={staticUrl} />
+	) : (
+		<h1 {...entry.edit.title}>{entry.data.title}</h1>
+	)}
 </Base>

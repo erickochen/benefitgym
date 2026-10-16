@@ -18,15 +18,19 @@ const Tag = lijst.genummerd ? "ol" : "ul";
 ---
 
 <Tag class="praktisch-lijst">
-	{
-		lijst.items.map((item, i) => (
-			<li class="praktisch-punt">
-				<span class={`s-${s.punt}`} aria-hidden="true">{lijst.genummerd ? `${i + 1}.` : PUNT}</span>
-				<div class="praktisch-puntinhoud">
-					<p class={`s-${s.tekst}`}><Zin blok={item.blok} /></p>
-					{item.onder.map((onder) => <Astro.self lijst={onder} vlak={vlak} />)}
-				</div>
-			</li>
-		))
-	}
+	{lijst.items.map((item, i) => (
+		<li class="praktisch-punt">
+			<span class={`s-${s.punt}`} aria-hidden="true">
+				{lijst.genummerd ? `${i + 1}.` : PUNT}
+			</span>
+			<div class="praktisch-puntinhoud">
+				<p class={`s-${s.tekst}`}>
+					<Zin blok={item.blok} />
+				</p>
+				{item.onder.map((onder) => (
+					<Astro.self lijst={onder} vlak={vlak} />
+				))}
+			</div>
+		</li>
+	))}
 </Tag>

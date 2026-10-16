@@ -80,35 +80,37 @@ const pageCtx = createPublicPageContext({
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>{title}</title>
 		<EmDashHead page={pageCtx} />
-		{PRELOAD.map((file) => <link rel="preload" href={`${staticUrl}/fonts/${file}`} as="font" type="font/woff2" crossorigin />)}
+		{PRELOAD.map((file) => (
+			<link rel="preload" href={`${staticUrl}/fonts/${file}`} as="font" type="font/woff2" crossorigin />
+		))}
 		<style is:inline set:html={fontCss} />
 	</head>
 	<body class:list={[kolom && "met-kolom", kaal && "kaal"]}>
 		<EmDashBodyStart page={pageCtx} />
-		{
-			kaal ? (
-				<main class="kaal-inhoud">
-					<slot />
-				</main>
-			) : (
-				<Fragment>
-					<Menu staticUrl={staticUrl} />
-					<div class="kolom">
-						<main>
-							<slot />
-						</main>
-						<Footer staticUrl={staticUrl} onder={footerOnder} />
-					</div>
-				</Fragment>
-			)
-		}
-		{
-			strook && (
-				<div class="kolom-strook" aria-hidden="true" style={`--t-ks-ratio:${strook.verhouding.tablet};--p-ks-ratio:${strook.verhouding.phone}`}>
-					<Beeld beeld={strook.beeld} staticUrl={staticUrl} />
+		{kaal ? (
+			<main class="kaal-inhoud">
+				<slot />
+			</main>
+		) : (
+			<Fragment>
+				<Menu staticUrl={staticUrl} />
+				<div class="kolom">
+					<main>
+						<slot />
+					</main>
+					<Footer staticUrl={staticUrl} onder={footerOnder} />
 				</div>
-			)
-		}
+			</Fragment>
+		)}
+		{strook && (
+			<div
+				class="kolom-strook"
+				aria-hidden="true"
+				style={`--t-ks-ratio:${strook.verhouding.tablet};--p-ks-ratio:${strook.verhouding.phone}`}
+			>
+				<Beeld beeld={strook.beeld} staticUrl={staticUrl} />
+			</div>
+		)}
 		<EmDashBodyEnd page={pageCtx} />
 	</body>
 </html>

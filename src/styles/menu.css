@@ -23,7 +23,8 @@
 	height: calc((var(--menu-hoogte) + (var(--menu-vast-hoogte) - var(--menu-hoogte)) * var(--vast)) * var(--s));
 	/* Each channel mixes by its square, so the bar runs through gray on its way to white. */
 	background-color: rgb(
-		calc(var(--vast-r) * sqrt(var(--vast))) calc(var(--vast-g) * sqrt(var(--vast))) calc(var(--vast-b) * sqrt(var(--vast))) / var(--vast)
+		calc(var(--vast-r) * sqrt(var(--vast))) calc(var(--vast-g) * sqrt(var(--vast)))
+			calc(var(--vast-b) * sqrt(var(--vast))) / var(--vast)
 	);
 }
 
@@ -103,7 +104,8 @@
 	display: flex;
 	gap: calc(var(--paneel-gat) * var(--s));
 	box-sizing: border-box;
-	padding: calc(var(--paneel-t) * var(--s)) calc(var(--paneel-r) * var(--s)) calc(var(--paneel-b) * var(--s)) calc(var(--paneel-l) * var(--s));
+	padding: calc(var(--paneel-t) * var(--s)) calc(var(--paneel-r) * var(--s)) calc(var(--paneel-b) * var(--s))
+		calc(var(--paneel-l) * var(--s));
 	background-color: var(--paneel-achtergrond);
 	border-radius: calc(var(--paneel-radius) * var(--s));
 	box-shadow: var(--paneel-schaduw);
@@ -130,7 +132,8 @@
 	align-items: var(--kop-uitlijning);
 	box-sizing: border-box;
 	height: calc(var(--kop-h) * var(--s));
-	padding: calc(var(--kop-t) * var(--s)) calc(var(--kop-r) * var(--s)) calc(var(--kop-b) * var(--s)) calc(var(--kop-l) * var(--s));
+	padding: calc(var(--kop-t) * var(--s)) calc(var(--kop-r) * var(--s)) calc(var(--kop-b) * var(--s))
+		calc(var(--kop-l) * var(--s));
 }
 
 .menu-paneel-rij {
@@ -138,7 +141,8 @@
 	align-items: var(--rij-uitlijning);
 	box-sizing: border-box;
 	height: calc(var(--rij-h) * var(--s));
-	padding: calc(var(--rij-t) * var(--s)) calc(var(--rij-r) * var(--s)) calc(var(--rij-b) * var(--s)) calc(var(--rij-l) * var(--s));
+	padding: calc(var(--rij-t) * var(--s)) calc(var(--rij-r) * var(--s)) calc(var(--rij-b) * var(--s))
+		calc(var(--rij-l) * var(--s));
 	border-radius: calc(var(--rij-radius) * var(--s));
 	text-decoration-line: none;
 	outline: none;

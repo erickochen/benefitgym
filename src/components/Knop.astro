@@ -17,7 +17,16 @@ const kolomBeeld = blok.kolom?.tablet.beeld;
 ---
 
 <a class:list={["blok", "knop", blokKlasse(blok)]} href={waarde(entry, blok.link) as string} style={plek}>
-	{blok.beeld && <Beeld beeld={blok.beeld} staticUrl={staticUrl} class={kolomBeeld ? "alleen-desktop" : undefined} media={kolomBeeld ? DESKTOP_MEDIA : undefined} />}
+	{blok.beeld && (
+		<Beeld
+			beeld={blok.beeld}
+			staticUrl={staticUrl}
+			class={kolomBeeld ? "alleen-desktop" : undefined}
+			media={kolomBeeld ? DESKTOP_MEDIA : undefined}
+		/>
+	)}
 	{kolomBeeld && <Beeld beeld={kolomBeeld} staticUrl={staticUrl} class="alleen-kolom" media={KOLOM_MEDIA} />}
-	<span class={`s-${blok.stijl}`} style={tekstPlek} {...entry.edit[blok.veld]}>{waarde(entry, blok.veld) as string}</span>
+	<span class={`s-${blok.stijl}`} style={tekstPlek} {...entry.edit[blok.veld]}>
+		{waarde(entry, blok.veld) as string}
+	</span>
 </a>

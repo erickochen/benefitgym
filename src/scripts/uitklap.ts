@@ -41,7 +41,8 @@ export function zetUitklap(uitklap: HTMLDetailsElement) {
 		requestAnimationFrame(() => {
 			knop.focus({ preventScroll: true });
 			const r = knop.getBoundingClientRect();
-			if (r.top < 0 || r.bottom > innerHeight) knop.scrollIntoView({ block: "center", behavior: rustig() ? "auto" : "smooth" });
+			if (r.top < 0 || r.bottom > innerHeight)
+				knop.scrollIntoView({ block: "center", behavior: rustig() ? "auto" : "smooth" });
 		});
 	};
 	inklappen?.addEventListener("click", sluit);

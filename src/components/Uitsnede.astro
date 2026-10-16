@@ -18,13 +18,11 @@ const srcset = reeksVan(src, maten);
 const sizes = srcset ? UITSNEDE_SIZES : undefined;
 ---
 
-{
-	eerste ? (
-		<picture>
-			<source media={KOLOM_MEDIA} srcset={srcset ?? src} sizes={sizes} />
-			<img class="uitsnede" src={LEEG_BEELD} alt={alt} loading="eager" fetchpriority="high" decoding="async" />
-		</picture>
-	) : (
-		<img class="uitsnede" src={src} srcset={srcset} sizes={sizes} alt={alt} loading="lazy" decoding="async" />
-	)
-}
+{eerste ? (
+	<picture>
+		<source media={KOLOM_MEDIA} srcset={srcset ?? src} sizes={sizes} />
+		<img class="uitsnede" src={LEEG_BEELD} alt={alt} loading="eager" fetchpriority="high" decoding="async" />
+	</picture>
+) : (
+	<img class="uitsnede" src={src} srcset={srcset} sizes={sizes} alt={alt} loading="lazy" decoding="async" />
+)}

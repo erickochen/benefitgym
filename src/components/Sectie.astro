@@ -20,7 +20,10 @@ interface Props {
 
 const { sectie, entry, slug, staticUrl, eerste, kolom } = Astro.props;
 const alt = altVan(entry, sectie.alts);
-const tekening = sectie.tekening && sectie.tekeningMaten ? { src: `${staticUrl}/tekeningen/${slug}/${sectie.tekening}`, maten: sectie.tekeningMaten } : undefined;
+const tekening =
+	sectie.tekening && sectie.tekeningMaten
+		? { src: `${staticUrl}/tekeningen/${slug}/${sectie.tekening}`, maten: sectie.tekeningMaten }
+		: undefined;
 const { snede } = sectie;
 const uitklapBand = snede ? sectie.banden.find((band) => band.blokken[0]?.soort === "uitklap") : undefined;
 const uitklap = uitklapBand?.blokken[0];
@@ -32,38 +35,63 @@ const hoogte = (h: number) => `--hoogte:calc(${h} * var(--s))`;
 const venster = (vanaf: number) => `top:calc(${-vanaf} * var(--s));height:calc(${sectie.hoogte} * var(--s))`;
 ---
 
-{
-	sectie.gebouwd ? (
-		<GebouwdeSectie sectie={{ ...sectie, gebouwd: sectie.gebouwd }} entry={entry} staticUrl={staticUrl} />
-	) : snede ? (
-		<section class="sectie">
-			<div class="sectie-deel" style={hoogte(snede.y)}>
-				<div class="tekening-venster">
-					{tekening && <Tekening src={tekening.src} maten={tekening.maten} alt={alt} eerste={eerste} kolom={kolom} style={venster(0)} />}
-				</div>
-				{boven.map((band, i) => <Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} eerste={i === eersteUitsnede} />)}
+{sectie.gebouwd ? (
+	<GebouwdeSectie sectie={{ ...sectie, gebouwd: sectie.gebouwd }} entry={entry} staticUrl={staticUrl} />
+) : snede ? (
+	<section class="sectie">
+		<div class="sectie-deel" style={hoogte(snede.y)}>
+			<div class="tekening-venster">
+				{tekening && (
+					<Tekening
+						src={tekening.src}
+						maten={tekening.maten}
+						alt={alt}
+						eerste={eerste}
+						kolom={kolom}
+						style={venster(0)}
+					/>
+				)}
 			</div>
-			{uitklap?.soort === "uitklap" && (
-				<div class:list={["band", uitklapBand?.kolom === null && "zonder-kolom"]} style={uitklapBand?.kolom ? bandVars(uitklapBand.kolom) : undefined}>
-					<Uitklap blok={uitklap} entry={entry} />
+			{boven.map((band, i) => (
+				<Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} eerste={i === eersteUitsnede} />
+			))}
+		</div>
+		{uitklap?.soort === "uitklap" && (
+			<div
+				class:list={["band", uitklapBand?.kolom === null && "zonder-kolom"]}
+				style={uitklapBand?.kolom ? bandVars(uitklapBand.kolom) : undefined}
+			>
+				<Uitklap blok={uitklap} entry={entry} />
+			</div>
+		)}
+		{snede.y < sectie.hoogte && (
+			<div class="sectie-deel" style={hoogte(sectie.hoogte - snede.y)}>
+				<div class="tekening-venster">
+					{tekening && (
+						<Tekening
+							src={tekening.src}
+							maten={tekening.maten}
+							alt=""
+							eerste={false}
+							kolom={kolom}
+							style={venster(snede.y)}
+						/>
+					)}
 				</div>
-			)}
-			{snede.y < sectie.hoogte && (
-				<div class="sectie-deel" style={hoogte(sectie.hoogte - snede.y)}>
-					<div class="tekening-venster">
-						{tekening && <Tekening src={tekening.src} maten={tekening.maten} alt="" eerste={false} kolom={kolom} style={venster(snede.y)} />}
-					</div>
-					{snede.banden.map((band) => <Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} eerste={false} />)}
-				</div>
-			)}
-		</section>
-	) : (
-		<section
-			class:list={["sectie", sectie.raster && "raster"]}
-			style={sectie.raster ? `${hoogte(sectie.hoogte)};${rasterVars(sectie.raster)}` : hoogte(sectie.hoogte)}
-		>
-			{tekening && <Tekening src={tekening.src} maten={tekening.maten} alt={alt} eerste={eerste} kolom={kolom} />}
-			{boven.map((band, i) => <Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} eerste={i === eersteUitsnede} />)}
-		</section>
-	)
-}
+				{snede.banden.map((band) => (
+					<Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} eerste={false} />
+				))}
+			</div>
+		)}
+	</section>
+) : (
+	<section
+		class:list={["sectie", sectie.raster && "raster"]}
+		style={sectie.raster ? `${hoogte(sectie.hoogte)};${rasterVars(sectie.raster)}` : hoogte(sectie.hoogte)}
+	>
+		{tekening && <Tekening src={tekening.src} maten={tekening.maten} alt={alt} eerste={eerste} kolom={kolom} />}
+		{boven.map((band, i) => (
+			<Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} eerste={i === eersteUitsnede} />
+		))}
+	</section>
+)}
