@@ -43,7 +43,10 @@ let paginaNr = 0;
 let paneelNr = 0;
 const items = (menu?.items ?? []).map((item) => {
 	const soort = soortVan(item);
-	const paneel = soort === "uitklap" ? { nr: paneelNr, maat: m.paneel.panelen[paneelNr++] ?? m.paneel.panelen.at(-1)!, ...groepenVan(item) } : undefined;
+	const paneel =
+		soort === "uitklap"
+			? { nr: paneelNr, maat: m.paneel.panelen[paneelNr++] ?? m.paneel.panelen.at(-1)!, ...groepenVan(item) }
+			: undefined;
 	return { item, soort, paneel, breedte: soort === "pagina" ? m.pagina.breedtes[paginaNr++] : undefined };
 });
 const hier = Astro.url.pathname.replace(/(.)\/$/, "$1");
@@ -193,73 +196,166 @@ const variabelen = Object.entries({
 <style is:inline set:html={`:root{${variabelen}}`} />
 <header class="menu" data-breedte={m.breedte} data-vast={m.wissel.vast} data-logo={m.wissel.logo}>
 	<div class="menu-binnen">
-		<a class="menu-badge link" href="/"><Beeld beeld={m.badge.beeld} staticUrl={staticUrl} /><span>{SITE_NAME}</span></a>
+		<a class="menu-badge link" href="/">
+			<Beeld beeld={m.badge.beeld} staticUrl={staticUrl} />
+			<span>{SITE_NAME}</span>
+		</a>
 		<nav class="menu-balk">
-			{
-				items.map(({ item, soort, paneel, breedte }) =>
-					paneel ? (
-						<div class="menu-uitklap-houder">
-							<button type="button" class={`menu-item menu-uitklap s-${m.uitklap.stijl}`} aria-expanded="false" aria-controls={`menu-paneel-${paneel.nr}`}>{item.label}<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 3.5 L5 7 L8.5 3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
-							<div id={`menu-paneel-${paneel.nr}`} class="menu-paneel menu-dicht" style={`--paneel-links:${paneel.maat.links};--paneel-boven:${paneel.maat.boven}`}>
-								{paneel.groepen.map((g, j) => (
-									<div class="menu-paneel-kolom" style={`width:calc(${paneel.maat.kolommen[j] ?? paneel.maat.kolommen.at(-1)} * var(--s))`}>
-										{paneel.metKop && <div class={`menu-paneel-kop s-${p.kop.stijl}`}>{g.kop}</div>}
-										<ul>{g.rijen.map((r) => <li><a class={`menu-paneel-rij s-${p.rij.stijl}`} href={r.url} target={r.target} rel={rel(r)}>{r.label}</a></li>)}</ul>
-									</div>
-								))}
-							</div>
+			{items.map(({ item, soort, paneel, breedte }) =>
+				paneel ? (
+					<div class="menu-uitklap-houder">
+						<button
+							type="button"
+							class={`menu-item menu-uitklap s-${m.uitklap.stijl}`}
+							aria-expanded="false"
+							aria-controls={`menu-paneel-${paneel.nr}`}
+						>
+							{item.label}
+							<svg viewBox="0 0 10 10" aria-hidden="true">
+								<path
+									d="M1.5 3.5 L5 7 L8.5 3.5"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.5"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								/>
+							</svg>
+						</button>
+						<div
+							id={`menu-paneel-${paneel.nr}`}
+							class="menu-paneel menu-dicht"
+							style={`--paneel-links:${paneel.maat.links};--paneel-boven:${paneel.maat.boven}`}
+						>
+							{paneel.groepen.map((g, j) => (
+								<div
+									class="menu-paneel-kolom"
+									style={`width:calc(${paneel.maat.kolommen[j] ?? paneel.maat.kolommen.at(-1)} * var(--s))`}
+								>
+									{paneel.metKop && <div class={`menu-paneel-kop s-${p.kop.stijl}`}>{g.kop}</div>}
+									<ul>
+										{g.rijen.map((r) => (
+											<li>
+												<a class={`menu-paneel-rij s-${p.rij.stijl}`} href={r.url} target={r.target} rel={rel(r)}>
+													{r.label}
+												</a>
+											</li>
+										))}
+									</ul>
+								</div>
+							))}
 						</div>
-					) : soort === "knop" ? (
-						<a class="menu-item menu-knop link" href={item.url} target={item.target} rel={rel(item)}><Beeld beeld={m.knop.beeld} staticUrl={staticUrl} /><span class={`s-${m.knop.stijl}`}>{item.label}</span></a>
-					) : soort === "inloggen" ? (
-						<a class="menu-item menu-inloggen link" href={item.url} target={item.target} rel={rel(item)}><Beeld beeld={m.inloggen.beeld} staticUrl={staticUrl} /><span>{item.label}</span></a>
-					) : (
-						<a
-							class:list={["menu-item", "menu-pagina", "link", { "menu-vrij": breedte === undefined }]}
-							href={item.url}
-							target={item.target}
-							rel={rel(item)}
-							style={breedte === undefined ? undefined : `width:calc(${breedte} * var(--s))`}
-							aria-current={item.url === hier ? "page" : undefined}
-						><span class={`s-${m.pagina.stijl}`}>{item.label}</span></a>
-					),
-				)
-			}
+					</div>
+				) : soort === "knop" ? (
+					<a class="menu-item menu-knop link" href={item.url} target={item.target} rel={rel(item)}>
+						<Beeld beeld={m.knop.beeld} staticUrl={staticUrl} />
+						<span class={`s-${m.knop.stijl}`}>{item.label}</span>
+					</a>
+				) : soort === "inloggen" ? (
+					<a class="menu-item menu-inloggen link" href={item.url} target={item.target} rel={rel(item)}>
+						<Beeld beeld={m.inloggen.beeld} staticUrl={staticUrl} />
+						<span>{item.label}</span>
+					</a>
+				) : (
+					<a
+						class:list={["menu-item", "menu-pagina", "link", { "menu-vrij": breedte === undefined }]}
+						href={item.url}
+						target={item.target}
+						rel={rel(item)}
+						style={breedte === undefined ? undefined : `width:calc(${breedte} * var(--s))`}
+						aria-current={item.url === hier ? "page" : undefined}
+					>
+						<span class={`s-${m.pagina.stijl}`}>{item.label}</span>
+					</a>
+				),
+			)}
 		</nav>
 		<div class="menu-lijn"></div>
 	</div>
-	{
-		k && (
-			<nav class="menu-mobiel" aria-label={MENU}>
-				<a class="menu-mobiel-badge" href="/" aria-label={SITE_NAME} style={badgeBeeld} />
-				<button type="button" class="menu-hamburger" aria-expanded="false" aria-controls="menu-mobiel-paneel" aria-label={MENU}>
-					{k.knop.streep.tops.map((top, i) => {
-						const open = k.paneel.hamburger.strepen[i];
-						return <span style={`--top:${px(top)};--open-top:${px(open.top)};--open-transform:${open.transform};--open-opacity:${open.opacity}`} />;
-					})}
-				</button>
-				<div id="menu-mobiel-paneel" class="menu-mobiel-paneel menu-dicht">
-					<ul>
-						{lijst.map((regel) =>
-							"pagina" in regel ? (
-								<li><a class={`menu-mobiel-rij s-${k.paneel.stijl.pagina}`} href={regel.pagina.url} aria-current={regel.pagina.url === hier ? "page" : undefined}>{regel.pagina.label}</a></li>
-							) : (
-								<li>
-									<div class={`menu-mobiel-kop s-${k.paneel.kop.stijl}`}>{regel.groep.kop}</div>
-									<ul>{regel.groep.rijen.map((r) => <li><a class={`menu-mobiel-rij s-${k.paneel.stijl.rij}`} href={r.url} aria-current={r.url === hier ? "page" : undefined}>{r.label}</a></li>)}</ul>
-								</li>
-							),
-						)}
-					</ul>
-					<hr class="menu-mobiel-lijn" />
-					{inloggen && <a class={`menu-mobiel-rij menu-mobiel-inloggen s-${k.paneel.stijl.rij}`} href={inloggen.url} target={inloggen.target} rel={rel(inloggen)}><Fragment set:html={k.paneel.inloggen.icoon.svg} />{inloggen.label}{inloggen.target === "_blank" && <span class="menu-verborgen">{NIEUW_TABBLAD}</span>}</a>}
-					{proef && <a class={`menu-mobiel-knop s-${k.paneel.knop.stijl}`} href={proef.url} target={proef.target} rel={rel(proef)}>{proef.label}</a>}
-				</div>
-			</nav>
-		)
-	}
+	{k && (
+		<nav class="menu-mobiel" aria-label={MENU}>
+			<a class="menu-mobiel-badge" href="/" aria-label={SITE_NAME} style={badgeBeeld} />
+			<button
+				type="button"
+				class="menu-hamburger"
+				aria-expanded="false"
+				aria-controls="menu-mobiel-paneel"
+				aria-label={MENU}
+			>
+				{k.knop.streep.tops.map((top, i) => {
+					const open = k.paneel.hamburger.strepen[i];
+					return (
+						<span
+							style={`--top:${px(top)};--open-top:${px(open.top)};--open-transform:${open.transform};--open-opacity:${open.opacity}`}
+						/>
+					);
+				})}
+			</button>
+			<div id="menu-mobiel-paneel" class="menu-mobiel-paneel menu-dicht">
+				<ul>
+					{lijst.map((regel) =>
+						"pagina" in regel ? (
+							<li>
+								<a
+									class={`menu-mobiel-rij s-${k.paneel.stijl.pagina}`}
+									href={regel.pagina.url}
+									aria-current={regel.pagina.url === hier ? "page" : undefined}
+								>
+									{regel.pagina.label}
+								</a>
+							</li>
+						) : (
+							<li>
+								<div class={`menu-mobiel-kop s-${k.paneel.kop.stijl}`}>{regel.groep.kop}</div>
+								<ul>
+									{regel.groep.rijen.map((r) => (
+										<li>
+											<a
+												class={`menu-mobiel-rij s-${k.paneel.stijl.rij}`}
+												href={r.url}
+												aria-current={r.url === hier ? "page" : undefined}
+											>
+												{r.label}
+											</a>
+										</li>
+									))}
+								</ul>
+							</li>
+						),
+					)}
+				</ul>
+				<hr class="menu-mobiel-lijn" />
+				{inloggen && (
+					<a
+						class={`menu-mobiel-rij menu-mobiel-inloggen s-${k.paneel.stijl.rij}`}
+						href={inloggen.url}
+						target={inloggen.target}
+						rel={rel(inloggen)}
+					>
+						<Fragment set:html={k.paneel.inloggen.icoon.svg} />
+						{inloggen.label}
+						{inloggen.target === "_blank" && <span class="menu-verborgen">{NIEUW_TABBLAD}</span>}
+					</a>
+				)}
+				{proef && (
+					<a
+						class={`menu-mobiel-knop s-${k.paneel.knop.stijl}`}
+						href={proef.url}
+						target={proef.target}
+						rel={rel(proef)}
+					>
+						{proef.label}
+					</a>
+				)}
+			</div>
+		</nav>
+	)}
 </header>
-{k && <button type="button" class="menu-terug" aria-label={TERUG}><Fragment set:html={k.terug.icoon.svg} /></button>}
+{k && (
+	<button type="button" class="menu-terug" aria-label={TERUG}>
+		<Fragment set:html={k.terug.icoon.svg} />
+	</button>
+)}
 
 <script>
 	import { KOLOM_MEDIA } from "../layout";

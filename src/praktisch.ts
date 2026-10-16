@@ -103,7 +103,11 @@ export function tekstVan(spans: readonly Span[] | undefined): string {
 
 // The runs of a paragraph, each with the address its link mark points at.
 export function stukkenVan(blok: PtBlok): Stuk[] {
-	const links = new Map((blok.markDefs ?? []).filter((def) => def._type === "link" && def.href).map((def) => [def._key, def.href as string]));
+	const links = new Map(
+		(blok.markDefs ?? [])
+			.filter((def) => def._type === "link" && def.href)
+			.map((def) => [def._key, def.href as string]),
+	);
 	const uit: Stuk[] = [];
 	for (const span of blok.children ?? []) {
 		const marks = span.marks ?? [];
@@ -114,7 +118,8 @@ export function stukkenVan(blok: PtBlok): Stuk[] {
 			nadruk: marks.includes("em"),
 		};
 		const vorige = uit.at(-1);
-		if (vorige && vorige.href === stuk.href && vorige.sterk === stuk.sterk && vorige.nadruk === stuk.nadruk) vorige.tekst += stuk.tekst;
+		if (vorige && vorige.href === stuk.href && vorige.sterk === stuk.sterk && vorige.nadruk === stuk.nadruk)
+			vorige.tekst += stuk.tekst;
 		else if (stuk.tekst) uit.push(stuk);
 	}
 	return uit;
@@ -147,7 +152,11 @@ export function lijstenVan(items: readonly PtBlok[]): Lijst[] {
 
 // A table cell as a paragraph; a link mark of the cell wins from one of the table.
 function celBlok(tabel: PtBlok, cel: Cel): PtBlok {
-	return { _type: "block", children: cel.content ?? [], markDefs: [...(tabel.markDefs ?? []), ...(cel.markDefs ?? [])] };
+	return {
+		_type: "block",
+		children: cel.content ?? [],
+		markDefs: [...(tabel.markDefs ?? []), ...(cel.markDefs ?? [])],
+	};
 }
 
 // The parts of a Portable Text field: list items in a row form lists; a plain paragraph that is one whole link is a
@@ -183,7 +192,8 @@ export function delenVan(blokken: readonly PtBlok[] | null | undefined): Deel[] 
 		}
 		const stukken = stukkenVan(blok);
 		const [enige] = stukken;
-		if (stijl === "normal" && stukken.length === 1 && enige.href) uit.push({ soort: "link", blok, tekst: enige.tekst, href: enige.href });
+		if (stijl === "normal" && stukken.length === 1 && enige.href)
+			uit.push({ soort: "link", blok, tekst: enige.tekst, href: enige.href });
 		else uit.push({ soort: "tekst", blok, citaat: stijl === "blockquote" });
 	}
 	return uit;

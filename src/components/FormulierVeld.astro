@@ -59,133 +59,195 @@ const hulp = veld.helpText ? `${id}-hulp` : undefined;
 const voorwaarde = veld.condition ? JSON.stringify(veld.condition) : undefined;
 ---
 
-{
-	soort === "rij" ? (
-		<div class="formulier-rij" style={gat(v.naast)}>
-			{velden.map((half) => (
-				<Astro.self velden={[half]} slug={slug} datums={datums} groepen={groepen} sport={sport} geenData={geenData} />
+{soort === "rij" ? (
+	<div class="formulier-rij" style={gat(v.naast)}>
+		{velden.map((half) => (
+			<Astro.self velden={[half]} slug={slug} datums={datums} groepen={groepen} sport={sport} geenData={geenData} />
+		))}
+	</div>
+) : soort === DATUM && !datums.length ? (
+	<div>
+		<p
+			class={`s-${v.invoer.stijl}`}
+			style={`margin:0;padding:${v.tegel.padding.map(maat).join(" ")};border-radius:${maat(v.tegel.radius)};background:${v.tegel.vulling}`}
+		>
+			{geenData}
+		</p>
+		<input type="hidden" name={veld.name} value={FORMULIER.opDeHoogte} />
+	</div>
+) : soort === DATUM ? (
+	<fieldset class="formulier-keuze" data-condition={voorwaarde} aria-describedby={hulp}>
+		<legend class={`s-${v["kop-datum"]}`} style={kop}>
+			{veld.label}
+		</legend>
+		<div class="formulier-tegels" style={gat(v.tegelGat)}>
+			{[...datums, null].map((datum) => (
+				<label class="formulier-tegel" style={tegel(v["tegel-datum"])}>
+					<input
+						type="radio"
+						class="formulier-stip"
+						style={stip}
+						name={veld.name}
+						value={datum?.waarde ?? FORMULIER.opDeHoogte}
+						required={veld.required}
+					/>
+					<span class={`formulier-dag s-${v.dag}`}>{datum?.dag ?? FORMULIER.geenDatum}</span>
+					{datum?.tijd && <span class={`s-${v.invoer.stijl}`}>{datum.tijd}</span>}
+					{/* The tile shows its short day; a screen reader hears the whole date as part of the name. */}
+					{datum && <span class="verborgen">{datum.waarde}</span>}
+				</label>
 			))}
 		</div>
-	) : soort === DATUM && !datums.length ? (
-		<div>
-			<p class={`s-${v.invoer.stijl}`} style={`margin:0;padding:${v.tegel.padding.map(maat).join(" ")};border-radius:${maat(v.tegel.radius)};background:${v.tegel.vulling}`}>
-				{geenData}
+		{hulp && (
+			<p id={hulp} class={`s-${v.klein}`} style={uitleg}>
+				{veld.helpText}
 			</p>
-			<input type="hidden" name={veld.name} value={FORMULIER.opDeHoogte} />
-		</div>
-	) : soort === DATUM ? (
-		<fieldset class="formulier-keuze" data-condition={voorwaarde} aria-describedby={hulp}>
-			<legend class={`s-${v["kop-datum"]}`} style={kop}>{veld.label}</legend>
-			<div class="formulier-tegels" style={gat(v.tegelGat)}>
-				{[...datums, null].map((datum) => (
-					<label class="formulier-tegel" style={tegel(v["tegel-datum"])}>
-						<input
-							type="radio"
-							class="formulier-stip"
-							style={stip}
-							name={veld.name}
-							value={datum?.waarde ?? FORMULIER.opDeHoogte}
-							required={veld.required}
-						/>
-						<span class={`formulier-dag s-${v.dag}`}>{datum?.dag ?? FORMULIER.geenDatum}</span>
-						{datum?.tijd && <span class={`s-${v.invoer.stijl}`}>{datum.tijd}</span>}
-						{/* The tile shows its short day; a screen reader hears the whole date as part of the name. */}
-						{datum && <span class="verborgen">{datum.waarde}</span>}
-					</label>
-				))}
-			</div>
-			{hulp && <p id={hulp} class={`s-${v.klein}`} style={uitleg}>{veld.helpText}</p>}
-		</fieldset>
-	) : soort === GROEP ? (
-		<fieldset class="formulier-keuze" data-condition={voorwaarde} aria-describedby={hulp}>
-			<legend class={`s-${v["kop-groep"]}`} style={kop}>{veld.label}</legend>
-			<div class="formulier-tegels los" style={gat(v.tegelGat)}>
-				{groepen.map((groep) => (
-					<label class="formulier-tegel" style={tegel(v["tegel-groep"])}>
-						<input type="radio" class:list={["formulier-stip", groep.vol ? "vol wacht" : "vrij"]} style={stip} name={veld.name} value={groep.waarde} required={veld.required} />
-						<span class="formulier-groep">
-							<span class={`s-${v.dag}`}>{groep.wanneer}</span>
-							{groep.leeftijd && <span class={`s-${v.zacht}`}>{groep.leeftijd}</span>}
-						</span>
-						<span class={`s-${v.zacht}`}>{groep.vol ? FORMULIER.vol : FORMULIER.plek}</span>
-					</label>
-				))}
+		)}
+	</fieldset>
+) : soort === GROEP ? (
+	<fieldset class="formulier-keuze" data-condition={voorwaarde} aria-describedby={hulp}>
+		<legend class={`s-${v["kop-groep"]}`} style={kop}>
+			{veld.label}
+		</legend>
+		<div class="formulier-tegels los" style={gat(v.tegelGat)}>
+			{groepen.map((groep) => (
 				<label class="formulier-tegel" style={tegel(v["tegel-groep"])}>
-					<input type="radio" class="formulier-stip anders wacht" style={stip} name={veld.name} value={`${sport}, ${FORMULIER.andereGroep}`} required={veld.required} />
-					<span class={`formulier-groep s-${v.dag}`}>{FORMULIER.anders}</span>
+					<input
+						type="radio"
+						class:list={["formulier-stip", groep.vol ? "vol wacht" : "vrij"]}
+						style={stip}
+						name={veld.name}
+						value={groep.waarde}
+						required={veld.required}
+					/>
+					<span class="formulier-groep">
+						<span class={`s-${v.dag}`}>{groep.wanneer}</span>
+						{groep.leeftijd && <span class={`s-${v.zacht}`}>{groep.leeftijd}</span>}
+					</span>
+					<span class={`s-${v.zacht}`}>{groep.vol ? FORMULIER.vol : FORMULIER.plek}</span>
 				</label>
-			</div>
-			{hulp && <p id={hulp} class={`s-${v.klein}`} style={uitleg}>{veld.helpText}</p>}
-		</fieldset>
-	) : soort === "keuze" ? (
-		<fieldset class="formulier-keuze" data-condition={voorwaarde} aria-describedby={hulp}>
-			<legend class={`s-${v["kop-datum"]}`} style={kop}>{veld.label}</legend>
-			<div class="formulier-tegels" style={gat(v.tegelGat)}>
-				{(veld.options ?? []).map((optie) => (
-					<label class="formulier-tegel" style={tegel(v["tegel-datum"])}>
-						<input
-							type={veld.type === "radio" ? "radio" : "checkbox"}
-							class:list={["formulier-stip", veld.type !== "radio" && "vinkje"]}
-							style={stip}
-							name={veld.name}
-							value={optie.value}
-							required={veld.type === "radio" && veld.required}
-						/>
-						<span class={`formulier-dag s-${v.dag}`}>{optie.label}</span>
-					</label>
-				))}
-			</div>
-			{hulp && <p id={hulp} class={`s-${v.klein}`} style={uitleg}>{veld.helpText}</p>}
-		</fieldset>
-	) : soort === "checkbox" ? (
-		<div class="formulier-veld" style={gat(v.labelGat)} data-condition={voorwaarde}>
-			<label class="formulier-tegel" style={tegel(v["tegel-datum"])}>
-				<input type="checkbox" class="formulier-stip vinkje" style={stip} name={veld.name} value={veld.defaultValue || "1"} required={veld.required} aria-describedby={hulp} data-hulp={hulp} />
-				<span class={`formulier-dag s-${v.dag}`}>{veld.label}</span>
-				{hulp && <span id={hulp} class="verborgen">{veld.helpText}</span>}
+			))}
+			<label class="formulier-tegel" style={tegel(v["tegel-groep"])}>
+				<input
+					type="radio"
+					class="formulier-stip anders wacht"
+					style={stip}
+					name={veld.name}
+					value={`${sport}, ${FORMULIER.andereGroep}`}
+					required={veld.required}
+				/>
+				<span class={`formulier-groep s-${v.dag}`}>{FORMULIER.anders}</span>
 			</label>
 		</div>
-	) : soort === "hidden" ? (
-		<input type="hidden" name={veld.name} value={veld.defaultValue} />
-	) : (
-		<div class="formulier-veld" style={gat(v.labelGat)} data-condition={voorwaarde}>
-			<label for={id} class={`s-${v.label}`}>{veld.label}</label>
-			{soort === "textarea" ? (
-				<textarea
-					class={`formulier-invoer s-${v.tekstvak.stijl}`}
-					style={vak(v.tekstvak)}
-					id={id}
-					name={veld.name}
-					required={veld.required}
-					placeholder={veld.placeholder}
-					minlength={veld.validation?.minLength}
-					maxlength={veld.validation?.maxLength}
-					aria-describedby={hulp}
-					data-hulp={hulp}
-				/>
-			) : soort === "select" ? (
-				<select class={`formulier-invoer s-${v.invoer.stijl}`} style={vak(v.invoer)} id={id} name={veld.name} required={veld.required} aria-describedby={hulp} data-hulp={hulp}>
-					{(veld.options ?? []).map((optie) => <option value={optie.value}>{optie.label}</option>)}
-				</select>
-			) : (
-				<input
-					class={`formulier-invoer s-${v.invoer.stijl}`}
-					style={vak(v.invoer)}
-					id={id}
-					name={veld.name}
-					type={invoerType}
-					required={veld.required}
-					autocomplete={INVULLEN[veld.name]}
-					placeholder={veld.placeholder}
-					minlength={veld.validation?.minLength}
-					maxlength={veld.validation?.maxLength}
-					pattern={veld.validation?.pattern}
-					accept={veld.validation?.accept}
-					aria-describedby={hulp}
-					data-hulp={hulp}
-				/>
-			)}
-			{hulp && <span id={hulp} class={`s-${v.klein}`}>{veld.helpText}</span>}
+		{hulp && (
+			<p id={hulp} class={`s-${v.klein}`} style={uitleg}>
+				{veld.helpText}
+			</p>
+		)}
+	</fieldset>
+) : soort === "keuze" ? (
+	<fieldset class="formulier-keuze" data-condition={voorwaarde} aria-describedby={hulp}>
+		<legend class={`s-${v["kop-datum"]}`} style={kop}>
+			{veld.label}
+		</legend>
+		<div class="formulier-tegels" style={gat(v.tegelGat)}>
+			{(veld.options ?? []).map((optie) => (
+				<label class="formulier-tegel" style={tegel(v["tegel-datum"])}>
+					<input
+						type={veld.type === "radio" ? "radio" : "checkbox"}
+						class:list={["formulier-stip", veld.type !== "radio" && "vinkje"]}
+						style={stip}
+						name={veld.name}
+						value={optie.value}
+						required={veld.type === "radio" && veld.required}
+					/>
+					<span class={`formulier-dag s-${v.dag}`}>{optie.label}</span>
+				</label>
+			))}
 		</div>
-	)
-}
+		{hulp && (
+			<p id={hulp} class={`s-${v.klein}`} style={uitleg}>
+				{veld.helpText}
+			</p>
+		)}
+	</fieldset>
+) : soort === "checkbox" ? (
+	<div class="formulier-veld" style={gat(v.labelGat)} data-condition={voorwaarde}>
+		<label class="formulier-tegel" style={tegel(v["tegel-datum"])}>
+			<input
+				type="checkbox"
+				class="formulier-stip vinkje"
+				style={stip}
+				name={veld.name}
+				value={veld.defaultValue || "1"}
+				required={veld.required}
+				aria-describedby={hulp}
+				data-hulp={hulp}
+			/>
+			<span class={`formulier-dag s-${v.dag}`}>{veld.label}</span>
+			{hulp && (
+				<span id={hulp} class="verborgen">
+					{veld.helpText}
+				</span>
+			)}
+		</label>
+	</div>
+) : soort === "hidden" ? (
+	<input type="hidden" name={veld.name} value={veld.defaultValue} />
+) : (
+	<div class="formulier-veld" style={gat(v.labelGat)} data-condition={voorwaarde}>
+		<label for={id} class={`s-${v.label}`}>
+			{veld.label}
+		</label>
+		{soort === "textarea" ? (
+			<textarea
+				class={`formulier-invoer s-${v.tekstvak.stijl}`}
+				style={vak(v.tekstvak)}
+				id={id}
+				name={veld.name}
+				required={veld.required}
+				placeholder={veld.placeholder}
+				minlength={veld.validation?.minLength}
+				maxlength={veld.validation?.maxLength}
+				aria-describedby={hulp}
+				data-hulp={hulp}
+			/>
+		) : soort === "select" ? (
+			<select
+				class={`formulier-invoer s-${v.invoer.stijl}`}
+				style={vak(v.invoer)}
+				id={id}
+				name={veld.name}
+				required={veld.required}
+				aria-describedby={hulp}
+				data-hulp={hulp}
+			>
+				{(veld.options ?? []).map((optie) => (
+					<option value={optie.value}>{optie.label}</option>
+				))}
+			</select>
+		) : (
+			<input
+				class={`formulier-invoer s-${v.invoer.stijl}`}
+				style={vak(v.invoer)}
+				id={id}
+				name={veld.name}
+				type={invoerType}
+				required={veld.required}
+				autocomplete={INVULLEN[veld.name]}
+				placeholder={veld.placeholder}
+				minlength={veld.validation?.minLength}
+				maxlength={veld.validation?.maxLength}
+				pattern={veld.validation?.pattern}
+				accept={veld.validation?.accept}
+				aria-describedby={hulp}
+				data-hulp={hulp}
+			/>
+		)}
+		{hulp && (
+			<span id={hulp} class={`s-${v.klein}`}>
+				{veld.helpText}
+			</span>
+		)}
+	</div>
+)}

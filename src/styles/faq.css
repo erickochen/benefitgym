@@ -94,7 +94,8 @@
 	width: 100%;
 	min-height: calc(var(--faq-vraag) * var(--faq-k));
 	margin: 0;
-	padding: calc(var(--faq-gat) / 2 * var(--faq-k)) calc(var(--faq-knop) + var(--faq-gat) * var(--faq-k)) calc(var(--faq-gat) / 2 * var(--faq-k)) 0;
+	padding: calc(var(--faq-gat) / 2 * var(--faq-k)) calc(var(--faq-knop) + var(--faq-gat) * var(--faq-k))
+		calc(var(--faq-gat) / 2 * var(--faq-k)) 0;
 	border: 0;
 	background: none;
 	color: var(--faq-kleur);

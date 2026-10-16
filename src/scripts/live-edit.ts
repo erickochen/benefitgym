@@ -189,7 +189,10 @@ async function begin(element: HTMLElement) {
 	} catch {
 		ref = {};
 	}
-	const veld = ref.collection && ref.field ? (await leesManifest())?.collections?.[ref.collection]?.fields?.[ref.field] : undefined;
+	const veld =
+		ref.collection && ref.field
+			? (await leesManifest())?.collections?.[ref.collection]?.fields?.[ref.field]
+			: undefined;
 	const max = veld?.validation?.maxLength;
 	if (max && element.hasAttribute(BEWERKT)) bewaak(element, max, veld.kind === MEER_REGELS);
 	else bewaakt.delete(element);

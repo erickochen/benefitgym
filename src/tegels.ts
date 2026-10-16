@@ -10,7 +10,12 @@ const VOLUIT = new Intl.DateTimeFormat("nl-NL", {
 	year: "numeric",
 	timeZone: TIJDZONE,
 });
-const KLOK = new Intl.DateTimeFormat("nl-NL", { hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone: TIJDZONE });
+const KLOK = new Intl.DateTimeFormat("nl-NL", {
+	hour: "2-digit",
+	minute: "2-digit",
+	hourCycle: "h23",
+	timeZone: TIJDZONE,
+});
 // Midnight is a date without a time, not a night class.
 const MIDDERNACHT = "00:00";
 const DAGEN = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"];
@@ -41,7 +46,11 @@ export function datumTegels(data: string[], nu: number): DatumTegel[] {
 		const moment = new Date(ms);
 		const klok = KLOK.format(moment);
 		const tijd = klok === MIDDERNACHT ? null : klok;
-		return { waarde: tijd ? `${VOLUIT.format(moment)}, ${tijd}` : VOLUIT.format(moment), dag: KORT.format(moment), tijd };
+		return {
+			waarde: tijd ? `${VOLUIT.format(moment)}, ${tijd}` : VOLUIT.format(moment),
+			dag: KORT.format(moment),
+			tijd,
+		};
 	});
 	return [...new Map(tegels.map((tegel) => [tegel.waarde, tegel])).values()];
 }
@@ -55,7 +64,8 @@ export function groepTegel(
 	if (!DAGEN.includes(dag)) return null;
 	const getikt = (groep.tijd ?? "").trim();
 	const klok = TIJD.exec(getikt);
-	const tijd = klok && Number(klok[1]) < UREN && Number(klok[2]) < MINUTEN ? `${klok[1].padStart(2, "0")}:${klok[2]}` : getikt;
+	const tijd =
+		klok && Number(klok[1]) < UREN && Number(klok[2]) < MINUTEN ? `${klok[1].padStart(2, "0")}:${klok[2]}` : getikt;
 	const leeftijd = (groep.leeftijd ?? "").trim();
 	const wanneer = [dag, tijd].filter(Boolean).join(" ");
 	return { waarde: [sport, wanneer, leeftijd].filter(Boolean).join(", "), wanneer, leeftijd, vol: groep.vol === true };

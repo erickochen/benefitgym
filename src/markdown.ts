@@ -9,11 +9,64 @@ const VOORWERK = ["title", "description", "image"] as const;
 // Elements that hold no text a reader needs.
 const WEG = new Set(["script", "style", "noscript", "template", "svg", "nav", "footer", "select", "iframe", "head"]);
 // Elements without an end tag.
-const LEEG = new Set(["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"]);
+const LEEG = new Set([
+	"area",
+	"base",
+	"br",
+	"col",
+	"embed",
+	"hr",
+	"img",
+	"input",
+	"link",
+	"meta",
+	"param",
+	"source",
+	"track",
+	"wbr",
+]);
 // Elements that open a block of their own; the rest runs inside a paragraph.
-const BLOK = new Set(["address", "article", "aside", "blockquote", "body", "details", "dd", "div", "dl", "dt", "fieldset", "figcaption",
-	"figure", "form", "h1", "h2", "h3", "h4", "h5", "h6", "header", "hr", "html", "legend", "li", "main", "ol", "p", "picture", "section",
-	"summary", "table", "tbody", "td", "tfoot", "th", "thead", "tr", "ul"]);
+const BLOK = new Set([
+	"address",
+	"article",
+	"aside",
+	"blockquote",
+	"body",
+	"details",
+	"dd",
+	"div",
+	"dl",
+	"dt",
+	"fieldset",
+	"figcaption",
+	"figure",
+	"form",
+	"h1",
+	"h2",
+	"h3",
+	"h4",
+	"h5",
+	"h6",
+	"header",
+	"hr",
+	"html",
+	"legend",
+	"li",
+	"main",
+	"ol",
+	"p",
+	"picture",
+	"section",
+	"summary",
+	"table",
+	"tbody",
+	"td",
+	"tfoot",
+	"th",
+	"thead",
+	"tr",
+	"ul",
+]);
 // The cells of a table, as elements or as roles.
 const CEL = new Set(["td", "th"]);
 const CEL_ROL = new Set(["cell", "columnheader", "rowheader"]);
@@ -48,11 +101,18 @@ export function wiltMarkdown(accept: string | null): boolean {
 /** A page of the site: a GET or HEAD outside the panel that answers with HTML. */
 export function isPagina(request: Request, antwoord: Response): boolean {
 	const { pathname } = new URL(request.url);
-	return ["GET", "HEAD"].includes(request.method) && !pathname.startsWith("/_emdash/") && (antwoord.headers.get("Content-Type") ?? "").startsWith(HTML);
+	return (
+		["GET", "HEAD"].includes(request.method) &&
+		!pathname.startsWith("/_emdash/") &&
+		(antwoord.headers.get("Content-Type") ?? "").startsWith(HTML)
+	);
 }
 
 function varieert(headers: Headers) {
-	const vary = (headers.get("Vary") ?? "").split(",").map((v) => v.trim()).filter(Boolean);
+	const vary = (headers.get("Vary") ?? "")
+		.split(",")
+		.map((v) => v.trim())
+		.filter(Boolean);
 	if (!vary.some((v) => v.toLowerCase() === "accept")) headers.set("Vary", [...vary, "Accept"].join(", "));
 }
 
@@ -67,7 +127,8 @@ const ENTITEITEN: Record<string, string> = { amp: "&", lt: "<", gt: ">", quot: '
 const ontcijfer = (s: string) =>
 	s.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (heel, code: string) => {
 		if (code[0] !== "#") return ENTITEITEN[code.toLowerCase()] ?? heel;
-		const getal = code[1].toLowerCase() === "x" ? Number.parseInt(code.slice(2), 16) : Number.parseInt(code.slice(1), 10);
+		const getal =
+			code[1].toLowerCase() === "x" ? Number.parseInt(code.slice(2), 16) : Number.parseInt(code.slice(1), 10);
 		return Number.isFinite(getal) ? String.fromCodePoint(getal) : heel;
 	});
 const ontsnap = (s: string) => s.replace(/([\\`*_[\]])/g, "\\$1");
@@ -79,7 +140,12 @@ async function boom(antwoord: Response): Promise<Knoop> {
 		.on("*", {
 			element(el) {
 				// The attributes of HTMLRewriter come as name plus value pairs, as written in the HTML.
-				const attrs = Object.fromEntries([...(el.attributes as unknown as Iterable<[string, string]>)].map(([naam, waarde]) => [naam, ontcijfer(waarde)]));
+				const attrs = Object.fromEntries(
+					[...(el.attributes as unknown as Iterable<[string, string]>)].map(([naam, waarde]) => [
+						naam,
+						ontcijfer(waarde),
+					]),
+				);
 				const knoop: Knoop = { tag: el.tagName.toLowerCase(), attrs, kinderen: [], ouder: hier };
 				hier.kinderen.push(knoop);
 				if (LEEG.has(knoop.tag)) return;
@@ -104,8 +170,10 @@ function* alle(k: Knoop): Generator<Knoop> {
 }
 
 const verborgen = (k: Knoop) => WEG.has(k.tag) || "hidden" in k.attrs || k.attrs["aria-hidden"] === "true";
-const tekstVan = (k: Knoop): string => k.kinderen.map((c) => (typeof c === "string" ? ontcijfer(c) : tekstVan(c))).join("");
-const heeftBlok = (k: Knoop): boolean => k.kinderen.some((c) => typeof c !== "string" && !verborgen(c) && (BLOK.has(c.tag) || heeftBlok(c)));
+const tekstVan = (k: Knoop): string =>
+	k.kinderen.map((c) => (typeof c === "string" ? ontcijfer(c) : tekstVan(c))).join("");
+const heeftBlok = (k: Knoop): boolean =>
+	k.kinderen.some((c) => typeof c !== "string" && !verborgen(c) && (BLOK.has(c.tag) || heeftBlok(c)));
 const schoon = (s: string) => s.replace(/\s+/g, " ").trim();
 
 function adres(href: string | undefined, basis: string): string | undefined {
@@ -122,8 +190,13 @@ function adres(href: string | undefined, basis: string): string | undefined {
 function bronVan(img: Knoop): string | undefined {
 	const src = img.attrs.src;
 	if (!src?.startsWith("data:")) return src;
-	const source = img.ouder?.kinderen.find((c): c is Knoop => typeof c !== "string" && c.tag === "source" && Boolean(c.attrs.srcset));
-	const kandidaten = (source?.attrs.srcset ?? "").split(",").map((k) => k.trim().split(/\s+/)).filter((k) => k[0]);
+	const source = img.ouder?.kinderen.find(
+		(c): c is Knoop => typeof c !== "string" && c.tag === "source" && Boolean(c.attrs.srcset),
+	);
+	const kandidaten = (source?.attrs.srcset ?? "")
+		.split(",")
+		.map((k) => k.trim().split(/\s+/))
+		.filter((k) => k[0]);
 	return kandidaten.sort((a, b) => Number.parseInt(b[1] ?? "0", 10) - Number.parseInt(a[1] ?? "0", 10))[0]?.[0];
 }
 
@@ -133,20 +206,22 @@ class Schrijver {
 	constructor(private basis: string) {}
 
 	private inline(k: Knoop): string {
-		return k.kinderen.map((c) => {
-			if (typeof c === "string") return ontsnap(ontcijfer(c));
-			if (verborgen(c)) return "";
-			if (c.tag === "br") return " ";
-			if (c.tag === "img") return this.beeld(c);
-			const binnen = this.inline(c);
-			if (c.tag === "a") {
-				const href = adres(c.attrs.href, this.basis);
-				return href && schoon(binnen) ? `[${schoon(binnen)}](${href})` : binnen;
-			}
-			if ((c.tag === "strong" || c.tag === "b") && schoon(binnen)) return `**${schoon(binnen)}**`;
-			if ((c.tag === "em" || c.tag === "i") && schoon(binnen)) return `*${schoon(binnen)}*`;
-			return binnen;
-		}).join("");
+		return k.kinderen
+			.map((c) => {
+				if (typeof c === "string") return ontsnap(ontcijfer(c));
+				if (verborgen(c)) return "";
+				if (c.tag === "br") return " ";
+				if (c.tag === "img") return this.beeld(c);
+				const binnen = this.inline(c);
+				if (c.tag === "a") {
+					const href = adres(c.attrs.href, this.basis);
+					return href && schoon(binnen) ? `[${schoon(binnen)}](${href})` : binnen;
+				}
+				if ((c.tag === "strong" || c.tag === "b") && schoon(binnen)) return `**${schoon(binnen)}**`;
+				if ((c.tag === "em" || c.tag === "i") && schoon(binnen)) return `*${schoon(binnen)}*`;
+				return binnen;
+			})
+			.join("");
 	}
 
 	private beeld(k: Knoop): string {
@@ -164,8 +239,13 @@ class Schrijver {
 
 	// A table of HTML or one built from roles, as the Praktisch pages draw theirs.
 	private tabel(k: Knoop) {
-		const rijen = [...alle(k)].filter((c) => c.tag === "tr" || c.attrs.role === "row").map((tr) =>
-			[...alle(tr)].filter((c) => c !== tr && (CEL.has(c.tag) || CEL_ROL.has(c.attrs.role ?? ""))).map((cel) => schoon(this.inline(cel)).replace(/\|/g, "\\|")));
+		const rijen = [...alle(k)]
+			.filter((c) => c.tag === "tr" || c.attrs.role === "row")
+			.map((tr) =>
+				[...alle(tr)]
+					.filter((c) => c !== tr && (CEL.has(c.tag) || CEL_ROL.has(c.attrs.role ?? "")))
+					.map((cel) => schoon(this.inline(cel)).replace(/\|/g, "\\|")),
+			);
 		if (!rijen.length) return;
 		const breedte = Math.max(...rijen.map((r) => r.length));
 		const rij = (r: string[]) => `| ${[...r, ...Array(breedte - r.length).fill("")].join(" | ")} |`;
@@ -174,7 +254,9 @@ class Schrijver {
 
 	private lijst(k: Knoop) {
 		const items = k.kinderen.filter((c): c is Knoop => typeof c !== "string" && c.tag === "li" && !verborgen(c));
-		const regels = items.map((li, i) => `${k.tag === "ol" ? `${i + 1}.` : "-"} ${schoon(this.inline(li))}`).filter((r) => !/^(-|\d+\.)\s*$/.test(r));
+		const regels = items
+			.map((li, i) => `${k.tag === "ol" ? `${i + 1}.` : "-"} ${schoon(this.inline(li))}`)
+			.filter((r) => !/^(-|\d+\.)\s*$/.test(r));
 		if (regels.length) this.blokken.push(regels.join("\n"));
 	}
 
@@ -208,7 +290,11 @@ class Schrijver {
 				const href = adres(c.attrs.href, this.basis);
 				const binnen = new Schrijver(this.basis);
 				binnen.schrijf(c);
-				this.blokken.push(...binnen.klaar().map((b) => (href ? b.replace(/^(#+ )?(.+)$/s, (_, voor = "", rest) => `${voor}[${rest}](${href})`) : b)));
+				this.blokken.push(
+					...binnen
+						.klaar()
+						.map((b) => (href ? b.replace(/^(#+ )?(.+)$/s, (_, voor = "", rest) => `${voor}[${rest}](${href})`) : b)),
+				);
 			} else if (BLOK.has(c.tag)) {
 				this.sluit();
 				this.schrijf(c);
@@ -230,9 +316,13 @@ class Schrijver {
 export async function alsMarkdown(antwoord: Response, url: string): Promise<Response> {
 	const wortel = await boom(antwoord.clone());
 	const knopen = [...alle(wortel)];
-	const meta = (sleutel: string, waarde: string) => knopen.find((k) => k.tag === "meta" && k.attrs[sleutel] === waarde)?.attrs.content;
+	const meta = (sleutel: string, waarde: string) =>
+		knopen.find((k) => k.tag === "meta" && k.attrs[sleutel] === waarde)?.attrs.content;
 	const voorwerk = {
-		title: meta("name", "title") ?? meta("property", "og:title") ?? schoon(tekstVan(knopen.find((k) => k.tag === "title") ?? wortel)),
+		title:
+			meta("name", "title") ??
+			meta("property", "og:title") ??
+			schoon(tekstVan(knopen.find((k) => k.tag === "title") ?? wortel)),
 		description: meta("name", "description") ?? meta("property", "og:description"),
 		image: meta("property", "og:image"),
 	};

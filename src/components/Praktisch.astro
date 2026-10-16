@@ -22,7 +22,9 @@ interface Props {
 
 const regels = data as PraktischRegels;
 const { entry, pagina, staticUrl } = Astro.props;
-const banden = bandenVan(((entry.data as { inhoud?: PraktischInhoudBlock[] | null }).inhoud ?? []) as PraktischInhoudBlock[]);
+const banden = bandenVan(
+	((entry.data as { inhoud?: PraktischInhoudBlock[] | null }).inhoud ?? []) as PraktischInhoudBlock[],
+);
 const componenten = defineBlockComponents<PraktischInhoudBlock>({
 	tekst_met_foto: TekstMetFoto,
 	kolommen: Kolommen,
@@ -89,32 +91,31 @@ const maten = Object.entries({
 
 <div class="praktisch-pagina" style={maten}>
 	<div class="praktisch" {...entry.edit.inhoud}>
-		{
-			banden.map((band, i) => (
-				<Fragment>
-					{i > 0 && (
-						<div class="praktisch-rand">
-							<Beeld beeld={r.overgang[`${banden[i - 1].vlak}-${band.vlak}` as "wit-donker" | "donker-wit"]} staticUrl={staticUrl} />
+		{banden.map((band, i) => (
+			<Fragment>
+				{i > 0 && (
+					<div class="praktisch-rand">
+						<Beeld
+							beeld={r.overgang[`${banden[i - 1].vlak}-${band.vlak}` as "wit-donker" | "donker-wit"]}
+							staticUrl={staticUrl}
+						/>
+					</div>
+				)}
+				<section class={`praktisch-band praktisch-${band.vlak}`}>
+					<Blocks value={band.blokken} components={componenten} />
+					{i === 0 && (
+						<div class="praktisch-streek" style={`height:${m(pagina.streek.h)}`}>
+							<Beeld beeld={pagina.streek.beeld} staticUrl={staticUrl} />
 						</div>
 					)}
-					<section class={`praktisch-band praktisch-${band.vlak}`}>
-						<Blocks value={band.blokken} components={componenten} />
-						{i === 0 && (
-							<div class="praktisch-streek" style={`height:${m(pagina.streek.h)}`}>
-								<Beeld beeld={pagina.streek.beeld} staticUrl={staticUrl} />
-							</div>
-						)}
-					</section>
-				</Fragment>
-			))
-		}
-		{
-			banden.at(-1)?.vlak === "wit" && (
-				<div class="praktisch-rand praktisch-naar-slot">
-					<Beeld beeld={r.overgang.rand} staticUrl={staticUrl} />
-				</div>
-			)
-		}
+				</section>
+			</Fragment>
+		))}
+		{banden.at(-1)?.vlak === "wit" && (
+			<div class="praktisch-rand praktisch-naar-slot">
+				<Beeld beeld={r.overgang.rand} staticUrl={staticUrl} />
+			</div>
+		)}
 	</div>
 	<div class="praktisch-slot">
 		<div class="praktisch-strook">

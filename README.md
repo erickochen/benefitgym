@@ -14,6 +14,8 @@ Then open http://localhost:4321/_emdash/admin and complete the setup wizard. It 
 
 The fonts and the drawings come from a separate host, read from `STATIC_URL`. For local work put `STATIC_URL=http://localhost:4179` in `.dev.vars` and serve `fonts/` plus `tekeningen/<slug>/` on that port with a CORS header for the fonts. Each page draws itself from `src/layout/<slug>.json`, which holds the measured place and size of every field and no text. The menu bar and the footer draw themselves from `src/layout/algemeen/menu.json` and `src/layout/algemeen/footer.json`, with their labels from the menus, the list Gegevens, the widget area Footer and Social in the admin. Images outside the drawings are served as AVIF with a PNG fallback.
 
+The code is formatted with Prettier and its Astro plugin: `pnpm format` writes, `pnpm format:check` only checks. Generated files stay out of it, as `.prettierignore` lists.
+
 ## Caching
 
 Public pages are cached at the edge in the Workers Cache through Astro's Cloudflare cache provider. `astro.config.mjs` gives every public route a rule with its lifetime and the collections it renders as tags, and each page adds the tags of the entries, menus and settings it reads. EmDash purges those tags when content is published, so a change shows within seconds. Query results are cached in the KV namespace behind the `CACHE` binding. The toolbar runs in client mode: a signed-in editor sees an Edit button on a cached page, which opens the page fresh with the toolbar.

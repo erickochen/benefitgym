@@ -22,16 +22,18 @@ const lijn = ({ h, kleur }: { h: number; kleur: string }) => `height:calc(${h} *
 	{value.kop && <h2 class={`s-${s.kop}`}>{value.kop}</h2>}
 	<div class="praktisch-rooster">
 		<div style={lijn(r.lijn)} />
-		{
-			entries.map((vakantie) => (
-				<div class="praktisch-vakantie">
-					<div class="praktisch-periode">
-						<p class={`s-${s.wanneer}`} {...vakantie.edit.wanneer}>{vakantie.data.wanneer}</p>
-						<p class={`s-${s.wat}`} {...vakantie.edit.wat}>{vakantie.data.wat}</p>
-					</div>
-					<div style={lijn(r.rijLijn)} />
+		{entries.map((vakantie) => (
+			<div class="praktisch-vakantie">
+				<div class="praktisch-periode">
+					<p class={`s-${s.wanneer}`} {...vakantie.edit.wanneer}>
+						{vakantie.data.wanneer}
+					</p>
+					<p class={`s-${s.wat}`} {...vakantie.edit.wat}>
+						{vakantie.data.wat}
+					</p>
 				</div>
-			))
-		}
+				<div style={lijn(r.rijLijn)} />
+			</div>
+		))}
 	</div>
 </div>

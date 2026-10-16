@@ -14,7 +14,12 @@ const kolomBeeld = blok.kolom?.tablet.beeld;
 ---
 
 <a class:list={["blok", "logo", blokKlasse(blok)]} href="/" style={blokStijl(blok)}>
-	<Beeld beeld={blok.beeld} staticUrl={staticUrl} class={kolomBeeld ? "alleen-desktop" : undefined} media={kolomBeeld ? DESKTOP_MEDIA : undefined} />
+	<Beeld
+		beeld={blok.beeld}
+		staticUrl={staticUrl}
+		class={kolomBeeld ? "alleen-desktop" : undefined}
+		media={kolomBeeld ? DESKTOP_MEDIA : undefined}
+	/>
 	{kolomBeeld && <Beeld beeld={kolomBeeld} staticUrl={staticUrl} class="alleen-kolom" media={KOLOM_MEDIA} />}
 	<span>{SITE_NAME}</span>
 </a>

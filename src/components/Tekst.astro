@@ -15,41 +15,37 @@ const plek = blokStijl(blok);
 const klasse = `blok s-${blok.stijl}`;
 ---
 
-{
-	blok.soort === "cijfer" && (
-		<div class:list={["cijfer-vak", blokKlasse(blok)]} style={kolomVars(blok)}>
-			<p class={klasse} style={plekVan(blok)}>{blok.n}</p>
-		</div>
-	)
-}
-{
-	blok.soort === "alineas" && (
-		<div class:list={[klasse, "alineas", blokKlasse(blok)]} style={plek} {...entry.edit[blok.veld]}>
-			<PortableText value={(waarde(entry, blok.veld) as PortableTextBlock[] | undefined) ?? []} />
-		</div>
-	)
-}
-{
-	blok.soort === "tekst" &&
-		(() => {
-			const Tag = blok.tag as "p" | "h1" | "h2" | "h3";
-			const tekst = waarde(entry, blok.veld) as string;
-			const href = blok.link ? (waarde(entry, blok.link) as string | undefined) : undefined;
-			return href ? (
-				<a class:list={["blok", "link", blokKlasse(blok)]} href={href} style={plek}>
-					<Tag class={`s-${blok.stijl}`} style="margin:0" {...entry.edit[blok.veld]}>
-						{tekst}
-					</Tag>
-				</a>
-			) : (
-				<Tag
-					id={ANKER_VELD[blok.veld]}
-					class:list={[klasse, blokKlasse(blok), ANKER_VELD[blok.veld] && "anker"]}
-					style={plek}
-					{...entry.edit[blok.veld]}
-				>
+{blok.soort === "cijfer" && (
+	<div class:list={["cijfer-vak", blokKlasse(blok)]} style={kolomVars(blok)}>
+		<p class={klasse} style={plekVan(blok)}>
+			{blok.n}
+		</p>
+	</div>
+)}
+{blok.soort === "alineas" && (
+	<div class:list={[klasse, "alineas", blokKlasse(blok)]} style={plek} {...entry.edit[blok.veld]}>
+		<PortableText value={(waarde(entry, blok.veld) as PortableTextBlock[] | undefined) ?? []} />
+	</div>
+)}
+{blok.soort === "tekst" &&
+	(() => {
+		const Tag = blok.tag as "p" | "h1" | "h2" | "h3";
+		const tekst = waarde(entry, blok.veld) as string;
+		const href = blok.link ? (waarde(entry, blok.link) as string | undefined) : undefined;
+		return href ? (
+			<a class:list={["blok", "link", blokKlasse(blok)]} href={href} style={plek}>
+				<Tag class={`s-${blok.stijl}`} style="margin:0" {...entry.edit[blok.veld]}>
 					{tekst}
 				</Tag>
-			);
-		})()
-}
+			</a>
+		) : (
+			<Tag
+				id={ANKER_VELD[blok.veld]}
+				class:list={[klasse, blokKlasse(blok), ANKER_VELD[blok.veld] && "anker"]}
+				style={plek}
+				{...entry.edit[blok.veld]}
+			>
+				{tekst}
+			</Tag>
+		);
+	})()}

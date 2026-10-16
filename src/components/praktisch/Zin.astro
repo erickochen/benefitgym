@@ -10,9 +10,24 @@ interface Props {
 const stukken = stukkenVan(Astro.props.blok);
 ---
 
-{
-	stukken.map((stuk) => {
-		const tekst = stuk.sterk && stuk.nadruk ? <strong><em>{stuk.tekst}</em></strong> : stuk.sterk ? <strong>{stuk.tekst}</strong> : stuk.nadruk ? <em>{stuk.tekst}</em> : stuk.tekst;
-		return stuk.href ? <a class="zin-link" href={sanitizeHref(stuk.href)}>{tekst}</a> : tekst;
-	})
-}
+{stukken.map((stuk) => {
+	const tekst =
+		stuk.sterk && stuk.nadruk ? (
+			<strong>
+				<em>{stuk.tekst}</em>
+			</strong>
+		) : stuk.sterk ? (
+			<strong>{stuk.tekst}</strong>
+		) : stuk.nadruk ? (
+			<em>{stuk.tekst}</em>
+		) : (
+			stuk.tekst
+		);
+	return stuk.href ? (
+		<a class="zin-link" href={sanitizeHref(stuk.href)}>
+			{tekst}
+		</a>
+	) : (
+		tekst
+	);
+})}

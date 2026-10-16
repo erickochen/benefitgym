@@ -58,7 +58,8 @@ export function zetMobiel(menu: HTMLElement, paginaLogo: () => HTMLElement | und
 		if (open() && !nav.contains(e.target as Node)) sluit(false);
 	});
 	// A page row leads elsewhere, so the panel closes; the login plus the button open their own tab or site.
-	for (const rij of paneel.querySelectorAll<HTMLAnchorElement>("ul a")) rij.addEventListener("click", () => sluit(false));
+	for (const rij of paneel.querySelectorAll<HTMLAnchorElement>("ul a"))
+		rij.addEventListener("click", () => sluit(false));
 	nav.addEventListener("focusout", () => {
 		setTimeout(() => {
 			const nu = document.activeElement;

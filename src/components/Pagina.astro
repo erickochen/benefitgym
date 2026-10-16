@@ -14,5 +14,14 @@ interface Props {
 const { layout, entry, slug, staticUrl } = Astro.props;
 ---
 
-{layout.secties.map((sectie, i) => <Sectie sectie={sectie} entry={entry} slug={slug} staticUrl={staticUrl} eerste={i === 0} kolom={layout.kolom === true} />)}
+{layout.secties.map((sectie, i) => (
+	<Sectie
+		sectie={sectie}
+		entry={entry}
+		slug={slug}
+		staticUrl={staticUrl}
+		eerste={i === 0}
+		kolom={layout.kolom === true}
+	/>
+))}
 {layout.praktisch && <Praktisch entry={entry} pagina={layout.praktisch} staticUrl={staticUrl} />}

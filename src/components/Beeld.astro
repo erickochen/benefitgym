@@ -22,11 +22,9 @@ const reeks = (ext: string) =>
 <picture>
 	<source type="image/avif" media={media} srcset={reeks("avif") ?? pad("", "avif")} sizes={beeld.sizes} />
 	{media && <source media={media} srcset={reeks(terug) ?? pad("", terug)} sizes={beeld.sizes} />}
-	{
-		media ? (
-			<img class={klasse} src={LEEG_BEELD} alt="" />
-		) : (
-			<img class={klasse} src={pad("", terug)} srcset={reeks(terug)} sizes={beeld.sizes} alt="" />
-		)
-	}
+	{media ? (
+		<img class={klasse} src={LEEG_BEELD} alt="" />
+	) : (
+		<img class={klasse} src={pad("", terug)} srcset={reeks(terug)} sizes={beeld.sizes} alt="" />
+	)}
 </picture>

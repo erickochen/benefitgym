@@ -41,7 +41,10 @@ const definitie = await definitieVan(slug, Astro.locals, Astro.url);
 const velden = definitie?.pages.flatMap((pagina) => pagina.fields) ?? [];
 const tegelVeld = (naam: string) => velden.some((veld) => veld.type === "radio" && veld.name === naam);
 const datums = tegelVeld(DATUM)
-	? datumTegels((await getEmDashCollection("cursusdata")).entries.map((entry) => entry.data.datum ?? ""), Date.now())
+	? datumTegels(
+			(await getEmDashCollection("cursusdata")).entries.map((entry) => entry.data.datum ?? ""),
+			Date.now(),
+		)
 	: [];
 const groepen =
 	tegelVeld(GROEP) && sport
@@ -78,75 +81,85 @@ const deelProps = { slug, datums, groepen, sport, geenData };
 const RECHTS = 1;
 ---
 
-{
-	definitie && (
-		<form
-			id={anker}
-			class:list={["formulier", anker && "anker"]}
-			method="post"
-			action={`${ROUTE}/submit`}
-			enctype={bestanden ? "multipart/form-data" : undefined}
-			data-formulier={definitie.slug}
-			data-fout={`s-${v.klein}`}
-			style={`${gat(v.gat)};--fout-boven:${maat(v.labelGat)};--veld-binnen:${maat(v.invoer.padding[RECHTS])}`}
-		>
-			<input type="hidden" name="formId" value={definitie.slug} />
-			{
-				definitie.settings.spamProtection === "honeypot" && (
-					<div class="formulier-honing" aria-hidden="true">
-						<input type="text" name="_hp" tabindex="-1" autocomplete="off" />
-					</div>
-				)
-			}
-			{voor.map((deel) => <FormulierVeld velden={deel} {...deelProps} />)}
-			{groep >= 0 && (
-				<div class="formulier-plek" style={gat(v.gat)}>
-					<p class={`s-${v.label}`}>{FORMULIER.uitlegPlek}</p>
-					{planner && <a class="formulier-planner" href={sanitizeHref(planner)}>{FORMULIER.planner}</a>}
-				</div>
-			)}
-			{groep >= 0 && (
-				<div class="formulier-wacht" style={gat(v.gat)}>
-					<p class={`formulier-uitleg vol s-${v.label}`}>{FORMULIER.uitlegVol}</p>
-					<p class={`formulier-uitleg anders s-${v.label}`}>{FORMULIER.uitlegAnders}</p>
-					{na.map((deel) => <FormulierVeld velden={deel} {...deelProps} />)}
-				</div>
-			)}
-			{privacy.map((blok) => (
-				<p class={`formulier-privacy s-${v.klein}`}>
-					{(blok.children ?? []).map((span, i, spans) => {
-						const href = hrefVan(blok, span);
-						if (href) return <a class="formulier-link" href={href} style={link}>{span.text}</a>;
-						// The space before a link stands as a text node of its own, as on the measured page; the browser
-						// measures it apart, which moves the link a fraction.
-						const tekst = span.text ?? "";
-						const spatie = spans[i + 1] && hrefVan(blok, spans[i + 1]) ? (tekst.match(/\s+$/)?.[0] ?? "") : "";
-						return spatie ? (
-							<>
-								{tekst.slice(0, -spatie.length)}
-								<Fragment set:html="<!-- -->" />
-								{spatie}
-							</>
-						) : (
-							tekst
+{definitie && (
+	<form
+		id={anker}
+		class:list={["formulier", anker && "anker"]}
+		method="post"
+		action={`${ROUTE}/submit`}
+		enctype={bestanden ? "multipart/form-data" : undefined}
+		data-formulier={definitie.slug}
+		data-fout={`s-${v.klein}`}
+		style={`${gat(v.gat)};--fout-boven:${maat(v.labelGat)};--veld-binnen:${maat(v.invoer.padding[RECHTS])}`}
+	>
+		<input type="hidden" name="formId" value={definitie.slug} />
+		{definitie.settings.spamProtection === "honeypot" && (
+			<div class="formulier-honing" aria-hidden="true">
+				<input type="text" name="_hp" tabindex="-1" autocomplete="off" />
+			</div>
+		)}
+		{voor.map((deel) => (
+			<FormulierVeld velden={deel} {...deelProps} />
+		))}
+		{groep >= 0 && (
+			<div class="formulier-plek" style={gat(v.gat)}>
+				<p class={`s-${v.label}`}>{FORMULIER.uitlegPlek}</p>
+				{planner && (
+					<a class="formulier-planner" href={sanitizeHref(planner)}>
+						{FORMULIER.planner}
+					</a>
+				)}
+			</div>
+		)}
+		{groep >= 0 && (
+			<div class="formulier-wacht" style={gat(v.gat)}>
+				<p class={`formulier-uitleg vol s-${v.label}`}>{FORMULIER.uitlegVol}</p>
+				<p class={`formulier-uitleg anders s-${v.label}`}>{FORMULIER.uitlegAnders}</p>
+				{na.map((deel) => (
+					<FormulierVeld velden={deel} {...deelProps} />
+				))}
+			</div>
+		)}
+		{privacy.map((blok) => (
+			<p class={`formulier-privacy s-${v.klein}`}>
+				{(blok.children ?? []).map((span, i, spans) => {
+					const href = hrefVan(blok, span);
+					if (href)
+						return (
+							<a class="formulier-link" href={href} style={link}>
+								{span.text}
+							</a>
 						);
-					})}
-				</p>
-			))}
-			{definitie._turnstileSiteKey && <div class="formulier-turnstile" data-sitekey={definitie._turnstileSiteKey} />}
-			<button type="submit" class="formulier-knop" style={knop}>
-				<Beeld beeld={v.knop.beeld} staticUrl={staticUrl} />
-				<span class={`formulier-knop-tekst s-${v.knop.stijl}`}>{definitie.settings.submitLabel}</span>
-				<span class="formulier-ring" aria-hidden="true" />
-			</button>
-			<p class="formulier-status verborgen" role="status" />
-		</form>
-	)
-}
+					// The space before a link stands as a text node of its own, as on the measured page; the browser
+					// measures it apart, which moves the link a fraction.
+					const tekst = span.text ?? "";
+					const spatie = spans[i + 1] && hrefVan(blok, spans[i + 1]) ? (tekst.match(/\s+$/)?.[0] ?? "") : "";
+					return spatie ? (
+						<>
+							{tekst.slice(0, -spatie.length)}
+							<Fragment set:html="<!-- -->" />
+							{spatie}
+						</>
+					) : (
+						tekst
+					);
+				})}
+			</p>
+		))}
+		{definitie._turnstileSiteKey && <div class="formulier-turnstile" data-sitekey={definitie._turnstileSiteKey} />}
+		<button type="submit" class="formulier-knop" style={knop}>
+			<Beeld beeld={v.knop.beeld} staticUrl={staticUrl} />
+			<span class={`formulier-knop-tekst s-${v.knop.stijl}`}>{definitie.settings.submitLabel}</span>
+			<span class="formulier-ring" aria-hidden="true" />
+		</button>
+		<p class="formulier-status verborgen" role="status" />
+	</form>
+)}
 
 <script>
 	import { zetFormulier } from "../scripts/formulier";
 	import { FORMULIER, MELDINGEN } from "../teksten";
 
-	for (const form of document.querySelectorAll<HTMLFormElement>("form.formulier")) zetFormulier(form, MELDINGEN, { mis: FORMULIER.mis });
+	for (const form of document.querySelectorAll<HTMLFormElement>("form.formulier"))
+		zetFormulier(form, MELDINGEN, { mis: FORMULIER.mis });
 </script>

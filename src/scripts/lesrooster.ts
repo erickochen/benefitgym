@@ -100,7 +100,8 @@ export function zetLesrooster(houder: HTMLElement) {
 			link.className = LINK;
 			link.textContent = LESROOSTER.naarSportbit;
 			// The space is a text node of its own, as the measured page renders it.
-			for (const deel of [document.createTextNode(LESROOSTER.fout), document.createTextNode(" "), link]) p.appendChild(deel);
+			for (const deel of [document.createTextNode(LESROOSTER.fout), document.createTextNode(" "), link])
+				p.appendChild(deel);
 		} else {
 			p.textContent = nieuw === "dubbel" ? LESROOSTER.dubbel : LESROOSTER.laden;
 		}
@@ -190,7 +191,9 @@ export function zetLesrooster(houder: HTMLElement) {
 			const deel = (s: string) => les.querySelector(s)?.textContent?.trim() ?? "";
 			const dag = les.closest<HTMLElement>(".items-day");
 			const wanneer = dag ? `${dag.dataset.dayname ?? ""} ${dag.dataset.month ?? ""}`.trim() : "";
-			const naam = [deel(".title"), wanneer, deel(".time").replace(STREEP, LESROOSTER.tot), deel(".trainer")].filter(Boolean);
+			const naam = [deel(".title"), wanneer, deel(".time").replace(STREEP, LESROOSTER.tot), deel(".trainer")].filter(
+				Boolean,
+			);
 			if (les.classList.contains("gepasseerd")) naam.push(LESROOSTER.geweest);
 			les.querySelector(".title")?.setAttribute("title", deel(".title"));
 			maakKnop(les, naam.join(DEEL));
@@ -222,8 +225,13 @@ export function zetLesrooster(houder: HTMLElement) {
 		if (week) {
 			const bruikbaar = knoppen.filter(([knop]) => knop?.dataset.knop && zichtbaar(knop));
 			const terug =
-				bruikbaar.find(([, soort]) => soort === week) ?? bruikbaar.find(([, soort]) => soort !== "vandaag") ?? bruikbaar[0];
-			const periode = (vak.querySelector("#sportbit-periode")?.textContent?.trim() ?? "").replace(STREEP, LESROOSTER.tot);
+				bruikbaar.find(([, soort]) => soort === week) ??
+				bruikbaar.find(([, soort]) => soort !== "vandaag") ??
+				bruikbaar[0];
+			const periode = (vak.querySelector("#sportbit-periode")?.textContent?.trim() ?? "").replace(
+				STREEP,
+				LESROOSTER.tot,
+			);
 			terug?.[0]?.focus();
 			if (melding.textContent !== periode) melding.textContent = periode;
 			week = null;

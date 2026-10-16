@@ -77,44 +77,47 @@ const stijl = [blokStijl(blok), ...Object.entries(maten).map(([naam, waarde]) =>
 
 <div class:list={["blok", "faq", blokKlasse(blok)]} style={stijl}>
 	<div class="faq-lijst">
-		{
-			categorieen.map(({ term, vragen }, i) => (
-				<div class="faq-categorie">
-					<h3 class="faq-kop">
-						<button type="button" class={`faq-knop s-${blok.label.stijl}`} aria-expanded="false" aria-controls={`faq-${i}`}>
-							<span>{term.label}</span>
-							<svg viewBox="0 0 100 100" aria-hidden="true">
-								<circle cx="50" cy="50" r="50" fill={blok.icoon.vlak} />
-								<polygon points={PIJL} fill={blok.icoon.pijl} />
-							</svg>
-						</button>
-					</h3>
-					<div id={`faq-${i}`} class="faq-paneel faq-dicht" role="region">
-						{vragen.map((vraag, j) =>
-							vraag.data.soort === "Inleiding" ? (
-								<div class="faq-antwoord" {...vraag.edit.antwoord}>
+		{categorieen.map(({ term, vragen }, i) => (
+			<div class="faq-categorie">
+				<h3 class="faq-kop">
+					<button
+						type="button"
+						class={`faq-knop s-${blok.label.stijl}`}
+						aria-expanded="false"
+						aria-controls={`faq-${i}`}
+					>
+						<span>{term.label}</span>
+						<svg viewBox="0 0 100 100" aria-hidden="true">
+							<circle cx="50" cy="50" r="50" fill={blok.icoon.vlak} />
+							<polygon points={PIJL} fill={blok.icoon.pijl} />
+						</svg>
+					</button>
+				</h3>
+				<div id={`faq-${i}`} class="faq-paneel faq-dicht" role="region">
+					{vragen.map((vraag, j) =>
+						vraag.data.soort === "Inleiding" ? (
+							<div class="faq-antwoord" {...vraag.edit.antwoord}>
+								<PortableText value={(vraag.data.antwoord as PortableTextBlock[] | undefined) ?? []} />
+							</div>
+						) : (
+							<div class="faq-vraag">
+								<h4 class="faq-kop">
+									<button type="button" class="faq-vraagknop" aria-expanded="false" aria-controls={`faq-${i}-${j}`}>
+										<span {...vraag.edit.vraag}>{vraag.data.vraag}</span>
+										<svg viewBox="0 0 100 100" aria-hidden="true">
+											<polygon points={PIJL} fill={blok.icoon.vlak} />
+										</svg>
+									</button>
+								</h4>
+								<div id={`faq-${i}-${j}`} class="faq-antwoord faq-dicht" {...vraag.edit.antwoord}>
 									<PortableText value={(vraag.data.antwoord as PortableTextBlock[] | undefined) ?? []} />
 								</div>
-							) : (
-								<div class="faq-vraag">
-									<h4 class="faq-kop">
-										<button type="button" class="faq-vraagknop" aria-expanded="false" aria-controls={`faq-${i}-${j}`}>
-											<span {...vraag.edit.vraag}>{vraag.data.vraag}</span>
-											<svg viewBox="0 0 100 100" aria-hidden="true">
-												<polygon points={PIJL} fill={blok.icoon.vlak} />
-											</svg>
-										</button>
-									</h4>
-									<div id={`faq-${i}-${j}`} class="faq-antwoord faq-dicht" {...vraag.edit.antwoord}>
-										<PortableText value={(vraag.data.antwoord as PortableTextBlock[] | undefined) ?? []} />
-									</div>
-								</div>
-							),
-						)}
-					</div>
+							</div>
+						),
+					)}
 				</div>
-			))
-		}
+			</div>
+		))}
 	</div>
 </div>
 
