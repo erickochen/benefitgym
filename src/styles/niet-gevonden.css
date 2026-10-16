@@ -1,0 +1,96 @@
+/* The page that does not exist, with the measures and colors of the measured page in light and dark. */
+:root:has(body.kaal) {
+	--ng-achtergrond: #fff;
+	--ng-tekst: #666;
+	--ng-kop: #222;
+	--ng-knop: #f3f3f3;
+	--ng-knop-hover: #eee;
+	--ng-knop-tekst: #333;
+	height: 100%;
+	background: var(--ng-achtergrond);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:has(body.kaal) {
+		--ng-achtergrond: #111;
+		--ng-tekst: #999;
+		--ng-kop: #fff;
+		--ng-knop: #1f1f1f;
+		--ng-knop-hover: #262626;
+		--ng-knop-tekst: #fff;
+		color-scheme: dark;
+	}
+}
+
+body.kaal {
+	min-height: 100%;
+	margin: 0;
+	background: var(--ng-achtergrond);
+	color: var(--ng-tekst);
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.kaal-inhoud {
+	display: flex;
+	box-sizing: border-box;
+	min-height: 100vh;
+	padding: 24px;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.niet-gevonden-teken {
+	display: block;
+}
+
+.niet-gevonden-kop {
+	max-width: 200px;
+	margin: 15px 0 10px;
+	color: var(--ng-kop);
+	font-size: 12px;
+	font-weight: 550;
+	line-height: 1;
+	text-align: center;
+	text-wrap: balance;
+}
+
+.niet-gevonden-regel {
+	max-width: 200px;
+	margin: 0;
+	font-size: 12px;
+	font-weight: 450;
+	letter-spacing: 0;
+	line-height: 1.4;
+	text-align: center;
+	text-wrap: balance;
+}
+
+.niet-gevonden-knop {
+	display: inline-flex;
+	box-sizing: border-box;
+	height: 30px;
+	margin-top: 15px;
+	padding: 0 10px;
+	border-radius: 8px;
+	background-color: var(--ng-knop);
+	color: var(--ng-knop-tekst);
+	font-size: 12px;
+	font-weight: 450;
+	letter-spacing: 0;
+	line-height: 1;
+	place-content: center;
+	place-items: center;
+	text-decoration: none;
+	transition: background-color 120ms ease;
+}
+
+.niet-gevonden-knop:hover {
+	background-color: var(--ng-knop-hover);
+}
+
+.niet-gevonden-knop:focus-visible {
+	outline: 2px solid var(--ng-kop);
+	outline-offset: 2px;
+}
