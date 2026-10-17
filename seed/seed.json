@@ -159,6 +159,7 @@
       "label": "Home",
       "labelSingular": "Home",
       "urlPattern": "/",
+      "icon": "house",
       "admin": {
         "quickCreate": false
       },
@@ -175,7 +176,7 @@
       "fields": [
         {
           "slug": "title",
-          "label": "Titel",
+          "label": "Paginanaam in het beheer",
           "type": "string",
           "required": true,
           "validation": {
@@ -650,6 +651,7 @@
       "label": "Sportpagina's",
       "labelSingular": "Sportpagina",
       "urlPattern": "/{slug}",
+      "icon": "barbell",
       "admin": {
         "quickCreate": false
       },
@@ -666,7 +668,7 @@
       "fields": [
         {
           "slug": "title",
-          "label": "Titel",
+          "label": "Paginanaam in het beheer",
           "type": "string",
           "required": true,
           "validation": {
@@ -1042,6 +1044,7 @@
       "label": "Over ons",
       "labelSingular": "Over ons",
       "urlPattern": "/{slug}",
+      "icon": "users-three",
       "admin": {
         "quickCreate": false
       },
@@ -1058,7 +1061,7 @@
       "fields": [
         {
           "slug": "title",
-          "label": "Titel",
+          "label": "Paginanaam in het beheer",
           "type": "string",
           "required": true,
           "validation": {
@@ -1503,6 +1506,7 @@
       "label": "Praktisch",
       "labelSingular": "Praktische pagina",
       "urlPattern": "/{slug}",
+      "icon": "info",
       "admin": {
         "quickCreate": false
       },
@@ -1519,7 +1523,7 @@
       "fields": [
         {
           "slug": "title",
-          "label": "Titel",
+          "label": "Paginanaam in het beheer",
           "type": "string",
           "required": true,
           "validation": {
@@ -1616,11 +1620,12 @@
           "type": "string",
           "validation": {
             "maxLength": 30
-          }
+          },
+          "searchable": true
         },
         {
           "slug": "quote",
-          "label": "Quote",
+          "label": "Review",
           "type": "text",
           "validation": {
             "maxLength": 560
@@ -1628,7 +1633,7 @@
         },
         {
           "slug": "paginas",
-          "label": "Pagina's",
+          "label": "Staat op pagina",
           "type": "multiSelect",
           "validation": {
             "options": [
@@ -1641,16 +1646,18 @@
               "Kids Core Craft",
               "EVOM Kids Fitness"
             ]
-          }
+          },
+          "searchable": true
         },
         {
           "slug": "volgorde",
-          "label": "Volgorde",
+          "label": "Plaats in de lijst (10, 20, 30)",
           "type": "integer",
           "indexed": true,
           "defaultValue": 0
         }
       ],
+      "icon": "quotes",
       "routable": false,
       "supports": [
         "drafts",
@@ -1675,7 +1682,7 @@
       "fields": [
         {
           "slug": "soort",
-          "label": "Soort",
+          "label": "Vraag of inleiding",
           "type": "select",
           "validation": {
             "options": [
@@ -1700,7 +1707,7 @@
         },
         {
           "slug": "pagina",
-          "label": "Pagina",
+          "label": "Staat op pagina",
           "type": "select",
           "validation": {
             "options": [
@@ -1712,16 +1719,18 @@
               "Kids Core Craft",
               "EVOM Kids Fitness"
             ]
-          }
+          },
+          "searchable": true
         },
         {
           "slug": "volgorde",
-          "label": "Volgorde",
+          "label": "Plaats in de lijst (10, 20, 30)",
           "type": "integer",
           "indexed": true,
           "defaultValue": 0
         }
       ],
+      "icon": "question",
       "routable": false,
       "supports": [
         "drafts",
@@ -1753,7 +1762,8 @@
               "EVOM Kids Fitness",
               "Kids Core Craft"
             ]
-          }
+          },
+          "searchable": true
         },
         {
           "slug": "dag",
@@ -1769,7 +1779,8 @@
               "zaterdag",
               "zondag"
             ]
-          }
+          },
+          "searchable": true
         },
         {
           "slug": "tijd",
@@ -1789,18 +1800,19 @@
         },
         {
           "slug": "vol",
-          "label": "Vol",
+          "label": "Groep is vol",
           "type": "boolean",
           "defaultValue": false
         },
         {
           "slug": "volgorde",
-          "label": "Volgorde",
+          "label": "Plaats in de lijst (10, 20, 30)",
           "type": "integer",
           "indexed": true,
           "defaultValue": 0
         }
       ],
+      "icon": "student",
       "routable": false,
       "supports": [
         "drafts",
@@ -1816,7 +1828,7 @@
       "fields": [
         {
           "slug": "naam",
-          "label": "Naam",
+          "label": "Naam van de cursus",
           "type": "string",
           "required": true,
           "defaultValue": "SPEAR cursus",
@@ -1826,7 +1838,7 @@
         },
         {
           "slug": "datums",
-          "label": "Data",
+          "label": "Lesdagen",
           "type": "repeater",
           "validation": {
             "subFields": [
@@ -1840,6 +1852,7 @@
           }
         }
       ],
+      "icon": "calendar-check",
       "admin": {
         "quickCreate": false
       },
@@ -1880,12 +1893,13 @@
         },
         {
           "slug": "volgorde",
-          "label": "Volgorde",
+          "label": "Plaats in de lijst (10, 20, 30)",
           "type": "integer",
           "indexed": true,
           "defaultValue": 0
         }
       ],
+      "icon": "island",
       "routable": false,
       "supports": [
         "drafts",
@@ -1915,14 +1929,6 @@
           }
         },
         {
-          "slug": "andere_naam",
-          "label": "Andere naam",
-          "type": "string",
-          "validation": {
-            "maxLength": 30
-          }
-        },
-        {
           "slug": "straat",
           "label": "Straat",
           "type": "string",
@@ -1947,22 +1953,6 @@
           }
         },
         {
-          "slug": "provincie",
-          "label": "Provincie",
-          "type": "string",
-          "validation": {
-            "maxLength": 20
-          }
-        },
-        {
-          "slug": "land",
-          "label": "Land",
-          "type": "string",
-          "validation": {
-            "maxLength": 20
-          }
-        },
-        {
           "slug": "telefoon",
           "label": "Telefoon",
           "type": "string",
@@ -1979,8 +1969,32 @@
           }
         },
         {
+          "slug": "andere_naam",
+          "label": "Zoekmachines · Andere naam",
+          "type": "string",
+          "validation": {
+            "maxLength": 30
+          }
+        },
+        {
+          "slug": "provincie",
+          "label": "Zoekmachines · Provincie",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
+          "slug": "land",
+          "label": "Zoekmachines · Land",
+          "type": "string",
+          "validation": {
+            "maxLength": 20
+          }
+        },
+        {
           "slug": "oprichtingsjaar",
-          "label": "Oprichtingsjaar",
+          "label": "Zoekmachines · Oprichtingsjaar",
           "type": "string",
           "validation": {
             "maxLength": 20
@@ -1988,7 +2002,7 @@
         },
         {
           "slug": "prijsbereik",
-          "label": "Prijsbereik",
+          "label": "Zoekmachines · Prijsbereik",
           "type": "string",
           "validation": {
             "maxLength": 30
@@ -1996,28 +2010,29 @@
         },
         {
           "slug": "breedtegraad",
-          "label": "Breedtegraad",
+          "label": "Zoekmachines · Breedtegraad",
           "type": "number"
         },
         {
           "slug": "lengtegraad",
-          "label": "Lengtegraad",
+          "label": "Zoekmachines · Lengtegraad",
           "type": "number"
         },
         {
           "slug": "kaartlink",
-          "label": "Kaartlink",
+          "label": "Zoekmachines · Link naar Google Maps",
           "type": "url"
         },
         {
           "slug": "llms_inleiding",
-          "label": "Inleiding voor llms.txt",
+          "label": "Zoekmachines · Korte uitleg voor zoekmachines",
           "type": "text",
           "validation": {
             "maxLength": 240
           }
         }
       ],
+      "icon": "map-pin",
       "routable": false,
       "supports": [
         "drafts",

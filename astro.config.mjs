@@ -67,6 +67,8 @@ export default defineConfig({
 			objectCache: kvCache({ binding: "CACHE" }),
 			// Public HTML is the same for everyone; an editor gets an Edit button that opens the page fresh.
 			toolbar: "client",
+			// The language picker offers Dutch plus the English fallback instead of every language EmDash ships.
+			admin: { locales: ["nl"] },
 			sandboxRunner: sandbox(),
 			// The dashboard widgets follow this order, so the pages come first.
 			plugins: [
