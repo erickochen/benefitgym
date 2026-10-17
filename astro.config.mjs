@@ -7,14 +7,26 @@ import { formsPlugin } from "@emdash-cms/plugin-forms";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "astro/config";
 import emdash from "emdash/astro";
+import { DASHBOARD_ADMIN, DASHBOARD_ID, DASHBOARD_VERSIE } from "./src/plugins/dashboard-id.mjs";
 import { ZOEKMACHINES_ID, ZOEKMACHINES_VERSIE } from "./src/plugins/zoekmachines-id.mjs";
+
+const pad = (bestand) => fileURLToPath(new URL(bestand, import.meta.url));
 
 // The structured data of the site, as a native plugin in this repo.
 const zoekmachines = {
 	id: ZOEKMACHINES_ID,
 	version: ZOEKMACHINES_VERSIE,
 	format: "native",
-	entrypoint: fileURLToPath(new URL("./src/plugins/zoekmachines.ts", import.meta.url)),
+	entrypoint: pad("./src/plugins/zoekmachines.ts"),
+};
+
+// The table of pages on the dashboard of the admin, as a native plugin with a React widget.
+const dashboard = {
+	id: DASHBOARD_ID,
+	version: DASHBOARD_VERSIE,
+	format: "native",
+	entrypoint: pad("./src/plugins/dashboard.ts"),
+	adminEntry: pad(DASHBOARD_ADMIN),
 };
 
 // A cached page is served this long before it renders again, then this long as a stale copy while it revalidates
@@ -56,7 +68,9 @@ export default defineConfig({
 			// Public HTML is the same for everyone; an editor gets an Edit button that opens the page fresh.
 			toolbar: "client",
 			sandboxRunner: sandbox(),
+			// The dashboard widgets follow this order, so the pages come first.
 			plugins: [
+				dashboard,
 				cloudflareEmail({
 					from: { email: "website@benefitgym.nl", name: "Benefit Gym" },
 				}),

@@ -29,6 +29,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@cloudflare/workers-types": "^5.20260820.1",
+    "@types/react": "~19.2.18",
     "prettier": "3.9.10",
     "prettier-plugin-astro": "1.1.1",
     "wrangler": "^4.125.0"
