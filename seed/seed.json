@@ -650,6 +650,9 @@
       "label": "Sportpagina's",
       "labelSingular": "Sportpagina",
       "urlPattern": "/{slug}",
+      "admin": {
+        "quickCreate": false
+      },
       "group": "Pagina's",
       "sortOrder": 20,
       "supports": [
@@ -1500,6 +1503,9 @@
       "label": "Praktisch",
       "labelSingular": "Praktische pagina",
       "urlPattern": "/{slug}",
+      "admin": {
+        "quickCreate": false
+      },
       "group": "Pagina's",
       "sortOrder": 40,
       "supports": [
@@ -1600,7 +1606,8 @@
           "naam",
           "paginas",
           "volgorde"
-        ]
+        ],
+        "quickCreate": false
       },
       "fields": [
         {
@@ -1662,7 +1669,8 @@
           "soort",
           "pagina",
           "volgorde"
-        ]
+        ],
+        "quickCreate": false
       },
       "fields": [
         {
@@ -1731,7 +1739,8 @@
           "sport",
           "dag",
           "vol"
-        ]
+        ],
+        "quickCreate": false
       },
       "fields": [
         {
@@ -1823,6 +1832,9 @@
           "indexed": true
         }
       ],
+      "admin": {
+        "quickCreate": false
+      },
       "routable": false,
       "supports": [
         "drafts",
@@ -1838,7 +1850,8 @@
       "admin": {
         "listColumns": [
           "volgorde"
-        ]
+        ],
+        "quickCreate": false
       },
       "fields": [
         {
@@ -1878,10 +1891,10 @@
       "labelSingular": "Gegevens",
       "titleField": "naam",
       "admin": {
-        "quickCreate": false,
         "listColumns": [
           "plaats"
-        ]
+        ],
+        "quickCreate": false
       },
       "fields": [
         {
