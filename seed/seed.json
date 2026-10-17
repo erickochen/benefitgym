@@ -1742,7 +1742,7 @@
       "slug": "groepen",
       "label": "Groepen",
       "labelSingular": "Groep",
-      "titleField": "tijd",
+      "titleField": "naam",
       "admin": {
         "listColumns": [
           "sport",
@@ -1752,6 +1752,11 @@
         "quickCreate": false
       },
       "fields": [
+        {
+          "slug": "naam",
+          "label": "Naam (vult zichzelf)",
+          "type": "string"
+        },
         {
           "slug": "sport",
           "label": "Sport",

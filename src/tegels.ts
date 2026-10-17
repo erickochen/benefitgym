@@ -21,6 +21,8 @@ const MIDDERNACHT = "00:00";
 const DAGEN = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"];
 // 17:00 or 17.00, the way people type it.
 const TIJD = /^(\d{1,2})[:.](\d{2})$/;
+// Between the parts of a group's name in the panel.
+const NAAM_SCHEIDING = " · ";
 const UREN = 24;
 const MINUTEN = 60;
 
@@ -74,4 +76,10 @@ export function groepTegel(
 	const leeftijd = (groep.leeftijd ?? "").trim();
 	const wanneer = [dag, tijd].filter(Boolean).join(" ");
 	return { waarde: [sport, wanneer, leeftijd].filter(Boolean).join(", "), wanneer, leeftijd, vol: groep.vol === true };
+}
+
+// The name of a group as the panel lists it: sport, weekday plus time. Without a known day only the sport remains.
+export function groepNaam(groep: { sport?: string; dag?: string; tijd?: string }): string {
+	const sport = (groep.sport ?? "").trim();
+	return [sport, groepTegel(groep, sport)?.wanneer].filter(Boolean).join(NAAM_SCHEIDING);
 }
