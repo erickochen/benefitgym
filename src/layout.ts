@@ -159,6 +159,9 @@ export function reeksVan(pad: string, maten: Maten): string | undefined {
 	return [...maten.kleiner.map((w) => `${stam}-${w}${ext} ${w}w`), `${pad} ${maten.breedte}w`].join(", ");
 }
 
+// How a cut-out loads: those of the first section at once, the rest lazy.
+export type Laden = "meteen" | "lazy";
+
 // A drawing shows at the width of the design on every desktop screen; a cut-out fills the viewport.
 const ONTWERP_BREEDTE = 1242;
 export const TEKENING_SIZES = `${ONTWERP_BREEDTE}px`;
