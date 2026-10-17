@@ -6,7 +6,7 @@ import { getEmDashCollection, sanitizeHref } from "emdash";
 import { DATUM, definitieVan, GROEP, ROUTE, type Veld } from "../formulier";
 import { type FormulierLayout, maat } from "../layout";
 import data from "../layout/algemeen/formulier.json";
-import { datumTegels, groepTegel } from "../tegels";
+import { cursusData, datumTegels, groepTegel } from "../tegels";
 import { FORMULIER } from "../teksten";
 import Beeld from "./Beeld.astro";
 import FormulierVeld from "./FormulierVeld.astro";
@@ -41,10 +41,7 @@ const definitie = await definitieVan(slug, Astro.locals, Astro.url);
 const velden = definitie?.pages.flatMap((pagina) => pagina.fields) ?? [];
 const tegelVeld = (naam: string) => velden.some((veld) => veld.type === "radio" && veld.name === naam);
 const datums = tegelVeld(DATUM)
-	? datumTegels(
-			(await getEmDashCollection("cursusdata")).entries.map((entry) => entry.data.datum ?? ""),
-			Date.now(),
-		)
+	? datumTegels(cursusData((await getEmDashCollection("cursusdata")).entries), Date.now())
 	: [];
 const groepen =
 	tegelVeld(GROEP) && sport

@@ -37,6 +37,11 @@ export interface GroepTegel {
 	vol: boolean;
 }
 
+// The dates of every course entry. A course holds its dates as rows; a row without a date has none.
+export function cursusData(cursussen: { data: { datums?: { datum?: string | null }[] | null } }[]): string[] {
+	return cursussen.flatMap((cursus) => (cursus.data.datums ?? []).flatMap((rij) => (rij.datum ? [rij.datum] : [])));
+}
+
 // The dates still to come, in order and without doubles; two dates within one minute show as one tile.
 export function datumTegels(data: string[], nu: number): DatumTegel[] {
 	const momenten = [...new Set(data.map((iso) => Date.parse(iso)).filter((ms) => Number.isFinite(ms) && ms > nu))].sort(
