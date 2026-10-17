@@ -2,7 +2,7 @@
 // One section at its measured height: the drawing with the bands on top, or an empty built section.
 // A cut section stacks its upper part, the explainer's text in flow plus the part below, each showing its slice of one drawing.
 // Below 1242 the section is a column of its bands and the drawing goes.
-import { type Entry, type Sectie, altVan, bandVars, rasterVars } from "../layout";
+import { type Entry, type Laden, type Sectie, altVan, bandVars, rasterVars } from "../layout";
 import Band from "./Band.astro";
 import GebouwdeSectie from "./GebouwdeSectie.astro";
 import Tekening from "./Tekening.astro";
@@ -28,8 +28,8 @@ const { snede } = sectie;
 const uitklapBand = snede ? sectie.banden.find((band) => band.blokken[0]?.soort === "uitklap") : undefined;
 const uitklap = uitklapBand?.blokken[0];
 const boven = sectie.banden.filter((band) => band !== uitklapBand);
-// The first cut-out of the page loads at once, as the drawing of the first section does.
-const eersteUitsnede = eerste ? boven.findIndex((band) => band.uitsnede) : -1;
+// The cut-outs of the first section load at once, as the drawing of that section does; the rest wait.
+const laden: Laden = eerste ? "meteen" : "lazy";
 const hoogte = (h: number) => `--hoogte:calc(${h} * var(--s))`;
 // The slice of the drawing between two heights, the whole drawing scaled as on an uncut section.
 const venster = (vanaf: number) => `top:calc(${-vanaf} * var(--s));height:calc(${sectie.hoogte} * var(--s))`;
@@ -52,8 +52,8 @@ const venster = (vanaf: number) => `top:calc(${-vanaf} * var(--s));height:calc($
 					/>
 				)}
 			</div>
-			{boven.map((band, i) => (
-				<Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} eerste={i === eersteUitsnede} />
+			{boven.map((band) => (
+				<Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} laden={laden} />
 			))}
 		</div>
 		{uitklap?.soort === "uitklap" && (
@@ -79,7 +79,7 @@ const venster = (vanaf: number) => `top:calc(${-vanaf} * var(--s));height:calc($
 					)}
 				</div>
 				{snede.banden.map((band) => (
-					<Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} eerste={false} />
+					<Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} laden="lazy" />
 				))}
 			</div>
 		)}
@@ -90,8 +90,8 @@ const venster = (vanaf: number) => `top:calc(${-vanaf} * var(--s));height:calc($
 		style={sectie.raster ? `${hoogte(sectie.hoogte)};${rasterVars(sectie.raster)}` : hoogte(sectie.hoogte)}
 	>
 		{tekening && <Tekening src={tekening.src} maten={tekening.maten} alt={alt} eerste={eerste} kolom={kolom} />}
-		{boven.map((band, i) => (
-			<Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} eerste={i === eersteUitsnede} />
+		{boven.map((band) => (
+			<Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} laden={laden} />
 		))}
 	</section>
 )}

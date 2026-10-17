@@ -60,6 +60,7 @@ export default defineConfig({
 		"/[slug]": regel(...PAGINAS, ...LIJSTEN),
 		"/llms.txt": regel(...PAGINAS, "gegevens"),
 		"/robots.txt": regel("emdash:settings"),
+		"/favicon.ico": regel("emdash:settings"),
 		"/sitemap.xml": regel("home", ...PAGINAS),
 		"/sitemap-[collection].xml": regel("home", ...PAGINAS),
 	},

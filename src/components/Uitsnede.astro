@@ -1,24 +1,25 @@
 ---
 // A cut-out of the drawing for the column, at the full width with its own ratio, in the size of the screen. Above the
-// column it fetches nothing: the first one takes its file from a source for the column alone, the others wait as
-// lazy images. The first one loads at once and first.
-import { KOLOM_MEDIA, LEEG_BEELD, type Maten, reeksVan, UITSNEDE_SIZES } from "../layout";
+// column it fetches nothing: a cut-out that loads at once takes its file from a source for the column alone, the
+// others wait as lazy images. The cut-outs of the first section load at once and first, so the largest one on the
+// screen is found early whichever it is.
+import { KOLOM_MEDIA, type Laden, LEEG_BEELD, type Maten, reeksVan, UITSNEDE_SIZES } from "../layout";
 
 interface Props {
 	bestand: string;
 	maten: Maten;
 	alt: string;
 	staticUrl: string;
-	eerste: boolean;
+	laden: Laden;
 }
 
-const { bestand, maten, alt, staticUrl, eerste } = Astro.props;
+const { bestand, maten, alt, staticUrl, laden } = Astro.props;
 const src = `${staticUrl}/tekeningen/${bestand}`;
 const srcset = reeksVan(src, maten);
 const sizes = srcset ? UITSNEDE_SIZES : undefined;
 ---
 
-{eerste ? (
+{laden === "meteen" ? (
 	<picture>
 		<source media={KOLOM_MEDIA} srcset={srcset ?? src} sizes={sizes} />
 		<img class="uitsnede" src={LEEG_BEELD} alt={alt} loading="eager" fetchpriority="high" decoding="async" />
