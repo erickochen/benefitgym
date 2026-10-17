@@ -35,7 +35,7 @@ pnpm wrangler login
 pnpm run deploy
 ```
 
-This builds the site and deploys the Worker with Wrangler. The Worker only answers on its custom domain, which sits behind Cloudflare Access. The encryption key goes in as a secret with `pnpm wrangler secret put EMDASH_ENCRYPTION_KEY`.
+This builds the site and deploys the Worker with Wrangler. The Worker only answers on its custom domain, which sits behind Cloudflare Access. Errors plus console output land in Workers Logs; the log of every request stays off. The encryption key goes in as a secret with `pnpm wrangler secret put EMDASH_ENCRYPTION_KEY`.
 
 ## Docs
 
