@@ -3,6 +3,7 @@
 // its stylesheet carries. A row opens the page in its usual editor.
 import { apiFetch, parseApiResponse } from "emdash/plugin-utils";
 import { type ComponentType, useEffect, useState } from "react";
+import { Uitleg, type Veld } from "./uitleg";
 
 const ADMIN = "/_emdash/admin";
 const API = "/_emdash/api";
@@ -350,3 +351,5 @@ function Paginas() {
 }
 
 export const widgets: Record<string, ComponentType> = { snel: SnelDoen, concepten: NogNietOpDeSite, paginas: Paginas };
+// The field widgets of the plugin; a schema field names one as "<plugin id>:<name>".
+export const fields: Record<string, ComponentType<Veld>> = { uitleg: Uitleg };

@@ -1654,7 +1654,8 @@
           "label": "Plaats in de lijst (10, 20, 30)",
           "type": "integer",
           "indexed": true,
-          "defaultValue": 0
+          "defaultValue": 0,
+          "widget": "benefit-gym-dashboard:uitleg"
         }
       ],
       "icon": "quotes",
@@ -1690,7 +1691,8 @@
               "Inleiding"
             ]
           },
-          "defaultValue": "Vraag"
+          "defaultValue": "Vraag",
+          "widget": "benefit-gym-dashboard:uitleg"
         },
         {
           "slug": "vraag",
@@ -1727,7 +1729,8 @@
           "label": "Plaats in de lijst (10, 20, 30)",
           "type": "integer",
           "indexed": true,
-          "defaultValue": 0
+          "defaultValue": 0,
+          "widget": "benefit-gym-dashboard:uitleg"
         }
       ],
       "icon": "question",
@@ -1807,14 +1810,16 @@
           "slug": "vol",
           "label": "Groep is vol",
           "type": "boolean",
-          "defaultValue": false
+          "defaultValue": false,
+          "widget": "benefit-gym-dashboard:uitleg"
         },
         {
           "slug": "volgorde",
           "label": "Plaats in de lijst (10, 20, 30)",
           "type": "integer",
           "indexed": true,
-          "defaultValue": 0
+          "defaultValue": 0,
+          "widget": "benefit-gym-dashboard:uitleg"
         }
       ],
       "icon": "student",
@@ -1901,7 +1906,8 @@
           "label": "Plaats in de lijst (10, 20, 30)",
           "type": "integer",
           "indexed": true,
-          "defaultValue": 0
+          "defaultValue": 0,
+          "widget": "benefit-gym-dashboard:uitleg"
         }
       ],
       "icon": "island",
