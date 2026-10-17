@@ -1172,6 +1172,7 @@
       {
        "soort": "tekst",
        "veld": "aanbod_1_naam",
+       "link": "aanbod_1_link",
        "tag": "h2",
        "stijl": "black-cursief-36-wit-regel-1-2",
        "x": 99.359375,
@@ -1426,6 +1427,7 @@
       {
        "soort": "tekst",
        "veld": "aanbod_2_naam",
+       "link": "aanbod_2_link",
        "tag": "h2",
        "stijl": "black-cursief-36-5-wit",
        "x": 700.859375,
@@ -1638,6 +1640,7 @@
       {
        "soort": "tekst",
        "veld": "aanbod_3_naam",
+       "link": "aanbod_3_link",
        "tag": "h2",
        "stijl": "black-cursief-36-wit-regel-1-2",
        "x": 99.359375,
@@ -1954,6 +1957,7 @@
       {
        "soort": "tekst",
        "veld": "aanbod_4_naam",
+       "link": "aanbod_4_link",
        "tag": "h2",
        "stijl": "black-cursief-36-5-wit",
        "x": 700.859375,
@@ -2227,6 +2231,7 @@
       {
        "soort": "tekst",
        "veld": "aanbod_5_naam",
+       "link": "aanbod_5_link",
        "tag": "h2",
        "stijl": "black-cursief-36-5-wit",
        "x": 99.359375,
@@ -2482,6 +2487,7 @@
       {
        "soort": "tekst",
        "veld": "aanbod_6_naam",
+       "link": "aanbod_6_link",
        "tag": "h2",
        "stijl": "black-cursief-36-5-wit",
        "x": 700.859375,
@@ -2751,6 +2757,7 @@
       {
        "soort": "tekst",
        "veld": "aanbod_7_naam",
+       "link": "aanbod_7_link",
        "tag": "h2",
        "stijl": "black-cursief-36-5-wit",
        "x": 99.359375,
