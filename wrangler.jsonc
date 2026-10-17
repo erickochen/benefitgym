@@ -34,4 +34,10 @@
 	"triggers": {
 		"crons": ["* * * * *"],
 	},
+	// Errors plus console output go to Workers Logs. The log of every invocation stays off, as do traces.
+	"observability": {
+		"enabled": true,
+		"logs": { "enabled": true, "persist": true, "invocation_logs": false },
+		"traces": { "enabled": false },
+	},
 }
