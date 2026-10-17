@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 import { defineConfig } from "astro/config";
 import emdash from "emdash/astro";
 import { DASHBOARD_ADMIN, DASHBOARD_ID, DASHBOARD_VERSIE } from "./src/plugins/dashboard-id.mjs";
+import { PANEEL_ID, PANEEL_VERSIE } from "./src/plugins/paneel-id.mjs";
 import { ZOEKMACHINES_ID, ZOEKMACHINES_VERSIE } from "./src/plugins/zoekmachines-id.mjs";
 
 const pad = (bestand) => fileURLToPath(new URL(bestand, import.meta.url));
@@ -18,6 +19,14 @@ const zoekmachines = {
 	version: ZOEKMACHINES_VERSIE,
 	format: "native",
 	entrypoint: pad("./src/plugins/zoekmachines.ts"),
+};
+
+// The safety nets of the panel: one entry per single page collection, a name for every group.
+const paneel = {
+	id: PANEEL_ID,
+	version: PANEEL_VERSIE,
+	format: "native",
+	entrypoint: pad("./src/plugins/paneel.ts"),
 };
 
 // The table of pages on the dashboard of the admin, as a native plugin with a React widget.
@@ -78,6 +87,7 @@ export default defineConfig({
 				}),
 				formsPlugin(),
 				zoekmachines,
+				paneel,
 			],
 		}),
 	],

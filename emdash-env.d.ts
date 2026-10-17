@@ -316,6 +316,7 @@ export interface Groepen {
   id: string;
   slug: string | null;
   status: string;
+  naam?: string;
   sport?: "Tigers" | "EVOM Kids Fitness" | "Kids Core Craft";
   dag?: "maandag" | "dinsdag" | "woensdag" | "donderdag" | "vrijdag" | "zaterdag" | "zondag";
   tijd?: string;
