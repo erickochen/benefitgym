@@ -1811,9 +1811,8 @@
     {
       "slug": "cursusdata",
       "label": "Cursusdata",
-      "labelSingular": "Cursusdatum",
+      "labelSingular": "Cursus",
       "titleField": "naam",
-      "dateField": "datum",
       "fields": [
         {
           "slug": "naam",
@@ -1826,10 +1825,19 @@
           }
         },
         {
-          "slug": "datum",
-          "label": "Datum",
-          "type": "datetime",
-          "indexed": true
+          "slug": "datums",
+          "label": "Data",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "datum",
+                "label": "Datum",
+                "type": "datetime",
+                "required": true
+              }
+            ]
+          }
         }
       ],
       "admin": {

@@ -335,7 +335,7 @@ export interface Cursusdata {
   slug: string | null;
   status: string;
   naam: string;
-  datum?: string;
+  datums?: { "datum": string }[];
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
