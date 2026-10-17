@@ -364,14 +364,14 @@ export interface Gegeven {
   slug: string | null;
   status: string;
   naam: string;
-  andere_naam?: string;
   straat?: string;
   postcode?: string;
   plaats?: string;
-  provincie?: string;
-  land?: string;
   telefoon?: string;
   email?: string;
+  andere_naam?: string;
+  provincie?: string;
+  land?: string;
   oprichtingsjaar?: string;
   prijsbereik?: string;
   breedtegraad?: number;
