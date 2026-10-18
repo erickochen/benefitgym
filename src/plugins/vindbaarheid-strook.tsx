@@ -3,6 +3,7 @@
 // admin does. It is read once on opening, so a save on top of someone else's change is refused.
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { SITE_NAME } from "../teksten";
+import { Beeldkiezer, padVan } from "./beeldkiezer";
 import { KnopPrimair } from "./knop-primair";
 import {
 	bewaar,
@@ -55,6 +56,8 @@ const DUUR = "zoek_duur";
 const SOORT = "zoek_soort";
 const SAMENVATTING = "zoek_samenvatting";
 const LLMS = "llms_regel";
+// A new image takes the alt text of the hero photo of its page, or the page name where the hero has none.
+const HERO_ALT = "hero_alt";
 const TEKSTVAK_REGELS = 3;
 // The sketch puts at most this many short fields next to each other; a text area and the AI line get a row each.
 const MAX_NAAST = 3;
@@ -72,6 +75,8 @@ export const T = {
 		`${TEKST_RICHTLIJN} tekens passen.`,
 	beeld: "Beeld bij delen in WhatsApp en Facebook",
 	beeldZin: "1200 bij 630 pixels. Zonder beeld deelt een link als kaal tekstblok.",
+	beeldVoor: (naam: string) => `Beeld bij delen voor ${naam}`,
+	anderBeeld: "Ander beeld kiezen",
 	aiKop: "Voor AI-zoekdiensten en zoekmachines",
 	aiZin: "Staat niet zichtbaar op de pagina. Google en AI-zoekdiensten lezen het mee als beschrijving van de les.",
 	samenvattingZin: "Wat de les is en voor wie. Dit is de zin die een AI-zoekdienst overneemt.",
@@ -326,6 +331,7 @@ export function Strook({
 	const [data, setData] = useState<Record<string, unknown>>({});
 	const [fout, setFout] = useState<string | null>(null);
 	const [bezig, setBezig] = useState(false);
+	const [kiezer, setKiezer] = useState(false);
 	const token = useRef(crypto.randomUUID());
 	const instellingen = lading.instellingen ?? {};
 	const siteTitel = instellingen.title ?? SITE_NAME;
@@ -455,11 +461,20 @@ export function Strook({
 						onChange={(e) => setSeo({ ...seo, description: e.target.value || null })}
 					/>
 				</Veld>
-				<div className="grid gap-1">
-					<p className="text-sm font-medium">{T.beeld}</p>
-					{seo.image ? <img className="vind-thumb" src={seo.image} alt="" /> : <div className="vind-thumb" />}
-					<p className="text-xs text-kumo-subtle">{T.beeldZin}</p>
-				</div>
+				<Veld id="vind-beeld" label={T.beeld} zin={T.beeldZin}>
+					<div className="flex items-center gap-3">
+						{seo.image ? <img className="vind-thumb" src={seo.image} alt="" /> : <div className="vind-thumb" />}
+						<button
+							id="vind-beeld"
+							type="button"
+							className={KNOP}
+							aria-describedby="vind-beeld-zin"
+							onClick={() => setKiezer(true)}
+						>
+							{T.anderBeeld}
+						</button>
+					</div>
+				</Veld>
 				{velden.length > 0 && (
 					<div className="pt-2">
 						<p className="font-medium">{T.aiKop}</p>
@@ -554,6 +569,18 @@ export function Strook({
 					</div>
 				)}
 			</aside>
+			{kiezer && (
+				<Beeldkiezer
+					titel={T.beeldVoor(naam)}
+					huidig={seo.image}
+					alt={typeof item.data[HERO_ALT] === "string" && item.data[HERO_ALT] ? item.data[HERO_ALT] : naam}
+					onKies={(m) => {
+						setSeo({ ...seo, image: padVan(m) });
+						setKiezer(false);
+					}}
+					onSluit={() => setKiezer(false)}
+				/>
+			)}
 		</div>
 	);
 }

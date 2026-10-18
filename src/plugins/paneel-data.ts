@@ -42,6 +42,8 @@ export interface Medium {
 	height?: number | null;
 	alt?: string | null;
 	storageKey: string;
+	// Pending while an upload is still processed, failed when it broke off.
+	status?: "pending" | "ready" | "failed";
 }
 
 export interface Slot {
@@ -204,9 +206,11 @@ export const ontgrendel = (collectie: string, id: string, token: string, keepali
 export const bewaarInstellingen = (wens: Record<string, unknown>) =>
 	aanroep<Instellingen>("/settings", { method: "POST", body: JSON.stringify(wens) });
 
+// The images of the library, newest first; a type that ends in a slash matches every image type.
+const BEELDEN = "image/";
 export const laadMedia = (cursor?: string | null) =>
 	aanroep<{ items: Medium[]; nextCursor?: string | null }>(
-		`/media?limit=${MEDIA_PER_KEER}${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ""}`,
+		`/media?limit=${MEDIA_PER_KEER}&mimeType=${encodeURIComponent(BEELDEN)}${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ""}`,
 	);
 
 export async function uploadMedia(bestand: File, alt: string): Promise<Antwoord<Medium>> {

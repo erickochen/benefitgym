@@ -27,6 +27,8 @@ export const rijAnker = (collectie: string, id: string) => `${collectie}-${id}`;
 // Below this width of the page a row becomes a card and the strip one column; wider, the column for Google keeps at
 // least 16rem next to the fixed columns.
 const SMAL_REM = 56;
+// The image picker is this wide at most; a narrower screen shows two images per row.
+const VENSTER_REM = 36;
 
 export const T = {
 	kop: "Vindbaarheid",
@@ -74,6 +76,16 @@ export const STIJL = `
   background: var(--color-kumo-tint); }
 .vind-site { margin-top: 3rem; }
 .vind-site-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 1rem; }
+.vind-venster { width: min(${VENSTER_REM}rem, calc(100% - 2rem)); max-width: none; max-height: calc(100vh - 2rem);
+  margin: auto; padding: 0; border: 0; overflow: auto; }
+.vind-venster::backdrop { background: color-mix(in srgb, var(--color-kumo-recessed) 80%, transparent); }
+.vind-venster-inhoud { padding: 1.5rem; }
+.vind-raster { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin-top: 1rem; }
+.vind-keuze { text-align: left; border-radius: .375rem; padding: .25rem; }
+.vind-keuze img { width: 100%; aspect-ratio: 1200 / 630; object-fit: cover; border-radius: .25rem; display: block;
+  border: 1px solid var(--color-kumo-line); }
+.vind-keuze.vind-gekozen img { outline: 2px solid var(--color-kumo-brand); outline-offset: 2px; }
+@media (max-width: ${VENSTER_REM}rem) { .vind-raster { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @container (max-width: ${SMAL_REM}rem) {
   .vind-rij, .vind-strook, .vind-site-grid, .vind-twee, .vind-drie { grid-template-columns: minmax(0, 1fr); }
   .vind-kop { display: none; }
