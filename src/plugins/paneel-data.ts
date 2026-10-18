@@ -14,6 +14,8 @@ export const FOUT = "De gegevens konden niet geladen worden.";
 const PER_KEER = 100;
 // The image picker shows this many at a time.
 export const MEDIA_PER_KEER = 6;
+// The form of the admin renews its edit lock this often; a lock runs out after seven minutes.
+export const HARTSLAG_MS = 120_000;
 // Cards that mount together share one load; a later visit loads again.
 const DEEL_MS = 5000;
 const MENU = "primary";
@@ -154,7 +156,7 @@ export function lading(vers = false): Promise<Lading> {
 	return belofte;
 }
 
-// The shared load; herlaad fetches fresh, and the old data stays on screen until the new data or an error lands.
+// The shared load; herlaad fetches fresh. The old data stays until new data lands, also next to an error.
 export function useLading(): { lading: Lading | null; fout: string | null; herlaad: () => void } {
 	const [staat, setStaat] = useState<{ lading: Lading | null; fout: string | null }>({ lading: null, fout: null });
 	const [ronde, setRonde] = useState(0);
@@ -162,7 +164,7 @@ export function useLading(): { lading: Lading | null; fout: string | null; herla
 		let actief = true;
 		lading(ronde > 0).then(
 			(l) => actief && setStaat({ lading: l, fout: null }),
-			(e: unknown) => actief && setStaat({ lading: null, fout: e instanceof Error ? e.message : FOUT }),
+			(e: unknown) => actief && setStaat((s) => ({ lading: s.lading, fout: e instanceof Error ? e.message : FOUT })),
 		);
 		return () => {
 			actief = false;

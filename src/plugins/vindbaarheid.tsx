@@ -1,7 +1,7 @@
 // The page Vindbaarheid: every page of the site with what Google, WhatsApp and AI search services get from it, its
 // stand, a strip that edits it in place plus the block for the whole site. The rows follow the sidebar: one group per
 // page collection, the pages by name.
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { SITE_NAME } from "../teksten";
 import { DASHBOARD_ID } from "./dashboard-id.mjs";
 import { ADMIN, FOUT, useLading, type Lading } from "./paneel-data";
@@ -18,6 +18,7 @@ import {
 	type MenuItem,
 	type Stand,
 } from "./vindbaarheid-regels";
+import { Strook } from "./vindbaarheid-strook";
 
 // The sidebar folder that holds the page collections.
 const GROEP = "Pagina's";
@@ -63,7 +64,8 @@ export const STIJL = `
 .vind-strook { display: grid; grid-template-columns: minmax(0, 1fr) 23rem; gap: 2rem; padding: .5rem .75rem 1.5rem;
   border-bottom: 1px solid var(--color-kumo-line); }
 .vind-velden > * + * { margin-top: 1rem; }
-.vind-twee { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.vind-twee { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+.vind-drie { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
 .vind-teller { display: flex; justify-content: space-between; gap: .75rem; }
 .vind-voorbeeld { background: var(--color-kumo-base); border: 1px solid var(--color-kumo-line); border-radius: .375rem;
   padding: 1rem; }
@@ -73,7 +75,7 @@ export const STIJL = `
 .vind-site { margin-top: 3rem; }
 .vind-site-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 1rem; }
 @container (max-width: ${SMAL_REM}rem) {
-  .vind-rij, .vind-strook, .vind-site-grid, .vind-twee { grid-template-columns: minmax(0, 1fr); }
+  .vind-rij, .vind-strook, .vind-site-grid, .vind-twee, .vind-drie { grid-template-columns: minmax(0, 1fr); }
   .vind-kop { display: none; }
 }
 `;
@@ -125,9 +127,15 @@ function Badges({ stand }: { stand: Stand }) {
 }
 
 export function Vindbaarheid() {
-	const { lading, fout } = useLading();
+	const { lading, fout, herlaad } = useLading();
 	const [open, setOpen] = useState<string | null>(() => window.location.hash.slice(1) || null);
 	const [alleenGemis, setAlleenGemis] = useState(false);
+	const [melding, setMelding] = useState<string | null>(null);
+	const openNu = useRef(open);
+	openNu.current = open;
+	// The row whose Bewerk button gets the focus back once the reload after a save has landed.
+	const focusNa = useRef<string | null>(null);
+	const filterKnop = useRef<HTMLButtonElement>(null);
 	// The page judges a page by the menu and shows the settings, so it needs both.
 	const compleet = lading?.menu && lading.instellingen ? lading : null;
 	const groepen = useMemo(() => (compleet ? rijenVan(compleet, compleet.menu ?? []) : []), [compleet]);
@@ -143,12 +151,33 @@ export function Vindbaarheid() {
 		window.addEventListener("hashchange", naarAnker);
 		return () => window.removeEventListener("hashchange", naarAnker);
 	}, []);
+	// A row the filter hides after a save hands the focus to the filter instead.
+	useEffect(() => {
+		const anker = focusNa.current;
+		if (!anker) return;
+		focusNa.current = null;
+		(document.getElementById(anker)?.querySelector("button") ?? filterKnop.current)?.focus();
+	}, [lading]);
 
-	if (fout || (lading && !compleet)) return <p className={MELDING}>{fout ?? FOUT}</p>;
-	if (!compleet) return <p className={MELDING}>{T.laden}</p>;
+	// A failed reload keeps the rows on screen with the error above them.
+	if (!compleet) return <p className={MELDING}>{fout ?? (lading ? FOUT : T.laden)}</p>;
 	const alle = groepen.flatMap((g) => g.rijen);
 	const aantalCompleet = alle.filter((r) => r.stand.compleet).length;
 	const siteTitel = compleet.instellingen?.title ?? SITE_NAME;
+
+	// A strip closes its own row only, and the focus goes back to the Bewerk button of that row.
+	const sluit = (anker: string) => {
+		if (openNu.current !== anker) return false;
+		setOpen(null);
+		window.requestAnimationFrame(() => document.getElementById(anker)?.querySelector("button")?.focus());
+		return true;
+	};
+	// After a save the strip closes, the row shows its new stand and one line says what happened.
+	const bewaard = (anker: string, tekst: string) => {
+		if (sluit(anker)) focusNa.current = anker;
+		setMelding(tekst);
+		herlaad();
+	};
 
 	return (
 		<div className="vind-pagina space-y-4">
@@ -165,6 +194,7 @@ export function Vindbaarheid() {
 			<div className="flex flex-wrap items-center gap-3">
 				<span className="font-medium">{T.samenvatting(aantalCompleet, alle.length)}</span>
 				<button
+					ref={filterKnop}
 					type="button"
 					className={`${BADGE} ${alleenGemis ? ORANJE : GRIJS} cursor-pointer`}
 					aria-pressed={alleenGemis}
@@ -173,6 +203,16 @@ export function Vindbaarheid() {
 					{T.filter}
 				</button>
 			</div>
+			{melding && (
+				<p className="text-sm text-kumo-subtle" role="status">
+					{melding}
+				</p>
+			)}
+			{fout && (
+				<p className="text-sm text-kumo-danger" role="alert">
+					{fout}
+				</p>
+			)}
 			<div className="rounded-md border bg-kumo-base" role="table" aria-label={T.kop}>
 				<div role="rowgroup">
 					<div className="vind-rij vind-kop" role="row">
@@ -229,6 +269,7 @@ export function Vindbaarheid() {
 													type="button"
 													className={KNOP}
 													aria-expanded={isOpen}
+													aria-controls={`${anker}-strook`}
 													aria-describedby={`${anker}-naam`}
 													onClick={() => setOpen(isOpen ? null : anker)}
 												>
@@ -236,6 +277,22 @@ export function Vindbaarheid() {
 												</button>
 											</div>
 										</div>
+										{isOpen && (
+											<div role="row">
+												<div role="cell" aria-colspan={KOLOMMEN}>
+													<Strook
+														id={`${anker}-strook`}
+														collectie={collectie}
+														c={c}
+														item={rij.item}
+														pad={rij.pad}
+														lading={compleet}
+														onSluit={() => sluit(anker)}
+														onBewaard={(tekst) => bewaard(anker, tekst)}
+													/>
+												</div>
+											</div>
+										)}
 									</Fragment>
 								);
 							})}

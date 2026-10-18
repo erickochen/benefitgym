@@ -14,6 +14,7 @@ export interface VeldInfo {
 	label: string;
 	validation?: { maxLength?: number; options?: string[] };
 	options?: Array<{ value: string; label: string }>;
+	integer?: boolean;
 }
 
 export interface CollectieInfo {
