@@ -22,12 +22,12 @@ A page is a stack of sections. Most are a fixed drawing with the fields on top, 
 | `astro.config.mjs` | EmDash, plugins and cache rules |
 | `wrangler.jsonc` | Worker, bindings and domain |
 | `seed/seed.json` | Content model, no content |
-| `src/pages/` | Routes |
+| `src/pages/` | Routes, with llms.txt and the key file of IndexNow |
 | `src/components/` | Sections, fields, menu, footer, FAQ, reviews and forms |
 | `src/layout/` | Generated: place, size and style of every field per page |
 | `src/styles/` | Page scale and styles, with generated text styles in `tekst.css` |
 | `src/scripts/` | Browser scripts, one per interactive part |
-| `src/plugins/` | Structured data, checks on save and the admin dashboard |
+| `src/plugins/` | Structured data, IndexNow, checks on save, the admin dashboard and the page for search engines and AI |
 | `src/teksten.ts` | The texts that stay in code |
 | `src/worker.ts` | Worker entry: markdown for agents and cache headers |
 
@@ -45,4 +45,4 @@ The site runs at http://localhost:4321 and loads the model into a local database
 
 ## Deploying
 
-A merge to `main` deploys through Workers Builds. By hand: `pnpm wrangler login`, then `pnpm run deploy`. The encryption key is a secret, set with `pnpm wrangler secret put EMDASH_ENCRYPTION_KEY`.
+A merge to `main` deploys through Workers Builds. By hand: `pnpm wrangler login`, then `pnpm run deploy`. The encryption key is a secret, set with `pnpm wrangler secret put EMDASH_ENCRYPTION_KEY`. `INDEXNOW_KEY`, 32 hex characters, is set the same way and turns on IndexNow on the production host.

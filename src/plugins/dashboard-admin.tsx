@@ -1,35 +1,45 @@
 // The dashboard cards of the site: the tasks the owner does most with the rules a label cannot carry, what is saved
 // but not yet on the site plus every page in one table. The cards borrow the classes of the admin's own lists, which
 // its stylesheet carries. A row opens the page in its usual editor.
-import { apiFetch, parseApiResponse } from "emdash/plugin-utils";
-import { type ComponentType, useEffect, useState } from "react";
+import { type ComponentType } from "react";
+import { ADMIN, bewerkPad, useLading } from "./paneel-data";
+import {
+	BADGE,
+	BLAUW,
+	CEL,
+	DATUM,
+	GRIJS,
+	GROEN,
+	KNOP,
+	KOP,
+	LINK,
+	MELDING,
+	ORANJE,
+	REGEL,
+	SOORT,
+} from "./paneel-klassen";
 import { Uitleg, type Veld } from "./uitleg";
+import { PAGINA_PAD, rijAnker, Vindbaarheid } from "./vindbaarheid";
+import {
+	adresVan,
+	COMPLEET,
+	heeftConcept,
+	naamVan,
+	stand,
+	type CollectieInfo,
+	type Item,
+	type Stand,
+} from "./vindbaarheid-regels";
 
-const ADMIN = "/_emdash/admin";
-const API = "/_emdash/api";
 // The sidebar folder that holds the page collections.
 const GROEP = "Pagina's";
-// The largest page the list route hands out.
-const PER_KEER = 100;
 // The site with the editing bar: the toolbar renders this address fresh for a signed in editor.
 const SITE_BEWERKEN = "/?_edit";
-// The placeholder for the slug in a collection's URL pattern.
-const SLUG = "{slug}";
-// Cards that mount together share one load; a later visit to the dashboard loads again.
-const DEEL_MS = 5000;
 // The card is half the dashboard wide, so a long list stops here and names the rest.
 const MAX_RIJEN = 20;
 // A review is titled by its quote; the row shows this much of it.
 const MAX_TITEL = 60;
 const AFKAP = "…";
-const FOUT = "De gegevens konden niet geladen worden.";
-const BADGE =
-	"inline-flex w-fit flex-none shrink-0 items-center justify-self-start rounded-full px-2 py-0.5 text-xs font-medium whitespace-nowrap";
-// The colors of the admin's own status badges.
-const GROEN = "bg-kumo-success-tint/70 text-kumo-success";
-const ORANJE = "bg-kumo-warning-tint/70 text-kumo-warning";
-const BLAUW = "bg-kumo-info-tint/70 text-kumo-info";
-const GRIJS = "bg-kumo-fill text-kumo-badge-neutral-subtle";
 const STATUS: Record<string, { label: string; kleur: string }> = {
 	published: { label: "Live", kleur: GROEN },
 	draft: { label: "Concept", kleur: ORANJE },
@@ -45,16 +55,7 @@ const DIT_JAAR = new Intl.DateTimeFormat("nl-NL", {
 	minute: "2-digit",
 });
 const EERDER = new Intl.DateTimeFormat("nl-NL", { day: "numeric", month: "short", year: "numeric" });
-const KOPPEN = ["Pagina", "Status", "Gewijzigd", "Site"];
-// The cells are tighter than in the admin's own lists and stay on one line.
-const CEL = "px-3 py-2";
-const DATUM = "px-3 py-2 whitespace-nowrap text-sm text-kumo-subtle";
-const KOP = "px-3 py-2 text-start text-sm font-medium";
-const SOORT = "px-3 pt-4 pb-1 text-start text-xs font-medium uppercase tracking-wide text-kumo-subtle";
-const MELDING = "px-3 text-sm leading-6 text-kumo-subtle";
-const KNOP =
-	"inline-flex items-center justify-center rounded-md border bg-kumo-base px-3 py-2 text-sm font-medium transition-colors hover:bg-kumo-tint/50";
-const LINK = "font-medium hover:text-kumo-link";
+const KOPPEN = ["Pagina", "Status", "Gewijzigd", "Vindbaarheid", "Site"];
 
 // The rules of the panel that a label cannot carry, under the buttons, in the order the owner meets them.
 const REGELS = [
@@ -64,7 +65,6 @@ const REGELS = [
 	"Een vraag krijgt zijn categorie rechts in het formulier, na de eerste keer opslaan.",
 	"Een lesdag die voorbij is verdwijnt vanzelf van de site. Een vakantie haal je zelf weg.",
 ];
-const REGEL = "px-3 text-sm leading-5";
 
 // The tasks the owner does most, in that order. A task on a collection the manifest lacks shows no button.
 const TAKEN: { label: string; href?: string; collectie?: string; nieuw?: boolean }[] = [
@@ -76,109 +76,22 @@ const TAKEN: { label: string; href?: string; collectie?: string; nieuw?: boolean
 	{ label: "Vakanties bijwerken", collectie: "vakanties" },
 ];
 
-interface Collectie {
-	label: string;
-	titleField?: string;
-	group?: string;
-	urlPattern?: string;
-	routable?: boolean;
-	hidden?: boolean;
-}
-
-interface Item {
-	id: string;
-	slug: string | null;
-	status: string;
-	data: Record<string, unknown>;
-	updatedAt: string;
-	liveRevisionId: string | null;
-	draftRevisionId: string | null;
-}
-
-interface Lading {
-	collecties: Record<string, Collectie>;
-	items: Record<string, Item[]>;
-}
-
 // A change from this year shows its time, an older one its year.
 function wanneer(iso: string): string {
 	const datum = new Date(iso);
 	return (datum.getFullYear() === new Date().getFullYear() ? DIT_JAAR : EERDER).format(datum);
 }
 
-async function lees<T>(pad: string): Promise<T> {
-	return parseApiResponse<T>(await apiFetch(`${API}${pad}`), FOUT);
-}
-
-async function itemsVan(collectie: string): Promise<Item[]> {
-	const uit: Item[] = [];
-	let cursor: string | undefined;
-	do {
-		const vervolg = cursor ? `&cursor=${encodeURIComponent(cursor)}` : "";
-		const deel = await lees<{ items: Item[]; nextCursor?: string | null }>(
-			`/content/${collectie}?status=all&limit=${PER_KEER}${vervolg}`,
-		);
-		uit.push(...deel.items);
-		cursor = deel.nextCursor ?? undefined;
-	} while (cursor);
-	return uit;
-}
-
-// Every collection the sidebar shows, with all its entries.
-async function laadAlles(): Promise<Lading> {
-	const manifest = await lees<{ collections: Record<string, Collectie> }>("/manifest");
-	const zichtbaar = Object.entries(manifest.collections).filter(([, c]) => !c.hidden);
-	const items = Object.fromEntries(
-		await Promise.all(zichtbaar.map(async ([slug]) => [slug, await itemsVan(slug)] as const)),
-	);
-	return { collecties: Object.fromEntries(zichtbaar), items };
-}
-
-let gedeeld: { belofte: Promise<Lading>; sinds: number } | null = null;
-
-function lading(): Promise<Lading> {
-	const nu = Date.now();
-	if (gedeeld && nu - gedeeld.sinds <= DEEL_MS) return gedeeld.belofte;
-	const belofte = laadAlles();
-	gedeeld = { belofte, sinds: nu };
-	// A failed load is not kept, so the next card loads again instead of repeating the error.
-	belofte.catch(() => {
-		if (gedeeld?.belofte === belofte) gedeeld = null;
-	});
-	return belofte;
-}
-
-function useLading(): { lading: Lading | null; fout: string | null } {
-	const [staat, setStaat] = useState<{ lading: Lading | null; fout: string | null }>({ lading: null, fout: null });
-	useEffect(() => {
-		let actief = true;
-		lading().then(
-			(l) => actief && setStaat({ lading: l, fout: null }),
-			(e: unknown) => actief && setStaat({ lading: null, fout: e instanceof Error ? e.message : FOUT }),
-		);
-		return () => {
-			actief = false;
-		};
-	}, []);
-	return staat;
-}
-
 // An empty title falls back to the slug, as the admin's own list does; a title field that holds no text does too.
-function titel(item: Item, c: Collectie): string {
-	const w = item.data[c.titleField ?? "title"];
-	return (typeof w === "string" && w.trim()) || item.slug || item.id;
-}
+const titel = naamVan;
 const kort = (tekst: string) => (tekst.length > MAX_TITEL ? `${tekst.slice(0, MAX_TITEL).trimEnd()}${AFKAP}` : tekst);
-const bewerk = (collectie: string, item: Item) => `${ADMIN}/content/${collectie}/${item.id}`;
-const heeftConcept = (item: Item) =>
-	Boolean(item.liveRevisionId && item.draftRevisionId && item.draftRevisionId !== item.liveRevisionId);
+const bewerk = (collectie: string, item: Item) => bewerkPad(collectie, item.id);
 
-// The public address of a live page, from the pattern of its collection. A page without a slug has no address.
-function opSite(c: Collectie, item: Item): string | null {
-	if (!c.routable || !c.urlPattern || item.status !== "published") return null;
-	if (c.urlPattern.includes(SLUG) && !item.slug) return null;
-	return c.urlPattern.replace(SLUG, item.slug ?? "");
-}
+// The stand in one word: complete, or the first thing that is missing.
+const eersteGemis = (s: Stand) => (s.compleet ? COMPLEET : s.ontbreekt[0]);
+
+// The public address of a live page; a page that is not published has none.
+const opSite = (c: CollectieInfo, item: Item) => (item.status === "published" ? adresVan(c, item) : null);
 
 // The status as the admin's list shows it: a live page with a newer draft carries a second badge.
 function Status({ item }: { item: Item }) {
@@ -284,8 +197,9 @@ function NogNietOpDeSite() {
 	);
 }
 
-// Every page under a heading per kind, as the sidebar names them, with its status, its last change plus a link to it
-// on the site.
+// Every page under a heading per kind, as the sidebar names them, with its status, its last change, its stand for
+// search engines with a link to the page Vindbaarheid plus a link to it on the site. Without the menu the stand cannot
+// be judged and its cell stays empty.
 function Paginas() {
 	const { lading, fout } = useLading();
 	if (fout) return <p className={MELDING}>{fout}</p>;
@@ -334,6 +248,13 @@ function Paginas() {
 										<bdi>{wanneer(item.updatedAt)}</bdi>
 									</td>
 									<td className={DATUM}>
+										{lading.menu && (
+											<a href={`${PAGINA_PAD}#${rijAnker(collectie, item.id)}`} className="hover:text-kumo-link">
+												{eersteGemis(stand(item, c, collectie, lading.menu))}
+											</a>
+										)}
+									</td>
+									<td className={DATUM}>
 										{url && (
 											<a href={url} target="_blank" rel="noopener" className="hover:text-kumo-link">
 												Bekijk
@@ -353,3 +274,5 @@ function Paginas() {
 export const widgets: Record<string, ComponentType> = { snel: SnelDoen, concepten: NogNietOpDeSite, paginas: Paginas };
 // The field widgets of the plugin; a schema field names one as "<plugin id>:<name>".
 export const fields: Record<string, ComponentType<Veld>> = { uitleg: Uitleg };
+// The admin pages of the plugin, keyed by the path dashboard.ts declares.
+export const pages: Record<string, ComponentType> = { "/vindbaarheid": Vindbaarheid };
