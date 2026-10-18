@@ -1,8 +1,8 @@
 // The dashboard cards of the site: the tasks the owner does most with the rules a label cannot carry, what is saved
 // but not yet on the site plus every page in one table. The cards borrow the classes of the admin's own lists, which
 // its stylesheet carries. A row opens the page in its usual editor.
-import { apiFetch, parseApiResponse } from "emdash/plugin-utils";
-import { type ComponentType, useEffect, useState } from "react";
+import { type ComponentType } from "react";
+import { ADMIN, bewerkPad, useLading } from "./paneel-data";
 import {
 	BADGE,
 	BLAUW,
@@ -19,25 +19,17 @@ import {
 	SOORT,
 } from "./paneel-klassen";
 import { Uitleg, type Veld } from "./uitleg";
+import { adresVan, heeftConcept, naamVan, type CollectieInfo, type Item } from "./vindbaarheid-regels";
 
-const ADMIN = "/_emdash/admin";
-const API = "/_emdash/api";
 // The sidebar folder that holds the page collections.
 const GROEP = "Pagina's";
-// The largest page the list route hands out.
-const PER_KEER = 100;
 // The site with the editing bar: the toolbar renders this address fresh for a signed in editor.
 const SITE_BEWERKEN = "/?_edit";
-// The placeholder for the slug in a collection's URL pattern.
-const SLUG = "{slug}";
-// Cards that mount together share one load; a later visit to the dashboard loads again.
-const DEEL_MS = 5000;
 // The card is half the dashboard wide, so a long list stops here and names the rest.
 const MAX_RIJEN = 20;
 // A review is titled by its quote; the row shows this much of it.
 const MAX_TITEL = 60;
 const AFKAP = "…";
-const FOUT = "De gegevens konden niet geladen worden.";
 const STATUS: Record<string, { label: string; kleur: string }> = {
 	published: { label: "Live", kleur: GROEN },
 	draft: { label: "Concept", kleur: ORANJE },
@@ -74,109 +66,19 @@ const TAKEN: { label: string; href?: string; collectie?: string; nieuw?: boolean
 	{ label: "Vakanties bijwerken", collectie: "vakanties" },
 ];
 
-interface Collectie {
-	label: string;
-	titleField?: string;
-	group?: string;
-	urlPattern?: string;
-	routable?: boolean;
-	hidden?: boolean;
-}
-
-interface Item {
-	id: string;
-	slug: string | null;
-	status: string;
-	data: Record<string, unknown>;
-	updatedAt: string;
-	liveRevisionId: string | null;
-	draftRevisionId: string | null;
-}
-
-interface Lading {
-	collecties: Record<string, Collectie>;
-	items: Record<string, Item[]>;
-}
-
 // A change from this year shows its time, an older one its year.
 function wanneer(iso: string): string {
 	const datum = new Date(iso);
 	return (datum.getFullYear() === new Date().getFullYear() ? DIT_JAAR : EERDER).format(datum);
 }
 
-async function lees<T>(pad: string): Promise<T> {
-	return parseApiResponse<T>(await apiFetch(`${API}${pad}`), FOUT);
-}
-
-async function itemsVan(collectie: string): Promise<Item[]> {
-	const uit: Item[] = [];
-	let cursor: string | undefined;
-	do {
-		const vervolg = cursor ? `&cursor=${encodeURIComponent(cursor)}` : "";
-		const deel = await lees<{ items: Item[]; nextCursor?: string | null }>(
-			`/content/${collectie}?status=all&limit=${PER_KEER}${vervolg}`,
-		);
-		uit.push(...deel.items);
-		cursor = deel.nextCursor ?? undefined;
-	} while (cursor);
-	return uit;
-}
-
-// Every collection the sidebar shows, with all its entries.
-async function laadAlles(): Promise<Lading> {
-	const manifest = await lees<{ collections: Record<string, Collectie> }>("/manifest");
-	const zichtbaar = Object.entries(manifest.collections).filter(([, c]) => !c.hidden);
-	const items = Object.fromEntries(
-		await Promise.all(zichtbaar.map(async ([slug]) => [slug, await itemsVan(slug)] as const)),
-	);
-	return { collecties: Object.fromEntries(zichtbaar), items };
-}
-
-let gedeeld: { belofte: Promise<Lading>; sinds: number } | null = null;
-
-function lading(): Promise<Lading> {
-	const nu = Date.now();
-	if (gedeeld && nu - gedeeld.sinds <= DEEL_MS) return gedeeld.belofte;
-	const belofte = laadAlles();
-	gedeeld = { belofte, sinds: nu };
-	// A failed load is not kept, so the next card loads again instead of repeating the error.
-	belofte.catch(() => {
-		if (gedeeld?.belofte === belofte) gedeeld = null;
-	});
-	return belofte;
-}
-
-function useLading(): { lading: Lading | null; fout: string | null } {
-	const [staat, setStaat] = useState<{ lading: Lading | null; fout: string | null }>({ lading: null, fout: null });
-	useEffect(() => {
-		let actief = true;
-		lading().then(
-			(l) => actief && setStaat({ lading: l, fout: null }),
-			(e: unknown) => actief && setStaat({ lading: null, fout: e instanceof Error ? e.message : FOUT }),
-		);
-		return () => {
-			actief = false;
-		};
-	}, []);
-	return staat;
-}
-
 // An empty title falls back to the slug, as the admin's own list does; a title field that holds no text does too.
-function titel(item: Item, c: Collectie): string {
-	const w = item.data[c.titleField ?? "title"];
-	return (typeof w === "string" && w.trim()) || item.slug || item.id;
-}
+const titel = naamVan;
 const kort = (tekst: string) => (tekst.length > MAX_TITEL ? `${tekst.slice(0, MAX_TITEL).trimEnd()}${AFKAP}` : tekst);
-const bewerk = (collectie: string, item: Item) => `${ADMIN}/content/${collectie}/${item.id}`;
-const heeftConcept = (item: Item) =>
-	Boolean(item.liveRevisionId && item.draftRevisionId && item.draftRevisionId !== item.liveRevisionId);
+const bewerk = (collectie: string, item: Item) => bewerkPad(collectie, item.id);
 
-// The public address of a live page, from the pattern of its collection. A page without a slug has no address.
-function opSite(c: Collectie, item: Item): string | null {
-	if (!c.routable || !c.urlPattern || item.status !== "published") return null;
-	if (c.urlPattern.includes(SLUG) && !item.slug) return null;
-	return c.urlPattern.replace(SLUG, item.slug ?? "");
-}
+// The public address of a live page; a page that is not published has none.
+const opSite = (c: CollectieInfo, item: Item) => (item.status === "published" ? adresVan(c, item) : null);
 
 // The status as the admin's list shows it: a live page with a newer draft carries a second badge.
 function Status({ item }: { item: Item }) {
