@@ -89,7 +89,8 @@ export const STIJL = `
 @media (max-width: ${VENSTER_REM}rem) { .vind-raster { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @container (max-width: ${SMAL_REM}rem) {
   .vind-rij, .vind-strook, .vind-site-grid, .vind-twee, .vind-drie { grid-template-columns: minmax(0, 1fr); }
-  .vind-kop { display: none; }
+  .vind-kop { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%);
+    white-space: nowrap; padding: 0; border: 0; }
 }
 `;
 
@@ -149,8 +150,13 @@ export function Vindbaarheid() {
 	// The row whose Bewerk button gets the focus back once the reload after a save has landed.
 	const focusNa = useRef<string | null>(null);
 	const filterKnop = useRef<HTMLButtonElement>(null);
-	// The page judges a page by the menu and shows the settings, so it needs both.
-	const compleet = lading?.menu && lading.instellingen ? lading : null;
+	// The page judges a page by the menu and shows the settings, so it needs both. A reload that lacks one of them keeps
+	// the last whole load on screen with the error above it.
+	const vorige = useRef<Lading | null>(null);
+	const vers = lading?.menu && lading.instellingen ? lading : null;
+	if (vers) vorige.current = vers;
+	const compleet = vers ?? vorige.current;
+	const foutRegel = fout ?? (lading && !vers ? FOUT : null);
 	const groepen = useMemo(() => (compleet ? rijenVan(compleet, compleet.menu ?? []) : []), [compleet]);
 	const geladen = compleet !== null;
 
@@ -172,8 +178,7 @@ export function Vindbaarheid() {
 		(document.getElementById(anker)?.querySelector("button") ?? filterKnop.current)?.focus();
 	}, [lading]);
 
-	// A failed reload keeps the rows on screen with the error above them.
-	if (!compleet) return <p className={MELDING}>{fout ?? (lading ? FOUT : T.laden)}</p>;
+	if (!compleet) return <p className={MELDING}>{foutRegel ?? T.laden}</p>;
 	const alle = groepen.flatMap((g) => g.rijen);
 	const aantalCompleet = alle.filter((r) => r.stand.compleet).length;
 	const siteTitel = compleet.instellingen?.title ?? SITE_NAME;
@@ -185,10 +190,12 @@ export function Vindbaarheid() {
 		window.requestAnimationFrame(() => document.getElementById(anker)?.querySelector("button")?.focus());
 		return true;
 	};
-	// After a save the strip closes, the row shows its new stand and one line says what happened.
+	// After a save the strip closes, the row shows its new stand and one line says what happened. The line empties
+	// first, so the same message twice in a row is heard twice.
 	const bewaard = (anker: string, tekst: string) => {
 		if (sluit(anker)) focusNa.current = anker;
-		setMelding(tekst);
+		setMelding(null);
+		window.requestAnimationFrame(() => setMelding(tekst));
 		herlaad();
 	};
 
@@ -216,14 +223,13 @@ export function Vindbaarheid() {
 					{T.filter}
 				</button>
 			</div>
-			{melding && (
-				<p className="text-sm text-kumo-subtle" role="status">
-					{melding}
-				</p>
-			)}
-			{fout && (
+			{/* The status line stands from the start, so a screen reader hears the message when it lands. */}
+			<p className="text-sm text-kumo-subtle" role="status">
+				{melding}
+			</p>
+			{foutRegel && (
 				<p className="text-sm text-kumo-danger" role="alert">
-					{fout}
+					{foutRegel}
 				</p>
 			)}
 			<div className="rounded-md border bg-kumo-base" role="table" aria-label={T.kop}>
@@ -302,6 +308,7 @@ export function Vindbaarheid() {
 														lading={compleet}
 														onSluit={() => sluit(anker)}
 														onBewaard={(tekst) => bewaard(anker, tekst)}
+														onGeschreven={herlaad}
 													/>
 												</div>
 											</div>
@@ -313,13 +320,7 @@ export function Vindbaarheid() {
 					);
 				})}
 			</div>
-			<HeleSite
-				lading={compleet}
-				onBewaard={(m) => {
-					setMelding(m);
-					herlaad();
-				}}
-			/>
+			<HeleSite lading={compleet} onBewaard={herlaad} />
 		</div>
 	);
 }

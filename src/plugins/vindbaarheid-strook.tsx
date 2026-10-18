@@ -128,29 +128,44 @@ export const T = {
 	bewaardNietLive: (naam: string) => `Opgeslagen: dit gaat mee zodra je ${naam} publiceert.`,
 };
 
+// The sentence for a refused write. A change made meanwhile and a lock held by someone else have their own; the rest
+// carries the words of the server.
+export function foutZin(r: { code: string; melding: string; details?: Record<string, unknown> }): string {
+	if (r.code === CONFLICT) return T.conflict;
+	if (r.code === VERGRENDELD) return T.bezet(naamUit(r.details));
+	return T.mislukt(r.melding);
+}
+
 export function Teller({ n, max }: { n: number; max?: number }) {
 	return <span className="whitespace-nowrap">{max ? T.van(n, max) : n}</span>;
 }
 
-// A field with its label, the control and one sentence plus a counter under it.
+// A field with its label, the control and one sentence plus a counter under it. A button keeps its own name, so the
+// label of a field whose control is a button names no control.
 export function Veld({
 	id,
 	label,
 	zin,
 	teller,
+	knop = false,
 	children,
 }: {
 	id: string;
 	label: string;
 	zin?: string;
 	teller?: ReactNode;
+	knop?: boolean;
 	children: ReactNode;
 }) {
 	return (
 		<div className="grid content-start gap-1">
-			<label htmlFor={id} className="text-sm font-medium">
-				{label}
-			</label>
+			{knop ? (
+				<p className="text-sm font-medium">{label}</p>
+			) : (
+				<label htmlFor={id} className="text-sm font-medium">
+					{label}
+				</label>
+			)}
 			{children}
 			{(zin || teller) && (
 				<div className="vind-teller text-xs text-kumo-subtle">
@@ -301,6 +316,8 @@ type Staat =
 			beginSeo: Seo;
 			concept: boolean;
 			nietLive: boolean;
+			// A write that landed while its publish failed; the next save publishes it.
+			publiceerNog: boolean;
 	  };
 
 export function Strook({
@@ -312,6 +329,7 @@ export function Strook({
 	lading,
 	onSluit,
 	onBewaard,
+	onGeschreven,
 }: {
 	id: string;
 	collectie: string;
@@ -321,6 +339,8 @@ export function Strook({
 	lading: Lading;
 	onSluit: () => void;
 	onBewaard: (melding: string) => void;
+	// A write landed, also when the publish after it fails, so the table can follow the server.
+	onGeschreven: () => void;
 }) {
 	const naam = naamVan(item, c);
 	const velden = useMemo(() => aiVelden(c), [c]);
@@ -362,7 +382,10 @@ export function Strook({
 			hartslag = window.setInterval(() => void vergrendel(collectie, item.id, t), HARTSLAG_MS);
 			const vers = await haal(collectie, item.id);
 			if (!actief) return;
+			// A strip that cannot read the page edits nothing, so it holds no lock either.
 			if (!vers.ok) {
+				window.clearInterval(hartslag);
+				weg();
 				setStaat({ soort: "dicht", zin: FOUT });
 				return;
 			}
@@ -373,7 +396,15 @@ export function Strook({
 			setData(begin);
 			// A page that is not live or carries a newer draft is not published from here.
 			const nietLive = v.status !== PUBLIEK;
-			setStaat({ soort: "open", rev: vers.data._rev, begin, beginSeo, concept: nietLive || heeftConcept(v), nietLive });
+			setStaat({
+				soort: "open",
+				rev: vers.data._rev,
+				begin,
+				beginSeo,
+				concept: nietLive || heeftConcept(v),
+				nietLive,
+				publiceerNog: false,
+			});
 		})();
 		window.addEventListener("pagehide", weg);
 		return () => {
@@ -404,25 +435,31 @@ export function Strook({
 		const gewijzigd = wijzigingen(open.begin, data);
 		const seoAnders = Object.keys(wijzigingen({ ...open.beginSeo }, { ...seo })).length > 0;
 		const melding = open.nietLive ? T.bewaardNietLive(naam) : open.concept ? T.bewaardConcept(naam) : T.bewaard(naam);
-		if (!seoAnders && !Object.keys(gewijzigd).length) return onBewaard(melding);
+		const schrijven = seoAnders || Object.keys(gewijzigd).length > 0;
+		if (!schrijven && !open.publiceerNog) return onBewaard(melding);
 		setBezig(true);
 		setFout(null);
-		const r = await bewaar(collectie, item.id, {
-			_rev: open.rev,
-			seo,
-			...(Object.keys(gewijzigd).length ? { data: gewijzigd } : {}),
-		});
-		if (!r.ok) {
-			setBezig(false);
-			if (r.code === CONFLICT) return setFout(T.conflict);
-			if (r.code === VERGRENDELD) return setFout(T.bezet(naamUit(r.details)));
-			return setFout(T.mislukt(r.melding));
+		let rev = open.rev;
+		if (schrijven) {
+			const r = await bewaar(collectie, item.id, {
+				_rev: rev,
+				seo,
+				...(Object.keys(gewijzigd).length ? { data: gewijzigd } : {}),
+			});
+			if (!r.ok) {
+				setBezig(false);
+				return setFout(foutZin(r));
+			}
+			// The write is stored, so a retry starts from it with its new revision and the table loads it.
+			onGeschreven();
+			rev = r.data._rev ?? rev;
+			setStaat({ ...open, rev, begin: { ...open.begin, ...gewijzigd }, beginSeo: seo, publiceerNog: !open.concept });
 		}
 		if (!open.concept) {
-			const p = await publiceer(collectie, item.id, r.data._rev);
+			const p = await publiceer(collectie, item.id, rev);
 			if (!p.ok) {
 				setBezig(false);
-				return setFout(T.mislukt(p.melding));
+				return setFout(foutZin(p));
 			}
 		}
 		setBezig(false);
@@ -461,7 +498,7 @@ export function Strook({
 						onChange={(e) => setSeo({ ...seo, description: e.target.value || null })}
 					/>
 				</Veld>
-				<Veld id="vind-beeld" label={T.beeld} zin={T.beeldZin}>
+				<Veld id="vind-beeld" label={T.beeld} zin={T.beeldZin} knop>
 					<div className="flex items-center gap-3">
 						{seo.image ? <img className="vind-thumb" src={seo.image} alt="" /> : <div className="vind-thumb" />}
 						<button
@@ -517,7 +554,7 @@ export function Strook({
 					</p>
 				)}
 				<div className="flex flex-wrap items-center gap-3 pt-2">
-					<KnopPrimair disabled={bezig} onClick={() => void opslaan()}>
+					<KnopPrimair bezig={bezig} onClick={() => void opslaan()}>
 						{open.concept ? T.opslaanConcept : T.opslaan}
 					</KnopPrimair>
 					<button type="button" className={KNOP} disabled={bezig} onClick={onSluit}>

@@ -18,13 +18,12 @@ import {
 } from "./paneel-data";
 import { INVOER, KNOP, LINK, TEKSTVAK } from "./paneel-klassen";
 import { heeftConcept, korteLabel, maxLengte, wijzigingen, type CollectieInfo, type Item } from "./vindbaarheid-regels";
-import { Schakelaar, T as STROOK, Veld } from "./vindbaarheid-strook";
+import { foutZin, Schakelaar, Veld } from "./vindbaarheid-strook";
 
 const GEGEVENS = "gegevens";
 const NAAM = "naam";
 const UITLEG = "llms_inleiding";
 const UITLEG_REGELS = 3;
-const CONFLICT = "CONFLICT";
 const PUBLIEK = "published";
 const DATUM = new Intl.DateTimeFormat("nl-NL", { day: "numeric", month: "short", year: "numeric" });
 const TIJD = new Intl.DateTimeFormat("nl-NL", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
@@ -102,7 +101,8 @@ function seoWens(voor: Keuzes, na: Keuzes): Record<string, unknown> {
 	return wens;
 }
 
-export function HeleSite({ lading, onBewaard }: { lading: Lading; onBewaard: (melding: ReactNode) => void }) {
+// The block says what a save did next to its own button; the page only loads again.
+export function HeleSite({ lading, onBewaard }: { lading: Lading; onBewaard: () => void }) {
 	const c = lading.collecties[GEGEVENS];
 	const item = lading.items[GEGEVENS]?.[0];
 	if (!c || !item || !lading.instellingen) return null;
@@ -120,9 +120,10 @@ function Blok({
 	c: CollectieInfo;
 	item: Item;
 	instellingen: Instellingen;
-	onBewaard: (melding: ReactNode) => void;
+	onBewaard: () => void;
 }) {
 	const slugs = [...RIJEN.flat(), UITLEG].filter((s) => s in c.fields);
+	const [melding, setMelding] = useState<ReactNode>(null);
 	const [gegevens, setGegevens] = useState<Gegevens | null>(null);
 	const [data, setData] = useState<Record<string, unknown>>({});
 	const [beginKeuzes, setBeginKeuzes] = useState(() => keuzesVan(instellingen));
@@ -157,32 +158,33 @@ function Blok({
 		const wens = seoWens(beginKeuzes, keuzes);
 		setBezig(true);
 		setFout(null);
+		setMelding(null);
 		const concept = gegevens.concept;
 		if (Object.keys(gewijzigd).length) {
 			const r = await bewaar(GEGEVENS, item.id, { _rev: gegevens.rev, data: gewijzigd });
 			if (!r.ok) {
 				setBezig(false);
-				return setFout(r.code === CONFLICT ? STROOK.conflict : STROOK.mislukt(r.melding));
+				return setFout(foutZin(r));
 			}
 			const p = concept ? null : await publiceer(GEGEVENS, item.id, r.data._rev);
 			// From here on the stored Gegevens changed, so a retry starts from them with their new revision.
 			await laadGegevens(false);
 			if (p && !p.ok) {
 				setBezig(false);
-				return setFout(STROOK.mislukt(p.melding));
+				return setFout(foutZin(p));
 			}
 		}
 		if (Object.keys(wens).length) {
 			const s = await bewaarInstellingen({ seo: wens });
 			if (!s.ok) {
 				setBezig(false);
-				return setFout(STROOK.mislukt(s.melding));
+				return setFout(foutZin(s));
 			}
 			setBeginKeuzes(keuzes);
 		}
 		setBezig(false);
 		const [voor, woord, na] = T.bewaardConcept;
-		onBewaard(
+		setMelding(
 			concept ? (
 				<>
 					{voor}
@@ -195,6 +197,7 @@ function Blok({
 				T.bewaard
 			),
 		);
+		onBewaard();
 	}
 
 	const label = (slug: string) => korteLabel(c.fields[slug]?.label ?? slug);
@@ -212,7 +215,7 @@ function Blok({
 
 	return (
 		<section className="vind-site" aria-labelledby="vind-site-kop">
-			<h2 id="vind-site-kop" className="text-base font-semibold">
+			<h2 id="vind-site-kop" className="text-xl font-semibold">
 				{T.kop}
 			</h2>
 			<p className="text-sm text-kumo-subtle">{T.intro}</p>
@@ -244,7 +247,7 @@ function Blok({
 				</div>
 				<div className="vind-velden">
 					<p className="font-medium">{T.keuzes}</p>
-					<Veld id="vind-site-beeld" label={T.standaardbeeld} zin={T.standaardbeeldZin}>
+					<Veld id="vind-site-beeld" label={T.standaardbeeld} zin={T.standaardbeeldZin} knop>
 						<div className="flex items-center gap-3">
 							{keuzes.beeld?.url ? (
 								<img className="vind-thumb" src={keuzes.beeld.url} alt="" />
@@ -307,11 +310,15 @@ function Blok({
 				</p>
 			)}
 			<div className="mt-6 flex flex-wrap items-center gap-3">
-				<KnopPrimair disabled={bezig || !gegevens} onClick={() => void opslaan()}>
+				<KnopPrimair disabled={!gegevens} bezig={bezig} onClick={() => void opslaan()}>
 					{T.opslaan}
 				</KnopPrimair>
 				<span className="text-sm text-kumo-subtle">{T.gewijzigd(DATUM.format(new Date(item.updatedAt)))}</span>
 			</div>
+			{/* The status line stands from the start, so a screen reader hears the message when it lands. */}
+			<p className="mt-3 text-sm text-kumo-subtle" role="status">
+				{melding}
+			</p>
 			{kiezer && (
 				<Beeldkiezer
 					titel={T.standaardbeeld}
