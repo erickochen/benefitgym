@@ -3,6 +3,21 @@
 // its stylesheet carries. A row opens the page in its usual editor.
 import { apiFetch, parseApiResponse } from "emdash/plugin-utils";
 import { type ComponentType, useEffect, useState } from "react";
+import {
+	BADGE,
+	BLAUW,
+	CEL,
+	DATUM,
+	GRIJS,
+	GROEN,
+	KNOP,
+	KOP,
+	LINK,
+	MELDING,
+	ORANJE,
+	REGEL,
+	SOORT,
+} from "./paneel-klassen";
 import { Uitleg, type Veld } from "./uitleg";
 
 const ADMIN = "/_emdash/admin";
@@ -23,13 +38,6 @@ const MAX_RIJEN = 20;
 const MAX_TITEL = 60;
 const AFKAP = "…";
 const FOUT = "De gegevens konden niet geladen worden.";
-const BADGE =
-	"inline-flex w-fit flex-none shrink-0 items-center justify-self-start rounded-full px-2 py-0.5 text-xs font-medium whitespace-nowrap";
-// The colors of the admin's own status badges.
-const GROEN = "bg-kumo-success-tint/70 text-kumo-success";
-const ORANJE = "bg-kumo-warning-tint/70 text-kumo-warning";
-const BLAUW = "bg-kumo-info-tint/70 text-kumo-info";
-const GRIJS = "bg-kumo-fill text-kumo-badge-neutral-subtle";
 const STATUS: Record<string, { label: string; kleur: string }> = {
 	published: { label: "Live", kleur: GROEN },
 	draft: { label: "Concept", kleur: ORANJE },
@@ -46,15 +54,6 @@ const DIT_JAAR = new Intl.DateTimeFormat("nl-NL", {
 });
 const EERDER = new Intl.DateTimeFormat("nl-NL", { day: "numeric", month: "short", year: "numeric" });
 const KOPPEN = ["Pagina", "Status", "Gewijzigd", "Site"];
-// The cells are tighter than in the admin's own lists and stay on one line.
-const CEL = "px-3 py-2";
-const DATUM = "px-3 py-2 whitespace-nowrap text-sm text-kumo-subtle";
-const KOP = "px-3 py-2 text-start text-sm font-medium";
-const SOORT = "px-3 pt-4 pb-1 text-start text-xs font-medium uppercase tracking-wide text-kumo-subtle";
-const MELDING = "px-3 text-sm leading-6 text-kumo-subtle";
-const KNOP =
-	"inline-flex items-center justify-center rounded-md border bg-kumo-base px-3 py-2 text-sm font-medium transition-colors hover:bg-kumo-tint/50";
-const LINK = "font-medium hover:text-kumo-link";
 
 // The rules of the panel that a label cannot carry, under the buttons, in the order the owner meets them.
 const REGELS = [
@@ -64,7 +63,6 @@ const REGELS = [
 	"Een vraag krijgt zijn categorie rechts in het formulier, na de eerste keer opslaan.",
 	"Een lesdag die voorbij is verdwijnt vanzelf van de site. Een vakantie haal je zelf weg.",
 ];
-const REGEL = "px-3 text-sm leading-5";
 
 // The tasks the owner does most, in that order. A task on a collection the manifest lacks shows no button.
 const TAKEN: { label: string; href?: string; collectie?: string; nieuw?: boolean }[] = [

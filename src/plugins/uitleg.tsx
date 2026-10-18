@@ -1,5 +1,20 @@
 // A field with a sentence under it, for the three fields whose label cannot say what they do. The controls copy the
 // classes of the admin's own controls, which its stylesheet carries, so the field looks like its neighbors.
+import {
+	CARET,
+	INVOER,
+	KEUZE,
+	LABEL,
+	LABEL_KLEIN,
+	PIJLTJE,
+	SCHAKELAAR,
+	SCHAKELAAR_AAN,
+	SCHAKELAAR_KNOP,
+	SCHAKELAAR_KNOP_AAN,
+	SCHAKELAAR_KNOP_UIT,
+	SCHAKELAAR_UIT,
+	ZIN,
+} from "./paneel-klassen";
 
 export interface Veld {
 	value: unknown;
@@ -29,27 +44,6 @@ const UITLEG: Record<string, { soort: Soort; zin: string }> = {
 	},
 };
 const OPTIONEEL = "(optional)";
-
-const LABEL = "m-0 select-none text-base font-medium text-kumo-default";
-// The label of a compact row, as the editor draws it.
-const LABEL_KLEIN = "text-kumo-subtle/50 text-xs font-normal";
-const ZIN = "text-sm leading-snug text-kumo-subtle col-span-full";
-const INVOER =
-	"border-0 bg-kumo-control text-kumo-default ring ring-kumo-line outline-none focus:outline-none kumo-input-placeholder disabled:text-kumo-disabled h-9 gap-1.5 rounded-lg px-3 text-base focus:ring-kumo-focus/50 focus:ring-[1.5px]";
-const KEUZE =
-	"flex w-max items-center select-none appearance-none border-0 shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand cursor-pointer h-9 gap-1.5 rounded-lg px-3 pr-9 text-base bg-kumo-base text-kumo-default ring ring-kumo-line font-normal focus:ring-kumo-focus/50";
-const PIJLTJE = "pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 flex items-center text-kumo-subtle";
-const SCHAKELAAR =
-	"relative inline-flex items-center ring cursor-pointer border-none p-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand transition-colors duration-150 ease-out motion-reduce:transition-none h-4.5 w-9 rounded-[5px] supports-[corner-shape:squircle]:rounded-[10px] [corner-shape:squircle]";
-const SCHAKELAAR_UIT = "bg-neutral-200 dark:bg-neutral-700 ring-neutral-300 dark:ring-neutral-600";
-const SCHAKELAAR_AAN = "bg-blue-500 dark:bg-blue-600 ring-blue-600 dark:ring-blue-500";
-const KNOP =
-	"absolute top-0 bottom-0 shadow-[0_0_1px_0.5px_var(--color-kumo-shadow-edge),0_1px_2px_var(--color-kumo-shadow-drop)] w-4.5 rounded-[5px] supports-[corner-shape:squircle]:rounded-[10px] [corner-shape:squircle] bg-kumo-base transition-all duration-150 ease-out motion-reduce:transition-none";
-const KNOP_UIT = "left-0 dark:bg-neutral-850";
-const KNOP_AAN = "left-4.5 dark:bg-blue-300";
-// The caret of the admin's own select.
-const CARET =
-	"M181.66,170.34a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L128,212.69l42.34-42.35A8,8,0,0,1,181.66,170.34Zm-96-84.68L128,43.31l42.34,42.35a8,8,0,0,0,11.32-11.32l-48-48a8,8,0,0,0-11.32,0l-48,48A8,8,0,0,0,85.66,85.66Z";
 
 function Zin({ id, zin }: { id: string; zin: string }) {
 	return (
@@ -81,7 +75,7 @@ export function Uitleg({ value, onChange, label, id, required, options, minimal 
 						onClick={() => onChange(!aan)}
 						className={`${SCHAKELAAR} ${aan ? SCHAKELAAR_AAN : SCHAKELAAR_UIT}`}
 					>
-						<span className={`${KNOP} ${aan ? KNOP_AAN : KNOP_UIT}`} />
+						<span className={`${SCHAKELAAR_KNOP} ${aan ? SCHAKELAAR_KNOP_AAN : SCHAKELAAR_KNOP_UIT}`} />
 					</button>
 					<label htmlFor={id} className={labelKlasse}>
 						{label}
