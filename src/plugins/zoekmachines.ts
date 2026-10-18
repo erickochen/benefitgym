@@ -1,15 +1,21 @@
 // The structured data of the site through the page:metadata hook, the route the EmDash docs give for replacing
 // JSON-LD. On / the graph of the gym plus the website, on a sport page a Service or a Course, elsewhere no block.
 // Every address follows EMDASH_SITE_URL. The site name plus the language go in og:site_name and og:locale.
+// After a publish or an unpublish on the production host the page goes to IndexNow, see vindbaarheid-regels.ts.
+import { env } from "cloudflare:workers";
 import {
 	definePlugin,
 	getEmDashEntry,
 	getSiteSettings,
+	type ContentPublishStateChangeEvent,
 	type PageMetadataContribution,
+	type PluginContext,
 	type PublicPageContext,
+	type RouteContext,
 } from "emdash";
 import { GEGEVENS_SLUG, type GegevensData, internationaal, profielen } from "../gegevens";
 import { siteUrl } from "../site-url";
+import { adresVan, indexNowVerzoek, magMelden } from "./vindbaarheid-regels";
 import { ZOEKMACHINES_ID, ZOEKMACHINES_VERSIE } from "./zoekmachines-id.mjs";
 
 const SCHEMA = "https://schema.org";
@@ -158,10 +164,77 @@ async function bijdragen(page: PublicPageContext): Promise<PageMetadataContribut
 	return uit;
 }
 
+// IndexNow keeps the last ping plus one timestamp per address in the kv of the plugin.
+const KV_LAATSTE = "indexnow:laatste";
+const KV_PAD = "indexnow:pad:";
+// IndexNow answers 200 when it took the address and 202 while it still checks the key.
+const GEMELD = new Set([200, 202]);
+
+interface Melding {
+	pad: string;
+	tijd: string;
+	status: number | "fout";
+}
+
+const sleutel = () => (env as { INDEXNOW_KEY?: string }).INDEXNOW_KEY;
+
+// Three gates, each with its own reason; a closed gate sends nothing and only logs why.
+async function meld(event: ContentPublishStateChangeEvent, ctx: PluginContext): Promise<void> {
+	const c = await ctx.schema?.getCollection(event.collection);
+	const slug = typeof event.content.slug === "string" ? event.content.slug : null;
+	const pad = c ? adresVan({ routable: c.routable, urlPattern: c.urlPattern }, { slug }) : null;
+	if (!pad) return;
+	const site = siteUrl();
+	const key = sleutel();
+	const laatst = await ctx.kv.get<number>(`${KV_PAD}${pad}`);
+	const poort = magMelden({ host: new URL(site).host, sleutel: key, laatst, nu: Date.now() });
+	if (poort !== "open" || !key) {
+		ctx.log.debug(`indexnow: ${poort} for ${pad}`);
+		return;
+	}
+	// The host only lets a plugin out through ctx.http, which keeps it to allowedHosts.
+	if (!ctx.http) {
+		ctx.log.warn(`indexnow: no http access for ${pad}`);
+		return;
+	}
+	// The timestamp goes in first, so a second publish during the request finds the gate closed.
+	await ctx.kv.set(`${KV_PAD}${pad}`, Date.now());
+	const { url, init } = indexNowVerzoek({ site, sleutel: key, pad });
+	let status: Melding["status"];
+	try {
+		status = (await ctx.http.fetch(url, init)).status;
+	} catch {
+		status = "fout";
+	}
+	const melding: Melding = { pad, tijd: new Date().toISOString(), status };
+	await ctx.kv.set(KV_LAATSTE, melding);
+}
+
+// What the page Vindbaarheid shows about IndexNow.
+async function status(ctx: RouteContext) {
+	const poort = magMelden({ host: new URL(siteUrl()).host, sleutel: sleutel(), laatst: null, nu: Date.now() });
+	const laatste = await ctx.kv.get<Melding>(KV_LAATSTE);
+	return {
+		actief: poort === "open",
+		reden: poort === "open" ? null : poort,
+		laatste,
+		geslaagd: laatste ? typeof laatste.status === "number" && GEMELD.has(laatste.status) : null,
+	};
+}
+
 export function createPlugin() {
 	return definePlugin({
 		id: ZOEKMACHINES_ID,
 		version: ZOEKMACHINES_VERSIE,
-		hooks: { "page:metadata": ({ page }) => bijdragen(page) },
+		// The hooks after a publish need content:read, the collection schema:read and the ping network:request;
+		// EmDash registers a hook only with its capability.
+		capabilities: ["content:read", "schema:read", "network:request"],
+		allowedHosts: ["api.indexnow.org"],
+		hooks: {
+			"page:metadata": ({ page }) => bijdragen(page),
+			"content:afterPublish": meld,
+			"content:afterUnpublish": meld,
+		},
+		routes: { status: { handler: status } },
 	});
 }
