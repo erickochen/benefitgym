@@ -183,11 +183,14 @@ export function Vindbaarheid() {
 	const aantalCompleet = alle.filter((r) => r.stand.compleet).length;
 	const siteTitel = compleet.instellingen?.title ?? SITE_NAME;
 
-	// A strip closes its own row only, and the focus goes back to the Bewerk button of that row.
+	// A strip closes its own row only. The focus goes back to the Bewerk button of that row, or to the filter when the
+	// filter hides the closed row.
 	const sluit = (anker: string) => {
 		if (openNu.current !== anker) return false;
 		setOpen(null);
-		window.requestAnimationFrame(() => document.getElementById(anker)?.querySelector("button")?.focus());
+		window.requestAnimationFrame(() =>
+			(document.getElementById(anker)?.querySelector("button") ?? filterKnop.current)?.focus(),
+		);
 		return true;
 	};
 	// After a save the strip closes, the row shows its new stand and one line says what happened. The line empties
@@ -243,7 +246,10 @@ export function Vindbaarheid() {
 					</div>
 				</div>
 				{groepen.map(({ collectie, c, rijen }) => {
-					const zichtbaar = alleenGemis ? rijen.filter((r) => !r.stand.compleet) : rijen;
+					// The open row stays under the filter, so a reload during a save cannot take its strip away.
+					const zichtbaar = alleenGemis
+						? rijen.filter((r) => !r.stand.compleet || rijAnker(collectie, r.item.id) === open)
+						: rijen;
 					if (!zichtbaar.length) return null;
 					return (
 						<div key={collectie} role="rowgroup">
@@ -290,7 +296,7 @@ export function Vindbaarheid() {
 													aria-expanded={isOpen}
 													aria-controls={`${anker}-strook`}
 													aria-describedby={`${anker}-naam`}
-													onClick={() => setOpen(isOpen ? null : anker)}
+													onClick={() => (isOpen ? sluit(anker) : setOpen(anker))}
 												>
 													{isOpen ? T.sluit : T.bewerk}
 												</button>
