@@ -1003,7 +1003,7 @@
         },
         {
           "slug": "zoek_soort",
-          "label": "Zoekmachines · Soort",
+          "label": "AI en zoekmachines · Les of cursus",
           "type": "select",
           "validation": {
             "options": [
@@ -1014,7 +1014,7 @@
         },
         {
           "slug": "zoek_soort_les",
-          "label": "Zoekmachines · Soort les",
+          "label": "AI en zoekmachines · Soort les",
           "type": "string",
           "validation": {
             "maxLength": 40
@@ -1022,7 +1022,7 @@
         },
         {
           "slug": "zoek_samenvatting",
-          "label": "Zoekmachines · Samenvatting",
+          "label": "AI en zoekmachines · Samenvatting in twee zinnen",
           "type": "text",
           "validation": {
             "maxLength": 340
@@ -1030,22 +1030,22 @@
         },
         {
           "slug": "zoek_leeftijd_van",
-          "label": "Zoekmachines · Leeftijd van",
+          "label": "AI en zoekmachines · Leeftijd van",
           "type": "integer"
         },
         {
           "slug": "zoek_leeftijd_tot",
-          "label": "Zoekmachines · Leeftijd tot",
+          "label": "AI en zoekmachines · Leeftijd tot",
           "type": "integer"
         },
         {
           "slug": "zoek_prijs",
-          "label": "Zoekmachines · Prijs per maand",
+          "label": "AI en zoekmachines · Prijs per maand",
           "type": "number"
         },
         {
           "slug": "zoek_prijs_uitleg",
-          "label": "Zoekmachines · Uitleg bij de prijs",
+          "label": "AI en zoekmachines · Uitleg bij de prijs",
           "type": "string",
           "validation": {
             "maxLength": 50
@@ -1053,12 +1053,12 @@
         },
         {
           "slug": "zoek_duur",
-          "label": "Zoekmachines · Duur in uren",
+          "label": "AI en zoekmachines · Duur in uren",
           "type": "number"
         },
         {
           "slug": "zoek_andere_naam",
-          "label": "Zoekmachines · Andere naam",
+          "label": "AI en zoekmachines · Andere naam",
           "type": "string",
           "validation": {
             "maxLength": 30
@@ -1066,7 +1066,7 @@
         },
         {
           "slug": "llms_regel",
-          "label": "Zoekmachines · Regel voor llms.txt",
+          "label": "AI en zoekmachines · Regel in de AI-lijst (llms.txt)",
           "type": "string",
           "validation": {
             "maxLength": 60
@@ -1528,7 +1528,7 @@
         },
         {
           "slug": "llms_regel",
-          "label": "Zoekmachines · Regel voor llms.txt",
+          "label": "AI en zoekmachines · Regel in de AI-lijst (llms.txt)",
           "type": "string",
           "validation": {
             "maxLength": 40
@@ -1627,7 +1627,7 @@
         },
         {
           "slug": "llms_regel",
-          "label": "Zoekmachines · Regel voor llms.txt",
+          "label": "AI en zoekmachines · Regel in de AI-lijst (llms.txt)",
           "type": "string",
           "validation": {
             "maxLength": 60
@@ -1976,7 +1976,7 @@
         },
         {
           "slug": "straat",
-          "label": "Straat",
+          "label": "Straat en huisnummer",
           "type": "string",
           "validation": {
             "maxLength": 20
@@ -2016,7 +2016,7 @@
         },
         {
           "slug": "andere_naam",
-          "label": "Zoekmachines · Andere naam",
+          "label": "AI en zoekmachines · Ook bekend als",
           "type": "string",
           "validation": {
             "maxLength": 30
@@ -2024,7 +2024,7 @@
         },
         {
           "slug": "provincie",
-          "label": "Zoekmachines · Provincie",
+          "label": "AI en zoekmachines · Provincie",
           "type": "string",
           "validation": {
             "maxLength": 20
@@ -2032,7 +2032,7 @@
         },
         {
           "slug": "land",
-          "label": "Zoekmachines · Land",
+          "label": "AI en zoekmachines · Land",
           "type": "string",
           "validation": {
             "maxLength": 20
@@ -2040,7 +2040,7 @@
         },
         {
           "slug": "oprichtingsjaar",
-          "label": "Zoekmachines · Oprichtingsjaar",
+          "label": "AI en zoekmachines · Oprichtingsjaar",
           "type": "string",
           "validation": {
             "maxLength": 20
@@ -2048,7 +2048,7 @@
         },
         {
           "slug": "prijsbereik",
-          "label": "Zoekmachines · Prijsbereik",
+          "label": "AI en zoekmachines · Prijsbereik",
           "type": "string",
           "validation": {
             "maxLength": 30
@@ -2056,22 +2056,22 @@
         },
         {
           "slug": "breedtegraad",
-          "label": "Zoekmachines · Breedtegraad",
+          "label": "AI en zoekmachines · Breedtegraad",
           "type": "number"
         },
         {
           "slug": "lengtegraad",
-          "label": "Zoekmachines · Lengtegraad",
+          "label": "AI en zoekmachines · Lengtegraad",
           "type": "number"
         },
         {
           "slug": "kaartlink",
-          "label": "Zoekmachines · Link naar Google Maps",
+          "label": "AI en zoekmachines · Link naar Google Maps",
           "type": "url"
         },
         {
           "slug": "llms_inleiding",
-          "label": "Zoekmachines · Korte uitleg voor zoekmachines",
+          "label": "AI en zoekmachines · Korte uitleg voor AI-zoekdiensten",
           "type": "text",
           "validation": {
             "maxLength": 240
