@@ -19,6 +19,8 @@ export const REGEL = "px-3 text-sm leading-5";
 export const KNOP =
 	"inline-flex items-center justify-center rounded-md border bg-kumo-base px-3 py-2 text-sm font-medium transition-colors hover:bg-kumo-tint/50 disabled:opacity-50";
 export const LINK = "font-medium hover:text-kumo-link";
+// The title of the admin's own list screens.
+export const PAGINA_KOP = "text-2xl font-semibold leading-tight";
 
 // The primary button of Kumo: its classes, the two colors it sets inline, the gradient layer plus the layer of the
 // label above it.

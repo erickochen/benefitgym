@@ -19,6 +19,7 @@ import {
 	SOORT,
 } from "./paneel-klassen";
 import { Uitleg, type Veld } from "./uitleg";
+import { Vindbaarheid } from "./vindbaarheid";
 import { adresVan, heeftConcept, naamVan, type CollectieInfo, type Item } from "./vindbaarheid-regels";
 
 // The sidebar folder that holds the page collections.
@@ -253,3 +254,5 @@ function Paginas() {
 export const widgets: Record<string, ComponentType> = { snel: SnelDoen, concepten: NogNietOpDeSite, paginas: Paginas };
 // The field widgets of the plugin; a schema field names one as "<plugin id>:<name>".
 export const fields: Record<string, ComponentType<Veld>> = { uitleg: Uitleg };
+// The admin pages of the plugin, keyed by the path dashboard.ts declares.
+export const pages: Record<string, ComponentType> = { "/vindbaarheid": Vindbaarheid };
