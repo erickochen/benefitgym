@@ -19,8 +19,17 @@ import {
 	SOORT,
 } from "./paneel-klassen";
 import { Uitleg, type Veld } from "./uitleg";
-import { Vindbaarheid } from "./vindbaarheid";
-import { adresVan, heeftConcept, naamVan, type CollectieInfo, type Item } from "./vindbaarheid-regels";
+import { PAGINA_PAD, rijAnker, Vindbaarheid } from "./vindbaarheid";
+import {
+	adresVan,
+	COMPLEET,
+	heeftConcept,
+	naamVan,
+	stand,
+	type CollectieInfo,
+	type Item,
+	type Stand,
+} from "./vindbaarheid-regels";
 
 // The sidebar folder that holds the page collections.
 const GROEP = "Pagina's";
@@ -46,7 +55,7 @@ const DIT_JAAR = new Intl.DateTimeFormat("nl-NL", {
 	minute: "2-digit",
 });
 const EERDER = new Intl.DateTimeFormat("nl-NL", { day: "numeric", month: "short", year: "numeric" });
-const KOPPEN = ["Pagina", "Status", "Gewijzigd", "Site"];
+const KOPPEN = ["Pagina", "Status", "Gewijzigd", "Vindbaarheid", "Site"];
 
 // The rules of the panel that a label cannot carry, under the buttons, in the order the owner meets them.
 const REGELS = [
@@ -77,6 +86,9 @@ function wanneer(iso: string): string {
 const titel = naamVan;
 const kort = (tekst: string) => (tekst.length > MAX_TITEL ? `${tekst.slice(0, MAX_TITEL).trimEnd()}${AFKAP}` : tekst);
 const bewerk = (collectie: string, item: Item) => bewerkPad(collectie, item.id);
+
+// The stand in one word: complete, or the first thing that is missing.
+const eersteGemis = (s: Stand) => (s.compleet ? COMPLEET : s.ontbreekt[0]);
 
 // The public address of a live page; a page that is not published has none.
 const opSite = (c: CollectieInfo, item: Item) => (item.status === "published" ? adresVan(c, item) : null);
@@ -185,8 +197,9 @@ function NogNietOpDeSite() {
 	);
 }
 
-// Every page under a heading per kind, as the sidebar names them, with its status, its last change plus a link to it
-// on the site.
+// Every page under a heading per kind, as the sidebar names them, with its status, its last change, its stand for
+// search engines with a link to the page Vindbaarheid plus a link to it on the site. Without the menu the stand cannot
+// be judged and its cell stays empty.
 function Paginas() {
 	const { lading, fout } = useLading();
 	if (fout) return <p className={MELDING}>{fout}</p>;
@@ -233,6 +246,13 @@ function Paginas() {
 									</td>
 									<td className={DATUM}>
 										<bdi>{wanneer(item.updatedAt)}</bdi>
+									</td>
+									<td className={DATUM}>
+										{lading.menu && (
+											<a href={`${PAGINA_PAD}#${rijAnker(collectie, item.id)}`} className="hover:text-kumo-link">
+												{eersteGemis(stand(item, c, collectie, lading.menu))}
+											</a>
+										)}
 									</td>
 									<td className={DATUM}>
 										{url && (
