@@ -1,7 +1,7 @@
 // The page Vindbaarheid: every page of the site with what Google, WhatsApp and AI search services get from it, its
 // stand, a strip that edits it in place plus the block for the whole site. The rows follow the sidebar: one group per
 // page collection, the pages by name.
-import { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { SITE_NAME } from "../teksten";
 import { DASHBOARD_ID } from "./dashboard-id.mjs";
 import { ADMIN, FOUT, useLading, type Lading } from "./paneel-data";
@@ -18,6 +18,7 @@ import {
 	type MenuItem,
 	type Stand,
 } from "./vindbaarheid-regels";
+import { HeleSite } from "./vindbaarheid-site";
 import { Strook } from "./vindbaarheid-strook";
 
 // The sidebar folder that holds the page collections.
@@ -142,7 +143,7 @@ export function Vindbaarheid() {
 	const { lading, fout, herlaad } = useLading();
 	const [open, setOpen] = useState<string | null>(() => window.location.hash.slice(1) || null);
 	const [alleenGemis, setAlleenGemis] = useState(false);
-	const [melding, setMelding] = useState<string | null>(null);
+	const [melding, setMelding] = useState<ReactNode>(null);
 	const openNu = useRef(open);
 	openNu.current = open;
 	// The row whose Bewerk button gets the focus back once the reload after a save has landed.
@@ -312,6 +313,13 @@ export function Vindbaarheid() {
 					);
 				})}
 			</div>
+			<HeleSite
+				lading={compleet}
+				onBewaard={(m) => {
+					setMelding(m);
+					herlaad();
+				}}
+			/>
 		</div>
 	);
 }
