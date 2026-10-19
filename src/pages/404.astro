@@ -1,39 +1,29 @@
 ---
-// The page for an address that does not exist, laid out as the measured page shows it: the mark, a heading, a line
-// plus a button home in the middle of an empty page. The texts come from widget area Niet gevonden: the title of its
-// widget is the heading, a block that is one link becomes the button.
-import { getSiteSettings, getWidgetAreaWithCacheHint, sanitizeHref } from "emdash";
+// The page for an address that does not exist, laid out as the measured page: the mark, a heading, a line plus a
+// button home. The texts come from widget area Niet gevonden; a block that is one link becomes the button.
+import { getSiteSettingsWithCacheHint, getWidgetAreaWithCacheHint, sanitizeHref } from "emdash";
 import Base from "../layouts/Base.astro";
+import { isEenLink, linkVan, type PtBlok, tekstVan } from "../tekstblok";
 import { SITE_NAME } from "../teksten";
 import "../styles/niet-gevonden.css";
 
-interface Span {
-	text?: string;
-	marks?: string[];
-}
-
-interface Blok {
-	children?: Span[];
-	markDefs?: { _key: string; _type: string; href?: string }[];
-}
-
-const [gebied, settings] = await Promise.all([getWidgetAreaWithCacheHint("niet_gevonden"), getSiteSettings()]);
-if (Astro.cache?.enabled) Astro.cache.set(gebied.cacheHint);
+const [gebied, instellingen] = await Promise.all([
+	getWidgetAreaWithCacheHint("niet_gevonden"),
+	getSiteSettingsWithCacheHint(),
+]);
+if (Astro.cache?.enabled) for (const hint of [gebied.cacheHint, instellingen.cacheHint]) Astro.cache.set(hint);
+const settings = instellingen.data ?? {};
 const widget = (gebied.data?.widgets ?? []).find((w) => w.type === "content");
 const kop = widget?.title ?? "";
-const regels = ((widget?.content ?? []) as unknown as Blok[]).map((blok) => {
-	const kinderen = blok.children ?? [];
-	const tekst = kinderen.map((kind) => kind.text ?? "").join("");
-	const links = (blok.markDefs ?? []).filter((def) => def._type === "link" && def.href);
-	// A block whose whole text carries one link is the button; any other block is a line.
-	const knop = links.length === 1 && kinderen.every((kind) => kind.marks?.includes(links[0]._key));
-	return { tekst, href: knop ? sanitizeHref(links[0].href ?? "") : undefined };
-});
+const regels = ((widget?.content ?? []) as unknown as PtBlok[]).map((blok) => ({
+	tekst: tekstVan(blok.children),
+	href: isEenLink(blok) ? sanitizeHref(linkVan(blok) ?? "") : undefined,
+}));
 const siteTitel = settings.title ?? SITE_NAME;
 const teken = settings.favicon?.url;
 ---
 
-<Base title={kop ? `${kop} | ${siteTitel}` : siteTitel} kaal>
+<Base title={kop ? `${kop} | ${siteTitel}` : siteTitel} settings={settings} kaal>
 	{teken && <img class="niet-gevonden-teken" src={teken} alt="" width="21" height="21" />}
 	{kop && <h1 class="niet-gevonden-kop">{kop}</h1>}
 	{regels.map((regel) =>

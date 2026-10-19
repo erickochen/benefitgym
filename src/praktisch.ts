@@ -1,5 +1,5 @@
 // The content of a Praktisch page as the theme draws it: blocks in bands of one color, Portable Text in parts.
-// The layout generator reads the same rules, so the theme and its check share one source.
+// The layout generator loads this file in Node without a bundler, so it imports nothing.
 
 export type Vlak = "wit" | "donker";
 

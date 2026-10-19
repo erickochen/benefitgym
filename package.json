@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "emdash": {
-    "label": "Starter",
+    "label": "Benefit Gym",
     "seed": "seed/seed.json"
   },
   "scripts": {

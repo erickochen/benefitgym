@@ -1,25 +1,15 @@
 ---
-// One form of the forms plugin, drawn from its definition in the panel in the measured look. The privacy line from
-// its widget stands before the button. After a group field the rest follows the choice: a group with room points to
-// the planner, a full group or another one asks for the fields of the waiting list.
+// One form of the forms plugin, drawn from its definition in the measured look. After a group field the rest follows
+// the choice: room points to the planner, a full or another group asks for the fields of the waiting list.
 import { getEmDashCollection, sanitizeHref } from "emdash";
 import { DATUM, definitieVan, GROEP, ROUTE, type Veld } from "../formulier";
 import { type FormulierLayout, maat } from "../layout";
 import data from "../layout/algemeen/formulier.json";
 import { cursusData, datumTegels, groepTegel } from "../tegels";
+import { linkVan, type PtBlok, type Span } from "../tekstblok";
 import { FORMULIER } from "../teksten";
 import Beeld from "./Beeld.astro";
 import FormulierVeld from "./FormulierVeld.astro";
-
-interface Span {
-	text?: string;
-	marks?: string[];
-}
-
-interface Blok {
-	children?: Span[];
-	markDefs?: { _key: string; _type: string; href?: string }[];
-}
 
 interface Props {
 	slug: string;
@@ -32,7 +22,7 @@ interface Props {
 	planner?: string;
 	// The line when no course date is planned.
 	geenData?: string;
-	privacy: Blok[];
+	privacy: PtBlok[];
 }
 
 const { slug, anker, staticUrl, sport, planner, geenData, privacy } = Astro.props;
@@ -65,12 +55,10 @@ const na = groep < 0 ? [] : delen(velden.slice(groep + 1));
 const gat = (waarde: number) => `gap:${maat(waarde)}`;
 // The text styles also set the fill color, which a link would inherit from the line around it.
 const link = `color:${v.link.kleur};-webkit-text-fill-color:${v.link.kleur};text-decoration-color:${v.link.streep};text-decoration-thickness:${maat(v.link.dikte)};text-underline-offset:${maat(v.link.afstand)}`;
-const hrefVan = (blok: Blok, span: Span) => {
-	const href = (blok.markDefs ?? []).find((def) => def._type === "link" && span.marks?.includes(def._key))?.href;
+const hrefVan = (blok: PtBlok, span: Span) => {
+	const href = linkVan(blok, span);
 	return href ? sanitizeHref(href) : undefined;
 };
-// A file field sends its file only as multipart.
-const bestanden = velden.some((veld) => veld.type === "file");
 // The width goes as a custom property, so the column can stretch the button.
 const knop = `--knop-w:${maat(v.knop.w)};height:${maat(v.knop.h)};border-radius:${maat(v.knop.radius)};box-shadow:${v.knop.schaduw}`;
 const deelProps = { slug, datums, groepen, sport, geenData };
@@ -84,7 +72,6 @@ const RECHTS = 1;
 		class:list={["formulier", anker && "anker"]}
 		method="post"
 		action={`${ROUTE}/submit`}
-		enctype={bestanden ? "multipart/form-data" : undefined}
 		data-formulier={definitie.slug}
 		data-fout={`s-${v.klein}`}
 		style={`${gat(v.gat)};--fout-boven:${maat(v.labelGat)};--veld-binnen:${maat(v.invoer.padding[RECHTS])}`}

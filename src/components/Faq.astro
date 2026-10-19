@@ -1,20 +1,21 @@
 ---
-// The FAQ as an accordion after the W3C pattern, every category closed. A category is a term that holds a question
-// of this page, in the order of the terms; a question counts under its first term. Closed parts carry a class, not
-// hidden, so a text extractor still reads them. Every measure goes as a custom property, so the column can draw
-// narrow rows instead.
+// The FAQ as an accordion after the W3C pattern: a category is a term that holds a question of this page, a question
+// counts under its first term. Closed parts carry a class, not hidden, so a text extractor still reads them.
 import { getEmDashCollection, getTaxonomyTermsWithCacheHint, getTermsForEntries, type PortableTextBlock } from "emdash";
 import { PortableText } from "emdash/ui";
 import { type Blok, blokKlasse, blokStijl } from "../layout";
 
 interface Props {
 	blok: Extract<Blok, { soort: "faq" }>;
+	// The section the FAQ lies in, which keeps its ids apart from a second one on the page.
+	naam: string;
 }
 
 // The arrow of the round button on a grid of 100 by 100, as the measured page draws it.
 const PIJL = "32.59,23.57 32.59,72.87 76.96,48.22";
 
-const { blok } = Astro.props;
+const { blok, naam } = Astro.props;
+const id = (deel: string) => `faq-${naam}-${deel}`;
 const [vragen, termen] = await Promise.all([
 	getEmDashCollection("vragen", { where: { pagina: blok.pagina }, orderBy: { volgorde: "asc" } }),
 	getTaxonomyTermsWithCacheHint("faq_categorie"),
@@ -84,7 +85,7 @@ const stijl = [blokStijl(blok), ...Object.entries(maten).map(([naam, waarde]) =>
 						type="button"
 						class={`faq-knop s-${blok.label.stijl}`}
 						aria-expanded="false"
-						aria-controls={`faq-${i}`}
+						aria-controls={id(String(i))}
 					>
 						<span>{term.label}</span>
 						<svg viewBox="0 0 100 100" aria-hidden="true">
@@ -93,7 +94,7 @@ const stijl = [blokStijl(blok), ...Object.entries(maten).map(([naam, waarde]) =>
 						</svg>
 					</button>
 				</h3>
-				<div id={`faq-${i}`} class="faq-paneel faq-dicht" role="region">
+				<div id={id(String(i))} class="faq-paneel faq-dicht" role="region">
 					{vragen.map((vraag, j) =>
 						vraag.data.soort === "Inleiding" ? (
 							<div class="faq-antwoord" {...vraag.edit.antwoord}>
@@ -102,14 +103,14 @@ const stijl = [blokStijl(blok), ...Object.entries(maten).map(([naam, waarde]) =>
 						) : (
 							<div class="faq-vraag">
 								<h4 class="faq-kop">
-									<button type="button" class="faq-vraagknop" aria-expanded="false" aria-controls={`faq-${i}-${j}`}>
+									<button type="button" class="faq-vraagknop" aria-expanded="false" aria-controls={id(`${i}-${j}`)}>
 										<span {...vraag.edit.vraag}>{vraag.data.vraag}</span>
 										<svg viewBox="0 0 100 100" aria-hidden="true">
 											<polygon points={PIJL} fill={blok.icoon.vlak} />
 										</svg>
 									</button>
 								</h4>
-								<div id={`faq-${i}-${j}`} class="faq-antwoord faq-dicht" {...vraag.edit.antwoord}>
+								<div id={id(`${i}-${j}`)} class="faq-antwoord faq-dicht" {...vraag.edit.antwoord}>
 									<PortableText value={(vraag.data.antwoord as PortableTextBlock[] | undefined) ?? []} />
 								</div>
 							</div>

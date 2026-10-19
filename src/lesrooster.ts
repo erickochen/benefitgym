@@ -77,7 +77,6 @@ const P = `#${VENSTER_ID}#${VENSTER_ID}`;
 export const LESROOSTER_CSS = `
 .${HOUDER} { width: 100%; position: relative; container-type: inline-size; container-name: ${HOUDER}; }
 .${LINK} { color: ${GRIJS}; font-family: ${BOLD}; text-decoration-color: ${ORANJE}; }
-.${MELDING} { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 ${R} { font-family: ${REGULAR}; color: ${GRIJS}; }
 ${R} .top { align-items: center; border-bottom: ${KOP_LIJN}px solid ${GRIJS}; padding-bottom: ${RUIMTE}px; margin-bottom: ${RUIMTE}px; }
 ${R} .top .today a { display: inline-flex; align-items: center; justify-content: center; width: auto; min-height: ${TIK}px; padding: 0 ${PIL_RAND}px; border-radius: ${RONDING}px; background-color: ${GRIJS}; color: ${WIT}; font: 400 ${KORPS_KNOP}px/1 ${BLACK_CURSIEF}; }

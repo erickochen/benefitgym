@@ -20,7 +20,7 @@ const { value } = Astro.props;
 		<style is:inline set:html={LESROOSTER_CSS} />
 		<p class={`s-${regels.stijl.lesrooster} ${STAND}`}>{LESROOSTER.laden}</p>
 		<div class={VAK}></div>
-		<p class={MELDING} aria-live="polite"></p>
+		<p class={`${MELDING} verborgen`} aria-live="polite"></p>
 	</div>
 </div>
 

@@ -1,22 +1,11 @@
 ---
-// A built section: a dark band over the foot of the drawing above, the heading, intro plus call link beside a form,
-// then room for the footer and the strip below it. The content stands at least as tall as measured; a section that
-// follows its content grows and shrinks with it, to the next whole pixel like the measured page. In the column the
-// content stands in the stack, its two columns under each other, with the strip below the footer.
+// A built section: a dark band over the foot of the drawing above, the heading plus intro beside a form, then room for
+// the footer. The content stands at least as tall as measured; in the column it stands in the stack.
 import { getWidgetAreaWithCacheHint, sanitizeHref } from "emdash";
-import { ANKER_AANMELDEN, ANKER_CONTACT, type Entry, maat, type Sectie, waarde } from "../layout";
+import { ANKER_AANMELDEN, ANKER_CONTACT, type Entry, maat, pixels, type Sectie, waarde } from "../layout";
+import { linkVan, type PtBlok, tekstVan } from "../tekstblok";
 import Beeld from "./Beeld.astro";
 import Formulier from "./Formulier.astro";
-
-interface Span {
-	text?: string;
-	marks?: string[];
-}
-
-interface Blok {
-	children?: Span[];
-	markDefs?: { _key: string; _type: string; href?: string }[];
-}
 
 interface Props {
 	sectie: Sectie & { gebouwd: NonNullable<Sectie["gebouwd"]> };
@@ -30,13 +19,12 @@ const { data: widgets, cacheHint } = await getWidgetAreaWithCacheHint("onder_for
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 const inhoudVan = (titel: string) =>
 	(widgets?.widgets.find((widget) => widget.type === "content" && widget.title === titel)?.content ??
-		[]) as unknown as Blok[];
+		[]) as unknown as PtBlok[];
 // The call link is one line: its text plus the first address any part of it links to.
 const bellen = inhoudVan(g.bellen);
-const belTekst = bellen.flatMap((blok) => (blok.children ?? []).map((span) => span.text ?? "")).join("");
-const belLink = bellen.flatMap((blok) => blok.markDefs ?? []).find((def) => def._type === "link")?.href;
+const belTekst = bellen.map((blok) => tekstVan(blok.children)).join("");
+const belLink = bellen.map((blok) => linkVan(blok)).find(Boolean);
 const belHref = belLink ? sanitizeHref(belLink) : undefined;
-const pixels = (n: number) => `${n}px`;
 // The contact form is the anchor itself; a sign-up section is its anchor from the top of its content.
 const contact = g.formulier === ANKER_CONTACT;
 // Every measure goes as a custom property, so the column can set its own.

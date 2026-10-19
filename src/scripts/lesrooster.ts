@@ -1,6 +1,5 @@
-/* The schedule of SportBit in the page itself: its script plus stylesheet load once, its lessons plus week arrows become
-buttons with a name. The focus comes back after a week change plus stays in the popup until it closes. Only the box in
-view takes the id, since SportBit fills one per page. */
+/* The schedule of SportBit in the page: its script loads once and its lessons plus week arrows become named buttons.
+Only the box in view takes the id, since SportBit fills one per page. */
 import { ADRES, LEEG, LINK, MELDING, ROOSTER_ID, STAND, VAK, VENSTER_ID } from "../lesrooster";
 import { LESROOSTER } from "../teksten";
 

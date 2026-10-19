@@ -1,6 +1,5 @@
-// The strip under an open row: the fields a search engine or an AI service reads, three previews that follow the
-// typing and one button that saves and publishes. The page is locked while the strip is open, as the form of the
-// admin does. It is read once on opening, so a save on top of someone else's change is refused.
+// The strip under an open row: the fields a search engine or an AI service reads, three previews plus one button that
+// saves and publishes. The page is locked while the strip is open and read once, so a save over another change is refused.
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { SITE_NAME } from "../teksten";
 import { Beeldkiezer, padVan } from "./beeldkiezer";
@@ -355,6 +354,7 @@ export function Strook({
 	const token = useRef(crypto.randomUUID());
 	const instellingen = lading.instellingen ?? {};
 	const siteTitel = instellingen.title ?? SITE_NAME;
+	const scheiding = instellingen.seo?.titleSeparator;
 	const gegevens = lading.items.gegevens?.[0]?.data ?? {};
 
 	// The lock of the admin, renewed as the form renews it and released when the strip or the tab closes. The page
@@ -466,7 +466,7 @@ export function Strook({
 		onBewaard(melding);
 	}
 
-	const titel = seo.title || terugvalTitel(item, siteTitel);
+	const titel = seo.title || terugvalTitel(item, siteTitel, scheiding);
 	const tekst = seo.description || instellingen.tagline || "";
 	const deelbeeld = seo.image || instellingen.seo?.defaultOgImage?.url || null;
 	const host = window.location.host;
@@ -483,7 +483,7 @@ export function Strook({
 						id="vind-titel"
 						className={`${INVOER} w-full`}
 						value={seo.title ?? ""}
-						placeholder={terugvalTitel(item, siteTitel)}
+						placeholder={terugvalTitel(item, siteTitel, scheiding)}
 						aria-describedby="vind-titel-zin"
 						onChange={(e) => setSeo({ ...seo, title: e.target.value || null })}
 					/>

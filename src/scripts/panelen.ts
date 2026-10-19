@@ -1,6 +1,5 @@
-/* The panels under the desktop bar. A panel opens on hover plus on a click, and ArrowDown opens it with focus on its
-first row. The arrows step through the rows of all its columns as one list. Escape plus a press outside close it, as
-does focus that leaves without a mouse resting on it. */
+/* The panels under the desktop bar: open on hover, a click or ArrowDown, the arrows step through the rows as one list.
+Escape, a press outside or focus that leaves closes a panel. */
 export function zetPanelen(menu: HTMLElement) {
 	for (const houder of menu.querySelectorAll<HTMLElement>(".menu-uitklap-houder")) {
 		const knop = houder.querySelector<HTMLButtonElement>(".menu-uitklap");

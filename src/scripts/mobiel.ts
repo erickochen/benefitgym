@@ -1,6 +1,5 @@
-/* The panel of the column plus the back-to-top button. While the panel is open the page stops scrolling, the page
-logo steps aside plus the bar turns white. Escape, a tap outside or a page row closes it, as does focus that leaves.
-The button shows one screen down while the panel is closed and brings the page plus the focus back to the top. */
+/* The panel of the column plus the back-to-top button. While the panel is open the page stops scrolling and the bar
+turns white; Escape, a tap outside, a page row or focus that leaves closes it. */
 export function zetMobiel(menu: HTMLElement, paginaLogo: () => HTMLElement | undefined) {
 	const nav = menu.querySelector<HTMLElement>(".menu-mobiel");
 	const knop = nav?.querySelector<HTMLButtonElement>(".menu-hamburger");

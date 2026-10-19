@@ -1,5 +1,5 @@
 ---
-import { getSiteSettingsWithCacheHint } from "emdash";
+import { getMenuWithCacheHint, type SiteSettings } from "emdash";
 import { EmDashHead, EmDashBodyStart, EmDashBodyEnd } from "emdash/ui";
 import { createPublicPageContext } from "emdash/page";
 import Footer from "../components/Footer.astro";
@@ -14,6 +14,7 @@ import "../styles/footer.css";
 import "../styles/reviews.css";
 import "../styles/uitklap.css";
 import "../styles/faq.css";
+import "../styles/gebouwd.css";
 import "../styles/formulier.css";
 import "../styles/praktisch.css";
 
@@ -22,6 +23,8 @@ interface Props {
 	title: string;
 	description?: string | null;
 	canonical?: string | null;
+	/** The site settings, read by the page with their cache hint. */
+	settings: Partial<SiteSettings>;
 	/** Pass content reference for plugin page contributions on content pages */
 	content?: { collection: string; id: string; slug?: string | null };
 	/** Where the footer sits: its distance to the bottom of the page in design units. */
@@ -49,15 +52,17 @@ const FONTS = [
 // The two faces above the fold: the hero intro plus the heading and the button.
 const PRELOAD = ["Interstate-BlackItalic.woff2", "AntiqueOliveCompact-Italic.woff2"];
 
-const { title, description, canonical, content, footerOnder, kolom, strook, kaal } = Astro.props;
+const { title, description, canonical, settings, content, footerOnder, kolom, strook, kaal } = Astro.props;
 const staticUrl = leesStaticUrl();
 const fontCss = FONTS.map(
 	([family, file, weight, style]) =>
 		`@font-face{font-family:"${family}";src:url("${staticUrl}/fonts/${file}") format("woff2");font-weight:${weight};font-style:${style};font-display:block}`,
 ).join("");
 
-const settingsResult = await getSiteSettingsWithCacheHint();
-if (Astro.cache?.enabled) Astro.cache.set(settingsResult.cacheHint);
+// The main menu once, for the bar plus the footer; the bare page has neither.
+const primary = kaal ? undefined : await getMenuWithCacheHint("primary");
+if (primary && Astro.cache?.enabled) Astro.cache.set(primary.cacheHint);
+const items = primary?.data?.items ?? [];
 
 // No siteName: with it EmDash adds a bare WebSite block to every page. The structured-data plugin puts the graph on /
 // plus og:site_name on every page instead.
@@ -67,7 +72,7 @@ const pageCtx = createPublicPageContext({
 	pageType: "website",
 	title,
 	pageTitle: title,
-	description: description ?? settingsResult.data?.tagline,
+	description: description ?? settings.tagline,
 	canonical,
 	content,
 });
@@ -93,12 +98,12 @@ const pageCtx = createPublicPageContext({
 			</main>
 		) : (
 			<Fragment>
-				<Menu staticUrl={staticUrl} />
+				<Menu items={items} staticUrl={staticUrl} />
 				<div class="kolom">
 					<main>
 						<slot />
 					</main>
-					<Footer staticUrl={staticUrl} onder={footerOnder} />
+					<Footer items={items} settings={settings} staticUrl={staticUrl} onder={footerOnder} />
 				</div>
 			</Fragment>
 		)}

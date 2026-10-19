@@ -364,16 +364,6 @@ logo has left the window, then white with the badge. Only a page with its column
 	flex: none;
 }
 
-/* What a screen reader hears after the login, not on screen. */
-.menu-verborgen {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	overflow: hidden;
-	clip: rect(0 0 0 0);
-	white-space: nowrap;
-}
-
 .menu-mobiel-knop {
 	display: flex;
 	align-items: center;

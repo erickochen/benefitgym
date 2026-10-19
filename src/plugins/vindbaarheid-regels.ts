@@ -60,7 +60,7 @@ export const VOORVOEGSEL = "AI en zoekmachines";
 export const SCHEIDING = " · ";
 // The placeholder for the slug in the URL pattern of a collection.
 export const SLUG = "{slug}";
-// getSeoMeta puts this between the page title and the site title when the site passes no separator.
+// getSeoMeta puts this between the page title and the site title when the settings hold no separator.
 export const TITEL_SCHEIDING = " | ";
 // The paths paden() in llms.txt.ts takes from the menu: a page of the site on a path of its own.
 const EIGEN_PAD = /^\/[^/#?]+$/;
@@ -161,9 +161,9 @@ export function naamVan(item: Item, c: CollectieInfo): string {
 }
 
 // The title getSeoMeta makes when the SEO panel has none: the title field, with the site title behind it.
-export function terugvalTitel(item: Pick<Item, "data">, siteTitel: string): string {
+export function terugvalTitel(item: Pick<Item, "data">, siteTitel: string, scheiding?: string): string {
 	const kop = typeof item.data.title === "string" ? item.data.title : "";
-	return siteTitel && kop ? `${kop}${TITEL_SCHEIDING}${siteTitel}` : kop;
+	return siteTitel && kop ? `${kop}${scheiding || TITEL_SCHEIDING}${siteTitel}` : kop;
 }
 
 const gelijk = (a: unknown, b: unknown) => (leeg(a) && leeg(b)) || JSON.stringify(a) === JSON.stringify(b);

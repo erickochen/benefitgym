@@ -1,6 +1,5 @@
-/* The FAQ as an accordion: one category open plus one question in it. What is not open steps aside while something
-is, so the list stays within the room of the drawing. A click on what is open closes it with all below it. Escape
-closes one level, and focus inside a part that closes goes back to the button that opened it. */
+/* The FAQ as an accordion: one category open plus one question in it, the rest steps aside. Escape closes one level
+and focus inside a part that closes goes back to its button. */
 export function zetFaq(blok: HTMLElement) {
 	const lijst = blok.querySelector<HTMLElement>(".faq-lijst");
 	if (!lijst) return;

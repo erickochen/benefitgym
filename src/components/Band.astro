@@ -7,13 +7,15 @@ import Uitsnede from "./Uitsnede.astro";
 
 interface Props {
 	band: Band;
+	// The section the band lies in, which names the ids of its blocks.
+	naam: string;
 	entry: Entry;
 	slug: string;
 	staticUrl: string;
 	laden: Laden;
 }
 
-const { band, entry, slug, staticUrl, laden } = Astro.props;
+const { band, naam, entry, slug, staticUrl, laden } = Astro.props;
 const tekstVan = (veld?: string) => (veld ? ((waarde(entry, veld) as string | undefined) ?? "") : "");
 // A portrait without an alt text of its own is named by the person it shows.
 const alt = tekstVan(band.uitsnede?.alt) || tekstVan(band.uitsnede?.altNaam);
@@ -30,11 +32,11 @@ const alt = tekstVan(band.uitsnede?.alt) || tekstVan(band.uitsnede?.altNaam);
 		/>
 	)}
 	{band.banden?.map((deel) => (
-		<Astro.self band={deel} entry={entry} slug={slug} staticUrl={staticUrl} laden="lazy" />
+		<Astro.self band={deel} naam={naam} entry={entry} slug={slug} staticUrl={staticUrl} laden="lazy" />
 	))}
 	{band.blokken.length > 0 && (
 		<div class="rij" style={band.kolom ? rijVars(band.kolom) : undefined}>
-			<Blokken blokken={band.blokken} entry={entry} staticUrl={staticUrl} />
+			<Blokken blokken={band.blokken} naam={naam} entry={entry} staticUrl={staticUrl} />
 		</div>
 	)}
 </div>

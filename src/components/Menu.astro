@@ -1,20 +1,21 @@
 ---
 // The fixed bar from menu primary on the measured places. It turns white past the first scroll mark plus shows the badge past the second.
 // Below 1242 a page with its column shows the bar of the column instead: the badge plus the hamburger with its panel.
-import { getMenuWithCacheHint, type MenuItem } from "emdash";
-import type { MenuLayout } from "../layout";
+import type { MenuItem } from "emdash";
+import { type MenuLayout, pixels } from "../layout";
 import data from "../layout/algemeen/menu.json";
+import { relVan } from "../links";
 import { MENU, NIEUW_TABBLAD, SITE_NAME, TERUG } from "../teksten";
 import Beeld from "./Beeld.astro";
 
 interface Props {
+	// The items of menu primary, which the layout reads once for the bar plus the footer.
+	items: MenuItem[];
 	staticUrl: string;
 }
 
-const { staticUrl } = Astro.props;
+const { items: menu, staticUrl } = Astro.props;
 const m = data as MenuLayout;
-const { data: menu, cacheHint } = await getMenuWithCacheHint("primary");
-if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
 // The seed marks the button plus the login icon with a class; an item with children opens a panel.
 function soortVan(item: MenuItem) {
@@ -41,7 +42,7 @@ const groepenVan = (item: MenuItem) => {
 // measured place plus column widths in order; a column added later takes the width of the last.
 let paginaNr = 0;
 let paneelNr = 0;
-const items = (menu?.items ?? []).map((item) => {
+const items = menu.map((item) => {
 	const soort = soortVan(item);
 	const paneel =
 		soort === "uitklap"
@@ -50,7 +51,6 @@ const items = (menu?.items ?? []).map((item) => {
 	return { item, soort, paneel, breedte: soort === "pagina" ? m.pagina.breedtes[paginaNr++] : undefined };
 });
 const hier = Astro.url.pathname.replace(/(.)\/$/, "$1");
-const rel = (item: MenuItem) => (item.target === "_blank" ? "noopener" : undefined);
 // The panel of the column: pages as rows, every group as a heading with its rows, then the login plus the button.
 type Regel = { pagina: MenuItem } | { groep: { kop: string; rijen: MenuItem[] } };
 const lijst = items.flatMap(({ item, soort, paneel }): Regel[] =>
@@ -63,65 +63,64 @@ const rand = (naam: string, waarden: number[]) =>
 	Object.fromEntries(["t", "r", "b", "l"].map((kant, i) => [`--${naam}-${kant}`, waarden[i]]));
 // The bar of the column measures in pixels, the same on the tablet plus the phone.
 const k = m.mobiel;
-const px = (n: number) => `${n}px`;
-const pxRand = (waarden: number[]) => waarden.map(px).join(" ");
-const ring = (r: { stijl: string; dikte: number; kleur: string }) => `${px(r.dikte)} ${r.stijl} ${r.kleur}`;
+const pxRand = (waarden: number[]) => waarden.map(pixels).join(" ");
+const ring = (r: { stijl: string; dikte: number; kleur: string }) => `${pixels(r.dikte)} ${r.stijl} ${r.kleur}`;
 const kolom = k
 	? {
-			"--mobiel-hoogte": px(k.hoogte),
-			"--mobiel-rand": px(k.rand),
+			"--mobiel-hoogte": pixels(k.hoogte),
+			"--mobiel-rand": pixels(k.rand),
 			"--mobiel-rust": k.kleur.rust,
 			"--mobiel-vol": k.kleur.vol,
 			"--mobiel-overgang": k.overgang.balk,
 			"--mobiel-badge-overgang": k.overgang.badge,
-			"--mobiel-badge-w": px(k.badge.w),
-			"--mobiel-badge-h": px(k.badge.h),
+			"--mobiel-badge-w": pixels(k.badge.w),
+			"--mobiel-badge-h": pixels(k.badge.h),
 			"--mobiel-badge-maat": k.badge.maat,
 			"--mobiel-badge-plek": k.badge.plek,
 			"--mobiel-badge-herhaal": k.badge.herhaal,
-			"--hamburger-w": px(k.knop.w),
-			"--hamburger-h": px(k.knop.h),
-			"--streep-x": px(k.knop.streep.x),
-			"--streep-w": px(k.knop.streep.w),
-			"--streep-h": px(k.knop.streep.h),
-			"--streep-radius": px(k.knop.streep.radius),
+			"--hamburger-w": pixels(k.knop.w),
+			"--hamburger-h": pixels(k.knop.h),
+			"--streep-x": pixels(k.knop.streep.x),
+			"--streep-w": pixels(k.knop.streep.w),
+			"--streep-h": pixels(k.knop.streep.h),
+			"--streep-radius": pixels(k.knop.streep.radius),
 			"--streep-kleur": k.knop.streep.kleur,
 			"--streep-overgang": k.paneel.hamburger.overgang,
 			"--mp-rand": pxRand(k.paneel.rand),
 			"--mp-achtergrond": k.paneel.achtergrond,
 			"--mp-schaduw": k.paneel.schaduw,
 			"--mp-z": k.paneel.z,
-			"--mp-kop-h": px(k.paneel.kop.h),
+			"--mp-kop-h": pixels(k.paneel.kop.h),
 			"--mp-kop-rand": pxRand(k.paneel.kop.rand),
 			"--mp-kop-uitlijning": k.paneel.kop.uitlijning,
-			"--mp-rij-h": px(k.paneel.rij.h),
+			"--mp-rij-h": pixels(k.paneel.rij.h),
 			"--mp-rij-rand": pxRand(k.paneel.rij.rand),
 			"--mp-rij-uitlijning": k.paneel.rij.uitlijning,
-			"--mp-rij-radius": px(k.paneel.rij.radius),
+			"--mp-rij-radius": pixels(k.paneel.rij.radius),
 			"--mp-rij-overgang": k.paneel.rij.overgang,
 			"--mp-rij-vlak": k.paneel.rij.vlak,
 			"--mp-rij-ring": ring(k.paneel.rij.ring),
-			"--mp-rij-ring-afstand": px(k.paneel.rij.ring.afstand),
+			"--mp-rij-ring-afstand": pixels(k.paneel.rij.ring.afstand),
 			"--mp-huidig-kleur": k.paneel.huidig.kleur,
-			"--mp-huidig-dikte": px(k.paneel.huidig.dikte),
-			"--mp-huidig-afstand": px(k.paneel.huidig.afstand),
-			"--mp-lijn-boven": px(k.paneel.lijn.boven),
-			"--mp-lijn-zij": px(k.paneel.lijn.zij),
-			"--mp-lijn-onder": px(k.paneel.lijn.onder),
-			"--mp-lijn-h": px(k.paneel.lijn.h),
+			"--mp-huidig-dikte": pixels(k.paneel.huidig.dikte),
+			"--mp-huidig-afstand": pixels(k.paneel.huidig.afstand),
+			"--mp-lijn-boven": pixels(k.paneel.lijn.boven),
+			"--mp-lijn-zij": pixels(k.paneel.lijn.zij),
+			"--mp-lijn-onder": pixels(k.paneel.lijn.onder),
+			"--mp-lijn-h": pixels(k.paneel.lijn.h),
 			"--mp-lijn-kleur": k.paneel.lijn.kleur,
-			"--mp-icoon-gat": px(k.paneel.inloggen.gat),
-			"--mp-knop-boven": px(k.paneel.knop.boven),
-			"--mp-knop-zij": px(k.paneel.knop.zij),
-			"--mp-knop-h": px(k.paneel.knop.h),
-			"--mp-knop-radius": px(k.paneel.knop.radius),
+			"--mp-icoon-gat": pixels(k.paneel.inloggen.gat),
+			"--mp-knop-boven": pixels(k.paneel.knop.boven),
+			"--mp-knop-zij": pixels(k.paneel.knop.zij),
+			"--mp-knop-h": pixels(k.paneel.knop.h),
+			"--mp-knop-radius": pixels(k.paneel.knop.radius),
 			"--mp-knop-achtergrond": k.paneel.knop.achtergrond,
 			"--mp-knop-ring": ring(k.paneel.knop.ring),
-			"--mp-knop-ring-afstand": px(k.paneel.knop.ring.afstand),
-			"--terug-w": px(k.terug.w),
-			"--terug-h": px(k.terug.h),
-			"--terug-rechts": px(k.terug.rechts),
-			"--terug-onder": px(k.terug.onder),
+			"--mp-knop-ring-afstand": pixels(k.paneel.knop.ring.afstand),
+			"--terug-w": pixels(k.terug.w),
+			"--terug-h": pixels(k.terug.h),
+			"--terug-rechts": pixels(k.terug.rechts),
+			"--terug-onder": pixels(k.terug.onder),
 			"--terug-achtergrond": k.terug.achtergrond,
 			"--terug-radius": k.terug.radius,
 			"--terug-schaduw": k.terug.schaduw,
@@ -236,7 +235,12 @@ const variabelen = Object.entries({
 									<ul>
 										{g.rijen.map((r) => (
 											<li>
-												<a class={`menu-paneel-rij s-${p.rij.stijl}`} href={r.url} target={r.target} rel={rel(r)}>
+												<a
+													class={`menu-paneel-rij s-${p.rij.stijl}`}
+													href={r.url}
+													target={r.target}
+													rel={relVan(r.target)}
+												>
 													{r.label}
 												</a>
 											</li>
@@ -247,12 +251,12 @@ const variabelen = Object.entries({
 						</div>
 					</div>
 				) : soort === "knop" ? (
-					<a class="menu-item menu-knop link" href={item.url} target={item.target} rel={rel(item)}>
+					<a class="menu-item menu-knop link" href={item.url} target={item.target} rel={relVan(item.target)}>
 						<Beeld beeld={m.knop.beeld} staticUrl={staticUrl} />
 						<span class={`s-${m.knop.stijl}`}>{item.label}</span>
 					</a>
 				) : soort === "inloggen" ? (
-					<a class="menu-item menu-inloggen link" href={item.url} target={item.target} rel={rel(item)}>
+					<a class="menu-item menu-inloggen link" href={item.url} target={item.target} rel={relVan(item.target)}>
 						<Beeld beeld={m.inloggen.beeld} staticUrl={staticUrl} />
 						<span>{item.label}</span>
 					</a>
@@ -261,7 +265,7 @@ const variabelen = Object.entries({
 						class:list={["menu-item", "menu-pagina", "link", { "menu-vrij": breedte === undefined }]}
 						href={item.url}
 						target={item.target}
-						rel={rel(item)}
+						rel={relVan(item.target)}
 						style={breedte === undefined ? undefined : `width:calc(${breedte} * var(--s))`}
 						aria-current={item.url === hier ? "page" : undefined}
 					>
@@ -286,7 +290,7 @@ const variabelen = Object.entries({
 					const open = k.paneel.hamburger.strepen[i];
 					return (
 						<span
-							style={`--top:${px(top)};--open-top:${px(open.top)};--open-transform:${open.transform};--open-opacity:${open.opacity}`}
+							style={`--top:${pixels(top)};--open-top:${pixels(open.top)};--open-transform:${open.transform};--open-opacity:${open.opacity}`}
 						/>
 					);
 				})}
@@ -330,11 +334,11 @@ const variabelen = Object.entries({
 						class={`menu-mobiel-rij menu-mobiel-inloggen s-${k.paneel.stijl.rij}`}
 						href={inloggen.url}
 						target={inloggen.target}
-						rel={rel(inloggen)}
+						rel={relVan(inloggen.target)}
 					>
 						<Fragment set:html={k.paneel.inloggen.icoon.svg} />
 						{inloggen.label}
-						{inloggen.target === "_blank" && <span class="menu-verborgen">{NIEUW_TABBLAD}</span>}
+						{inloggen.target === "_blank" && <span class="verborgen">{NIEUW_TABBLAD}</span>}
 					</a>
 				)}
 				{proef && (
@@ -342,7 +346,7 @@ const variabelen = Object.entries({
 						class={`menu-mobiel-knop s-${k.paneel.knop.stijl}`}
 						href={proef.url}
 						target={proef.target}
-						rel={rel(proef)}
+						rel={relVan(proef.target)}
 					>
 						{proef.label}
 					</a>

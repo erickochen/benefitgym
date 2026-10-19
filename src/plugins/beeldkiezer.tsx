@@ -1,6 +1,5 @@
-// A window over the page to pick a share image from the media library or to add one. The picker of the admin is not
-// importable, so this one reads the same media route. A modal dialog keeps the rest of the admin out of reach, closes
-// on Escape and hands the focus back to the button that opened it.
+// A modal window to pick a share image from the media library or to add one. The picker of the admin is not
+// importable, so this one reads the same media route.
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { KnopPrimair } from "./knop-primair";
 import { FOUT, laadMedia, MEDIA_PAD, uploadMedia, type Medium } from "./paneel-data";

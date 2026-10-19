@@ -5,10 +5,8 @@ export { PluginBridge };
 
 // From this status on a response is a failed render, which the edge cache must not keep for the lifetime of its route.
 const SERVERFOUT = 500;
-// The route of the panel that serves a media file: the favicon, the logo, the social images plus the photos under
-// Praktisch. EmDash answers it with max-age=0, so every page view ran the Worker for the favicon. A media file keeps
-// its address when an editor replaces it, so the edge keeps it a day and a browser an hour; a cache rule of the zone
-// does not reach a response of the Worker.
+// The media route of the panel serves the favicon, the logo plus the photos, which EmDash answers with max-age=0. A
+// file keeps its address when replaced, so the edge keeps it a day and a browser an hour.
 const MEDIA_PAD = "/_emdash/api/media/file/";
 const MEDIA_EDGE_SECONDEN = 86_400;
 const MEDIA_BROWSER_SECONDEN = 3_600;

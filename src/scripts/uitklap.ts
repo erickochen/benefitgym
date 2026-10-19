@@ -1,7 +1,5 @@
-/* The explainer. The summary opens plus closes the details element. Opened from it, a band that lands low in the window
-scrolls its top up to IN_BEELD from the foot. A card takes the focus instead, so Tab goes through it first. A card
-closes on a press or focus outside it. Inklappen plus Escape close the text with the focus back on the summary, which
-comes into view when it left the window. The column shows every text in flow, so there a card acts as a band. */
+/* The explainer: opened from its summary, a band scrolls into view up to IN_BEELD from the foot and a card takes the
+focus. Inklappen, Escape, a press or focus outside a card close it with the focus back on the summary. */
 import { KOLOM_MEDIA } from "../layout";
 
 // The part of the window below the top of a band that opens from the button.

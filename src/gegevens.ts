@@ -22,8 +22,17 @@ export interface GegevensData {
 	llms_inleiding?: string;
 }
 
-/** A phone number as typed, with spaces, written the way a link plus the structured data need it. */
-export const internationaal = (telefoon: string) => telefoon.replace(/[^\d+]/g, "");
+// The country code a number typed the Dutch way, with its trunk zero, belongs to.
+const LANDCODE = "+31";
+
+/** A phone number as typed, in international form for a link plus the structured data: "073 123 4567" gives +31731234567. */
+export function internationaal(telefoon: string): string {
+	const cijfers = telefoon.replace(/\(0\)/g, "").replace(/[^\d+]/g, "");
+	if (cijfers.startsWith("+")) return cijfers;
+	if (cijfers.startsWith("00")) return `+${cijfers.slice(2)}`;
+	if (cijfers.startsWith("0")) return `${LANDCODE}${cijfers.slice(1)}`;
+	return cijfers;
+}
 
 export interface AdresRegel {
 	tekst: string;
