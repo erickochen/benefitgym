@@ -4,43 +4,36 @@
 import {
 	getEmDashEntry,
 	getMenuWithCacheHint,
-	getSiteSettings,
 	getWidgetAreaWithCacheHint,
 	type MenuItem,
 	sanitizeHref,
+	type SiteSettings,
 } from "emdash";
 import { adresRegels, GEGEVENS_SLUG, type GegevensData, profielen as profielenVan } from "../gegevens";
-import { type FooterLayout, perStand } from "../layout";
+import { type FooterLayout, perStand, pixels } from "../layout";
 import data from "../layout/algemeen/footer.json";
+import { relVan } from "../links";
+import { linkVan, type PtBlok, tekstVan } from "../tekstblok";
 import { COPYRIGHT, KOLOM_TEKEN, SCHEIDING, SITE_NAME, SOCIAAL, SOCIAAL_KOP } from "../teksten";
 import Beeld from "./Beeld.astro";
 
 interface Props {
+	// The items of menu primary plus the site settings, which the layout reads once.
+	items: MenuItem[];
+	settings: Partial<SiteSettings>;
 	staticUrl: string;
 	/** Distance from the bottom of the page in design units; without it the footer follows the page. */
 	onder?: number;
 }
 
-interface Span {
-	text?: string;
-	marks?: string[];
-}
-
-interface Blok {
-	children?: Span[];
-	markDefs?: { _key: string; _type: string; href?: string }[];
-}
-
-const { staticUrl, onder } = Astro.props;
+const { items, settings, staticUrl, onder } = Astro.props;
 const f = data as FooterLayout;
-const [primary, juridisch, adres, gegevens] = await Promise.all([
-	getMenuWithCacheHint("primary"),
+const [juridisch, adres, gegevens] = await Promise.all([
 	getMenuWithCacheHint("juridisch"),
 	getWidgetAreaWithCacheHint("footer"),
 	getEmDashEntry("gegevens", GEGEVENS_SLUG),
 ]);
-if (Astro.cache?.enabled) for (const { cacheHint } of [primary, juridisch, adres, gegevens]) Astro.cache.set(cacheHint);
-const settings = await getSiteSettings();
+if (Astro.cache?.enabled) for (const { cacheHint } of [juridisch, adres, gegevens]) Astro.cache.set(cacheHint);
 
 // A group whose children are all plain links is a column, in menu order.
 function kolommenVan(items: MenuItem[]): MenuItem[] {
@@ -56,15 +49,10 @@ function kolommenVan(items: MenuItem[]): MenuItem[] {
 // The address from Gegevens, then each block of the widget as one line; a block with a link is a link row.
 const widgetRegels = (adres.data?.widgets ?? [])
 	.filter((widget) => widget.type === "content")
-	.flatMap((widget) => (widget.content ?? []) as unknown as Blok[])
+	.flatMap((widget) => (widget.content ?? []) as unknown as PtBlok[])
 	.map((blok) => {
-		const kinderen = blok.children ?? [];
-		const marks = new Set(kinderen.flatMap((kind) => kind.marks ?? []));
-		const link = (blok.markDefs ?? []).find((def) => def._type === "link" && marks.has(def._key));
-		return {
-			tekst: kinderen.map((kind) => kind.text ?? "").join(""),
-			href: link?.href ? sanitizeHref(link.href) : undefined,
-		};
+		const link = linkVan(blok);
+		return { tekst: tekstVan(blok.children), href: link ? sanitizeHref(link) : undefined };
 	});
 const regels = [...adresRegels(gegevens.entry?.data as GegevensData | undefined), ...widgetRegels];
 
@@ -79,7 +67,6 @@ function ditJaar(timeZone: string | undefined) {
 	}
 }
 const jaar = ditJaar(settings.timezone);
-const rel = (target: string | undefined) => (target === "_blank" ? "noopener" : undefined);
 const onderregel = [
 	{ tekst: SITE_NAME, href: undefined },
 	...(juridisch.data?.items ?? []).map((item) => ({ tekst: item.label, href: item.url })),
@@ -114,24 +101,23 @@ const variabelen = Object.entries({
 	.map(([naam, waarde]) => `${naam}:${waarde}`)
 	.join(";");
 // The narrow footer of the column per breakpoint, which footer.css reads below 1242.
-const px = (n: number) => `${n}px`;
 const kolomVars = f.smal
 	? perStand(f.smal, (k) => ({
-			"fk-vak": k.vak.map(px).join(" "),
+			"fk-vak": k.vak.map(pixels).join(" "),
 			"fk-z": String(k.z),
-			"fk-kolommen": k.kolommen.map(px).join(" "),
-			"fk-kolom": px(k.kolom),
-			"fk-boven": px(k.boven),
-			"fk-kop": px(k.kop),
-			"fk-rij": px(k.rij),
-			"fk-regel": px(k.regel),
-			"fk-logo-w": px(k.logo.w),
-			"fk-logo-h": px(k.logo.h),
-			"fk-na-logo": px(k.naLogo),
-			"fk-tussen": px(k.tussen),
-			"fk-onder": k.onder.rand.map(px).join(" "),
-			"fk-onder-gat": px(k.onder.gat),
-			"fk-onder-link": px(k.onder.link),
+			"fk-kolommen": k.kolommen.map(pixels).join(" "),
+			"fk-kolom": pixels(k.kolom),
+			"fk-boven": pixels(k.boven),
+			"fk-kop": pixels(k.kop),
+			"fk-rij": pixels(k.rij),
+			"fk-regel": pixels(k.regel),
+			"fk-logo-w": pixels(k.logo.w),
+			"fk-logo-h": pixels(k.logo.h),
+			"fk-na-logo": pixels(k.naLogo),
+			"fk-tussen": pixels(k.tussen),
+			"fk-onder": k.onder.rand.map(pixels).join(" "),
+			"fk-onder-gat": pixels(k.onder.gat),
+			"fk-onder-link": pixels(k.onder.link),
 		}))
 	: undefined;
 ---
@@ -141,11 +127,11 @@ const kolomVars = f.smal
 	style={kolomVars ? `${variabelen};${kolomVars}` : variabelen}
 >
 	<div class="footer-kolommen">
-		{kolommenVan(primary.data?.items ?? []).map((groep) => (
+		{kolommenVan(items).map((groep) => (
 			<div class="footer-kolom footer-links">
 				<p class={`footer-kop s-${f.stijlen.kop}`}>{`${groep.label}${KOLOM_TEKEN}`}</p>
 				{groep.children.map((item) => (
-					<a class="footer-rij link" href={item.url} target={item.target} rel={rel(item.target)}>
+					<a class="footer-rij link" href={item.url} target={item.target} rel={relVan(item.target)}>
 						<span class={`s-${f.stijlen.link}`}>{item.label}</span>
 					</a>
 				))}

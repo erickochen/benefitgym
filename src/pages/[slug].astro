@@ -1,14 +1,12 @@
 ---
-import { decodeSlug, getEmDashEntry, getSeoMeta, getSiteSettings } from "emdash";
+import { decodeSlug, getSiteSettingsWithCacheHint } from "emdash";
 import Pagina from "../components/Pagina.astro";
 import { strookInKolom, type Layout, type PraktischRegels } from "../layout";
 import praktisch from "../layout/algemeen/praktisch.json";
 import Base from "../layouts/Base.astro";
+import { seoVoor, vindPagina } from "../paginas";
 import { staticUrl as leesStaticUrl } from "../static";
-import { SITE_NAME } from "../teksten";
 
-// Fixed order: a Praktisch page with the slug of a sport page loses to it.
-const COLLECTIONS = ["sportpaginas", "over_ons", "praktisch"] as const;
 // One layout file per page; a page without one shows only its title.
 const LAYOUTS = import.meta.glob<Layout>("../layout/*.json", { eager: true, import: "default" });
 // A Praktisch page without a drawing of its own takes the hero of this page.
@@ -18,38 +16,24 @@ const slug = decodeSlug(Astro.params.slug);
 if (!slug) return Astro.rewrite("/404");
 const staticUrl = leesStaticUrl();
 
-async function findPage(slug: string) {
-	for (const collection of COLLECTIONS) {
-		const { entry, cacheHint } = await getEmDashEntry(collection, slug);
-		// The loader also matches a database id; only the slug is a page address.
-		if (entry && entry.data.id !== slug) return { collection, entry, cacheHint };
-	}
-	return null;
-}
-
-const found = await findPage(slug);
-if (!found) return Astro.rewrite("/404");
-const { collection, entry, cacheHint } = found;
-if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+const gevonden = await vindPagina(slug);
+if (!gevonden) return Astro.rewrite("/404");
+const { collectie, entry, cacheHint } = gevonden;
+const instellingen = await getSiteSettingsWithCacheHint();
+if (Astro.cache?.enabled) for (const hint of [cacheHint, instellingen.cacheHint]) Astro.cache.set(hint);
+const settings = instellingen.data ?? {};
 const eigen = LAYOUTS[`../layout/${slug}.json`];
-const bron = eigen || collection !== "praktisch" ? slug : PRAKTISCH_HERO;
-const layout = eigen ?? (collection === "praktisch" ? LAYOUTS[`../layout/${PRAKTISCH_HERO}.json`] : undefined);
-
-// An SEO title carries the gym name already; a page without one gets it behind its title.
-const ownTitle = (entry.data as { seo?: { title?: string | null } }).seo?.title;
-const settings = await getSiteSettings();
-const seo = getSeoMeta(entry, {
-	siteTitle: ownTitle ? undefined : (settings.title ?? SITE_NAME),
-	siteUrl: Astro.url.origin,
-	path: Astro.url.pathname.replace(/\/$/, ""),
-});
+const bron = eigen || collectie !== "praktisch" ? slug : PRAKTISCH_HERO;
+const layout = eigen ?? (collectie === "praktisch" ? LAYOUTS[`../layout/${PRAKTISCH_HERO}.json`] : undefined);
+const seo = seoVoor(entry, settings, Astro.url.pathname.replace(/\/$/, ""), Astro.url.origin);
 ---
 
 <Base
 	title={seo.title}
 	description={seo.description}
 	canonical={seo.canonical}
-	content={{ collection, id: entry.data.id, slug }}
+	settings={settings}
+	content={{ collection: collectie, id: entry.data.id, slug }}
 	footerOnder={layout?.footer.onder}
 	kolom={layout?.kolom === true}
 	strook={strookInKolom(layout, praktisch as PraktischRegels)}

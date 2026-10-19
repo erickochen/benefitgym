@@ -7,6 +7,7 @@ import { formsPlugin } from "@emdash-cms/plugin-forms";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "astro/config";
 import emdash from "emdash/astro";
+import { PAGINA_COLLECTIES } from "./src/collecties.mjs";
 import { DASHBOARD_ADMIN, DASHBOARD_ID, DASHBOARD_VERSIE } from "./src/plugins/dashboard-id.mjs";
 import { PANEEL_ID, PANEEL_VERSIE } from "./src/plugins/paneel-id.mjs";
 import { ZOEKMACHINES_ID, ZOEKMACHINES_VERSIE } from "./src/plugins/zoekmachines-id.mjs";
@@ -38,15 +39,14 @@ const dashboard = {
 	adminEntry: pad(DASHBOARD_ADMIN),
 };
 
-// A cached page is served this long before it renders again, then this long as a stale copy while it revalidates
-// in the background. A publish purges the page by its tags, so the short lifetime only bounds what changes outside
-// the content API: a form in the panel, a course date that passes, a purge that hit the rate limit.
+// A cached page lives five minutes, then a day as a stale copy while it renders again in the background. A publish
+// purges by tag, so the short lifetime only covers what changes outside the content API.
 const VIJF_MINUTEN = 300;
 const DAG = 86_400;
 // The tag on every cached route that EmDash never purges by itself: the switch to clear everything at once.
 const ALLES = "alles";
-// The page collections, which every route links through the menu and the footer, plus the lists the sections read.
-const PAGINAS = ["sportpaginas", "over_ons", "praktisch"];
+// The lists the sections read. Every route also carries the page collections, which the menu plus the footer link.
+const PAGINAS = PAGINA_COLLECTIES;
 const LIJSTEN = ["reviews", "vragen", "groepen", "cursusdata", "vakanties", "gegevens"];
 const regel = (...tags) => ({ maxAge: VIJF_MINUTEN, swr: DAG, tags: [...tags, ALLES] });
 

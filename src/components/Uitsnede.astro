@@ -1,8 +1,6 @@
 ---
-// A cut-out of the drawing for the column, at the full width with its own ratio, in the size of the screen. Above the
-// column it fetches nothing: a cut-out that loads at once takes its file from a source for the column alone, the
-// others wait as lazy images. The cut-outs of the first section load at once and first, so the largest one on the
-// screen is found early whichever it is.
+// A cut-out of the drawing for the column, at the full width with its own ratio. Above the column it fetches nothing:
+// the cut-outs of the first section come from a source for the column alone, the rest load lazy.
 import { KOLOM_MEDIA, type Laden, LEEG_BEELD, type Maten, reeksVan, UITSNEDE_SIZES } from "../layout";
 
 interface Props {

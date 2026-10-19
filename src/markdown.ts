@@ -1,6 +1,5 @@
-// A page as markdown for an agent that asks for it, as Markdown for Agents of Cloudflare does on a paid plan: front
-// matter from the head, the main element as markdown without scripts, styles or hidden parts, then the JSON-LD as one
-// json block. HTMLRewriter reads the page into a small tree that is written out as markdown.
+// A page as markdown for an agent that asks for it: front matter from the head, the main element as markdown, then
+// the JSON-LD as one json block. HTMLRewriter reads the page into a small tree first.
 
 const MARKDOWN = "text/markdown";
 const HTML = "text/html";

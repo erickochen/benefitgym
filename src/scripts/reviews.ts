@@ -1,6 +1,5 @@
-/* The review carousel. The arrows step one review, a dot on the phone jumps to its own. The rail snaps, so a swipe
-lands on a review too. The arrows plus the dots follow where it lands. A screen reader hears only the review in
-view. From BOLLETJES_MEE reviews on the row of dots slides along, so the current dot stays in view. */
+/* The review carousel: the arrows step one review, a dot on the phone jumps to its own and a swipe snaps to one. From
+BOLLETJES_MEE reviews on the row of dots slides along, so the current dot stays in view. */
 
 // The number of reviews from which the row of dots slides, plus how many dots it shows then.
 export const BOLLETJES_MEE = 14;

@@ -1,10 +1,17 @@
 ---
-// The flow of a Praktisch page below its hero: bands of one color with a brush edge between two of them, the edge into
-// the closing section after a white band, then the closing section the footer lies over. Each block type has its own
-// component, the way the EmDash docs on blocks map them. In the column the strip hangs below the footer.
+// The flow of a Praktisch page below its hero: bands of one color with a brush edge between them, then the closing
+// section the footer lies over. Each block type has its own component.
 import { Blocks, defineBlockComponents } from "emdash/ui";
 import type { PraktischInhoudBlock } from "../../emdash-env";
-import type { Entry, Layout, PraktischRegels, PraktischStand, Stand } from "../layout";
+import {
+	type Entry,
+	type Layout,
+	pixels,
+	type PraktischRegels,
+	type PraktischStand,
+	type Stand,
+	VOOR,
+} from "../layout";
 import data from "../layout/algemeen/praktisch.json";
 import { bandenVan } from "../praktisch";
 import Beeld from "./Beeld.astro";
@@ -33,7 +40,6 @@ const componenten = defineBlockComponents<PraktischInhoudBlock>({
 	lesrooster: Lesrooster,
 });
 const m = (n: number) => `calc(${n} * var(--s))`;
-const px = (n: number) => `${n}px`;
 const r = regels;
 // The measures that differ per breakpoint, by the name of their custom property.
 const PER_STAND: [string, (maten: PraktischStand) => number][] = [
@@ -58,8 +64,6 @@ const PER_STAND: [string, (maten: PraktischStand) => number][] = [
 	["rooster-ruimte", (x) => x.rooster.ruimte],
 	["rooster-gat", (x) => x.rooster.gat],
 ];
-// The prefix of each breakpoint of the column, the one basis.css uses.
-const VOOR: Record<Stand, string> = { tablet: "t", phone: "p" };
 const standen = r.standen;
 // Every measure as a custom property, so praktisch.css holds the rules and praktisch.json the numbers. Desktop scales
 // with the page; the column takes the pixels of its breakpoint.
@@ -78,7 +82,7 @@ const maten = Object.entries({
 	...(standen
 		? Object.fromEntries(
 				(Object.keys(VOOR) as Stand[]).flatMap((stand) => [
-					...PER_STAND.map(([naam, waarde]) => [`--${VOOR[stand]}-p-${naam}`, px(waarde(standen[stand]))]),
+					...PER_STAND.map(([naam, waarde]) => [`--${VOOR[stand]}-p-${naam}`, pixels(waarde(standen[stand]))]),
 					[`--${VOOR[stand]}-p-overgang-verhouding`, standen[stand].overgang.verhouding],
 					[`--${VOOR[stand]}-p-strook-verhouding`, standen[stand].slot.verhouding],
 				]),

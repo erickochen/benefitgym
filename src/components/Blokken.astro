@@ -10,11 +10,13 @@ import Uitklap from "./Uitklap.astro";
 
 interface Props {
 	blokken: Blok[];
+	// The section the blocks lie in, which names the ids of the FAQ.
+	naam: string;
 	entry: Entry;
 	staticUrl: string;
 }
 
-const { blokken, entry, staticUrl } = Astro.props;
+const { blokken, naam, entry, staticUrl } = Astro.props;
 ---
 
 {blokken.map((blok) =>
@@ -27,7 +29,7 @@ const { blokken, entry, staticUrl } = Astro.props;
 	) : blok.soort === "uitklap" ? (
 		<Uitklap blok={blok} entry={entry} />
 	) : blok.soort === "faq" ? (
-		<Faq blok={blok} />
+		<Faq blok={blok} naam={naam} />
 	) : (
 		<Tekst blok={blok} entry={entry} />
 	),

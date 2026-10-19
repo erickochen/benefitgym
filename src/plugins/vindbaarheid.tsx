@@ -1,6 +1,5 @@
-// The page Vindbaarheid: every page of the site with what Google, WhatsApp and AI search services get from it, its
-// stand, a strip that edits it in place plus the block for the whole site. The rows follow the sidebar: one group per
-// page collection, the pages by name.
+// The page Vindbaarheid: every page with what Google, WhatsApp plus AI search services get from it, a strip that edits
+// it in place and the block for the whole site.
 import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { SITE_NAME } from "../teksten";
 import { DASHBOARD_ID } from "./dashboard-id.mjs";
@@ -182,6 +181,7 @@ export function Vindbaarheid() {
 	const alle = groepen.flatMap((g) => g.rijen);
 	const aantalCompleet = alle.filter((r) => r.stand.compleet).length;
 	const siteTitel = compleet.instellingen?.title ?? SITE_NAME;
+	const scheiding = compleet.instellingen?.seo?.titleSeparator;
 
 	// A strip closes its own row only. The focus goes back to the Bewerk button of that row, or to the filter when the
 	// filter hides the closed row.
@@ -262,7 +262,7 @@ export function Vindbaarheid() {
 								const anker = rijAnker(collectie, rij.item.id);
 								const isOpen = open === anker;
 								const seo = rij.item.seo;
-								const titel = seo?.title || terugvalTitel(rij.item, siteTitel);
+								const titel = seo?.title || terugvalTitel(rij.item, siteTitel, scheiding);
 								return (
 									<Fragment key={anker}>
 										<div id={anker} className={`vind-rij${isOpen ? " vind-open" : ""}`} role="row">

@@ -1,6 +1,5 @@
-// The dashboard cards of the site: the tasks the owner does most with the rules a label cannot carry, what is saved
-// but not yet on the site plus every page in one table. The cards borrow the classes of the admin's own lists, which
-// its stylesheet carries. A row opens the page in its usual editor.
+// The dashboard cards of the site: the frequent tasks, what is saved but not on the site yet plus every page in one
+// table. The cards borrow the classes of the admin's own lists.
 import { type ComponentType } from "react";
 import { ADMIN, bewerkPad, useLading } from "./paneel-data";
 import {
@@ -197,9 +196,8 @@ function NogNietOpDeSite() {
 	);
 }
 
-// Every page under a heading per kind, as the sidebar names them, with its status, its last change, its stand for
-// search engines with a link to the page Vindbaarheid plus a link to it on the site. Without the menu the stand cannot
-// be judged and its cell stays empty.
+// Every page under a heading per kind with its status, last change, stand for search engines plus a link to it on the
+// site. Without the menu the stand cell stays empty.
 function Paginas() {
 	const { lading, fout } = useLading();
 	if (fout) return <p className={MELDING}>{fout}</p>;

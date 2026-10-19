@@ -1,6 +1,5 @@
-// Two safety nets for the owner, through the save hook of EmDash. A collection the theme reads on one fixed slug
-// refuses a second entry, because that entry would never show. A group takes its name from its sport, day plus time,
-// so the list reads without its columns.
+// Two safety nets through the save hook: a collection the theme reads on one slug refuses a second entry, and a group
+// takes its name from its sport, day plus time.
 import {
 	ContentSaveRejectedError,
 	definePlugin,
@@ -45,13 +44,14 @@ async function naamVan(event: ContentHookEvent, ctx: PluginContext): Promise<Rec
 	let groep = event.content as { sport?: string; dag?: string; tijd?: string };
 	if (!NAAM_VELDEN.every((k) => k in event.content)) {
 		const opgeslagen = event.id && ctx.content ? await ctx.content.get(GROEPEN, event.id) : null;
-		if (!opgeslagen || heeftConcept(opgeslagen)) return {};
+		if (!opgeslagen || heeftNieuwerConcept(opgeslagen)) return {};
 		groep = { ...opgeslagen.data, ...event.content };
 	}
 	return { [NAAM]: groepNaam(groep) };
 }
 
-const heeftConcept = (item: { liveRevisionId?: string | null; draftRevisionId?: string | null }) =>
+// A draft past the live revision, also on an entry that was never published; the dashboard counts live entries only.
+const heeftNieuwerConcept = (item: { liveRevisionId?: string | null; draftRevisionId?: string | null }) =>
 	Boolean(item.draftRevisionId && item.draftRevisionId !== item.liveRevisionId);
 
 // Duplicating skips the save hook, so a copy of a single entry page can exist; it never goes live.

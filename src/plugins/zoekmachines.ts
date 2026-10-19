@@ -1,7 +1,5 @@
-// The structured data of the site through the page:metadata hook, the route the EmDash docs give for replacing
-// JSON-LD. On / the graph of the gym plus the website, on a sport page a Service or a Course, elsewhere no block.
-// Every address follows EMDASH_SITE_URL. The site name plus the language go in og:site_name and og:locale.
-// After a publish or an unpublish on the production host the page goes to IndexNow, see vindbaarheid-regels.ts.
+// The structured data through the page:metadata hook: the graph of the gym on /, a Service or a Course on a sport
+// page, nothing elsewhere. After a publish on the production host the page goes to IndexNow.
 import { env } from "cloudflare:workers";
 import {
 	definePlugin,
@@ -15,7 +13,7 @@ import {
 } from "emdash";
 import { GEGEVENS_SLUG, type GegevensData, internationaal, profielen } from "../gegevens";
 import { siteUrl } from "../site-url";
-import { adresVan, indexNowVerzoek, magMelden } from "./vindbaarheid-regels";
+import { adresVan, indexNowVerzoek, leeg, magMelden } from "./vindbaarheid-regels";
 import { ZOEKMACHINES_ID, ZOEKMACHINES_VERSIE } from "./zoekmachines-id.mjs";
 
 const SCHEMA = "https://schema.org";
@@ -40,8 +38,6 @@ interface Zoekmachines {
 	zoek_duur?: number;
 	zoek_andere_naam?: string;
 }
-
-const leeg = (w: unknown) => w === undefined || w === null || w === "";
 
 // Validators prefer an absent key over an empty one.
 function schoon<T>(w: T): T {
@@ -176,7 +172,7 @@ interface Melding {
 	status: number | "fout";
 }
 
-const sleutel = () => (env as { INDEXNOW_KEY?: string }).INDEXNOW_KEY;
+const sleutel = () => env.INDEXNOW_KEY;
 
 // Three gates, each with its own reason; a closed gate sends nothing and only logs why.
 async function meld(event: ContentPublishStateChangeEvent, ctx: PluginContext): Promise<void> {

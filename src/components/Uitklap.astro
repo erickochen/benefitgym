@@ -1,7 +1,6 @@
 ---
-// The explainer as a details element. The summary sits on the measured place of the button; the text lies in flow
-// where its section is cut, or hangs as a card. Open on desktop it is a dark band or a white card, in the column a
-// white block in flow. A button at its foot closes it again.
+// The explainer as a details element: the summary on the measured place of the button, the text in flow at the cut of
+// its section or hanging as a card. A button at its foot closes it again.
 import type { PortableTextBlock } from "emdash";
 import { PortableText } from "emdash/ui";
 import { type Blok, type Entry, blokStijl, plekVan, waarde } from "../layout";
@@ -13,6 +12,8 @@ interface Props {
 }
 
 const { blok, entry } = Astro.props;
+// The id of the summary, which names the text; the field is unique on its page.
+const knopId = `uitklap-${blok.veld}`;
 const knop = `${blokStijl(blok)};gap:calc(${blok.pijl.gat} * var(--s))`;
 const pijl = `width:calc(${blok.pijl.w} * var(--s));height:calc(${blok.pijl.w} * var(--s))`;
 const vak = [
@@ -23,7 +24,7 @@ const vak = [
 ---
 
 <details class="uitklap" data-stand={blok.kaart ? "kaart" : "band"}>
-	<summary id="uitklap-knop" class={`blok uitklap-knop s-${blok.stijl}`} style={knop}>
+	<summary id={knopId} class={`blok uitklap-knop s-${blok.stijl}`} style={knop}>
 		<span {...entry.edit[blok.veld]}>{waarde(entry, blok.veld) as string}</span>
 		<svg viewBox="0 0 12 12" aria-hidden="true" style={pijl}>
 			<polyline points="1.5,4 6,8.5 10.5,4" fill="none" stroke="currentColor" stroke-width="2"></polyline>
@@ -33,7 +34,7 @@ const vak = [
 		class:list={["uitklap-tekst", blok.kaart && "blok"]}
 		style={vak}
 		role="region"
-		aria-labelledby="uitklap-knop"
+		aria-labelledby={knopId}
 		tabindex={blok.kaart ? "-1" : undefined}
 	>
 		<div class="uitklap-vlak">

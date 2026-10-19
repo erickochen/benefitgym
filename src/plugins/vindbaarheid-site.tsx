@@ -1,6 +1,6 @@
-// The block under the table: what every page shares. The details of the gym from the list Gegevens, the choices for
-// search engines and AI from the settings plus the state of IndexNow. Gegevens is read once on opening and after each
-// save, so a save on top of a change in its form is refused.
+// The block under the table: the details of the gym from Gegevens, the choices for search engines plus AI from the
+// settings and the state of IndexNow. Gegevens is read on opening and after each save, so a save over a change in its
+// form is refused.
 import { useEffect, useState, type ReactNode } from "react";
 import { Beeldkiezer, padVan } from "./beeldkiezer";
 import { KnopPrimair } from "./knop-primair";

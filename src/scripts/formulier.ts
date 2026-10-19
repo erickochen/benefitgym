@@ -1,10 +1,6 @@
-/* A form of the forms plugin. The browser checks every field on sending; the message is the Dutch one of the field,
-under it plus in the browser's own bubble. A field without one keeps the browser's message. The first error in the
-form is announced. A field with an error checks itself again on every change plus when it loses focus. A valid form
-goes as JSON to the submit route of the plugin, with the Turnstile token when the form asks for one. When Turnstile
-asks the visitor something, its box stands above the button and a send waits for the answer. The button turns
-a ring while it goes and shows the confirmation from the panel once it arrived, until a field changes. An error of the
-plugin on a field becomes the message of that field; any other failure shows one line below the button. */
+/* A form of the forms plugin: the browser checks every field with the Dutch message of the field, then the form goes
+as JSON to the submit route with its files as base64 plus the Turnstile token. The button turns a ring while it goes
+and shows the confirmation from the panel once it arrived. */
 
 // The answer of the submit route, as the plugin's own client reads it.
 interface Antwoord {
@@ -19,6 +15,21 @@ const TOKEN_WACHT = 10000;
 const TOKEN_STAP = 100;
 // The width of the normal widget; a narrower form gets the compact one.
 const TURNSTILE_BREED = 300;
+// A file without a type goes as plain bytes; String.fromCharCode takes this many characters at once.
+const BINAIR = "application/octet-stream";
+const STUK = 0x8000;
+
+interface Bestand {
+	filename: string;
+	contentType: string;
+	bytes: string;
+}
+
+function naarBase64(bytes: Uint8Array): string {
+	let binair = "";
+	for (let i = 0; i < bytes.length; i += STUK) binair += String.fromCharCode(...bytes.subarray(i, i + STUK));
+	return btoa(binair);
+}
 
 interface Turnstile {
 	render(element: HTMLElement, opties: Record<string, unknown>): string;
@@ -209,10 +220,7 @@ export function zetFormulier(form: HTMLFormElement, meldingen: Record<string, st
 	};
 
 	let bezig = false;
-	// A file goes only as multipart, so a form with a file field keeps the browser's own post.
-	const bestand = Boolean(form.querySelector('input[type="file"]'));
 	form.addEventListener("submit", async (e) => {
-		if (bestand) return;
 		e.preventDefault();
 		// A form that went or arrived waits for a change before it goes again.
 		if (bezig || klaar) return;
@@ -223,10 +231,16 @@ export function zetFormulier(form: HTMLFormElement, meldingen: Record<string, st
 		try {
 			if (!(await wachtOpToken())) throw new Error("geen token");
 			const data: Record<string, unknown> = {};
+			const files: Record<string, Bestand> = {};
 			let formId = "";
 			for (const [naam, waarde] of new FormData(form)) {
-				if (typeof waarde !== "string") continue;
-				if (naam === "formId") formId = waarde;
+				if (typeof waarde !== "string") {
+					// An empty file input still sends a file without a name or bytes.
+					if (waarde.size > 0) {
+						const bytes = naarBase64(new Uint8Array(await waarde.arrayBuffer()));
+						files[naam] = { filename: waarde.name, contentType: waarde.type || BINAIR, bytes };
+					}
+				} else if (naam === "formId") formId = waarde;
 				else if (naam in data) data[naam] = [...([] as unknown[]).concat(data[naam]), waarde];
 				else data[naam] = waarde;
 			}
@@ -234,7 +248,7 @@ export function zetFormulier(form: HTMLFormElement, meldingen: Record<string, st
 			const verzoek = fetch(form.action, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ formId, data }),
+				body: JSON.stringify(Object.keys(files).length ? { formId, data, files } : { formId, data }),
 			});
 			if (token) vernieuw();
 			const r = await verzoek;

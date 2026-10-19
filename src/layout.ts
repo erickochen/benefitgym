@@ -101,7 +101,8 @@ export const DESKTOP_MEDIA = `not all and ${KOLOM_MEDIA}`;
 export const LEEG_BEELD = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
 export type Stand = "tablet" | "phone";
 export type PerStand<T> = Record<Stand, T>;
-const VOOR: Record<Stand, string> = { tablet: "t", phone: "p" };
+// The prefix of the custom properties of each breakpoint, the one the stylesheets read.
+export const VOOR: Record<Stand, string> = { tablet: "t", phone: "p" };
 
 // A width in the column: the rest of the row, the text's own width, fixed pixels or the row up to a maximum.
 export type Breedte = "vul" | "inhoud" | number | { max: number };
@@ -167,9 +168,8 @@ const ONTWERP_BREEDTE = 1242;
 export const TEKENING_SIZES = `${ONTWERP_BREEDTE}px`;
 export const UITSNEDE_SIZES = "100vw";
 
-// A band holds its blocks; above 1242 it takes no box, so each block lies on the drawing. A cut-out of another page,
-// as a Praktisch hero shows from its source, names that page. A tile holds bands of its own. A portrait names the
-// field of its person, which stands in when its alt text is empty.
+// A band holds its blocks; above 1242 it takes no box, so each block lies on the drawing. A cut-out of another page
+// names that page, a tile holds bands of its own and a portrait names the field of its person.
 export interface Band {
 	blokken: Blok[];
 	uitsnede?: { bestand: string; pagina?: string; alt?: string; altNaam?: string } & Maten;
@@ -192,7 +192,7 @@ export function rasterVars(raster: PerStand<RasterMaat>): string {
 	}));
 }
 
-const pixels = (n: number) => `${n}px`;
+export const pixels = (n: number) => `${n}px`;
 
 export function perStand<T>(kolom: PerStand<T>, waarden: (maat: T) => Record<string, string | undefined>): string {
 	return (Object.keys(VOOR) as Stand[])

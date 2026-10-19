@@ -4,7 +4,8 @@
 	"main": "./src/worker.ts",
 	"compatibility_date": "2026-02-24",
 	"compatibility_flags": ["nodejs_compat"],
-	// The site only answers on its custom domain, which sits behind Cloudflare Access.
+	// The site only answers on its custom domain, which sits behind Cloudflare Access. The edge cache keys on the
+	// Worker version, so every deploy starts empty: cache.cross_version_cache stays off on purpose.
 	"workers_dev": false,
 	"preview_urls": false,
 	"routes": [{ "pattern": "staging.benefitgym.nl", "custom_domain": true }],

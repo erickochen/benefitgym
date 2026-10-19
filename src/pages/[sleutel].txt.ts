@@ -8,7 +8,7 @@ export const prerender = false;
 const NIET_GEVONDEN = 404;
 
 export const GET: APIRoute = ({ params }) => {
-	const sleutel = (env as { INDEXNOW_KEY?: string }).INDEXNOW_KEY;
+	const sleutel = env.INDEXNOW_KEY;
 	if (!sleutel || params.sleutel !== sleutel) return new Response(null, { status: NIET_GEVONDEN });
 	return new Response(sleutel, { headers: { "Content-Type": "text/plain; charset=utf-8" } });
 };

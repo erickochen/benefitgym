@@ -1,7 +1,6 @@
 ---
-// One section at its measured height: the drawing with the bands on top, or an empty built section.
-// A cut section stacks its upper part, the explainer's text in flow plus the part below, each showing its slice of one drawing.
-// Below 1242 the section is a column of its bands and the drawing goes.
+// One section at its measured height: the drawing with the bands on top, or an empty built section. A cut section
+// stacks its parts around the explainer's text; below 1242 the section is a column of its bands.
 import { type Entry, type Laden, type Sectie, altVan, bandVars, rasterVars } from "../layout";
 import Band from "./Band.astro";
 import GebouwdeSectie from "./GebouwdeSectie.astro";
@@ -53,7 +52,7 @@ const venster = (vanaf: number) => `top:calc(${-vanaf} * var(--s));height:calc($
 				)}
 			</div>
 			{boven.map((band) => (
-				<Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} laden={laden} />
+				<Band band={band} naam={sectie.naam} entry={entry} slug={slug} staticUrl={staticUrl} laden={laden} />
 			))}
 		</div>
 		{uitklap?.soort === "uitklap" && (
@@ -79,7 +78,7 @@ const venster = (vanaf: number) => `top:calc(${-vanaf} * var(--s));height:calc($
 					)}
 				</div>
 				{snede.banden.map((band) => (
-					<Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} laden="lazy" />
+					<Band band={band} naam={sectie.naam} entry={entry} slug={slug} staticUrl={staticUrl} laden="lazy" />
 				))}
 			</div>
 		)}
@@ -91,7 +90,7 @@ const venster = (vanaf: number) => `top:calc(${-vanaf} * var(--s));height:calc($
 	>
 		{tekening && <Tekening src={tekening.src} maten={tekening.maten} alt={alt} eerste={eerste} kolom={kolom} />}
 		{boven.map((band) => (
-			<Band band={band} entry={entry} slug={slug} staticUrl={staticUrl} laden={laden} />
+			<Band band={band} naam={sectie.naam} entry={entry} slug={slug} staticUrl={staticUrl} laden={laden} />
 		))}
 	</section>
 )}

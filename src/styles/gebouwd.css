@@ -1,0 +1,116 @@
+/* A built section: the band reaches over the drawing above, the content stands on top of both.
+   Its own box holds the content's negative margin, so the section itself stays where it is. */
+.gebouwd {
+	display: flow-root;
+}
+
+.gebouwd-dek {
+	position: absolute;
+	left: 0;
+	top: calc(-1 * var(--g-dek));
+	width: 100%;
+	height: var(--g-dek);
+}
+
+/* At least as tall as measured or as the content it follows. */
+.gebouwd-inhoud {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	box-sizing: border-box;
+	margin-top: calc(-1 * var(--g-dek));
+	min-height: var(--g-volg, var(--g-min));
+	padding: var(--g-rand);
+	gap: var(--g-gat);
+}
+
+.gebouwd-tekst,
+.gebouwd-formulier {
+	flex: none;
+	width: var(--g-kolom);
+}
+
+/* The room the footer lies over. */
+.gebouwd-ruimte {
+	height: var(--g-ruimte);
+}
+
+.gebouwd-tekst > h2,
+.gebouwd-tekst > p,
+.gebouwd-bellen > p {
+	margin: 0;
+}
+
+.gebouwd-bellen {
+	display: flex;
+	align-items: center;
+	width: fit-content;
+}
+
+/* Below the footer, along the foot of the section. */
+.gebouwd-strook {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: var(--g-strook);
+}
+
+.gebouwd-strook img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* In the column the content stands in the stack with the padding plus the gap of its breakpoint, its two columns
+   under each other; the footer plus the strip follow it. */
+@media (min-width: 810px) and (max-width: 1241.98px) {
+	.met-kolom .gebouwd {
+		--g-k-rand: var(--t-g-rand);
+		--g-k-gat: var(--t-g-gat);
+	}
+}
+
+@media (max-width: 809.98px) {
+	.met-kolom .gebouwd {
+		--g-k-rand: var(--p-g-rand);
+		--g-k-gat: var(--p-g-gat);
+	}
+}
+
+@media (max-width: 1241.98px) {
+	.met-kolom .gebouwd-dek,
+	.met-kolom .gebouwd-ruimte {
+		display: none;
+	}
+
+	.met-kolom .gebouwd-inhoud {
+		flex-direction: column;
+		align-items: stretch;
+		margin-top: 0;
+		min-height: 0;
+		padding: var(--g-k-rand);
+		gap: var(--g-k-gat);
+	}
+
+	.met-kolom .gebouwd-tekst,
+	.met-kolom .gebouwd-formulier {
+		width: auto;
+	}
+
+	.met-kolom .formulier-knop {
+		align-self: stretch;
+		width: auto;
+	}
+
+	.met-kolom .formulier-tegels.los {
+		display: flex;
+		flex-direction: column;
+	}
+
+	/* The footer follows the page in the column, so the strip below it follows the column, from the page layout. */
+	.met-kolom .gebouwd-strook {
+		display: none;
+	}
+}
