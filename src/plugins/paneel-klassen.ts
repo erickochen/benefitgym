@@ -4,9 +4,9 @@
 export const BADGE =
 	"inline-flex w-fit flex-none shrink-0 items-center justify-self-start rounded-full px-2 py-0.5 text-xs font-medium whitespace-nowrap";
 // The colors of the admin's own status badges.
-export const GROEN = "bg-kumo-success-tint/70 text-kumo-success";
-export const ORANJE = "bg-kumo-warning-tint/70 text-kumo-warning";
-export const BLAUW = "bg-kumo-info-tint/70 text-kumo-info";
+export const GROEN = "bg-kumo-success-tint text-kumo-success";
+export const ORANJE = "bg-kumo-warning-tint text-kumo-warning";
+export const BLAUW = "bg-kumo-info-tint text-kumo-info";
 export const GRIJS = "bg-kumo-fill text-kumo-badge-neutral-subtle";
 
 // The cells are tighter than in the admin's own lists and stay on one line.
@@ -25,7 +25,7 @@ export const PAGINA_KOP = "text-2xl font-semibold leading-tight";
 // The primary button of Kumo: its classes, the two colors it sets inline, the gradient layer plus the layer of the
 // label above it.
 export const KNOP_PRIMAIR =
-	"group flex w-max shrink-0 items-center font-medium select-none border-0 shadow-xs focus:outline-none focus:ring-kumo-focus/50 focus-visible:ring-2 focus-visible:ring-kumo-brand cursor-pointer disabled:cursor-not-allowed disabled:text-kumo-subtle h-9 gap-1.5 rounded-lg px-3 text-base relative overflow-hidden bg-(--kumo-button-emphasis-bg) !text-white ring ring-(--kumo-button-emphasis-ring) disabled:opacity-50";
+	"group flex w-max shrink-0 items-center font-medium select-none border-0 shadow-xs focus:outline-none focus-visible:ring-2 cursor-pointer disabled:cursor-not-allowed disabled:text-kumo-subtle h-9 gap-1.5 rounded-lg px-3 text-base relative overflow-hidden bg-(--kumo-button-emphasis-bg) !text-white ring ring-(--kumo-button-emphasis-ring) focus:ring-(--kumo-button-emphasis-ring) focus-visible:ring-(--kumo-button-emphasis-ring) active:ring-(--kumo-button-emphasis-ring) disabled:opacity-50 pb-0.5 [--kumo-button-text-lift:1px]";
 export const KNOP_PRIMAIR_KLEUR: Record<string, string> = {
 	"--kumo-button-emphasis-ring": "color-mix(in oklch, var(--color-kumo-brand), black 10%)",
 	"--kumo-button-emphasis-bg": "color-mix(in oklch, var(--color-kumo-brand), white 30%)",
@@ -33,7 +33,7 @@ export const KNOP_PRIMAIR_KLEUR: Record<string, string> = {
 	"--kumo-button-emphasis-gradient-end": "var(--color-kumo-brand)",
 };
 export const KNOP_PRIMAIR_VERLOOP =
-	"absolute inset-0 rounded-[inherit] bg-linear-to-b from-(--kumo-button-emphasis-gradient-start) to-(--kumo-button-emphasis-gradient-end) translate-y-px group-hover:from-(--kumo-button-emphasis-bg)";
+	"absolute inset-0 rounded-[inherit] bg-linear-to-b from-(--kumo-button-emphasis-gradient-start) to-(--kumo-button-emphasis-gradient-end) shadow-[inset_0_1px_0_0_var(--kumo-button-emphasis-bg)] group-hover:from-(--kumo-button-emphasis-bg)";
 export const KNOP_PRIMAIR_INHOUD = "relative flex items-center gap-1.5";
 export const KNOP_UIT = "cursor-not-allowed opacity-50";
 
@@ -47,7 +47,7 @@ export const INVOER =
 export const TEKSTVAK =
 	"border-0 bg-kumo-control text-kumo-default ring ring-kumo-line outline-none focus:outline-none kumo-input-placeholder gap-1.5 rounded-lg px-3 text-base focus:ring-kumo-focus/50 focus:ring-[1.5px] h-auto py-2";
 export const KEUZE =
-	"flex w-max items-center select-none appearance-none border-0 shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand cursor-pointer h-9 gap-1.5 rounded-lg px-3 pr-9 text-base bg-kumo-base text-kumo-default ring ring-kumo-line font-normal focus:ring-kumo-focus/50";
+	"flex w-max items-center select-none appearance-none border-0 shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand cursor-pointer h-9 gap-1.5 rounded-lg px-3 pr-9 text-base bg-kumo-control text-kumo-default ring ring-kumo-line font-normal focus:ring-kumo-focus/50";
 export const PIJLTJE =
 	"pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 flex items-center text-kumo-subtle";
 export const SCHAKELAAR =

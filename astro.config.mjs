@@ -76,6 +76,9 @@ export default defineConfig({
 			storage: r2({ binding: "MEDIA" }),
 			// Query results in KV, so a render that does run reads less from D1.
 			objectCache: kvCache({ binding: "CACHE" }),
+			// A deployed site never migrates its own database: it answers 503 until `emdash migrate` has run. The dev
+			// server migrates by itself.
+			migrations: { runtime: "check", dev: "auto" },
 			// Public HTML is the same for everyone; an editor gets an Edit button that opens the page fresh.
 			toolbar: "client",
 			// The language picker offers Dutch plus the English fallback instead of every language EmDash ships.
