@@ -99,7 +99,7 @@ function Status({ item }: { item: Item }) {
 		<span className="inline-flex items-center gap-1.5">
 			<span className={`${BADGE} ${status.kleur}`}>{status.label}</span>
 			{heeftConcept(item) && (
-				<span className={`${BADGE} ${ORANJE} cursor-help`} title={OPEN_CONCEPT}>
+				<span className={`${BADGE} ${ORANJE}`} style={{ cursor: "help" }} title={OPEN_CONCEPT}>
 					{STATUS.draft.label}
 				</span>
 			)}
