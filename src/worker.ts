@@ -5,10 +5,9 @@ export { PluginBridge };
 
 // From this status on a response is a failed render, which the edge cache must not keep for the lifetime of its route.
 const SERVERFOUT = 500;
-// The media route of the panel serves the favicon, the logo plus the photos, which EmDash answers with max-age=0. A
-// file keeps its address when replaced, so the edge keeps it a day and a browser an hour.
+// The media route of the panel serves the favicon, the logo plus the photos. EmDash keeps an image at the edge and purges
+// it there when replaced, but tells a browser to ask again every time, so a browser keeps a file an hour.
 const MEDIA_PAD = "/_emdash/api/media/file/";
-const MEDIA_EDGE_SECONDEN = 86_400;
 const MEDIA_BROWSER_SECONDEN = 3_600;
 const OK = 200;
 const NIET_GEWIJZIGD = 304;
@@ -31,10 +30,9 @@ function isMedia(request: Request, antwoord: Response): boolean {
 	);
 }
 
-/** The media file with the lifetimes above; its validators stay, so a browser can still ask whether it changed. */
+/** The media file with the browser lifetime above; its validators stay, so a browser can still ask whether it changed. */
 function metMediaCache(antwoord: Response): Response {
 	const headers = new Headers(antwoord.headers);
-	headers.set("Cloudflare-CDN-Cache-Control", `public, max-age=${MEDIA_EDGE_SECONDEN}`);
 	headers.set("Cache-Control", `public, max-age=${MEDIA_BROWSER_SECONDEN}`);
 	return new Response(antwoord.body, { status: antwoord.status, statusText: antwoord.statusText, headers });
 }
