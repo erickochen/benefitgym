@@ -1,5 +1,6 @@
 // A field with a sentence under it, for the three fields whose label cannot say what they do. The controls copy the
 // classes of the admin's own controls, which its stylesheet carries, so the field looks like its neighbors.
+import { useSyncExternalStore } from "react";
 import {
 	CARET,
 	INVOER,
@@ -43,7 +44,22 @@ const UITLEG: Record<string, { soort: Soort; zin: string }> = {
 		zin: "Een vraag klapt open op zijn vraag. Een inleiding toont alleen de tekst, zonder vraag erboven.",
 	},
 };
-const OPTIONEEL = "(optional)";
+// The marker that Kumo puts on an optional label, per admin language, word for word from the admin's own catalog.
+const OPTIONEEL: Record<string, string> = { nl: "(optioneel)" };
+const OPTIONEEL_ENGELS = "(optional)";
+
+// The admin keeps the lang of the page on its active language and switches it without a reload.
+function volgTaal(melden: () => void) {
+	const kijker = new MutationObserver(melden);
+	kijker.observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
+	return () => kijker.disconnect();
+}
+const leesTaal = () => document.documentElement.lang;
+const geenTaal = () => "";
+
+function useTaal(): string {
+	return useSyncExternalStore(volgTaal, leesTaal, geenTaal);
+}
 
 function Zin({ id, zin }: { id: string; zin: string }) {
 	return (
@@ -54,6 +70,7 @@ function Zin({ id, zin }: { id: string; zin: string }) {
 }
 
 export function Uitleg({ value, onChange, label, id, required, options, minimal }: Veld) {
+	const optioneel = OPTIONEEL[useTaal().split("-")[0]] ?? OPTIONEEL_ENGELS;
 	const slug = id.startsWith(VELD) ? id.slice(VELD.length) : id;
 	const uitleg = UITLEG[slug];
 	const zinId = `${id}-uitleg`;
@@ -127,7 +144,7 @@ export function Uitleg({ value, onChange, label, id, required, options, minimal 
 			<label htmlFor={id} className={labelKlasse}>
 				<span className="inline-flex items-center gap-1">
 					<span>{label}</span>
-					{!required && <span className="font-normal text-kumo-subtle">{OPTIONEEL}</span>}
+					{!required && <span className="font-normal text-kumo-subtle">{optioneel}</span>}
 				</span>
 			</label>
 			<input

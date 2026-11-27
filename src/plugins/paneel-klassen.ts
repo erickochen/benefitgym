@@ -25,7 +25,7 @@ export const PAGINA_KOP = "text-2xl font-semibold leading-tight";
 // The primary button of Kumo: its classes, the two colors it sets inline, the gradient layer plus the layer of the
 // label above it.
 export const KNOP_PRIMAIR =
-	"group flex w-max shrink-0 items-center font-medium select-none border-0 shadow-xs focus:outline-none focus-visible:ring-2 cursor-pointer disabled:cursor-not-allowed disabled:text-kumo-subtle h-9 gap-1.5 rounded-lg px-3 text-base relative overflow-hidden bg-(--kumo-button-emphasis-bg) !text-white ring ring-(--kumo-button-emphasis-ring) focus:ring-(--kumo-button-emphasis-ring) focus-visible:ring-(--kumo-button-emphasis-ring) active:ring-(--kumo-button-emphasis-ring) disabled:opacity-50 pb-0.5 [--kumo-button-text-lift:1px]";
+	"group flex w-max shrink-0 items-center font-medium select-none border-0 shadow-xs focus:outline-hidden focus-visible:ring-2 cursor-pointer disabled:cursor-not-allowed disabled:text-kumo-subtle h-9 gap-1.5 rounded-lg px-3 text-base leading-5 relative overflow-hidden bg-(--kumo-button-emphasis-bg) !text-white ring ring-(--kumo-button-emphasis-ring) focus:ring-(--kumo-button-emphasis-ring) focus-visible:ring-(--kumo-button-emphasis-ring) active:ring-(--kumo-button-emphasis-ring) disabled:opacity-50";
 export const KNOP_PRIMAIR_KLEUR: Record<string, string> = {
 	"--kumo-button-emphasis-ring": "color-mix(in oklch, var(--color-kumo-brand), black 10%)",
 	"--kumo-button-emphasis-bg": "color-mix(in oklch, var(--color-kumo-brand), white 30%)",
@@ -42,16 +42,16 @@ export const LABEL = "m-0 select-none text-base font-medium text-kumo-default";
 export const LABEL_KLEIN = "text-kumo-subtle/50 text-xs font-normal";
 export const ZIN = "text-sm leading-snug text-kumo-subtle col-span-full";
 export const INVOER =
-	"border-0 bg-kumo-control text-kumo-default ring ring-kumo-line outline-none focus:outline-none kumo-input-placeholder h-9 gap-1.5 rounded-lg px-3 text-base focus:ring-kumo-focus/50 focus:ring-[1.5px]";
+	"border-0 bg-kumo-control text-kumo-default ring ring-kumo-line outline-none focus:outline-hidden kumo-input-placeholder h-9 gap-1.5 rounded-lg px-3 text-base focus:ring-kumo-focus/50 focus:ring-[1.5px]";
 // The text area of Kumo: the input with an automatic height plus room above and below.
 export const TEKSTVAK =
-	"border-0 bg-kumo-control text-kumo-default ring ring-kumo-line outline-none focus:outline-none kumo-input-placeholder gap-1.5 rounded-lg px-3 text-base focus:ring-kumo-focus/50 focus:ring-[1.5px] h-auto py-2";
+	"border-0 bg-kumo-control text-kumo-default ring ring-kumo-line outline-none focus:outline-hidden kumo-input-placeholder gap-1.5 rounded-lg px-3 text-base focus:ring-kumo-focus/50 focus:ring-[1.5px] h-auto py-2";
 export const KEUZE =
-	"flex w-max items-center select-none appearance-none border-0 shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand cursor-pointer h-9 gap-1.5 rounded-lg px-3 pr-9 text-base bg-kumo-control text-kumo-default ring ring-kumo-line font-normal focus:ring-kumo-focus/50";
+	"flex w-max items-center select-none appearance-none border-0 shadow-xs focus:outline-hidden focus-visible:ring-2 focus-visible:ring-kumo-brand cursor-pointer h-9 gap-1.5 rounded-lg px-3 pr-9 text-base leading-5 bg-kumo-control text-kumo-default ring ring-kumo-line font-normal focus:ring-kumo-focus/50";
 export const PIJLTJE =
 	"pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 flex items-center text-kumo-subtle";
 export const SCHAKELAAR =
-	"relative inline-flex items-center ring cursor-pointer border-none p-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand transition-colors duration-150 ease-out motion-reduce:transition-none h-4.5 w-9 rounded-[5px] supports-[corner-shape:squircle]:rounded-[10px] [corner-shape:squircle]";
+	"relative inline-flex items-center ring cursor-pointer border-none p-0 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-kumo-brand transition-colors duration-150 ease-out motion-reduce:transition-none h-4.5 w-9 rounded-[5px] supports-[corner-shape:squircle]:rounded-[10px] [corner-shape:squircle]";
 export const SCHAKELAAR_UIT = "bg-neutral-200 dark:bg-neutral-700 ring-neutral-300 dark:ring-neutral-600";
 export const SCHAKELAAR_AAN = "bg-blue-500 dark:bg-blue-600 ring-blue-600 dark:ring-blue-500";
 export const SCHAKELAAR_KNOP =
