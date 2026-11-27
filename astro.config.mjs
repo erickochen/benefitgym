@@ -54,7 +54,7 @@ export default defineConfig({
 	output: "server",
 	adapter: cloudflare(),
 	// Pages are cached at the edge in the Workers Cache. Every public route has a rule; the routes under /_emdash/ stay
-	// out, as does the key file of IndexNow, so a 404 from before its key is set never lingers.
+	// out. The key file of IndexNow opts out in its own route, so a 404 from before its key is set never lingers.
 	cache: { provider: cacheCloudflare() },
 	routeRules: {
 		"/": regel("home", ...PAGINAS, "reviews", "gegevens"),
